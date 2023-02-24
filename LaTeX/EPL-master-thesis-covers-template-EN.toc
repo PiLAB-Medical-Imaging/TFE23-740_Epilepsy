@@ -1,0 +1,10 @@
+\babel@toc {english}{}\relax 
+\contentsline {chapter}{Abstract}{i}{}%
+\contentsline {chapter}{Acknowledgments}{i}{}%
+\contentsline {chapter}{Introduction}{1}{}%
+\contentsline {chapter}{\numberline {1}Theoretical background}{3}{}%
+\contentsline {chapter}{\numberline {2}Epilepsy ...}{5}{}%
+\contentsline {chapter}{\numberline {3}Methods}{7}{}%
+\contentsline {chapter}{\numberline {4}Results}{9}{}%
+\contentsline {chapter}{\numberline {5}Discussion}{11}{}%
+\contentsline {chapter}{Conclusion and perspectives}{11}{}%
