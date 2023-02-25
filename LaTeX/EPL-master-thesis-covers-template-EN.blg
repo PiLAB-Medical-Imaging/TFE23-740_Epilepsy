@@ -1,0 +1,49 @@
+This is BibTeX, Version 0.99d (TeX Live 2022/dev/Debian)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: EPL-master-thesis-covers-template-EN.aux
+The style file: ieeetr.bst
+Database file #1: refs.bib
+Warning--entry type for "WHO" isn't style-file defined
+--line 94 of file refs.bib
+You've used 9 entries,
+            1876 wiz_defined-function locations,
+            540 strings with 5807 characters,
+and the built_in function-call counts, 3321 in all, are:
+= -- 299
+> -- 200
+< -- 0
++ -- 70
+- -- 61
+* -- 280
+:= -- 499
+add.period$ -- 9
+call.type$ -- 9
+change.case$ -- 9
+chr.to.int$ -- 0
+cite$ -- 9
+duplicate$ -- 140
+empty$ -- 259
+format.name$ -- 61
+if$ -- 784
+int.to.chr$ -- 0
+int.to.str$ -- 9
+missing$ -- 8
+newline$ -- 30
+num.names$ -- 9
+pop$ -- 15
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 117
+stack$ -- 0
+substring$ -- 236
+swap$ -- 72
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 0
+while$ -- 28
+width$ -- 10
+write$ -- 97
+(There was 1 warning)

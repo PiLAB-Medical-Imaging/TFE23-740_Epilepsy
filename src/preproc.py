@@ -13,7 +13,7 @@ def main():
     f_path=os.getcwd()
 
     if len(sys.argv) == 1 :
-        print("ERROR: not enougth parameters\n -w [lemaitre3|manneback|own] -f [directory_path] -s [starting_state]")
+        print("ERROR: not enough parameters\n -w [lemaitre3|manneback|own] -f [directory_path] -s [starting_state]")
         exit(1)
 
     if "-w" in sys.argv[1:]:
@@ -64,7 +64,7 @@ def main():
         starting_state=starting_state,
 
         # Reslicing
-        reslice=True,
+        reslice=True, #TODO chiedere se le nostre immagini sono interpolate, perche se non lo sono questo può essere anche a False
         reslice_addSlice=False, # Because we don't perform slice-to-volume corrections
     
         # Brain Extraction

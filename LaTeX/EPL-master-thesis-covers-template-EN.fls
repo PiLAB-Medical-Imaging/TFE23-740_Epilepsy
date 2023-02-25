@@ -1,9 +1,9 @@
-PWD /home/michele/Dropbox (Politecnico Di Torino Studenti)/thesis/code/thesis-dMRI-epilepsy-VNS/LaTeX
+PWD /home/michele/Dropbox (Politecnico Di Torino Studenti)/thesis/code/Epilepsy-dMRI-VNS/LaTeX
 INPUT /etc/texmf/web2c/texmf.cnf
 INPUT /usr/share/texmf/web2c/texmf.cnf
 INPUT /usr/share/texlive/texmf-dist/web2c/texmf.cnf
 INPUT /var/lib/texmf/web2c/pdftex/pdflatex.fmt
-INPUT /home/michele/Dropbox (Politecnico Di Torino Studenti)/thesis/code/thesis-dMRI-epilepsy-VNS/LaTeX/EPL-master-thesis-covers-template-EN.tex
+INPUT /home/michele/Dropbox (Politecnico Di Torino Studenti)/thesis/code/Epilepsy-dMRI-VNS/LaTeX/EPL-master-thesis-covers-template-EN.tex
 OUTPUT EPL-master-thesis-covers-template-EN.log
 INPUT ./EPL-master-thesis-covers-EN.cls
 INPUT ./EPL-master-thesis-covers-EN.cls
@@ -373,6 +373,20 @@ INPUT EPL-master-thesis-covers-template-EN.toc
 INPUT EPL-master-thesis-covers-template-EN.toc
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmbx12.tfm
 OUTPUT EPL-master-thesis-covers-template-EN.toc
+INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmr17.tfm
+INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmbx12.tfm
+INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmr12.tfm
+INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmbx12.tfm
+INPUT /usr/share/texmf/tex/latex/lm/ts1lmr.fd
+INPUT /usr/share/texmf/tex/latex/lm/ts1lmr.fd
+INPUT /usr/share/texmf/tex/latex/lm/ts1lmr.fd
+INPUT /usr/share/texmf/tex/latex/lm/ts1lmr.fd
+INPUT /usr/share/texmf/fonts/tfm/public/lm/ts1-lmr12.tfm
+INPUT ./EPL-master-thesis-covers-template-EN.bbl
+INPUT EPL-master-thesis-covers-template-EN.bbl
+INPUT ./EPL-master-thesis-covers-template-EN.bbl
+INPUT EPL-master-thesis-covers-template-EN.bbl
+INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmri12.tfm
 INPUT ./_backbanner_EPL-master-thesis.pdf
 INPUT ./_backbanner_EPL-master-thesis.pdf
 INPUT _backbanner_EPL-master-thesis.pdf
@@ -380,9 +394,11 @@ INPUT ./_backbanner_EPL-master-thesis.pdf
 INPUT ./_backbanner_EPL-master-thesis.pdf
 INPUT EPL-master-thesis-covers-template-EN.aux
 INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc
+INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc
 INPUT /usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmr12.pfb
+INPUT /usr/share/texmf/fonts/type1/public/lm/lmri12.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmro12.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb
