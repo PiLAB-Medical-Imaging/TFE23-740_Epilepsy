@@ -112,11 +112,13 @@ def main():
     """
     if starting_state in ("white_mask", None):
         study.white_mask(
-            maskType="wm_mask_FSL_T1"
+            maskType="wm_mask_FSL_T1",
+            corr_gibbs=False, # I have to put false because there is a problem with the parameters in gibbs_removal
         )
         starting_state=None
 
     if starting_state in ("tracking", None):
+        study.odf_msmtcsd()
         study.tracking()
         starting_state=None
     
