@@ -6,6 +6,7 @@ import elikopy.utils
 
 preproc_steps = [None, "None", "denoising", "gibbs", "topup", "eddy", "biasfield", "report", "topup_synb0DisCo_Registration", "topup_synb0DisCo_Inference", "topup_synb0DisCo_Apply", "topup_synb0DisCo_topup"]
 models_steps = [None, "dti", "noddi", "diamond", "mf"]
+tracking_steps = [None, "csd", "tracking"]
 
 def main():
     ## Defining Parameters
@@ -53,7 +54,7 @@ def main():
     if "-s" in sys.argv[1:]:
         parIdx = sys.argv.index("-s") + 1 # the index of the parameter after the option
         par = sys.argv[parIdx]
-        assert par in preproc_steps or par in models_steps or par in ("white_mask", "tracking"), 'invalid starting state!'
+        assert par in preproc_steps or par in models_steps or par in tracking_steps or par in ("white_mask"), 'invalid starting state!'
         starting_state = par
 
     ## Init
@@ -117,8 +118,9 @@ def main():
     #     )
     #     starting_state=None
 
-    if starting_state in ("tracking", None):
-        study.odf_msmtcsd()
+    if starting_state in tracking_steps:
+        if starting_state in ("csd", None):
+            study.odf_msmtcsd()
         study.tracking()
         starting_state=None
     
