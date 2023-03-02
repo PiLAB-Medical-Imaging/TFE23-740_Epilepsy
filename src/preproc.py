@@ -51,7 +51,7 @@ def main():
         print("The folder path isn't defined: It will be used \"%s\"" % f_path)
 
     if "-s" in sys.argv[1:]:
-        parIdx = sys.argv.index["-s"] + 1 # the index of the parameter after the option
+        parIdx = sys.argv.index("-s") + 1 # the index of the parameter after the option
         par = sys.argv[parIdx]
         assert par in preproc_steps or par in models_steps or par in ("white_mask", "tracking"), 'invalid starting state!'
         starting_state = par
