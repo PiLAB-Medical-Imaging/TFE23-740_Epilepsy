@@ -84,7 +84,7 @@ def main():
             ## Susceptibility field estimation
             topup=True,
             topupConfig=None, #TODO What is it?
-            forceSynb0DisCo=True,
+            forceSynb0DisCo=True, # TODO I should do it? I didn't understand if only a single phase encoding is available
 
             ## EDDY and MOTION correction
             #TODO Studiare come si generano gli artefatti
@@ -97,7 +97,7 @@ def main():
             #olrep=,
 
             # Registration
-            qc_reg=False,
+            qc_reg=False, #TODO Is done just for quality control, do at least one time to check
 
             ## BIAS FIELD correction
             biasfield=True,
@@ -106,16 +106,16 @@ def main():
         )
         starting_state = None # In this way it enter in the next steps.
 
-    """
-    Providing a white matter mask is a useful step to accelerate 
-    microstructural features computation and more easily do tractography.
-    """
-    if starting_state in ("white_mask", None):
-        study.white_mask(
-            maskType="wm_mask_FSL_T1",
-            corr_gibbs=False, # I have to put false because there is a problem with the parameters in gibbs_removal
-        )
-        starting_state=None
+    # """
+    # Providing a white matter mask is a useful step to accelerate 
+    # microstructural features computation and more easily do tractography.
+    # """
+    # if starting_state in ("white_mask", None):
+    #     study.white_mask(
+    #         maskType="wm_mask_FSL_T1",
+    #         corr_gibbs=False, # I have to put false because there is a problem with the parameters in gibbs_removal
+    #     )
+    #     starting_state=None
 
     if starting_state in ("tracking", None):
         study.odf_msmtcsd()

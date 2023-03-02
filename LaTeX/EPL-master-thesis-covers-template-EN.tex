@@ -1,5 +1,6 @@
 % EPL master thesis covers template
 \documentclass{EPL-master-thesis-covers-EN}
+\pagestyle{fancy}
 
 % Please fill in the following boxes
 % Title of the thesis
@@ -51,7 +52,6 @@
 \begin{document}
   % Front cover page
   \maketitle
-  \frontmatter %Use lowercase Roman numerals for page numbers
 
   \addcontentsline{toc}{chapter}{Abstract}
   \chapter*{Abstract}
@@ -61,55 +61,14 @@
 
   \tableofcontents
 
-  \mainmatter % Now Use Arabic numerals for page numbers
   \addcontentsline{toc}{chapter}{Introduction}
   \chapter*{Introduction}
   A biomarker for epileptogenesis is an objectively measurable characteristic of a biological process that reliably identifies the development, presence, severity, progression, or localization of an epileptogenic abnormality. An epileptogenic abnormality refers to the pathophysiological substrate(s) responsible for the initiation and/or maintenance
 
   \chapter{Theoretical background}
 
-  \chapter{Epilepsy disease}
-  % TODO Maybe add a summary of what we'r going to speak in this chapter
-  \section{Pathophysiology and Treatment of Epilepsy}
-  Epilepsy is a disorder of the brain characterized by a lasting predisposition to generate spontaneous epileptic seizures, and has a numerous neurobiological, cognitive, and psychosocial consequences \cite{defEpilepsy}.
-  Epilepsy affects over 50 million people worldwide, making it one of the most common neurological diseases globally. Over 75\% of those with active epilepsy are untreated, mostly concentrated in low-income and middle-income countries. \cite{defeating_epilepsy}
-    \subsection{Epidemiology e Mortality}
-    Epilepsy incidence is bimodally distributed with two peaks: the first in the pediatric population less than 5 years old, and the second in people over the age of 50 years. The incidence is higher in low-income countries than high-income countries, thanks a contribution of poor hygiene, poor basic sanitation and higher risk of infection \cite{THIJS2019689}.
-    Regardless the geographical location, the prevalence of active epilepsy is usually between 4 and 12 per 1000, risk factor vary by age group \cite{Fiest296}.\\
-    The risk of death for a person with epilepsy is increased compared with the risk for the general population. Mortality can be divided into deaths directly (eg, status epilepticus, injuries, SUDEP \cite{Langan211}) or indirectly (eg, suicide, drowning) attributable to epilepsy \cite{Devinsky779}. SUDEP is one of the main causes of epilepsy-related death.
-    \subsubsection*{Causes}
-    Epilepsy can have both genetic and acquired causes, with the interaction of these factors in many cases. Established acquired causes include serious brain trauma, stroke, tumours, and brain problems resulting from a previous infection.
-
-    \subsection{Definitions}
-    \subsubsection*{Epilepsy}
-    The given definition of Epilepsy is usually practically applied as having two unprovoked seizures occurring more than 24h apart. But the International League Against Epilepsy (ILAE) proposed that epilepsy be considered to be a disease of the brain by any of the following conditions: \cite{defEpilepsy}
-    \begin{itemize}
-      \item At least two unprovoked seizures occurring more than 24h apart;
-      \item A single unprovoked seizure if recurrence risk is high (>60\% over the next 10 years);
-      \item Diagnosis of an epilepsy syndrome.
-    \end{itemize}
-    \subsubsection*{Seizure}
-    An epileptic seizure is the clinical manifestation of an abnormal, excessive, purposeless and synchronized electrical discharge in the neurons, that leads to brief episodes of involuntary movement that may involve a part of the body (partial) or the entire body (generalized) and are sometimes accompanied by loss of consciousness and control of bowel or bladder function. \cite{WHO}
-    
-    \subsection{Classification}
-    Classification is made at three levels: seizure type, epilepsy type, and epilepsy syndromes. \cite{classification}
-    \subsubsection*{Seizure type}
-    % Maybe add some images to well explain the things
-    Seizures are first classified by onset as either focal, generalized or unknown.
-    \begin{itemize}
-      \item Focal Onset: Affects one part of the brain. Usually limited to a specific region in one area of the brain. Level of awareness subdivides focal seizure in those with retained awareness and impaired awareness. Retained awareness means that the person is aware of self and environment during the seizure, even if immobile. In addition, focal seizures are sub-grouped as those with motor and non-motor manifestation.
-      \item Generalized Onset: Affects most or all of the brain. Typically congenital and occurs simultaneously in both hemispheres of the brain. They are almost always accompanied by impaired awareness. Generalized seizures are divided into motor and non-motor (absence) seizures.
-      \item Unknown: It is the case in which the onset is missed or obscured. 
-    \end{itemize}
-    
-    \subsubsection*{Epilepsy type}
-    Epilepsy are divided in: focal, generalized, combined generalized and focal, and unknown. The category combined epilepsy is used for those presenting both seizure types. Causes and comorbidities should be identified, causes are divided into six categories: genetic, structural, metabolic, infectious, immune and unknown.
-  
-    \subsection{Pathophysiology}
-    Epileptogenesis is the process of converting a non-epileptic brain into one capable of generating spontaneous recurrent seizures. A seizure can be conceptualized as occurring when there is a distortion of the normal balance between excitation and inhibition within a neural network \cite{pathophysiology}. Epileptogenic networks are widely distributed for generalized epilepsies, involving thalamocortical structures bilaterally. For focal epilepsies, networks involve neuronal circuits in one hemisphere, commonly limbic or neocortical \cite{classification}.
-
-    \subsection{Treatment}
-  
+  \chapter[Epilepsy]{Epilepsy disease}
+  \input{chapters/epilepsy}
   
   \chapter{Methods}
 

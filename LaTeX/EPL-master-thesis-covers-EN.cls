@@ -2,7 +2,7 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{eplmastersthesis}[2018/12/04 EPL Master''s Thesis class]
 
-\LoadClass[12pt, a4paper, openright]{book} % Era Report
+\LoadClass[12pt, a4paper, openright, twoside]{report} % Era Report
 
 % Usefull packages
 \usepackage[utf8x]{inputenc}
@@ -15,6 +15,7 @@
 \RequirePackage{geometry}
 \RequirePackage{tabto}		 % Tabulation
 \RequirePackage{anyfontsize} % size of fonts
+\RequirePackage{fancyhdr}
 
 % Commands for title, readers, authors, dates, specialities,...
 \RequirePackage{etoolbox}
