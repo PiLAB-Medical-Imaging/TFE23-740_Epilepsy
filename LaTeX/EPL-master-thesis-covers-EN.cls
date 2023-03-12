@@ -1,12 +1,14 @@
 % http://ctan.mirrors.hoobly.com/macros/latex/doc/clsguide.pdf
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{eplmastersthesis}[2018/12/04 EPL Master''s Thesis class]
+\ProvidesClass{EPL-master-thesis-covers-EN}[2018/12/04 EPL Master''s Thesis class]
 
-\LoadClass[12pt, a4paper, openright, twoside]{report} % Era Report
+\LoadClass[12pt, a4paper, openright]{report}
 
 % Usefull packages
 \usepackage[utf8x]{inputenc}
 \usepackage[english]{babel}
+\usepackage[a4paper, total={6in, 9.5in}]{geometry}
+\usepackage{hyperref}
 \RequirePackage{microtype}   % Improves typography
 \RequirePackage[T1]{fontenc}
 \RequirePackage{lmodern}
@@ -15,7 +17,6 @@
 \RequirePackage{geometry}
 \RequirePackage{tabto}		 % Tabulation
 \RequirePackage{anyfontsize} % size of fonts
-\RequirePackage{fancyhdr}
 
 % Commands for title, readers, authors, dates, specialities,...
 \RequirePackage{etoolbox}

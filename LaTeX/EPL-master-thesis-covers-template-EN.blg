@@ -1,49 +1,49 @@
 This is BibTeX, Version 0.99d (TeX Live 2022/dev/Debian)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: EPL-master-thesis-covers-template-EN.aux
-The style file: ieeetr.bst
+The style file: apalike.bst
 Database file #1: refs.bib
 Warning--entry type for "WHO" isn't style-file defined
---line 94 of file refs.bib
-You've used 9 entries,
-            1876 wiz_defined-function locations,
-            540 strings with 5807 characters,
-and the built_in function-call counts, 3321 in all, are:
-= -- 299
-> -- 200
-< -- 0
-+ -- 70
-- -- 61
-* -- 280
-:= -- 499
-add.period$ -- 9
-call.type$ -- 9
-change.case$ -- 9
-chr.to.int$ -- 0
-cite$ -- 9
-duplicate$ -- 140
-empty$ -- 259
-format.name$ -- 61
-if$ -- 784
-int.to.chr$ -- 0
-int.to.str$ -- 9
-missing$ -- 8
-newline$ -- 30
-num.names$ -- 9
-pop$ -- 15
+--line 107 of file refs.bib
+You've used 30 entries,
+            1935 wiz_defined-function locations,
+            690 strings with 11301 characters,
+and the built_in function-call counts, 15227 in all, are:
+= -- 1378
+> -- 995
+< -- 8
++ -- 367
+- -- 361
+* -- 1512
+:= -- 2715
+add.period$ -- 89
+call.type$ -- 30
+change.case$ -- 329
+chr.to.int$ -- 30
+cite$ -- 30
+duplicate$ -- 424
+empty$ -- 863
+format.name$ -- 401
+if$ -- 2868
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 28
+newline$ -- 151
+num.names$ -- 92
+pop$ -- 269
 preamble$ -- 1
-purify$ -- 0
+purify$ -- 329
 quote$ -- 0
-skip$ -- 117
+skip$ -- 316
 stack$ -- 0
-substring$ -- 236
-swap$ -- 72
-text.length$ -- 0
+substring$ -- 937
+swap$ -- 39
+text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 0
+type$ -- 180
 warning$ -- 0
-while$ -- 28
-width$ -- 10
-write$ -- 97
+while$ -- 94
+width$ -- 0
+write$ -- 388
 (There was 1 warning)

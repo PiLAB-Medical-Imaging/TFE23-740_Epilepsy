@@ -1,6 +1,5 @@
 % EPL master thesis covers template
 \documentclass{EPL-master-thesis-covers-EN}
-\pagestyle{fancy}
 
 % Please fill in the following boxes
 % Title of the thesis
@@ -63,14 +62,16 @@
 
   \addcontentsline{toc}{chapter}{Introduction}
   \chapter*{Introduction}
-  A biomarker for epileptogenesis is an objectively measurable characteristic of a biological process that reliably identifies the development, presence, severity, progression, or localization of an epileptogenic abnormality. An epileptogenic abnormality refers to the pathophysiological substrate(s) responsible for the initiation and/or maintenance
+  %A biomarker for epileptogenesis is an objectively measurable characteristic of a biological process that reliably identifies the development, presence, severity, progression, or localization of an epileptogenic abnormality. An epileptogenic abnormality refers to the pathophysiological substrate(s) responsible for the initiation and/or maintenance
 
   \chapter{Theoretical background}
+  \input{chapters/th_background.tex}
 
   \chapter[Epilepsy]{Epilepsy disease}
   \input{chapters/epilepsy}
   
   \chapter{Methods}
+  \input{chapters/methods}
 
   \chapter{Results}
 
@@ -79,7 +80,7 @@
   \addcontentsline{toc}{chapter}{Conclusion and perspectives}
   \chapter*{Conclusion and perspectives}
   
-  \bibliographystyle{ieeetr}
+  \bibliographystyle{apalike}
   \bibliography{refs}
 
   % Back cover page
