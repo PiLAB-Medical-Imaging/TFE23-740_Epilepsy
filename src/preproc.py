@@ -7,6 +7,7 @@ import elikopy.utils
 preproc_steps = [None, "None", "denoising", "gibbs", "topup", "eddy", "biasfield", "report", "topup_synb0DisCo_Registration", "topup_synb0DisCo_Inference", "topup_synb0DisCo_Apply", "topup_synb0DisCo_topup"]
 models_steps = [None, "dti", "noddi", "diamond", "mf"]
 tracking_steps = [None, "csd", "tracking"]
+alone = False
 
 def main():
     ## Defining Parameters
@@ -54,6 +55,9 @@ def main():
     if "-s" in sys.argv[1:]:
         parIdx = sys.argv.index("-s") + 1 # the index of the parameter after the option
         par = sys.argv[parIdx]
+        if par[0] == 'S':
+            par = par[1:]
+            alone = True
         assert par in preproc_steps or par in models_steps or par in tracking_steps or par in ("white_mask"), 'invalid starting state!'
         starting_state = par
 
@@ -105,6 +109,8 @@ def main():
             #biasfield_bsplineFitting=,
             #biasfield_convergence=,
         )
+        if alone:
+            return
         starting_state = None # In this way it enter in the next steps.
 
     # """
@@ -121,7 +127,11 @@ def main():
     if starting_state in tracking_steps:
         if starting_state in ("csd", None):
             study.odf_msmtcsd()
+            if alone: 
+                return
         study.tracking()
+        if alone:
+            return
         starting_state=None
     
     ## Metrics Estimation 
@@ -134,6 +144,8 @@ def main():
                 maskType=mask_to_use,
                 # if you want to other mask you have to compute it singularly with white_mask() 
             )
+            if alone:
+                return
             starting_state = None
         if starting_state in ("diamond", None):
             study.diamond(
@@ -142,6 +154,8 @@ def main():
                 # other params
                 customDiamond="", #TODO add or change it
             )
+            if alone:
+                return
             starting_state = None
         if starting_state in ("noddi", None):
             study.noddy(
@@ -150,6 +164,8 @@ def main():
                 #lambda_iso_diff=,
                 #lambda_par_diff=,
             )
+            if alone:
+                return
             starting_state = None
         # if starting_state in ("mf", None):
         #     study.fingerprinting(

@@ -5,45 +5,46 @@ The style file: apalike.bst
 Database file #1: refs.bib
 Warning--entry type for "WHO" isn't style-file defined
 --line 107 of file refs.bib
-You've used 30 entries,
+Warning--empty year in campbell
+You've used 43 entries,
             1935 wiz_defined-function locations,
-            690 strings with 11301 characters,
-and the built_in function-call counts, 15227 in all, are:
-= -- 1378
-> -- 995
-< -- 8
-+ -- 367
-- -- 361
-* -- 1512
-:= -- 2715
-add.period$ -- 89
-call.type$ -- 30
-change.case$ -- 329
-chr.to.int$ -- 30
-cite$ -- 30
-duplicate$ -- 424
-empty$ -- 863
-format.name$ -- 401
-if$ -- 2868
+            776 strings with 14162 characters,
+and the built_in function-call counts, 21013 in all, are:
+= -- 1929
+> -- 1299
+< -- 15
++ -- 475
+- -- 469
+* -- 2053
+:= -- 3743
+add.period$ -- 129
+call.type$ -- 43
+change.case$ -- 448
+chr.to.int$ -- 43
+cite$ -- 44
+duplicate$ -- 602
+empty$ -- 1228
+format.name$ -- 526
+if$ -- 3966
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 28
-newline$ -- 151
-num.names$ -- 92
-pop$ -- 269
+missing$ -- 40
+newline$ -- 217
+num.names$ -- 131
+pop$ -- 356
 preamble$ -- 1
-purify$ -- 329
+purify$ -- 448
 quote$ -- 0
-skip$ -- 316
+skip$ -- 449
 stack$ -- 0
-substring$ -- 937
-swap$ -- 39
+substring$ -- 1351
+swap$ -- 51
 text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 180
-warning$ -- 0
-while$ -- 94
+type$ -- 258
+warning$ -- 1
+while$ -- 138
 width$ -- 0
-write$ -- 388
-(There was 1 warning)
+write$ -- 557
+(There were 2 warnings)
