@@ -42,6 +42,8 @@ def main():
             #lambda_par_diff=,
         )
     if model in ("mf", "all"):
+        print("dic path: %s" % dictionary_path)
+
         study.fingerprinting(
             dictionary_path=dictionary_path,
         )
