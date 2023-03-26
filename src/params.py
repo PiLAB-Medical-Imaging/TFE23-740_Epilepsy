@@ -7,7 +7,7 @@ def get_arguments(argv):
     cuda = False
     folder_path = None
 
-    if len(argv) != 5 :
+    if len(argv) < 5 :
         print("ERROR: not enough parameters\n -w [lemaitre3|manneback|own] -f [directory_path]")
         exit(1)
 
