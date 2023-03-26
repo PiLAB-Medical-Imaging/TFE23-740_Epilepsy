@@ -11,7 +11,7 @@ def main():
     onSlurm, slurmEmail, cuda, f_path = get_arguments(sys.argv)
     model = None
 
-    dictionary_path = f_path + "/static_files/mf_dic/fixed_rad_dist_wide.mat" if onSlurm else "/home/users/n/d/ndelinte/fixed_rad_dist_wide.mat"
+    dictionary_path = "/home/users/n/d/ndelinte/fixed_rad_dist_wide.mat" if onSlurm else  f_path + "/static_files/mf_dic/fixed_rad_dist_wide.mat"
 
     ## Define which metric want to estimate
     if "-s" in sys.argv[1:]:
@@ -42,8 +42,6 @@ def main():
             #lambda_par_diff=,
         )
     if model in ("mf", "all"):
-        print("dic path: %s" % dictionary_path)
-
         study.fingerprinting(
             dictionary_path=dictionary_path,
         )
