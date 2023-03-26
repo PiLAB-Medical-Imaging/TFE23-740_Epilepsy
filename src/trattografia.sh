@@ -1,0 +1,1 @@
+tckgen -nthreads 4 -algorithm iFOD2 -select 10 -seeds 1M -seed_image left_thalamus.nii.gz -seed_unidirectional -include ACC.nii.gz -stop -fslgrad subj00_dmri_preproc.bvec subj00_dmri_preproc.bval subj00_MSMT-CSD_WM_ODF.nii.gz trcActFsl.tck
