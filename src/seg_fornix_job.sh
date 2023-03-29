@@ -17,4 +17,4 @@ export SUBJECTS_DIR=$PROJECT_DIR/seg_subjs
 
 SUB_ID=subj01
 
-srun --cpus-per-task=4 mri_cc -aseg aseg.mgz -o aseg.auto_CCseg.mgz -f -force $SUB_ID
+srun --cpus-per-task=4 mri_cc -o aseg.auto_CCseg.mgz -f -force $SUB_ID
