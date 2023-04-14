@@ -7,9 +7,7 @@ import nibabel as nib
 from params import get_arguments
 
 
-def main():
-    ## Getting Parameters
-    _, _, _, folder_path = get_arguments(sys.argv)
+def registration(folder_path):
 
     ## Read the list of subjects
     dest_success = folder_path + "/subjects/subj_list.json"
@@ -64,4 +62,7 @@ def main():
                         print("Transformed")
 
 if __name__ == "__main__":
-    exit(main())
+    ## Getting Parameters
+    _, _, _, folder_path = get_arguments(sys.argv)
+
+    exit(registration(folder_path))
