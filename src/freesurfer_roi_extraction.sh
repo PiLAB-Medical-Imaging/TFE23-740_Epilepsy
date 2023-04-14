@@ -128,6 +128,7 @@ fi
 
 declare -a types=("aseg" "aparc+aseg" "aparc.a2009s+aseg" "fornix")
 
+## TODO forse era meglio farla in python questa qua
 for seg in $*
 do
     
