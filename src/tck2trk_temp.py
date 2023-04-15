@@ -2,10 +2,6 @@ import sys
 import os
 from dipy.io.streamline import load_tractogram, save_trk
 
-a = {}
-
-a.keys
-
 def main():
     if len(sys.argv) != 3 :
         print("ERROR: not enough parameters\n")

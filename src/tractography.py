@@ -37,7 +37,8 @@ tracts = {"fornix":
           # "thalamocortical": {
           #       "seed_images": ["thalamus"],
           #       # here there is a different method.. try all the cortex segments
-          #   }
+          #   },
+          ## TODO thing about the association fibers
           }
 
 tracts_roi = {

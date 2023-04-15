@@ -134,6 +134,7 @@ do
     
     # get the name of the segment
     ## TODO ma se vuoi implementarla in python devi capire come scrivere questo qua
+    ## si potrebbe usare sempre subprocess e ridirezionare l'output in una variabile .. bho da provare
     seg_name=$(egrep "^$seg\s+\S+|\n$seg\s+\S+" $FREESURFER_HOME/FreeSurferColorLUT.txt | head -n 1 | tr  "\t" " " | tr -s " " | cut -d " " -f 2)
 
     found=0
@@ -146,6 +147,7 @@ do
             out_type="aparca2009s+aseg"
         fi
 
+        ## TODO poi questo lo fai sempre con subprocess ...
         mri_extract_label -exit_none_found ${mri_path}/${type}.mgz $seg ${output_dir}/${SUBJ}_${out_type}_${seg_name}.nii.gz
 
         # if the label is found exit
