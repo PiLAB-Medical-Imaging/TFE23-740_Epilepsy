@@ -126,13 +126,14 @@ then
     exit 1
 fi
 
-declare -a types=("aseg" "aparc+aseg" "aparc.a2009s+aseg" "fornix")
+declare -a types=("aseg" "aparc+aseg") # "aparc.a2009s+aseg" "fornix")
 
 ## TODO forse era meglio farla in python questa qua
 for seg in $*
 do
     
     # get the name of the segment
+    ## TODO ma se vuoi implementarla in python devi capire come scrivere questo qua
     seg_name=$(egrep "^$seg\s+\S+|\n$seg\s+\S+" $FREESURFER_HOME/FreeSurferColorLUT.txt | head -n 1 | tr  "\t" " " | tr -s " " | cut -d " " -f 2)
 
     found=0
