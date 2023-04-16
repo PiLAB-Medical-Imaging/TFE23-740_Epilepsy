@@ -1,6 +1,46 @@
 \section{Data}
  \subsection{Subjects}
+ % Sempre sulla falsa riga di Raskin, mi piace il su stile
+
+ % Number of subjects
+
+ % Demographic table
+
+ % Others...
  \subsection{Data acquisition}
+ The MRI acquisitions were realized following the \emph{LivaNova guidelines}, requiring the neurostimulators to be turned off during the acquisitions. A trained neurologist used the programming system to set the output current of the device to 0 mA and turn off the sensing before that the patients entered the MRI acquisition room. 
+
+ Imaging data were acquired using the \emph{SIGNA\textsuperscript{\texttrademark} Premier 3T MRI} system (GE Healthcare, Milwaukee, WI, USA), with a transmit-receive 48-channel head coil. \\ T1-anatomical images were acquired using a \emph{Magnetization Prepared - RApid Gradient Echo} (MPRAGE) sequence with the following parameters: $TR = 2186 ms$, $TE = 2.95 ms$, $FA = 8^{\circ}$, $TI = 900 ms$, bandwidth = $244.14 Hz$, matrix size = 256 x 256, 156 axial slices, imaging frequency = $127.77 Hz$, voxel size = 1 x 1 x 1 $mm^3$, acquisition time = 5:26 min.
+
+ Diffusion MRI data were acquired with a \emph{Pulsed Gradient Spin Echo} (PGSE) sequence with the following parameters : $TR = 4837 ms$, $TE = 80.5 ms$ and flip angle = $90^{\circ}$. A multi-shell diffusion scheme was used and was composed of 64 gradients at b = 1000, and 32 gradients at b = 2000, 3000 and 5000 $[s \cdot mm^{-2}]$, interleaved with 7 b0 images. The in-plane FOV was 220 x 220 $mm^{2}$ and the data contained 68 axial slices with a $2 mm$ thickness (no inter-slice gap, $2 mm$ isotropic voxels). A multi-slice excitation scheme was used during the acquisition with a hyperband slice factor of 3 to reduce the acquisition time. The total acquisition time was 13:33 min.
+
+ Anatomical files are composed of a NIfTI file (\texttt{.nii.gz}) \ref{fig:T1_images} containing the measured signal and a JSON file (\texttt{.json}) regrouping the acquisition sequence parameters.
+ % TODO put the figure of the brain view of T1 and T2 images from sagittal frontal and axial view
+
+ \begin{figure}[h]
+    \centering
+    %\includegraphics[width=0.8\textwidth]{}
+    \caption{Anatomical volume slices of a T1 in the sagittal, frontal and axial views}
+    \label{fig:T1_images}
+  \end{figure}
+
+  \begin{figure}[h]
+    \centering
+    %\includegraphics[width=0.8\textwidth]{}
+    \caption{Anatomical volume slices of a T2 in the sagittal, frontal and axial views}
+    \label{fig:T1_images}
+  \end{figure}
+
+ Diffusion files are composed of a NIfTI file and a JSON file plus two text files (\texttt{.bval}) and (\texttt{.bvec}) containing the b-values and the b-vectors.
+ % TODO put the figure of the diffusion image at different b-values
+
+ \begin{figure}[h]
+    \centering
+    %\includegraphics[width=0.8\textwidth]{}
+    \caption{Raw diffusion volume slices of a patient for different b-values}
+    \label{fig:DwMri_images}
+  \end{figure}
+ 
 \section{Data preprocessing}
 \section{Tractography}
 %\subsection{Evaluation of Tractography}

@@ -1,5 +1,362 @@
+% Scrivere di cosa si parlerà in questo capitolo
 \section{Magnetic Resonance Imaging}
+% un pò di storia (Nicolas)
+% atomi presenti del corpo e spin
+ \subsection{Magnetic properties of nuclei}
+ Biological organisms and tissues are naturally abundant of \emph{Hydrogen} atoms, mostly in water and fats. Thanks to the magnetic properties of Hydrogen atoms it is possible to build anatomical images of the human body.
+
+ From a classical point of view an atomic nucleus can be assumed as sphere rotating around its axis \ref{fig:sphere_rotating}. This rotation is called spin and it is a fundamental property of nucleus. The \emph{spin} is the intrinsic angular momentum of the nucleus and can be an integer or a half-integer depending of the mass number\footnote{Mass number: number of protons and neutrons} and the atomic number\footnote{Atomic number: number of protons}. In the particular case of the Hydrogen it is present only a proton and the spin can take only tha values $1/2$ and $-1/2$. \\
+ Since the nucleus is a charged particle, a rotation of it creates a magnetic field. From this point of view the particle behaves like a small magnetic dipole \ref{fig:sphere_rotating}: $\vec{\mu}=i\vec{S}$ where $\vec{\mu}$ is the intrinsic magnetic momentum that is aligned on its spin $\vec{S}$.
+
+% Qua l'immagine del libro francese
+ \begin{figure}[h]
+    \centering
+    %\includegraphics[width=0.8\textwidth]{}
+    \caption{}
+    \label{fig:sphere_rotating}
+  \end{figure}
+
+ \noindent Normally orientation of $\vec{\mu}$ is completely random due to thermal random motion, therefore the sum of the magnetic fields is null ($\sum_{i} \mu_{i} = 0$). \\
+ In a magnetic dipole, when an external magnetic field $\vec{B_{0}}$ is applied, the individual orientation can take two possible orientations: \emph{parallel} or \emph{anti-parallel}. This phenomena in the particles is different, since the particle is rotating, the external magnetic field creates a \emph{precession} around $\vec{B_{0}}$ like a spinning top \ref{fig:FieldB0}: $\vec{\Gamma}=\vec{\mu} \times \vec{B_{0}}$ where $\vec{\Gamma}$ is the \emph{torque}.
+
+ % Qua l'immagine del libro ita 1.5
+ \begin{figure}[h]
+    \centering
+    %\includegraphics[width=0.8\textwidth]{}
+    \caption{}
+    \label{fig:FieldB0}
+ \end{figure}
+
+ \noindent The axis rotates around the area of a "cone", with an angular speed proportional to the applied field following the \emph{Larmor's Law}:
+ \begin{equation}
+    f_{0}=\frac{\gamma}{2\pi} B_{0}
+ \end{equation}
+ $\gamma$ is the gyromagnetic ratio and it is a characteristic of the nucleus. The frequency of precession is called \emph{Larmor frequency}.\\
+ From a global point of view, the populations of protons moments create a macroscopic magnetization, with the direction equal to the external field \ref{fig:macroscopic_magnetization}.
+ \begin{equation}
+    \vec{M}=\frac{1}{V}\sum_{i} \vec{\mu_{i}}
+ \end{equation}
+ While the transversal magnetization in $xy$ plane is null, since the components $\mu_{xy}$ rotate with different phases and overall they nullifying themselves \ref{fig:macroscopic_magnetization}.
+
+ % Qua l'immagine del libro ita 1.6
+ \begin{figure}[h]
+    \centering
+    %\includegraphics[width=0.8\textwidth]{}
+    \caption{}
+    \label{fig:macroscopic_magnetization}
+ \end{figure}
+
+ \noindent In terms of energy, without the magnetic field, it doesn't exists any difference between the two orientations (parallel and anti-parallel), because them are equiprobable. With the application of the static magnetic field the anti-parallel orientation will have an higher energy ($N\downarrow$) than the parallel with lower energy ($N\uparrow$), since it has to be the opposite of the external field. The \emph{occupation ratio} of the two energy levels is described by the \emph{Boltzmann distribution}.
+ \begin{equation}
+    \frac{N_\uparrow}{N_\downarrow}=e^{-\frac{\Delta E}{k T}}
+ \end{equation}
+ where $k$ is the Boltzmann's constant and $T$ is the absolute temperature in [K].\\
+ The energy of a magnetic dipole in a magnetic field $\vec{B_0}$ can be defined by:
+ \[E=-\vec{\mu}\cdot\vec{B_0}=-\mu_z B_0 \Rightarrow\]
+ where $\mu_z=\gamma\frac{h}{2\pi}I$ 
+ \[\Rightarrow E_I=-\gamma\frac{h}{2\pi}I B_0\]
+ where $h$ is the Planck's constant and $I$ is the spin orientation for the Hydrogen.
+ Knowing that:
+ \[\Delta E=E_{-\frac{1}{2}} - E_{\frac{1}{2}} = h\frac{\gamma}{2\pi}B_0 = h f_0\]
+ we find that there are more spins in $E_\uparrow$ (lower energy) state than $E_\downarrow$ (higher energy) state \ref{fig:macroscopic_magnetization}.\\
+ The equilibrium macroscopic magnetization is non-zero and is defined by:
+ \begin{equation}
+    M_0=\frac{(\frac{\gamma}{2\pi})^{2}h^{2}\rho B_{0}I (I+1)}{3kT}
+ \end{equation}
+ where $\rho$ is the spin density\footnote{Spin density: number of spins per unit volume} and $I = 1/2$ for Hydrogen.
+
+ \subsection{Radiofrequency pulse}
+ Since the intensity of the macroscopic magnetization ($M_0$) is several orders of magnitude smaller than the main field ($B_0$), is impossible to measure it directly\footnote{Even if is impossible to measure directly the $M_0$, it is proportional to the field, therefore an higher $B_0$ allows to generate higher signals with higher SNR and less acquisition times.}.\\
+ The idea is to induce controlled oscillations of the spin system in order to generate a measurable signal. If a RF pulse is applied at the Larmor frequency ($f_{RF} = f_0$) we observe a \emph{condition of resonance} \ref{fig:trajectory_magnetization}, and if the system resonates with the pulse it starts to absorb energy \ref{fig:energy_gaining}.
+ \begin{equation}
+    B_{1}(t)=2B_{1}(t)\cos(2\pi f_{RF}t+\phi)\vec{1_{xy}}
+ \end{equation}
+
+ % Qua l'immagine del libro ita 1.9
+ \begin{figure}[h]
+    \centering
+    %\includegraphics[width=0.8\textwidth]{}
+    \caption{}
+    \label{fig:trajectory_magnetization}
+ \end{figure}
+
+ % Qua l'immagine del libro ita 1.10
+ \begin{figure}[h]
+    \centering
+    %\includegraphics[width=0.8\textwidth]{}
+    \caption{}
+    % Qua descrivere bene tutti passaggi (come ha fatto Nicolas) 
+    \label{fig:energy_gaining}
+ \end{figure}
+
+ \noindent The \emph{flip angle} from the initial direction of the magnetization is defined by:
+ \[\theta = \gamma B_{1}T_{RF}\]
+ where $T_{RF}$ is the duration of the RF-pulse.\\
+ Now the magnetization vector can be represented as:
+ \begin{equation}
+    \vec{M}=M_{z}\vec{1_{z}}+M_{xz}\vec{1_{xy}}
+ \end{equation}
+
+% Larmor Equations (Alexander) devo metterle??
+ \subsection{Relaxation}
+ After applying the RF-pulse tends to go back to the initial state, these phenomena are called \emph{relaxation}. 
+ \[M_{z} \rightarrow M_{0}\]
+ \[M_{xy} \rightarrow 0 \]
+
+ The first is the \emph{longitudinal relaxation} (\emph{spin-lattice relaxation} or \emph{T1-relaxation}) in which the magnetization recovers to its original $M_0$, because the energy state after the RF-pulse is unstable it will create a transition of spins from high energy to low energy \ref{fig:T1_relax_energy}.
+ \begin{equation}
+    M_{z}(t)=M_{0}+(M_{z}(0)-M_{0})e^{-\frac{t}{T_{1}}}
+ \end{equation}
+ Where $T_1$ is the time needed to $M_{z}$ to reach the $63\%$ of the initial value $M_{0}$ \ref{fig:T1_relax_tissues}.
+
+ % Qua l'immagine del libro francese
+ % quella dove fa vedere gli spin e l'energia 3.3
+ \begin{figure}[h]
+    \centering
+    %\includegraphics[width=0.8\textwidth]{}
+    \caption{}
+    \label{fig:T1_relax_energy}
+ \end{figure}
+
+ In the T\textsubscript{1}-weighted image the signals must depend on the $T_1$ relaxation. Therefore the time between the RF-pulses have to be brief, but sufficient to differentiate the different tissues \ref{fig:T1_relax_tissues}. In these scans, the white matter is represented in light grey, the grey matter in a darker shade of grey and the fluids in black.
+
+ % Qua l'immagine del libro ita 2.4
+ \begin{figure}[h]
+    \centering
+    %\includegraphics[width=0.8\textwidth]{}
+    \caption{}
+    \label{fig:T1_relax_tissues}
+ \end{figure}
+
+ The second phenomenon is the \emph{transverse relaxation} (\emph{spin-spin relaxation} or \emph{T2-relaxation}) and it is characterized by a loss in coherence of the spin phases \ref{fig:T2_relax_phases}.
+ \begin{equation}
+    M_{xy}(t)=M_{xy}(0)e^{-\frac{t}{T_{2}}}
+ \end{equation}
+ Where $T_2$ is the time needed to $M_{xy}$ to reduce itself to $37\%$ of the initial value \ref{fig:T2_relax}.
+
+ % Qua l'immagine del libro francese
+ % quella dove fa vedere gli spin e l'energia 3.6
+ \begin{figure}[h]
+    \centering
+    %\includegraphics[width=0.8\textwidth]{}
+    \caption{}
+    \label{fig:T2_relax_phases}
+ \end{figure}
+
+% Qua l'immagine del libro ita
+ % quella dove fa vedere il movimento degli spin 2.10 (da rittoccarlo)
+ \begin{figure}[h]
+    \centering
+    %\includegraphics[width=0.8\textwidth]{}
+    \caption{}
+    \label{fig:T2_relax}
+ \end{figure}
+
+ In the T\textsubscript{2}-weighted imaged the signals must depend only from the $T_2$ relaxation. Therefore is needed to wait that the $T_1$ relaxation effects are exhausted before reading the signal and send a new one. In these scans, the white matter is in dark grey, the grey matter is in light grey and the cerebrospinal fluid is in white \ref{fig:T2_relax_tissues}.
+
+ % Qua l'immagine del libro ita 2.2
+ \begin{figure}[h]
+    \centering
+    %\includegraphics[width=0.8\textwidth]{}
+    \caption{}
+    \label{fig:T2_relax_tissues}
+ \end{figure}
+
+ In real conditions of an imperfect homogeneity of the field $B_0$ we see the \emph{effective relaxation time}:
+ \begin{equation}
+    \frac{1}{T_{2}*} = \frac{1}{T_2}+\gamma\Delta B_0
+ \end{equation}
+ Where $\Delta B_0$ are the inhomogeneities in the magnetic field.
+
+% Block equations
+ \subsection{Spin-echo sequence}
+ To obtain images with different type of contrast is needed to control the time between RF-pulses and the time of between readings of the signal. \\
+ The first sequence utilized for clinical purpose is the \emph{spin-echo}. It introduces two main parameters: \emph{Echo time} ($TE$) and the \emph{Repetition time} ($TR$). The time between two 90° RF-pulses is defined ad $TR$, while the time between the RF-pulse and the first echo is defined as $TE$.\\
+ The strength of this sequence is the capacity of reading the T\textsubscript{2}-weighted signals and not the T\textsubscript{2}* \ref{fig:T2vsT2*}.
+
+ % Qua l'immagine del libro ita 2.11
+ \begin{figure}[h]
+    \centering
+    %\includegraphics[width=0.8\textwidth]{}
+    \caption{}
+    \label{fig:T2vsT2*}
+ \end{figure}
+
+ \noindent The spin-echo sequence is composed of two type of RF-pulses: a 90° pulse and many 180° pulses. These last pulses have a double intensity and are called \emph{echo impulses}. An echo impulse mirror all the spins of 180°, therefore the faster spins and the slower are inverted of position, creating the possibility that all the spins are refocused at time $TE$ \ref{fig:echo_seq}.
+
+ % Qua l'immagine del libro ita 2.9
+ \begin{figure}[h]
+    \centering
+    %\includegraphics[width=0.8\textwidth]{}
+    \caption{}
+    \label{fig:echo_seq}
+ \end{figure}
+
+ \subsubsection*{Contrast}
+ By varying $TE$ and $TR$, three types of contrast behavior can be obtained \ref{fig:matrixTR_TE}:
+ \begin{itemize}
+    \item $TE<<T_2$ and $TR=T_1$ : T\textsubscript{1}-contrast
+    \item $TE=T_2$ and $TR>>T_1$ : T\textsubscript{2}-contrast
+    \item $TE<<T_2$ and $TR>>T_1$ : $\rho$-contrast (proton density)
+ \end{itemize}
+
+ % Qua l'immagine della matrice che fa vedere le differenze
+ \begin{figure}[h]
+    \centering
+    %\includegraphics[width=0.8\textwidth]{}
+    \caption{}
+    \label{fig:matrixTR_TE}
+ \end{figure}
+
+ \subsection{Spatial coding}
+ To reconstruct the image it is needed selecting a definite volume of tissue called \emph{voxel}\footnote{A voxel is the 3D expansion of a pixel}, three operations are needed to localize them in the tissue: selecting the layer (in the z-direction), selecting the column of the voxel (in the x-direction) and selecting the row (in the y-direction).
+ These selections are done by linear variations of the magnetic field along a specific direction called \emph{Gradient fields}. They can change the static magnetic field $B_0$ and thus change the precession frequency of protons.\\
+ 
+ \noindent To select a slice, it is applied a gradient along the z-direction, here the magnetic field change raising from a minimum to a maximum, and in the point in which the gradient is null the magnetic field is exactly $B_0$. Therefore only the nuclei in the condition of resonance will generate a signal \ref{fig:gradientZ}.
+
+ % Qua l'immagine del libro ita 3.5b 
+ \begin{figure}[h]
+    \centering
+    %\includegraphics[width=0.8\textwidth]{}
+    \caption{}
+    \label{fig:gradientZ}
+ \end{figure}
+
+ \noindent Using a gradient on the x-direction ($G_x$) creates a signal that is the \emph{sum of the associated signals with different frequencies}. This gradient is called \emph{Gradient of frequency encoding}, because the spins assume a precession frequency depending on the gradient. Successively, is applied a gradient along the y-direction ($G_y$), called \emph{Gradient of phase encoding}, it change the spin phase depending on the gradient \ref{fig:gradXY}. In this way each element of the section is different from the other by phase or frequency.
+
+ The raw data from these signals are collected in matrices that represent the \emph{k-space} in the frequency domain, in which $G_y$ selects the row and $G_x$ scans it and save it in the matrix.
+ This sequence must be repeated $n$ times for each line of the k-space to fill it \ref{fig:gradXY}.
+ After, is applied the \emph{Inverse Fourier transform} to retrieve the image in the spacial domain.
+
+ % Qua un bel collage di 3.7 3.8 3.11 e 3.13 del libro ita
+ %(nella 3.13 c'è un errore, corregilo)
+ \begin{figure}[h]
+    \centering
+    %\includegraphics[width=0.8\textwidth]{}
+    \caption{}
+    \label{fig:gradXY}
+ \end{figure}
+
+ \subsection{Artifacts}
+ In MRI artifacts is everything that is represented in the image without any correlation with the real anatomy of the tissues analyzed.
+  \subsubsection*{Motion artifacts}
+  The most common artifacts are the \emph{movement artifacts} due to the involuntary movements of the patient. In general the movements can be divided in random and periodic movements. Random movements create a blurring of the image, while periodic movements create \emph{ghost images}\footnote{Ghost images: periodic copies of some structures of the image}. The first can be reduced using techniques that reduce the acquisition time. The periodic movements artifacts can be reduced through \emph{gating}, a technique where the acquisition of the data is synchronized with the periodic movement of the tissue.
+  \subsubsection*{Magnet susceptibility artifacts}
+  The presence of ferromagnetic materials create local inhomogeneities in the magnetic field which result in distortion artifacts called \emph{magnetic susceptibility artifacts}. The signals can change generating zone bright or dark with some distortions in the surrounding tissues. These artifacts can be reduced using spin-echo sequence instead of gradient-echo, and reducing the $TE$.
+  \subsubsection*{Chemical shift}
+  In the interface between tissues of different molecular characteristics can occur a \emph{chemical shift}. It is a result of different resonance frequencies of adjacent tissues. Possible solutions are the reducing of the voxel dimension, increasing the bandwidth or using fat-suppressed imaging.
+  \subsubsection*{Gibb's artifacts}
+  \emph{Gibb's artifacts} are due to the reconstruction from k-space, since it is performed through a finite sampling. In hedges of high-contrast the Fourier transform truncate some frequencies, for this they are also named \emph{truncation artifacts}, creating the effect of fine parallel lines ("ringing") adjacent to such interfaces. Increasing the matrix size or applying smoothing filters can reduce the artifacts.
+  \subsubsection*{Aliasing}
+  \emph{Aliasing artifacts} are visible when the tissue is outside the field-of-view (FOV), meaning that there was an under-sampling in the k-space. The only solution is to increase the size of the FOV or using techniques of foldover suppression.
+  \subsubsection*{Eddy currents}
+  The Faraday-Lenz Law of electromagnetism states that electrical currents (\emph{Eddy currents}) are induced in nearby conductors by a changing magnetic field. Since MRI uses rapidly changing magnetic fields, eddy currents are always produced. The conductive material in which eddy currents are induced may be any metallic component of the MRI scanner and the patient as a whole. These latter may generate a distortion of the magnetic field. Several techniques are available to minimize te effects including image post-processing \cite{QeA_MRI}.
+
+  % Qua un bel collage di tutti gli artifacts
+  % TODO metti anche le ref dentro al testo
+  \begin{figure}[h]
+     \centering
+     %\includegraphics[width=0.8\textwidth]{}
+     \caption{}
+     \label{fig:artifacts}
+  \end{figure}
 
 \section{Diffusion-Weighted MRI}
+ Sequences of \emph{Diffusion-Weighted MRI} (DW-MRI) can provide motion-dependent contrast of water molecules in tissues, which can significantly alter in some brain diseases. This sequences are also know as \emph{Diffusion Weighted Imaging} (DWI) or \emph{diffusion MRI} (dMRI). 
+ \subsection{Pulse Gradient Spin Echo (PGSE)}
+ The \emph{Pulse Gradient Spin Echo} (PGSE) sequence is the main diffusion-weighted sequence used, it is composed of two magnetic gradients, before and after the 180° RF-pulse of the classic spin echo sequence. When the first diffusion gradient is applied, the water molecules are dephased, the second gradient, after the 180° RF pulse, will rephase the magnetization \ref{fig:PGSE}. The difference of gradient intensity which is subject the water molecule is proportional to the distance traveled on the time between the two gradients and also the gradient intensity. Therefore, the protons that are moved faster will have a greater dephase.
 
-\section{DW-MRI Microstructural Models}
+ The intensity of a voxel resulting from the signal will be equal to the intensity of a T\textsubscript{2}-weighted image, lowered by a quantity that depends on the diffusion of the molecules.
+ \begin{equation}
+    I = I_0 \times \exp(-b_{PGSE} \times D)
+ \end{equation}
+ Where $I$ is the intensity of received signal, $I_0$ is the intensity of base signal (T\textsubscript{2}-weighted), $b_{PGSE}$ is the factor of sensibility (parameters of PGSE sequence) and $D$ is the coefficient of diffusivity (intrinsic characteristic of the tissue).
+ \begin{equation}
+    b_ {PGSE} = (\gamma G \delta)^{2}(\Delta - \frac{\delta}{3}) [s/mm^2]
+ \end{equation}
+ Where $G$ is the diffusion gradient intensity, $\delta$ is the duration of the diffusion gradient and $\Delta$ is the time between the first diffusion and the second.
+
+ % Qua foto del libro ita 5.11
+ \begin{figure}[h]
+    \centering
+    %\includegraphics[width=0.8\textwidth]{}
+    \caption{}
+    \label{fig:PGSE}
+ \end{figure}
+
+ The diffusion can be affected even to pressure, temperature and molecular interactions and the DW-MRI can not distinguish between these different causes. Furthermore, if the followed path during the diffusion is random rather than linear, the signal will be only a measure between the starting point and the end point \ref{fig:displacement_dMRI}.
+
+ % Qua foto del libro ita 5.10
+ \begin{figure}[h]
+    \centering
+    %\includegraphics[width=0.8\textwidth]{}
+    \caption{}
+    \label{fig:displacement_dMRI}
+ \end{figure}
+
+ In the brain, the diffusivity of the water molecules is \emph{anisotropic}, it is not equal in each direction of the space. For example the diffusion in the white matter will be higher along the direction of the axons rather than the perpendicular direction. While, if the diffusion does not have any preferential direction, such as in the CSF, the diffusion is called \emph{isotropic} \ref{fig:isotropiAnisotropi}.
+
+ % Qua foto del libro fra 15.5
+ \begin{figure}[h]
+    \centering
+    %\includegraphics[width=0.8\textwidth]{}
+    \caption{}
+    \label{fig:isotropiAnisotropi}
+ \end{figure}
+
+ \subsection{Diffusion Tensor Imaging (DTI)}
+
+ \begin{equation}
+    D = 
+    \begin{pmatrix}
+        D_{xx} & D_{xy} & D_{xz} \\
+        D_{yx} & D_{yy} & D_{yz} \\
+        D_{zx} & D_{zy} & D_{zz}
+    \end{pmatrix}
+ \end{equation}
+
+ \begin{equation}
+    D = 
+    \begin{pmatrix}
+        D_{xx} & D_{xy} & D_{xz} \\
+        D_{yx} & D_{yy} & D_{yz} \\
+        D_{zx} & D_{zy} & D_{zz}
+    \end{pmatrix}
+ \end{equation}
+
+ \begin{equation}
+    E(b_{PGSE}, \mathbb{R}^n) = e^{-b_{PGSE}\hat{g}^{T}\vec{D}\hat{g}}
+ \end{equation}
+
+ \begin{equation}
+    E(b_{PGSE}, \mathbb{R}^n) = e^{-b_{PGSE}D}
+ \end{equation}
+
+ \begin{equation}
+    \Lambda = 
+    \begin{pmatrix}
+        \lambda_{1} & 0 & 0 \\
+        0 & \lambda_{2} & 0 \\
+        0 & 0 & \lambda_{3}
+    \end{pmatrix}
+ \end{equation}
+
+ \begin{equation}
+    {MD} = \frac{{Tr}(D)}{3} = \frac{\lambda_1 + \lambda_2 + \lambda_3}{3}
+ \end{equation}
+ \begin{equation}
+    AD = \lambda_1
+ \end{equation}
+ \begin{equation}
+    RD = \frac{\lambda_2+\lambda_3}{2}
+ \end{equation}
+ \begin{equation}
+    FA = \sqrt{\frac{3}{2}}\frac{\sqrt{(\lambda_1-MD)^2+(\lambda_2-MD)^2+(\lambda_3-MD)^2}}{\sqrt{\lambda_1^2+\lambda_2^2+\lambda_3^2}}
+ \end{equation}
+
+ \subsection{Tractography}
+ %%%%% FALLO BENE DETTAGLIATO MA NON SPIEGARE LE COSE CHE NON USI, QUINDI QUESTO PUÒ ESSERE INIZATO MA DA FINIRE APPENA HAI UNA BELLA TECNICA PER FARE DEI BEI TRATTI FATTI SERI
+\section{DW-MRI Microstructural models}
+ \subsection{DIAMOND}
+ \subsection{NODDI}
+ \subsection{Microstructure fingerprintign}

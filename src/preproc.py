@@ -49,7 +49,7 @@ def main():
         qc_reg=False, # Is done just for quality control, do at least one time to check
 
         ## BIAS FIELD correction
-        biasfield=True,
+        biasfield=True, # TODO should I put to false?
         #biasfield_bsplineFitting=,
         #biasfield_convergence=,
     )

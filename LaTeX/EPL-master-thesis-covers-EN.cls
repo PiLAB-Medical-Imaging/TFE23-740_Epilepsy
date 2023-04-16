@@ -9,6 +9,9 @@
 \usepackage[english]{babel}
 \usepackage[a4paper, total={6in, 9.5in}]{geometry}
 \usepackage{hyperref}
+\usepackage{soul}
+\usepackage{amsmath}
+\usepackage{amssymb}
 \RequirePackage{microtype}   % Improves typography
 \RequirePackage[T1]{fontenc}
 \RequirePackage{lmodern}
