@@ -12,10 +12,9 @@ nPatients = 23
 processes = []
 
 for i in range(1,nPatients+1):
-    bashCommand = "recon-all -all -s VNSLC_%02d -i %s/study/T1/VNSLC_%02d_T1.nii.gz -T2 %s/study/T1/VNSLC_%02d_T2.nii.gz -T2pial -qcache" % (i, project_dir, i, project_dir, i)
+    bashCommand = "recon-all -all -s VNSLC_%02d -i %s/study/T1/VNSLC_%02d_T1.nii.gz -T2 %s/study/T1/VNSLC_%02d_T2.nii.gz -T2pial -qcache > %s/outputs/seg_out_VNSLC_%02d.txt" % (i, project_dir, i, project_dir, i, absolute_path, i)
     process = subprocess.Popen(bashCommand, universal_newlines=True, shell=True)
     processes.append(process)
 
 for process in processes:
     process.communicate()
-
