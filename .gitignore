@@ -1,5 +1,8 @@
 /study/
 /seg_subjs/
 /src/out.txt
+/src/error.log
+/src/seg_err.txt
+/src/seg_out.txt
 /.vscode/
 /prova/
