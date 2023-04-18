@@ -12,6 +12,7 @@
 \usepackage{soul}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{xcolor}
 \RequirePackage{microtype}   % Improves typography
 \RequirePackage[T1]{fontenc}
 \RequirePackage{lmodern}

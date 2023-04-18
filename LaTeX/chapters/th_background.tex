@@ -266,9 +266,10 @@
  \subsection{Pulse Gradient Spin Echo (PGSE)}
  The \emph{Pulse Gradient Spin Echo} (PGSE) sequence is the main diffusion-weighted sequence used, it is composed of two magnetic gradients, before and after the 180° RF-pulse of the classic spin echo sequence. When the first diffusion gradient is applied, the water molecules are dephased, the second gradient, after the 180° RF pulse, will rephase the magnetization \ref{fig:PGSE}. The difference of gradient intensity which is subject the water molecule is proportional to the distance traveled on the time between the two gradients and also the gradient intensity. Therefore, the protons that are moved faster will have a greater dephase.
 
- The intensity of a voxel resulting from the signal will be equal to the intensity of a T\textsubscript{2}-weighted image, lowered by a quantity that depends on the diffusion of the molecules.
+ % sulle equation cita Resonnet 209
+ The intensity of a voxel can be described by the Stejskal-Tanner equation, in which the signal will be equal to the intensity of a T\textsubscript{2}-weighted image, lowered by a quantity that depends on the diffusion of the molecules.
  \begin{equation}
-    I = I_0 \times \exp(-b_{PGSE} \times D)
+    I = I_0 \cdot e^{-b_{PGSE} \cdot D}
  \end{equation}
  Where $I$ is the intensity of received signal, $I_0$ is the intensity of base signal (T\textsubscript{2}-weighted), $b_{PGSE}$ is the factor of sensibility (parameters of PGSE sequence) and $D$ is the coefficient of diffusivity (intrinsic characteristic of the tissue).
  \begin{equation}
@@ -284,7 +285,10 @@
     \label{fig:PGSE}
  \end{figure}
 
- The diffusion can be affected even to pressure, temperature and molecular interactions and the DW-MRI can not distinguish between these different causes. Furthermore, if the followed path during the diffusion is random rather than linear, the signal will be only a measure between the starting point and the end point \ref{fig:displacement_dMRI}.
+ The diffusion can be affected even to pressure, temperature and molecular interactions and the DW-MRI can not distinguish between these different causes. Furthermore, if the followed path during the diffusion is random rather than linear, the signal will be only a measure between the starting point and the end point \ref{fig:displacement_dMRI}. For these reasons the $D$ is not correct and should be replaced by a coefficient called \emph{apparent diffusion coefficient} ($ADC$)
+ \begin{equation}
+    I = I_0 \cdot e^{-b_{PGSE} \cdot ADC}
+ \end{equation}
 
  % Qua foto del libro ita 5.10
  \begin{figure}[h]
@@ -294,7 +298,10 @@
     \label{fig:displacement_dMRI}
  \end{figure}
 
- In the brain, the diffusivity of the water molecules is \emph{anisotropic}, it is not equal in each direction of the space. For example the diffusion in the white matter will be higher along the direction of the axons rather than the perpendicular direction. While, if the diffusion does not have any preferential direction, such as in the CSF, the diffusion is called \emph{isotropic} \ref{fig:isotropiAnisotropi}.
+ In the brain, the diffusivity of the water molecules is \emph{anisotropic}, it is not equal in each direction of the space. For example the diffusion in the white matter will be higher along the direction of the axons rather than the perpendicular direction. While, if the diffusion does not have any preferential direction, such as in the CSF, the diffusion is called \emph{isotropic} \ref{fig:isotropiAnisotropi}. In this case the Stejskal-Tanner equation becomes:
+ \begin{equation}
+    I = I_0 \cdot e^{-b_{PGSE} \cdot \hat{g}^T\mathbf{D}\hat{g}}
+ \end{equation}
 
  % Qua foto del libro fra 15.5
  \begin{figure}[h]
@@ -305,35 +312,20 @@
  \end{figure}
 
  \subsection{Diffusion Tensor Imaging (DTI)}
-
+ One of the most popular and widely used mathematical models to describe the primary orientation of white math axonal path is called \emph{diffusion tenso imaging}. This model was introduced in 1994 \cite{basser1994mr} and it consists of estimating an effective \emph{diffusion tensor} ($\mathbf{D}$) within a voxel, which allows to represent its properties with a 3D ellipse. The diffusion tensor is described by a 3x3 symmetric tensor that uses 6 PGSE sequences, one for each different orientation of diffusion gradient, because $D_{yx}=D_{xy}$, $D_{zx}=D_{xz}$ and $D_{zy}=D_{yz}$.
  \begin{equation}
-    D = 
+    \mathbf{D} = 
     \begin{pmatrix}
         D_{xx} & D_{xy} & D_{xz} \\
-        D_{yx} & D_{yy} & D_{yz} \\
-        D_{zx} & D_{zy} & D_{zz}
+        \textcolor{gray}{D_{yx}} & D_{yy} & D_{yz} \\
+        \textcolor{gray}{D_{zx}} & \textcolor{gray}{D_{zy}} & D_{zz}
     \end{pmatrix}
  \end{equation}
 
+ Using the eigendecomposition of $\mathbf{D}$ are computed the eigenvectors and eigenvalues used to represent an ellipse on 3 orthogonal directions \ref{fig:elipse}. The eigenvalues $\lambda_{i}$ are the likelihoods of diffusion direction of a voxel. The largest eigenvalue($\lambda_1$) is the principal direction of axons in that voxel.
+ \[\mathbf{D}=\mathbf{Q}\mathbf{\Lambda}\mathbf{Q}^{-1}\]
  \begin{equation}
-    D = 
-    \begin{pmatrix}
-        D_{xx} & D_{xy} & D_{xz} \\
-        D_{yx} & D_{yy} & D_{yz} \\
-        D_{zx} & D_{zy} & D_{zz}
-    \end{pmatrix}
- \end{equation}
-
- \begin{equation}
-    E(b_{PGSE}, \mathbb{R}^n) = e^{-b_{PGSE}\hat{g}^{T}\vec{D}\hat{g}}
- \end{equation}
-
- \begin{equation}
-    E(b_{PGSE}, \mathbb{R}^n) = e^{-b_{PGSE}D}
- \end{equation}
-
- \begin{equation}
-    \Lambda = 
+    \mathbf{\Lambda} = 
     \begin{pmatrix}
         \lambda_{1} & 0 & 0 \\
         0 & \lambda_{2} & 0 \\
@@ -341,22 +333,59 @@
     \end{pmatrix}
  \end{equation}
 
+ % Qua foto del ellissodi in cui si vede anche le direzioni degli autovalori
+ \begin{figure}[h]
+    \centering
+    %\includegraphics[width=0.8\textwidth]{}
+    \caption{}
+    \label{fig:elipse}
+ \end{figure}
+
+ The result from the DW-MRI is difficult to visualize in a single image. In order to sintetize the information, the eigenvalues are used to compute some metrics that characterize each voxel. The most used are the \emph{Mean Diffusivity} ($MD$) and the \emph{Fractional Anisotropy} ($FA$) and they are computed by the $Trace$ of the diffusion matrix.
  \begin{equation}
     {MD} = \frac{{Tr}(D)}{3} = \frac{\lambda_1 + \lambda_2 + \lambda_3}{3}
  \end{equation}
+ \begin{equation}
+    FA = \sqrt{\frac{3}{2}}\frac{\sqrt{(\lambda_1-MD)^2+(\lambda_2-MD)^2+(\lambda_3-MD)^2}}{\sqrt{\lambda_1^2+\lambda_2^2+\lambda_3^2}}
+ \end{equation}
+ The $MD$ is proportional to the $Trace$ and it quantify the amplitude of the ellipse, or how much a particle is freely to move. Therefore, the $MD$ does not have any information about the directions, but on how much free water is contained into a voxel. The $FA$ is a metric between 0 and 1 and it measures the degree of anisotropy in a voxel. More the diffusion directions are equal more the $FA$ tends to 0. On the other and, an anisotropic diffusion will have a value of 1.
+ 
+ % queste definizioni le ho prese direttamente dal book DTI.
+ Other metrics are the \emph{Axial Diffusivity} ($AxD$) and the \emph{Radial Diffusivity} ($RD$). The Axial diffusivity is the diffusivity along the principal axis of the diffusion ellipsoid. While the Radial diffusivity is a measure used to express the diffusivity perpendicular to the principal direction of diffusion.
  \begin{equation}
     AD = \lambda_1
  \end{equation}
  \begin{equation}
     RD = \frac{\lambda_2+\lambda_3}{2}
  \end{equation}
- \begin{equation}
-    FA = \sqrt{\frac{3}{2}}\frac{\sqrt{(\lambda_1-MD)^2+(\lambda_2-MD)^2+(\lambda_3-MD)^2}}{\sqrt{\lambda_1^2+\lambda_2^2+\lambda_3^2}}
- \end{equation}
 
+ Both $FA$ and $MD$ can be represented on \emph{diffusion direction maps}. The CSF will have an high $MD$ since the water is free to move in all the directions, while the WM will have an high $FA$ because oriented along a single direction. The image obtained from $FA$ is called \emph{FA map} and often they are displayed as \emph{RGB FA maps}, in which colors are used to represent the principal direction of the diffusion (Red: left-right; Green: anterior-posterior; Blue: superior-inferior) \ref{fig:DTImaps}.
+
+  % Qua un bel collage con tutte le DTI MAPS
+  \begin{figure}[h]
+    \centering
+    %\includegraphics[width=0.8\textwidth]{}
+    \caption{}
+    \label{fig:DTImaps}
+ \end{figure}
+
+  \subsubsection*{Limitations of DTI}
+  The main limitation of DTI model is that water molecules follow a Gaussian distribution. Therefore, only a bundle of fibers can be modeled inside each voxel, but in reality a complex organization of fibers is observed in every voxel. For example, a voxel containing two crossing fibers is modeled by a large diffusion tensor rather than two narrow tensors. Therefore in these voxel, the DTI model does not hold the assumption of a Gaussian distribution, and the resulting FA or MD metrics do not reflect the actual anatomical microstructure \ref{fig:fiber_crossing}.
+
+  % Qua una foto per far capire come potrebbero essere disposte la varie fibre
+  \begin{figure}[h]
+      \centering
+      %\includegraphics[width=0.8\textwidth]{}
+      \caption{}
+      \label{fig:fiber_crossing}
+  \end{figure}
  \subsection{Tractography}
  %%%%% FALLO BENE DETTAGLIATO MA NON SPIEGARE LE COSE CHE NON USI, QUINDI QUESTO PUÒ ESSERE INIZATO MA DA FINIRE APPENA HAI UNA BELLA TECNICA PER FARE DEI BEI TRATTI FATTI SERI
+
 \section{DW-MRI Microstructural models}
  \subsection{DIAMOND}
+  \subsubsection*{Advantages and Limitations}
  \subsection{NODDI}
+  \subsubsection*{Advantages and Limitations}
  \subsection{Microstructure fingerprintign}
+  \subsubsection*{Advantages and Limitations}

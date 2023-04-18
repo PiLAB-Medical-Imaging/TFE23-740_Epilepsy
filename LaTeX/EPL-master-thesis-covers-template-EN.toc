@@ -12,26 +12,26 @@
 \contentsline {subsection}{\numberline {1.1.6}Artifacts}{10}{subsection.1.1.6}%
 \contentsline {section}{\numberline {1.2}Diffusion-Weighted MRI}{11}{section.1.2}%
 \contentsline {subsection}{\numberline {1.2.1}Pulse Gradient Spin Echo (PGSE)}{12}{subsection.1.2.1}%
-\contentsline {subsection}{\numberline {1.2.2}Diffusion Tensor Imaging (DTI)}{12}{subsection.1.2.2}%
-\contentsline {subsection}{\numberline {1.2.3}Tractography}{13}{subsection.1.2.3}%
-\contentsline {section}{\numberline {1.3}DW-MRI Microstructural models}{13}{section.1.3}%
-\contentsline {subsection}{\numberline {1.3.1}DIAMOND}{13}{subsection.1.3.1}%
-\contentsline {subsection}{\numberline {1.3.2}NODDI}{13}{subsection.1.3.2}%
-\contentsline {subsection}{\numberline {1.3.3}Microstructure fingerprintign}{13}{subsection.1.3.3}%
-\contentsline {chapter}{\numberline {2}Epilepsy}{15}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Overview of Epilepsy}{15}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Vagus Nerve Stimulation}{19}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Review of DW-MRI in VNS}{23}{section.2.3}%
-\contentsline {chapter}{\numberline {3}Methods}{24}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Data}{24}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}Subjects}{24}{subsection.3.1.1}%
-\contentsline {subsection}{\numberline {3.1.2}Data acquisition}{24}{subsection.3.1.2}%
-\contentsline {section}{\numberline {3.2}Data preprocessing}{25}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Tractography}{25}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Microstructural analysis}{25}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Statistical analysis}{25}{section.3.5}%
-\contentsline {chapter}{\numberline {4}Results}{26}{chapter.4}%
-\contentsline {chapter}{\numberline {5}Discussion}{27}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Limitations}{27}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Applications}{27}{section.5.2}%
-\contentsline {chapter}{Conclusion and perspectives}{27}{section.5.2}%
+\contentsline {subsection}{\numberline {1.2.2}Diffusion Tensor Imaging (DTI)}{13}{subsection.1.2.2}%
+\contentsline {subsection}{\numberline {1.2.3}Tractography}{14}{subsection.1.2.3}%
+\contentsline {section}{\numberline {1.3}DW-MRI Microstructural models}{14}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}DIAMOND}{14}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}NODDI}{14}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.3.3}Microstructure fingerprintign}{14}{subsection.1.3.3}%
+\contentsline {chapter}{\numberline {2}Epilepsy}{16}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Overview of Epilepsy}{16}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Vagus Nerve Stimulation}{20}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Review of DW-MRI in VNS}{24}{section.2.3}%
+\contentsline {chapter}{\numberline {3}Methods}{25}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Data}{25}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Subjects}{25}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Data acquisition}{25}{subsection.3.1.2}%
+\contentsline {section}{\numberline {3.2}Data preprocessing}{26}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Tractography}{26}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Microstructural analysis}{26}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Statistical analysis}{26}{section.3.5}%
+\contentsline {chapter}{\numberline {4}Results}{27}{chapter.4}%
+\contentsline {chapter}{\numberline {5}Discussion}{28}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Limitations}{28}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Applications}{28}{section.5.2}%
+\contentsline {chapter}{Conclusion and perspectives}{28}{section.5.2}%

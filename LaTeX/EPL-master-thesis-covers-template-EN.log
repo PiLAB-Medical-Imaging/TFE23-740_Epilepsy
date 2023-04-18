@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.2.15)  16 APR 2023 23:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.2.15)  17 APR 2023 17:30
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -255,7 +255,25 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
-)) (/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype.sty
+)) (/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2021/10/31 v2.13 LaTeX color extensions (UK)
+ (/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 227.
+ (/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
+)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1352.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1356.
+Package xcolor Info: Model `RGB' extended on input line 1368.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1370.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1371.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1372.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1373.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1374.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1375.
+) (/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype.sty
 Package: microtype 2021/12/10 v3.0b Micro-typographical refinements (RS)
  (/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
@@ -325,17 +343,9 @@ Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 107.
- (/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
-File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
-))
+)
 \Gin@req@height=\dimen165
 \Gin@req@width=\dimen166
-) (/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
-Package: color 2021/12/07 v1.3c Standard LaTeX Color (DPC)
- (/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
-File: color.cfg 2016/01/02 v1.6 sample color configuration
-)
-Package color Info: Driver file: pdftex.def on input line 149.
 ) (/usr/share/texlive/texmf-dist/tex/latex/tabto-ltx/tabto.sty
 Package: tabto 2018/12/28  v 1.4  Another tabbing mechanism
 \CurrentLineWidth=\dimen167
@@ -433,24 +443,7 @@ LaTeX Info: Redefining \nameref on input line 51.
 \@outlinefile=\write3
 \openout3 = `EPL-master-thesis-covers-template-EN.out'.
 
-LaTeX Info: Redefining \microtypecontext on input line 51.
-Package microtype Info: Applying patch `item' on input line 51.
-Package microtype Info: Applying patch `toc' on input line 51.
-Package microtype Info: Applying patch `eqnum' on input line 51.
-Package microtype Info: Applying patch `footnote' on input line 51.
-Package microtype Info: Generating PDF output.
-Package microtype Info: Character protrusion enabled (level 2).
-Package microtype Info: Using default protrusion set `alltext'.
-Package microtype Info: Automatic font expansion enabled (level 2),
-(microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
-Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 51.
-Package microtype Info: No adjustment of tracking.
-Package microtype Info: No adjustment of interword spacing.
-Package microtype Info: No adjustment of character kerning.
- (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-cmr.cfg
-File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman (RS)
-) (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+ (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count293
 \scratchdimen=\dimen169
@@ -469,6 +462,24 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
+LaTeX Info: Redefining \microtypecontext on input line 51.
+Package microtype Info: Applying patch `item' on input line 51.
+Package microtype Info: Applying patch `toc' on input line 51.
+Package microtype Info: Applying patch `eqnum' on input line 51.
+Package microtype Info: Applying patch `footnote' on input line 51.
+Package microtype Info: Generating PDF output.
+Package microtype Info: Character protrusion enabled (level 2).
+Package microtype Info: Using default protrusion set `alltext'.
+Package microtype Info: Automatic font expansion enabled (level 2),
+(microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
+Package microtype Info: Using default expansion set `alltext-nott'.
+LaTeX Info: Redefining \showhyphens on input line 51.
+Package microtype Info: No adjustment of tracking.
+Package microtype Info: No adjustment of interword spacing.
+Package microtype Info: No adjustment of character kerning.
+ (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-cmr.cfg
+File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman (RS)
+)
 *geometry* verbose mode - [ newgeometry ] result:
 * driver: pdftex
 * paper: a4paper
@@ -634,17 +645,28 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[12]) [13] [14]
-Chapter 2.
-(./chapters/epilepsy.tex [15
+[12]
 
-] [16]
-<images/seizureTypes.png, id=418, 698.61pt x 376.40625pt>
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[13]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+) [14] [15]
+Chapter 2.
+(./chapters/epilepsy.tex [16
+
+] [17]
+<images/seizureTypes.png, id=434, 698.61pt x 376.40625pt>
 File: images/seizureTypes.png Graphic file (type png)
 <use images/seizureTypes.png>
 Package pdftex.def Info: images/seizureTypes.png  used on input line 46.
 (pdftex.def)             Requested size: 346.89731pt x 186.90462pt.
-<images/epilepsyTypes.png, id=421, 1539.7525pt x 778.91pt>
+<images/epilepsyTypes.png, id=437, 1539.7525pt x 778.91pt>
 File: images/epilepsyTypes.png Graphic file (type png)
 <use images/epilepsyTypes.png>
 Package pdftex.def Info: images/epilepsyTypes.png  used on input line 57.
@@ -662,8 +684,8 @@ Overfull \hbox (43.97011pt too wide) in paragraph at lines 69--71
 []\T1/lmr/m/n/12 (-20) Up to a third of all in-di-vid-u-als with epilepsy are re-frac-tory to AEDs [[]].
  []
 
-[17 <./images/seizureTypes.png>]
-<images/WongMani2019.jpeg, id=442, 602.25pt x 227.85126pt>
+[18 <./images/seizureTypes.png>]
+<images/WongMani2019.jpeg, id=459, 602.25pt x 227.85126pt>
 File: images/WongMani2019.jpeg Graphic file (type jpg)
 <use images/WongMani2019.jpeg>
 Package pdftex.def Info: images/WongMani2019.jpeg  used on input line 81.
@@ -672,8 +694,8 @@ Package pdftex.def Info: images/WongMani2019.jpeg  used on input line 81.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[18 <./images/epilepsyTypes.png>]
-<images/vagus_nerve_stimulation.jpg, id=466, 634.37pt x 539.01375pt>
+[19 <./images/epilepsyTypes.png>]
+<images/vagus_nerve_stimulation.jpg, id=482, 634.37pt x 539.01375pt>
 File: images/vagus_nerve_stimulation.jpg Graphic file (type jpg)
 <use images/vagus_nerve_stimulation.jpg>
 Package pdftex.def Info: images/vagus_nerve_stimulation.jpg  used on input line 98.
@@ -682,8 +704,8 @@ Package pdftex.def Info: images/vagus_nerve_stimulation.jpg  used on input line 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[19 <./images/WongMani2019.jpeg>]
-<images/vagus_afferent_network.jpg, id=486, 361.35pt x 470.9595pt>
+[20 <./images/WongMani2019.jpeg>]
+<images/vagus_afferent_network.jpg, id=502, 361.35pt x 470.9595pt>
 File: images/vagus_afferent_network.jpg Graphic file (type jpg)
 <use images/vagus_afferent_network.jpg>
 Package pdftex.def Info: images/vagus_afferent_network.jpg  used on input line 113.
@@ -696,8 +718,8 @@ Underfull \hbox (badness 2573) in paragraph at lines 116--116
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[20 <./images/vagus_nerve_stimulation.jpg>] [21 <./images/vagus_afferent_network.jpg>]
-<images/structuralFunctional.png, id=515, 1565.85pt x 876.27374pt>
+[21 <./images/vagus_nerve_stimulation.jpg>] [22 <./images/vagus_afferent_network.jpg>]
+<images/structuralFunctional.png, id=531, 1565.85pt x 876.27374pt>
 File: images/structuralFunctional.png Graphic file (type png)
 <use images/structuralFunctional.png>
 Package pdftex.def Info: images/structuralFunctional.png  used on input line 136.
@@ -707,7 +729,7 @@ Underfull \hbox (badness 7907) in paragraph at lines 137--137
 []\T1/lmr/m/n/12 (+20) Figure 2.6: []Differences be-tween struc-tural and func-tional con-nec-tiv-ity
  []
 
-[22 <./images/structuralFunctional.png>]) [23]
+[23 <./images/structuralFunctional.png>]) [24]
 Chapter 3.
 (./chapters/methods.tex
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 17.
@@ -722,25 +744,25 @@ Package microtype Info: Loading generic protrusion settings for font family
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-) [24
+) [25
 
-] [25]
+] [26]
 Chapter 4.
-[26
+[27
 
 ]
 Chapter 5.
-(./chapters/discussion.tex) [27
+(./chapters/discussion.tex) [28
 
-] (./EPL-master-thesis-covers-template-EN.bbl [28
+] (./EPL-master-thesis-covers-template-EN.bbl [29
 
 ] (/usr/share/texlive/texmf-dist/tex/latex/ucs/data/uni-1.def
 File: uni-1.def 2013/05/13 UCS: Unicode data U+0100..U+01FF
-) [29
+) [30
 
 ] (/usr/share/texlive/texmf-dist/tex/latex/ucs/data/uni-32.def
 File: uni-32.def 2013/05/13 UCS: Unicode data U+2000..U+20FF
-) [30] [31]) [32]
+) [31] [32]) [33]
 *geometry* verbose mode - [ newgeometry ] result:
 * driver: pdftex
 * paper: a4paper
@@ -773,7 +795,7 @@ File: uni-32.def 2013/05/13 UCS: Unicode data U+2000..U+20FF
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-<_backbanner_EPL-master-thesis.pdf, id=595, 597.23125pt x 833.1125pt>
+<_backbanner_EPL-master-thesis.pdf, id=611, 597.23125pt x 833.1125pt>
 File: _backbanner_EPL-master-thesis.pdf Graphic file (type pdf)
 <use _backbanner_EPL-master-thesis.pdf>
 Package pdftex.def Info: _backbanner_EPL-master-thesis.pdf  used on input line 88.
@@ -783,7 +805,7 @@ Overfull \hbox (17.34673pt too wide) in paragraph at lines 88--88
 [][] 
  []
 
-[33
+[34
 
  <./_backbanner_EPL-master-thesis.pdf>] (./EPL-master-thesis-covers-template-EN.aux)
 
@@ -793,18 +815,18 @@ Package rerunfilecheck Info: File `EPL-master-thesis-covers-template-EN.out' has
 (rerunfilecheck)             Checksum: F29C9D24B66E2476E3EBDF5BC04E18B1;5078.
  ) 
 Here is how much of TeX's memory you used:
- 15889 strings out of 480247
- 248026 string characters out of 5896151
- 572459 words of memory out of 5000000
- 33133 multiletter control sequences out of 15000+600000
- 565805 words of font info for 195 fonts, out of 8000000 for 9000
+ 16343 strings out of 480247
+ 253095 string characters out of 5896151
+ 584316 words of memory out of 5000000
+ 33539 multiletter control sequences out of 15000+600000
+ 584970 words of font info for 217 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 75i,8n,77p,1137b,720s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi6.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr6.pfb></usr/share/texmf/fonts/type1/public/lm/lmr7.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmri8.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
-Output written on EPL-master-thesis-covers-template-EN.pdf (34 pages, 3190909 bytes).
+ 75i,8n,77p,1137b,726s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx8.pfb></usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi6.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr6.pfb></usr/share/texmf/fonts/type1/public/lm/lmr7.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmri8.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
+Output written on EPL-master-thesis-covers-template-EN.pdf (35 pages, 3210003 bytes).
 PDF statistics:
- 757 PDF objects out of 1000 (max. 8388607)
- 648 compressed objects within 7 object streams
- 194 named destinations out of 1000 (max. 500000)
- 46921 words of extra memory for PDF output out of 51595 (max. 10000000)
+ 776 PDF objects out of 1000 (max. 8388607)
+ 665 compressed objects within 7 object streams
+ 202 named destinations out of 1000 (max. 500000)
+ 59209 words of extra memory for PDF output out of 61914 (max. 10000000)
 

@@ -8,45 +8,45 @@ Warning--entry type for "WHO" isn't style-file defined
 Warning--to sort, need author or key in QeA_MRI
 Warning--empty year in QeA_MRI
 Warning--empty year in campbell
-You've used 44 entries,
+You've used 45 entries,
             1935 wiz_defined-function locations,
-            781 strings with 14235 characters,
-and the built_in function-call counts, 21201 in all, are:
-= -- 1949
-> -- 1299
+            788 strings with 14379 characters,
+and the built_in function-call counts, 21630 in all, are:
+= -- 1992
+> -- 1317
 < -- 15
-+ -- 475
-- -- 469
-* -- 2066
-:= -- 3771
-add.period$ -- 130
-call.type$ -- 44
-change.case$ -- 453
-chr.to.int$ -- 44
-cite$ -- 48
-duplicate$ -- 612
-empty$ -- 1246
-format.name$ -- 526
-if$ -- 4004
++ -- 481
+- -- 475
+* -- 2107
+:= -- 3845
+add.period$ -- 133
+call.type$ -- 45
+change.case$ -- 461
+chr.to.int$ -- 45
+cite$ -- 49
+duplicate$ -- 626
+empty$ -- 1276
+format.name$ -- 533
+if$ -- 4086
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 40
-newline$ -- 220
-num.names$ -- 131
-pop$ -- 363
+missing$ -- 41
+newline$ -- 225
+num.names$ -- 134
+pop$ -- 369
 preamble$ -- 1
-purify$ -- 453
+purify$ -- 461
 quote$ -- 0
-skip$ -- 455
+skip$ -- 465
 stack$ -- 0
-substring$ -- 1364
-swap$ -- 51
+substring$ -- 1401
+swap$ -- 52
 text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 264
+type$ -- 270
 warning$ -- 3
-while$ -- 138
+while$ -- 142
 width$ -- 0
-write$ -- 564
+write$ -- 577
 (There were 4 warnings)
