@@ -10,6 +10,5 @@ nPatients = 23
 # srun --cpus-per-task=4 mri_cc -force -f -aseg aseg.mgz -o aseg.auto_CCseg.mgz $SUB_ID
 
 for i in range(1,nPatients+1):
-    bashCommand = "srun recon-all -all -s VNSLC_%02d -i %s/study/T1/VNSLC_%02d_T1.nii.gz -T2 %s/study/T1/VNSLC_%02d_T2.nii.gz -T2pial -qcache" % (i, project_dir, i, project_dir, i)
-    #process = subprocess.Popen(bashCommand, universal_newlines=True, shell=True)
-    print(bashCommand)
+    bashCommand = "recon-all -all -s VNSLC_%02d -i %s/study/T1/VNSLC_%02d_T1.nii.gz -T2 %s/study/T1/VNSLC_%02d_T2.nii.gz -T2pial -qcache" % (i, project_dir, i, project_dir, i)
+    process = subprocess.Popen(bashCommand, universal_newlines=True, shell=True)
