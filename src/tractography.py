@@ -28,14 +28,14 @@ tracts = {"stria_terminalis":
                 "seed_images": ["amygdala"],
                 "include" : [],
                 "include_ordered" : ["fornixST", "BNST"],
-                "exclude" : ["hippocampus", "fornix"]
+                "exclude" : ["hippocampus", "fornix"] # qua agginugere il lateral ventricle
             },
           "fornix":
             {
                 "seed_images": ["hippocampus"],
-                "include" : [],
+                "include" : [], # TODO check se va bene accumus area per i mammilary body
                 "include_ordered" : ["fornixST", "fornix"],
-                "exclude" : ["amygdala", "BNST"]
+                "exclude" : ["amygdala", "BNST", "thalamus"]
             },
           # "thalamocortical": {
           #       "seed_images": ["thalamus"],
