@@ -1,8 +1,6 @@
 /study/
 /seg_subjs/
-/src/out.txt
-/src/error.log
-/src/seg_err.txt
-/src/seg_out.txt
+/src/outputs/
+/src/.nfs000000000ccf20cb00052e95
 /.vscode/
 /prova/
