@@ -1,32 +1,25 @@
-import os
+from unravel.utils import tract_to_ROI, load_tractogram, get_streamline_density
+import nibabel as nib
 
-mask_path = "../study/subjects/subj00/masks"
+fa_map = "/home/michele/Dropbox (Politecnico Di Torino Studenti)/thesis/code/Epilepsy-dMRI-VNS/study/subjects/subj00/dMRI/microstructure/dti/subj00_FA.nii.gz"
+img  = nib.load(fa_map)
 
-tracts_roi = {
-    "fornix" : "17 53",
-    "stria_terminalis" : "18 54",
-    "cortex" : "10 49",
-    "cortex_interval1" : "1001 1035",
-    "cortex_interval2" : "2001 2035"
-}
+data = img.get_fdata()
 
-tracts_roi.values()
+mask = tract_to_ROI("/home/michele/Dropbox (Politecnico Di Torino Studenti)/thesis/code/Epilepsy-dMRI-VNS/study/subjects/subj00/dMRI/tractography/right-fornix.trk")
 
-roi_names = []
-ctx_names = []
 
-roi_names.pop
+out = nib.Nifti1Image(mask, img.affine)
 
-for path, dirs, files in os.walk(mask_path):
-    dir_name = path.split("/")[-1]
-    if dir_name in tracts_roi:
-        print(path, dirs, files)
-        for file in files:
-            no_ext = file.split(".")[0]
-            no_subj = "_".join(no_ext.split("_")[1:])
-            roi_names.append(no_subj)
-            if "ctx" in no_subj:
-                ctx_names.append(no_subj)
+out.to_filename("./trkMask.nii.gz")
 
-for roi in ctx_names:
-    print(roi)
+
+trk = load_tractogram("/home/michele/Dropbox (Politecnico Di Torino Studenti)/thesis/code/Epilepsy-dMRI-VNS/study/subjects/subj00/dMRI/tractography/right-fornix.trk", 'same')
+
+trk.to_vox()
+trk.to_corner()
+
+density_map = get_streamline_density(trk)
+
+out = nib.Nifti1Image(density_map, img.affine)
+out.to_filename("./trkMaskDensity.nii.gz")
