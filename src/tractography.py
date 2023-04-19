@@ -2,12 +2,15 @@ import sys
 import os
 import subprocess
 import json
+import copy
 
 import elikopy
 import elikopy.utils
 from dipy.io.streamline import load_tractogram, save_trk
 from regis.core import find_transform, apply_transform
 from params import get_arguments, get_segmentation
+from threading import Thread, Semaphore
+
 
 absolute_path = os.path.dirname(__file__) # return the abs path of the folder of this file, wherever it is
 
@@ -20,14 +23,14 @@ class ROI:
     def __str__(self) -> str:
         return self.path
 
-tracts = {"fornix":
+tracts = {"stria_terminalis":
             {
                 "seed_images": ["amygdala"],
                 "include" : [],
                 "include_ordered" : ["fornixST", "BNST"],
                 "exclude" : ["hippocampus", "fornix"]
             },
-          "stria_terminalis":
+          "fornix":
             {
                 "seed_images": ["hippocampus"],
                 "include" : [],
@@ -171,7 +174,12 @@ def find_tract(subj_folder_path, subj_id, seed_images, inclusions, inclusions_or
 
     process = subprocess.Popen(bashCommand, universal_newlines=True, shell=True)
 
-    return tck_path, process
+    ############ CONVERSION TCK -> TRK #################          
+    # wait the end of the process
+    process.communicate()
+    print("Converting %s" % tck_path)
+    tract = load_tractogram(tck_path, subj_folder_path+"/dMRI/preproc/"+subj_id+"_dmri_preproc.nii.gz")
+    save_trk(tract, tck_path[:-3]+'trk')
 
 def main():
     ## Getting Parameters
@@ -207,13 +215,6 @@ def main():
             print("multi-tissue orientation distribution function is not found for patient: %s" % (p_code))
             continue
 
-        # check if the freesurfer segmentation exist, otherwise skip subject
-        # Here we are assuming that the segmentation is already done
-        # TODO we can add an option to ask if we want to compute the segmentation in this code
-        if not os.path.isdir(seg_path + "/" + p_code + "/mri"):
-            print("freesurfer segmentation isn't found for paritent: %s" % (p_code))
-            continue
-
         ############# ROI EXTRACTION ############
 
         if extract_roi:
@@ -224,9 +225,17 @@ def main():
                     os.mkdir(mask_path)
 
             # TODO even this part of registration and ROI extraction can be done parallelly 
+
             # Do the registration to extract ROI from atlases
             registration(folder_path, p_code)
+
             # Extract ROI from freesurfer segmentation
+            # check if the freesurfer segmentation exist, otherwise skip subject
+            # Here we are assuming that the segmentation is already done
+            if not os.path.isdir(seg_path + "/" + p_code + "/mri"):
+                print("freesurfer segmentation isn't found for paritent: %s" % (p_code))
+                continue
+
             for roi_name, vals in tracts_roi.items():
                 if "cortex-interval" not in roi_name:
                     # use absolute_path if it doesn't work
@@ -242,7 +251,7 @@ def main():
         roi_names = get_roi_names(subj_folder_path+"/masks")
 
         ########### TRACTOGRAPHY ##########
-        tck_path_processes = {} # to run all the tractographies in parallel
+        threads = [] # to run all the tractographies in parallel
         for zone in tracts.keys():
             for side in ["left", "right"]:
                 opts = {}
@@ -258,30 +267,24 @@ def main():
 
                 if zone != "thalamocortical":
                     # fornix and stria_terminalis case
-                    tck_path, process = find_tract(subj_folder_path, p_code, opts["seed_images"], opts["include"], opts["include_ordered"], opts["exclude"], side+"-"+zone)
-                    
-                    # add to the list of processes
-                    tck_path_processes[tck_path] = process
+                        t = Thread(target=find_tract, args=(copy.deepcopy(subj_folder_path), copy.deepcopy(p_code), copy.deepcopy(opts["seed_images"]), copy.deepcopy(opts["include"]), copy.deepcopy(opts["include_ordered"]), copy.deepcopy(opts["exclude"]), side+"-"+zone))
+                        t.start()
+                        threads.append(t)
                 else:
                     # thalamus cortical tractography
                     for ctx_roi in roi_names[side].values():
                         if ctx_roi.isCortex:
                             opts["include"].append(ctx_roi.path)
 
-                            tck_path, process = find_tract(subj_folder_path, p_code, opts["seed_images"], opts["include"], opts["include_ordered"], opts["exclude"], side+"-"+zone+"-"+ctx_roi.name)
-
-                            # add to the list of processes
-                            tck_path_processes[tck_path] = process
+                            t = Thread(target=find_tract, args=(copy.deepcopy(subj_folder_path), copy.deepcopy(p_code), copy.deepcopy(opts["seed_images"]), copy.deepcopy(opts["include"]), copy.deepcopy(opts["include_ordered"]), copy.deepcopy(opts["exclude"]), side+"-"+zone+"-"+ctx_roi.name))
+                            t.start()
+                            threads.append(t)
 
                             opts["include"].pop() # remove the added ctx seg to analyze the next one
-
-        ############ CONVERSION TCK -> TRK #################
-        for tck_path, process  in tracts:           
-            # wait the end of the process
-            process.communicate()
-
-            tract = load_tractogram(tck_path, subj_folder_path+"/dMRI/preproc/"+p_code+"_dmri_preproc.nii.gz")
-            save_trk(tract, tck_path[:-3]+'trk')
+        
+        #### Wait till the end of the threads
+        for t in threads:
+            t.join()
 
 if __name__ == "__main__":
     exit(main())

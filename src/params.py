@@ -57,9 +57,7 @@ def get_segmentation(argv):
             seg_fold = par
         else:
             print("The inserted path doesn't exist or you don't have the access")
-            exit(1)
     else:
-        print("The folder path isn't defined")
-        exit(1)
+        print("The folder path for segmentation isn't defined")
     
     return seg_fold
