@@ -7,15 +7,19 @@
 #SBATCH --error=seg_err.txt
 #
 #SBATCH --ntasks=23
-#SBATCH --cpus-per-task=1
+#SBATCH --cpus-per-task=2
 #SBATCH --time=0
-#SBATCH --time-min=10:0:0
+#SBATCH --time-min=12:0:0
 #SBATCH --mem-per-cpu=4000
 
 module load freesurfer
 
 PROJECT_DIR=$HOME/Epilepsy-dMRI-VNS # It works only in a working directory in which the project is in Home
 export SUBJECTS_DIR=$PROJECT_DIR/seg_subjs
+
+mkdir $PROJECT_DIR/seg_subjs
+mkdir $PROJECT_DIR/src/outputs
+rm $PROJECT_DIR/src/outputs/*
 
 srun python3 $PROJECT_DIR/src/seg_job.py
 
