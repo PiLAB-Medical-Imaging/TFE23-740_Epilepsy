@@ -179,7 +179,7 @@ def find_tract(subj_folder_path, subj_id, seed_images, inclusions, inclusions_or
     tck_path = subj_folder_path+"/dMRI/tractography/"+output_name+".tck"
     process = None
 
-    bashCommand = ("tckgen -nthreads 4 -algorithm iFOD2 -select 1000 -seeds 500k -max_attempts_per_seed 1000 -angle 45 -cutoff 0.1 -seed_unidirectional -stop -fslgrad " +
+    bashCommand = ("tckgen -nthreads 4 -algorithm iFOD2 -select 1000 -seeds 500k -max_attempts_per_seed 1000 -angle 40 -cutoff 0.2 -seed_unidirectional -stop -fslgrad " +
                    subj_folder_path + "/dMRI/preproc/"+subj_id+"_dmri_preproc.bvec " +
                    subj_folder_path + "/dMRI/preproc/"+subj_id+"_dmri_preproc.bval")
     
@@ -242,7 +242,7 @@ def main():
         if extract_roi:
 
             # Do the registration to extract ROI from atlases
-            #registration(folder_path, p_code)
+            registration(folder_path, p_code)
 
             # Extract ROI from freesurfer segmentation
             # check if the freesurfer segmentation exist, otherwise skip subject
@@ -256,7 +256,6 @@ def main():
         roi_names = get_mask(subj_folder_path+"/masks")
 
         ########### TRACTOGRAPHY ##########
-        threads = [] # to run all the tractographies in parallel
         for zone in tracts.keys():
             for side in ["left", "right"]:
                 opts = {}
@@ -270,25 +269,16 @@ def main():
 
                 if zone != "thalamocortical":
                     # fornix and stria_terminalis case
-                        t = Thread(target=find_tract, args=(copy.deepcopy(subj_folder_path), copy.deepcopy(p_code), copy.deepcopy(opts["seed_images"]), copy.deepcopy(opts["include"]), copy.deepcopy(opts["include_ordered"]), copy.deepcopy(opts["exclude"]), side+"-"+zone))
-                        t.start()
-                        threads.append(t)
+                    find_tract(copy.deepcopy(subj_folder_path), copy.deepcopy(p_code), copy.deepcopy(opts["seed_images"]), copy.deepcopy(opts["include"]), copy.deepcopy(opts["include_ordered"]), copy.deepcopy(opts["exclude"]), side+"-"+zone)
                 else:
                     # thalamus cortical tractography
                     for ctx_roi in roi_names[side].values():
                         if ctx_roi.isCortex:
-                            if ctx_roi.name == "caudalanteriorcingulate" or ctx_roi.name == "insula":
-                                opts["include"].append(ctx_roi.path)
+                            opts["include"].append(ctx_roi.path)
 
-                                t = Thread(target=find_tract, args=(copy.deepcopy(subj_folder_path), copy.deepcopy(p_code), copy.deepcopy(opts["seed_images"]), copy.deepcopy(opts["include"]), copy.deepcopy(opts["include_ordered"]), copy.deepcopy(opts["exclude"]), side+"-"+zone+"-"+ctx_roi.name))
-                                t.start()
-                                threads.append(t)
+                            find_tract(copy.deepcopy(subj_folder_path), copy.deepcopy(p_code), copy.deepcopy(opts["seed_images"]), copy.deepcopy(opts["include"]), copy.deepcopy(opts["include_ordered"]), copy.deepcopy(opts["exclude"]), side+"-"+zone+"-"+ctx_roi.name)
 
-                                opts["include"].pop() # remove the added ctx seg to analyze the next one
-        
-        #### Wait till the end of the threads
-        for t in threads:
-            t.join()
+                            opts["include"].pop() # remove the added ctx seg to analyze the next one
 
 if __name__ == "__main__":
     exit(main())

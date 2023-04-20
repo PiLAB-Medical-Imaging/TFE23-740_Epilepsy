@@ -8,8 +8,7 @@
 #
 #SBATCH --ntasks=23
 #SBATCH --cpus-per-task=2
-#SBATCH --time=0
-#SBATCH --time-min=12:0:0
+#SBATCH --time=24:00:00
 #SBATCH --mem-per-cpu=4096
 
 module load freesurfer
