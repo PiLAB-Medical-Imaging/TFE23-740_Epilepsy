@@ -21,31 +21,66 @@ class ROI:
 
     def __str__(self) -> str:
         return self.path
+    
+frontalLobe = ["superiorfrontal", "rostralmiddlefrontal", "caudalmiddlefrontal", "parsopercularis", "parsorbitalis", "parstriangularis", "lateralorbitofrontal", "medialorbitofrontal", "precentral", "paracentral", "frontalpole"]
+
+temporalLobe = ["superiortemporal", "middletemporal", "inferiortemporal", "bankssts", "fusiform", "transversetemporal", "entorhinal", "temporalpole", "parahippocampal"]
+
+occipitalLobe = ["lateraloccipital", "lingual", "cuneus", "pericalcarine"]
 
 tracts = {"stria_terminalis":
             {
                 "seed_images": ["amygdala"],
                 "include" : [],
-                "include_ordered" : ["fornixST", "BNST"],
-                "exclude" : ["hippocampus", "fornix"]
+                "include_ordered" : ["fornixST", "fornix", "BNST"],
+                "exclude" : ["hippocampus", "thalamus", "lateral-ventricle", "Inf-Lat-Vent", "Caudate", "Putamen", "Pallidum", "CSF", "Accumbens-area"]
             },
           "fornix":
             {
                 "seed_images": ["hippocampus"],
                 "include" : [],
-                "include_ordered" : ["fornixST", "fornix"],
-                "exclude" : ["amygdala", "BNST", "thalamus"]
+                "include_ordered" : ["fornixST", "fornix", "mammillaryBody"], 
+                "exclude" : ["amygdala", "thalamus", "lateral-ventricle", "Inf-Lat-Vent", "Caudate", "Putamen", "Pallidum", "CSF", "Accumbens-area"]
             },
-          "thalamocortical": {
+            "thalamus-AntCingCtx":
+            {
                 "seed_images": ["thalamus"],
+                "include" : ["rostralanteriorcingulate", "rostralmiddlefrontal"],
+                "include_ordered" : [],
+                "exclude" : []
+            },
+            "thalamus-Insula":
+            {
+                "seed_images": ["thalamus"],
+                "include" : ["insula"],
+                "include_ordered" : [],
+                "exclude" : []
+            },
+            # For Association fibers, info taken from Wikipedia and Freesurfer
+            "sup-longi-fasci":{ 
+                "seed_images" : frontalLobe,
+                "include" : occipitalLobe
+            },
+            "inf-longi-fasci":{ 
+                "seed_images" : occipitalLobe,
+                "include" : temporalLobe
+            },
+            "inf-longi-fasci":{ 
+                "seed_images" : occipitalLobe,
+                "include" : frontalLobe
             },
           }
 
 roi_freesurfer = {
     "hippocampus" : [17, 53],
     "amygdala" : [18, 54],
-    "ventral-DC" : [28, 60],
     "thalamus" : [10, 49],
+    "lateral-ventricles" : [4, 43, 5, 44],
+    "caudate" : [11, 50],
+    "putamen" : [12, 51],
+    "pallidum" : [13, 52],
+    "csf" : [24],
+    "accumbens" : [26, 58],
     "ctx-lh-interval" : [1001, 1035],
     "ctx-rh-interval" : [2001, 2035]
 }
@@ -153,15 +188,20 @@ def get_mask(mask_path):
                 continue
     
             roiName = fileName.split("_")[1].lower().split("-")
+            if "left" not in roiName and "right" not in roiName and "lh" not in roiName and "rh" not in roiName and "both" not in roiName:
+                if roiName[0] == "csf" or len(roiName) >= 2 :
+                    roiName.insert(0, "both")
+                else :
+                    continue
             if len(roiName) < 2:
-                continue
+                    continue
             name = None; side = None; isCortex = None
 
             if "ctx" != roiName[0]:
-                side, name = roiName[0], roiName[1]
+                side, name = roiName[0], "-".join(roiName[1:])
                 isCortex = False
             else :
-                side, name = roiName[1], roiName[2]
+                side, name = roiName[1], "-".join(roiName[2:])
                 side = "left" if side == "lh" else "right"
                 isCortex = True
             
@@ -181,7 +221,7 @@ def find_tract(subj_folder_path, subj_id, seed_images, inclusions, inclusions_or
     tck_path = subj_folder_path+"/dMRI/tractography/"+output_name+".tck"
     process = None
 
-    bashCommand = ("tckgen -nthreads 8 -algorithm iFOD2 -select 1000 -seeds 500k -max_attempts_per_seed 1000 -angle 42.5 -cutoff 0.12 -seed_unidirectional -stop -fslgrad " +
+    bashCommand = ("tckgen -nthreads 8 -algorithm iFOD2 -select 1000 -seeds 500k -max_attempts_per_seed 1000 -angle 42.5 -cutoff 0.12 -seed_unidirectional -stop -fslgrad -force" +
                    subj_folder_path + "/dMRI/preproc/"+subj_id+"_dmri_preproc.bvec " +
                    subj_folder_path + "/dMRI/preproc/"+subj_id+"_dmri_preproc.bval")
     
