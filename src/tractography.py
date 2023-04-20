@@ -27,25 +27,24 @@ tracts = {"stria_terminalis":
                 "seed_images": ["amygdala"],
                 "include" : [],
                 "include_ordered" : ["fornixST", "BNST"],
-                "exclude" : ["hippocampus", "fornix"] #"lateral-ventricle"]
+                "exclude" : ["hippocampus", "fornix"]
             },
           "fornix":
             {
                 "seed_images": ["hippocampus"],
-                "include" : [], # TODO check se va bene accumus area per i mammilary body
+                "include" : [],
                 "include_ordered" : ["fornixST", "fornix"],
                 "exclude" : ["amygdala", "BNST", "thalamus"]
             },
           "thalamocortical": {
                 "seed_images": ["thalamus"],
             },
-          ## TODO thing about the association fibers
           }
 
 roi_freesurfer = {
     "hippocampus" : [17, 53],
     "amygdala" : [18, 54],
-    "lateral-ventricle" : [4, 43],
+    "ventral-DC" : [28, 60],
     "thalamus" : [10, 49],
     "ctx-lh-interval" : [1001, 1035],
     "ctx-rh-interval" : [2001, 2035]
@@ -85,9 +84,12 @@ def get_freesurfer_roi_names():
 
 def freesurfer_mask_extraction(folder_path, seg_path, subj_id):
     for num, name in roi_num_name.items():
-        cmd = "mri_extract_label -exit_none_found %s/%s/mri/aparc+aseg.mgz %d %s/subjects/%s/masks/%s_%s_aparc+aseg.nii.gz" % (seg_path, subj_id, num, folder_path, subj_id, subj_id, name)
+        out_path = "%s/subjects/%s/masks/%s_%s_aparc+aseg.nii.gz" % (folder_path, subj_id, subj_id, name)
+        cmd = "mri_extract_label -exit_none_found %s/%s/mri/aparc+aseg.mgz %d %s" % (seg_path, subj_id, num, out_path)
         process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
         process.wait()
+        if process.returncode != 0:
+            os.remove(out_path)
 
 def registration(folder_path, subj_id):
 
@@ -179,7 +181,7 @@ def find_tract(subj_folder_path, subj_id, seed_images, inclusions, inclusions_or
     tck_path = subj_folder_path+"/dMRI/tractography/"+output_name+".tck"
     process = None
 
-    bashCommand = ("tckgen -nthreads 4 -algorithm iFOD2 -select 1000 -seeds 500k -max_attempts_per_seed 1000 -angle 40 -cutoff 0.2 -seed_unidirectional -stop -fslgrad " +
+    bashCommand = ("tckgen -nthreads 8 -algorithm iFOD2 -select 1000 -seeds 500k -max_attempts_per_seed 1000 -angle 42.5 -cutoff 0.12 -seed_unidirectional -stop -fslgrad " +
                    subj_folder_path + "/dMRI/preproc/"+subj_id+"_dmri_preproc.bvec " +
                    subj_folder_path + "/dMRI/preproc/"+subj_id+"_dmri_preproc.bval")
     
@@ -201,6 +203,8 @@ def find_tract(subj_folder_path, subj_id, seed_images, inclusions, inclusions_or
     process.wait()
 
     ############ CONVERSION TCK -> TRK #################              
+    if not os.path.isfile(tck_path) or process.returncode != 0: # only if there was an error during the tractography, to not block everything
+        return
     print("Converting %s" % tck_path)
     tract = load_tractogram(tck_path, subj_folder_path+"/dMRI/preproc/"+subj_id+"_dmri_preproc.nii.gz")
     save_trk(tract, tck_path[:-3]+'trk')
@@ -261,11 +265,20 @@ def main():
                 opts = {}
                 opts["seed_images"] = []; opts["include"] = []; opts["include_ordered"] = []; opts["exclude"] = []
 
+                areAllROIs = True
+
                 # convert the option in path of the associated file
                 for opt, rois in tracts[zone].items():
                     for roi in rois:
                         # find the file name inside the roi_names
+                        if roi.lower() not in roi_names[side]:
+                            print("Mask of roi %s isn't found: skipping it" % (roi.lower()))
+                            areAllROIs = False
+                            continue
                         opts[opt].append(roi_names[side][roi.lower()].path)
+                
+                if not areAllROIs: # All the mask must be present
+                    continue
 
                 if zone != "thalamocortical":
                     # fornix and stria_terminalis case
