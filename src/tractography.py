@@ -21,56 +21,71 @@ class ROI:
 
     def __str__(self) -> str:
         return self.path
-    
-frontalLobe = ["superiorfrontal", "rostralmiddlefrontal", "caudalmiddlefrontal", "parsopercularis", "parsorbitalis", "parstriangularis", "lateralorbitofrontal", "medialorbitofrontal", "precentral", "paracentral", "frontalpole"]
 
-temporalLobe = ["superiortemporal", "middletemporal", "inferiortemporal", "bankssts", "fusiform", "transversetemporal", "entorhinal", "temporalpole", "parahippocampal"]
+tracts = {
+        # Non conto lo Stria-Terminalis ma devo scriverlo nella tesi che non l'ho messo.. la ragione e qualche foto
+        # "stria_terminalis":
+        #     {
+        #         "seed_images": ["amygdala"],
+        #         "include" : [],
+        #         "include_ordered" : ["fornixST", "fornix", "BNST"],
+        #         "exclude" : ["hippocampus", "thalamus", "lateral-ventricle", "Inf-Lat-Vent", "Caudate", "Putamen", "Pallidum", "CSF", "Accumbens-area", "3rd-Ventricle"]
+        #     }
 
-occipitalLobe = ["lateraloccipital", "lingual", "cuneus", "pericalcarine"]
-
-tracts = {"stria_terminalis":
-            {
-                "seed_images": ["amygdala"],
-                "include" : [],
-                "include_ordered" : ["fornixST", "fornix", "BNST"],
-                "exclude" : ["hippocampus", "thalamus", "lateral-ventricle", "Inf-Lat-Vent", "Caudate", "Putamen", "Pallidum", "CSF", "Accumbens-area"]
-            },
-          "fornix":
+        "fornix":
             {
                 "seed_images": ["hippocampus"],
                 "include" : [],
-                "include_ordered" : ["fornixST", "fornix", "mammillaryBody"], 
-                "exclude" : ["amygdala", "thalamus", "lateral-ventricle", "Inf-Lat-Vent", "Caudate", "Putamen", "Pallidum", "CSF", "Accumbens-area"]
+                "include_ordered" : ["fornixST", "fornix"], 
+                "exclude" : ["thalamus", "lateral-ventricle", "Inf-Lat-Vent", "Caudate", "Putamen", "Pallidum", "CSF", "Accumbens-area"], #"3rd-Ventricle"],
+                "angle" : 42.5,
+                "cutoff" : 0.12,
             },
-            "thalamus-AntCingCtx":
+
+        "thalamus-AntCingCtx":
             {
                 "seed_images": ["thalamus"],
-                "include" : ["rostralanteriorcingulate", "rostralmiddlefrontal"],
-                "include_ordered" : [],
-                "exclude" : []
+                "include" : ["frontal-cingulate"],
+                "act" : True,
+                "angle" : 42.5,
+                "cutoff" : 0.12,
             },
-            "thalamus-Insula":
+        "thalamus-Insula":
             {
                 "seed_images": ["thalamus"],
                 "include" : ["insula"],
-                "include_ordered" : [],
-                "exclude" : []
+                "act" : True,
             },
-            # For Association fibers, info taken from Wikipedia and Freesurfer
-            "sup-longi-fasci":{ 
-                "seed_images" : frontalLobe,
-                "include" : occipitalLobe
+
+        "sup-longi-fasci":
+            { 
+                "seed_images" : ["frontal-lobe"],
+                "include" : ["parietal-lobe"],
+                "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
+                "angle" : 15,
+                "cutoff" : 0.09
             },
-            "inf-longi-fasci":{ 
-                "seed_images" : occipitalLobe,
-                "include" : temporalLobe
+        "inf-longi-fasci":
+            { 
+                "seed_images" : ["occipital-lobe"],
+                "include" : ["temporal-lobe"],
+                "masks" : ["cerebral-white-matter", "occipital-lobe", "temporal-lobe"],
+                "angle" : 15,
+                "cutoff" : 0.09
             },
-            "inf-longi-fasci":{ 
-                "seed_images" : occipitalLobe,
-                "include" : frontalLobe
-            },
+
+        # Non conto l'Inferior front-occipital ma devo scriverlo nella tesi xche non l'ho messo.. la ragione e qualche foto
+        # "inf-front-occipital-fasci":
+        #     { 
+        #         "seed_images" : ["frontal-lobe"],
+        #         "include" : ["occipital-lobe"],
+        #         "masks" : ["cerebral-white-matter", "frontal-lobe", "occipital-lobe"],
+        #         "angle" : 15,
+        #         "cutoff" : 0.09
+        #     },
           }
 
+# Freesurfer LUT: https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/AnatomicalROI/FreeSurferColorLUT
 roi_freesurfer = {
     "hippocampus" : [17, 53],
     "amygdala" : [18, 54],
@@ -81,19 +96,34 @@ roi_freesurfer = {
     "pallidum" : [13, 52],
     "csf" : [24],
     "accumbens" : [26, 58],
-    "ctx-lh-interval" : [1001, 1035],
-    "ctx-rh-interval" : [2001, 2035]
+    "3rd-ventricle" : [14],
+    "insula" : [1035, 2035],
+    "wm" : [2, 41],
+
+    # Union region
+    "Left-Frontal-Cingulate" : [1026, 1002],
+    "Right-Frontal-Cingulate" : [2026, 2002],
+    # Lobe informations taken from:
+    # Freesurfer: https://surfer.nmr.mgh.harvard.edu/fswiki/CorticalParcellation
+    # Wikipedia: https://en.wikipedia.org/wiki/Association_fiber
+    "Left-Frontal-Lobe" : [1028, 1027, 1003, 1018, 1019, 1020, 1012, 1014, 1024, 1017, 1032],
+    "Right-Frontal-Lobe" : [2028, 2027, 2003, 2018, 2019, 2020, 2012, 2014, 2024, 2017, 2032],
+    "Left-Temporal-Lobe" : [1030, 1015, 1009, 1001, 1007, 1034, 1006, 1033, 1016],
+    "Right-Temporal-Lobe" : [2030, 2015, 2009, 2001, 2007, 2034, 2006, 2033, 2016],
+    "Left-Parietal-Lobe" : [1008, 1029, 1031, 1022, 1025],
+    "Right-Parietal-Lobe" : [2008, 2029, 2031, 2022, 2025],
+    "Left-Occipital-Lobe" : [1011, 1013, 1005, 1021],
+    "Right-Occipital-Lobe" : [2011, 2013, 2005, 2021]
 }
 roi_num_name = {}
 
 def expand_roi():
     roi_nums_tot = []
     for name, roi_numbers in roi_freesurfer.items():
-        if "interval" not in name:
-            for roi_num in roi_numbers:
-                roi_nums_tot.append(roi_num)
-        else:
-            roi_nums_tot.extend(list(range(roi_numbers[0], roi_numbers[1]+1)))
+        if "lobe" in name.lower() or "cingulate" in name.lower():
+            continue 
+        for roi_num in roi_numbers:
+            roi_nums_tot.append(roi_num)
     return roi_nums_tot
 
 def get_freesurfer_roi_names():
@@ -125,6 +155,16 @@ def freesurfer_mask_extraction(folder_path, seg_path, subj_id):
         process.wait()
         if process.returncode != 0:
             os.remove(out_path)
+
+    for name, roi_numbers in roi_freesurfer.items():
+        if "lobe" in name.lower() or "cingulate" in name.lower():
+            roi_numbers_string = " ".join(str(i) for i in roi_numbers)
+            out_path = "%s/subjects/%s/masks/%s_%s_aparc+aseg.nii.gz" % (folder_path, subj_id, subj_id, name)
+            cmd = "mri_extract_label -exit_none_found %s/%s/mri/aparc+aseg.mgz %s %s" % (seg_path, subj_id, roi_numbers_string, out_path)
+            process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+            process.wait()
+            if process.returncode != 0:
+                os.remove(out_path)
 
 def registration(folder_path, subj_id):
 
@@ -214,16 +254,24 @@ def get_mask(mask_path):
 
     return roi_names
 
-def find_tract(subj_folder_path, subj_id, seed_images, inclusions, inclusions_ordered, exclusions, output_name):
+def find_tract(subj_folder_path, subj_id, seed_images, inclusions, inclusions_ordered, exclusions, masks, angle, cutoff, stop, act, output_name):
     """
     It's a function that build the bashCommands for the tckgen of mrtrix3 and generate the tracts
     """
     tck_path = subj_folder_path+"/dMRI/tractography/"+output_name+".tck"
     process = None
 
-    bashCommand = ("tckgen -nthreads 8 -algorithm iFOD2 -select 1000 -seeds 500k -max_attempts_per_seed 1000 -angle 42.5 -cutoff 0.12 -seed_unidirectional -stop -fslgrad -force" +
-                   subj_folder_path + "/dMRI/preproc/"+subj_id+"_dmri_preproc.bvec " +
-                   subj_folder_path + "/dMRI/preproc/"+subj_id+"_dmri_preproc.bval")
+    bashCommand = "tckgen -nthreads 8 -algorithm iFOD2 -select 1000 -seeds 1M -max_attempts_per_seed 1000 -seed_unidirectional -force"
+
+    if stop:
+        bashCommand += " -stop"
+    if act:
+        bashCommand += " -act " + subj_folder_path + "/dMRI/5tt/subj00_5tt.nii.gz"
+
+    bashCommand += " -angle " + str(angle)
+    bashCommand += " -cutoff " + str(cutoff)
+    bashCommand += (" -fslgrad " + subj_folder_path + "/dMRI/preproc/"+subj_id+"_dmri_preproc.bvec " +
+                                   subj_folder_path + "/dMRI/preproc/"+subj_id+"_dmri_preproc.bval")
     
     for region in seed_images:
         bashCommand += " -seed_image " + region
@@ -233,6 +281,8 @@ def find_tract(subj_folder_path, subj_id, seed_images, inclusions, inclusions_or
         bashCommand += " -include_ordered " + region
     for region in exclusions:
         bashCommand += " -exclude " + region
+    for region in masks:
+        bashCommand += " -mask " + region
 
     bashCommand += " " + subj_folder_path + "/dMRI/ODF/MSMT-CSD/"+subj_id+"_MSMT-CSD_WM_ODF.nii.gz " + tck_path
     
@@ -242,8 +292,10 @@ def find_tract(subj_folder_path, subj_id, seed_images, inclusions, inclusions_or
     process = subprocess.Popen(bashCommand, stdout=subprocess.PIPE, shell=True)
     process.wait()
 
-    ############ CONVERSION TCK -> TRK #################              
-    if not os.path.isfile(tck_path) or process.returncode != 0: # only if there was an error during the tractography, to not block everything
+    return tck_path
+
+def convertTck2Trk(subj_folder_path, subj_id, tck_path):
+    if not os.path.isfile(tck_path): # only if there was an error during the tractography, to not block everything
         return
     print("Converting %s" % tck_path)
     tract = load_tractogram(tck_path, subj_folder_path+"/dMRI/preproc/"+subj_id+"_dmri_preproc.nii.gz")
@@ -271,7 +323,7 @@ def main():
     with open(dest_success, 'r') as file:
         patient_list = json.load(file)
 
-    # TODO change to patient_list
+    # TODO change to patient_list [Leggere thread pools]
     for p_code in ["subj00"]:
 
         subj_folder_path = folder_path + '/subjects/' + p_code
@@ -286,7 +338,7 @@ def main():
         if extract_roi:
 
             # Do the registration to extract ROI from atlases
-            registration(folder_path, p_code)
+            # registration(folder_path, p_code)
 
             # Extract ROI from freesurfer segmentation
             # check if the freesurfer segmentation exist, otherwise skip subject
@@ -303,35 +355,78 @@ def main():
         for zone in tracts.keys():
             for side in ["left", "right"]:
                 opts = {}
-                opts["seed_images"] = []; opts["include"] = []; opts["include_ordered"] = []; opts["exclude"] = []
+
+                opts["seed_images"] = []
+                opts["include"] = []
+                opts["include_ordered"] = []
+                opts["exclude"] = []
+                opts["masks"] = []
+                opts["angle"] = 45
+                opts["cutoff"] = 0.1
+                opts["stop"] = True
+                opts["act"] = False
 
                 areAllROIs = True
 
                 # convert the option in path of the associated file
                 for opt, rois in tracts[zone].items():
-                    for roi in rois:
-                        # find the file name inside the roi_names
-                        if roi.lower() not in roi_names[side]:
-                            print("Mask of roi %s isn't found: skipping it" % (roi.lower()))
-                            areAllROIs = False
-                            continue
-                        opts[opt].append(roi_names[side][roi.lower()].path)
+                    if type(rois) is list:
+                        for roi in rois:
+                            # find the file name inside the roi_names
+                            if roi.lower() not in roi_names[side]:
+                                print("Mask of roi %s isn't found: skipping it" % (roi.lower()))
+                                areAllROIs = False
+                                continue
+                            opts[opt].append(roi_names[side][roi.lower()].path)
+                    elif type(rois) is int or type(rois) is float or type(rois) is bool:
+                        opts[opt] = rois
                 
                 if not areAllROIs: # All the mask must be present
                     continue
 
-                if zone != "thalamocortical":
-                    # fornix and stria_terminalis case
-                    find_tract(copy.deepcopy(subj_folder_path), copy.deepcopy(p_code), copy.deepcopy(opts["seed_images"]), copy.deepcopy(opts["include"]), copy.deepcopy(opts["include_ordered"]), copy.deepcopy(opts["exclude"]), side+"-"+zone)
-                else:
-                    # thalamus cortical tractography
-                    for ctx_roi in roi_names[side].values():
-                        if ctx_roi.isCortex:
-                            opts["include"].append(ctx_roi.path)
+                if len(opts["include_ordered"]) > 0 and len(opts["seed_images"]) > 1:
+                    print("The case of more seed_regions and an ordered list of regions is not handled by this program")
+                    continue
 
-                            find_tract(copy.deepcopy(subj_folder_path), copy.deepcopy(p_code), copy.deepcopy(opts["seed_images"]), copy.deepcopy(opts["include"]), copy.deepcopy(opts["include_ordered"]), copy.deepcopy(opts["exclude"]), side+"-"+zone+"-"+ctx_roi.name)
+                output_name = side+"-"+zone
+                output_path = subj_folder_path+"/dMRI/tractography/"+output_name+".tck"
 
-                            opts["include"].pop() # remove the added ctx seg to analyze the next one
+                # Check for act files (5TT)
+                path_5tt = subj_folder_path + "/dMRI/5tt/subj00_5tt.nii.gz"
+                if opts["act"] == True and not os.path.isfile(path_5tt):
+                    seg_path = get_segmentation(sys.argv)
+                    colorLUT = os.getenv('FREESURFER_HOME') + "/FreeSurferColorLUT.txt"
+                    bashCommand = "5ttgen freesurfer -lut %s -nocrop %s %s " % (seg_path + "/" + p_code + "/mri/aparc+aseg.mgz", path_5tt, colorLUT)
+                    process = subprocess.Popen(bashCommand, stdout=subprocess.PIPE, shell=True)
+                    process.wait()
+
+                # forward
+                output_path_forward = find_tract(subj_folder_path, p_code, opts["seed_images"], opts["include"], opts["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_to.tmp")
+
+                optsReverse = {}
+                if len(opts["include_ordered"]) == 0: 
+                    optsReverse["seed_images"] = opts["include"]
+                    optsReverse["include"] = opts["seed_images"]
+                    optsReverse["include_ordered"] = []
+                elif len(opts["seed_images"]) == 1:
+                    optsReverse["seed_images"] = []
+                    optsReverse["seed_images"].append(opts["include_ordered"][-1])
+                    optsReverse["include_ordered"] = opts["include_ordered"][::-1][1:]
+                    optsReverse["include_ordered"].extend(opts["seed_images"])
+                    optsReverse["include"] = []
+
+                # backward
+                output_path_backward = find_tract(subj_folder_path, p_code, optsReverse["seed_images"], optsReverse["include"], optsReverse["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_from.tmp")
+
+                # select both tracks 
+                if os.path.isfile(output_path_forward) and os.path.isfile(output_path_backward):
+                    cmd = "tckedit -force %s %s %s" % (output_path_forward, output_path_backward, output_path)
+                    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+                    process.wait()
+
+                    os.remove(output_path_forward); os.remove(output_path_backward)
+
+                    convertTck2Trk(subj_folder_path, p_code, output_path)
 
 if __name__ == "__main__":
     exit(main())

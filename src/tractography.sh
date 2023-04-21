@@ -10,6 +10,13 @@
 #SBATCH --output=trk_out.txt
 #SBATCH --error=trk_err.txt
 
+module load freesurfer
+
 PROJECT_DIR=$HOME/Epilepsy-dMRI-VNS # It works only in a working directory in which the project is in Home
+export SUBJECTS_DIR=$PROJECT_DIR/seg_subjs
+
+mkdir $PROJECT_DIR/seg_subjs
+mkdir $PROJECT_DIR/src/outputs
+rm $PROJECT_DIR/src/outputs/*
 
 srun python3 $PROJECT_DIR/src/tractography.py
