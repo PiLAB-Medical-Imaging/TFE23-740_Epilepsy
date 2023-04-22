@@ -37,7 +37,7 @@ tracts = {
                 "seed_images": ["hippocampus"],
                 "include" : [],
                 "include_ordered" : ["fornixST", "fornix"], 
-                "exclude" : ["thalamus", "lateral-ventricle", "Inf-Lat-Vent", "Caudate", "Putamen", "Pallidum", "CSF", "Accumbens-area"], #"3rd-Ventricle"],
+                "exclude" : ["thalamus", "lateral-ventricle", "Inf-Lat-Vent", "Caudate", "Putamen", "Pallidum", "CSF", "Accumbens-area", "3rd-Ventricle"],
                 "angle" : 42.5,
                 "cutoff" : 0.12,
             },
@@ -45,16 +45,16 @@ tracts = {
         "thalamus-AntCingCtx":
             {
                 "seed_images": ["thalamus"],
-                "include" : ["frontal-cingulate"],
-                "act" : True,
-                "angle" : 42.5,
-                "cutoff" : 0.12,
+                "include_ordered" : ["aboveCC", "frontal-cingulate"],
+                "exclude" : ["Lateral-Ventricle", "caudate-dilated-3", "putamen-dilated-3", "pallidum-dilated-3", "csf"],
+                "angle" : 30
             },
         "thalamus-Insula":
             {
                 "seed_images": ["thalamus"],
                 "include" : ["insula"],
-                "act" : True,
+                "exclude" : ["Lateral-Ventricle", "Inf-Lat-Vent", "Caudate", "Putamen", "Pallidum", "Hippocampus", "Amygdala", "CSF", "occipital-lobe-dilated-5", "parietal-lobe-dilated-5", "frontalNoOrbito-lobe-dilated-5"],
+                "angle" : 30
             },
 
         "sup-longi-fasci":
@@ -113,9 +113,20 @@ roi_freesurfer = {
     "Left-Parietal-Lobe" : [1008, 1029, 1031, 1022, 1025],
     "Right-Parietal-Lobe" : [2008, 2029, 2031, 2022, 2025],
     "Left-Occipital-Lobe" : [1011, 1013, 1005, 1021],
-    "Right-Occipital-Lobe" : [2011, 2013, 2005, 2021]
+    "Right-Occipital-Lobe" : [2011, 2013, 2005, 2021],
+
+    "Left-FrontalNoOrbito-Lobe" : [1028, 1027, 1012, 1003, 1019, 1017, 1032],
+    "Right-FrontalNoOrbito-Lobe" : [2028, 2027, 2012, 2003, 2019, 2017, 2032],
 }
 roi_num_name = {}
+dilatations = {
+    "parietal-lobe" : 5,
+    "occipital-lobe" : 5,
+    "frontalNoOrbito-lobe" : 5,
+    "putamen" : 3,
+    "caudate" : 3,
+    "pallidum" : 3,
+}
 
 def expand_roi():
     roi_nums_tot = []
@@ -165,6 +176,25 @@ def freesurfer_mask_extraction(folder_path, seg_path, subj_id):
             process.wait()
             if process.returncode != 0:
                 os.remove(out_path)
+
+    masks_path = "%s/subjects/%s/masks" % (folder_path, subj_id)
+    file_extracted_names = os.listdir(masks_path)
+    for file_name in file_extracted_names:
+        file_path = masks_path + "/" + file_name
+        ext = "."+".".join(file_name.split(".")[-2:])
+        if os.path.isfile(file_path) and ext == ".nii.gz":
+            roi_name = "-".join(file_name.split("_")[1].split("-")[1:]).lower()
+
+            for roi_dila in dilatations.keys():
+                if roi_dila.lower() == roi_name.lower():
+                    dilatation_cicle = dilatations[roi_dila]
+                    dilated_roi_name = file_name.split("_")[1] + "-dilated-" + str(dilatation_cicle)
+                    output_path = "%s/subjects/%s/masks/%s_%s_aparc+aseg.nii.gz" % (folder_path, subj_id, subj_id, dilated_roi_name)
+
+                    cmd = "maskfilter -force -npass %d %s dilate %s" % (dilatation_cicle, file_path, output_path)
+                    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+                    process.wait()
+                    break
 
 def registration(folder_path, subj_id):
 
@@ -261,7 +291,7 @@ def find_tract(subj_folder_path, subj_id, seed_images, inclusions, inclusions_or
     tck_path = subj_folder_path+"/dMRI/tractography/"+output_name+".tck"
     process = None
 
-    bashCommand = "tckgen -nthreads 8 -algorithm iFOD2 -select 1000 -seeds 1M -max_attempts_per_seed 1000 -seed_unidirectional -force"
+    bashCommand = "tckgen -nthreads 8 -algorithm iFOD2 -select 1000 -seeds 500k -max_attempts_per_seed 1000 -seed_unidirectional -force"
 
     if stop:
         bashCommand += " -stop"
@@ -338,7 +368,7 @@ def main():
         if extract_roi:
 
             # Do the registration to extract ROI from atlases
-            # registration(folder_path, p_code)
+            registration(folder_path, p_code)
 
             # Extract ROI from freesurfer segmentation
             # check if the freesurfer segmentation exist, otherwise skip subject
@@ -391,12 +421,13 @@ def main():
                 output_name = side+"-"+zone
                 output_path = subj_folder_path+"/dMRI/tractography/"+output_name+".tck"
 
-                # Check for act files (5TT)
+                # TODO Check for act files (5TT)
                 path_5tt = subj_folder_path + "/dMRI/5tt/subj00_5tt.nii.gz"
                 if opts["act"] == True and not os.path.isfile(path_5tt):
                     seg_path = get_segmentation(sys.argv)
                     colorLUT = os.getenv('FREESURFER_HOME') + "/FreeSurferColorLUT.txt"
-                    bashCommand = "5ttgen freesurfer -lut %s -nocrop %s %s " % (seg_path + "/" + p_code + "/mri/aparc+aseg.mgz", path_5tt, colorLUT)
+                    bashCommand = "5ttgen freesurfer %s %s" % (seg_path + "/" + p_code + "/mri/aparc+aseg.mgz", path_5tt, colorLUT)
+                    print(bashCommand)
                     process = subprocess.Popen(bashCommand, stdout=subprocess.PIPE, shell=True)
                     process.wait()
 
