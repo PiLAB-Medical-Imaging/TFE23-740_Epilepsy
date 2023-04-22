@@ -2,14 +2,13 @@ import sys
 import os
 import subprocess
 import json
-import copy
-
 import elikopy
 import elikopy.utils
+
 from dipy.io.streamline import load_tractogram, save_trk
 from regis.core import find_transform, apply_transform
 from params import get_folder, get_segmentation
-from threading import Thread, Semaphore
+from multiprocessing.pool import ThreadPool
 
 # absolute_path = os.path.dirname(__file__) # return the abs path of the folder of this file, wherever it is
 
@@ -331,6 +330,112 @@ def convertTck2Trk(subj_folder_path, subj_id, tck_path):
     tract = load_tractogram(tck_path, subj_folder_path+"/dMRI/preproc/"+subj_id+"_dmri_preproc.nii.gz")
     save_trk(tract, tck_path[:-3]+'trk')
 
+def compute_tracts(p_code, folder_path, extract_roi, seg_path):
+    subj_folder_path = folder_path + '/subjects/' + p_code
+        
+    # check if the ODF exist for the subject, otherwise skip subject
+    if not os.path.isdir(subj_folder_path + "/dMRI/ODF/MSMT-CSD/") :
+        print("multi-tissue orientation distribution function is not found for patient: %s" % (p_code))
+        return
+
+    ############# ROI EXTRACTION ############
+
+    if extract_roi:
+
+        # Do the registration to extract ROI from atlases
+        registration(folder_path, p_code)
+
+        # Extract ROI from freesurfer segmentation
+        # check if the freesurfer segmentation exist, otherwise skip subject
+        # Here we are assuming that the segmentation is already done
+        if not os.path.isdir(seg_path + "/" + p_code + "/mri"):
+            print("freesurfer segmentation isn't found for paritent: %s" % (p_code))
+            return
+
+        freesurfer_mask_extraction(folder_path, seg_path, p_code)
+
+    roi_names = get_mask(subj_folder_path+"/masks")
+
+    ########### TRACTOGRAPHY ##########
+    for zone in tracts.keys():
+        for side in ["left", "right"]:
+            opts = {}
+
+            opts["seed_images"] = []
+            opts["include"] = []
+            opts["include_ordered"] = []
+            opts["exclude"] = []
+            opts["masks"] = []
+            opts["angle"] = 45
+            opts["cutoff"] = 0.1
+            opts["stop"] = True
+            opts["act"] = False
+
+            areAllROIs = True
+
+            # convert the option in path of the associated file
+            for opt, rois in tracts[zone].items():
+                if type(rois) is list:
+                    for roi in rois:
+                        # find the file name inside the roi_names
+                        if roi.lower() not in roi_names[side]:
+                            print("Mask of roi %s isn't found: skipping it" % (roi.lower()))
+                            areAllROIs = False
+                            continue
+                        opts[opt].append(roi_names[side][roi.lower()].path)
+                elif type(rois) is int or type(rois) is float or type(rois) is bool:
+                    opts[opt] = rois
+            
+            if not areAllROIs: # All the mask must be present
+                continue
+
+            if len(opts["include_ordered"]) > 0 and len(opts["seed_images"]) > 1:
+                print("The case of more seed_regions and an ordered list of regions is not handled by this program")
+                continue
+
+            output_name = side+"-"+zone
+            output_path = subj_folder_path+"/dMRI/tractography/"+output_name+".tck"
+
+            # TODO Check for act files (5TT) !!!!!!! DOESN'T WORK !!!!!!!!!
+            path_5tt = subj_folder_path + "/dMRI/5tt/subj00_5tt.nii.gz"
+            if opts["act"] == True and not os.path.isfile(path_5tt):
+                seg_path = get_segmentation(sys.argv)
+                colorLUT = os.getenv('FREESURFER_HOME') + "/FreeSurferColorLUT.txt"
+                bashCommand = "5ttgen freesurfer %s %s" % (seg_path + "/" + p_code + "/mri/aparc+aseg.mgz", path_5tt, colorLUT)
+                print(bashCommand)
+                process = subprocess.Popen(bashCommand, stdout=subprocess.PIPE, shell=True)
+                process.wait()
+
+            # forward
+            output_path_forward = find_tract(subj_folder_path, p_code, opts["seed_images"], opts["include"], opts["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_to.tmp")
+
+            optsReverse = {}
+            if len(opts["include_ordered"]) == 0: 
+                optsReverse["seed_images"] = opts["include"]
+                optsReverse["include"] = opts["seed_images"]
+                optsReverse["include_ordered"] = []
+            elif len(opts["seed_images"]) == 1:
+                optsReverse["seed_images"] = []
+                optsReverse["seed_images"].append(opts["include_ordered"][-1])
+                optsReverse["include_ordered"] = opts["include_ordered"][::-1][1:]
+                optsReverse["include_ordered"].extend(opts["seed_images"])
+                optsReverse["include"] = []
+
+            # backward
+            output_path_backward = find_tract(subj_folder_path, p_code, optsReverse["seed_images"], optsReverse["include"], optsReverse["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_from.tmp")
+
+            # select both tracks 
+            if os.path.isfile(output_path_forward) and os.path.isfile(output_path_backward):
+                cmd = "tckedit -force %s %s %s" % (output_path_forward, output_path_backward, output_path)
+                process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+                process.wait()
+
+                os.remove(output_path_forward); os.remove(output_path_backward)
+
+                convertTck2Trk(subj_folder_path, p_code, output_path)
+
+NTHEREADS = 8
+
 def main():
 
     ## Getting folder
@@ -343,6 +448,7 @@ def main():
         study.odf_msmtcsd()
 
     extract_roi = False
+    seg_path = ""
     if "-roi" in sys.argv[1:]:
         extract_roi = True  
         seg_path = get_segmentation(sys.argv)
@@ -353,111 +459,9 @@ def main():
     with open(dest_success, 'r') as file:
         patient_list = json.load(file)
 
-    # TODO change to patient_list [Leggere thread pools]
-    for p_code in ["subj00"]:
-
-        subj_folder_path = folder_path + '/subjects/' + p_code
-        
-        # check if the ODF exist for the subject, otherwise skip subject
-        if not os.path.isdir(subj_folder_path + "/dMRI/ODF/MSMT-CSD/") :
-            print("multi-tissue orientation distribution function is not found for patient: %s" % (p_code))
-            continue
-
-        ############# ROI EXTRACTION ############
-
-        if extract_roi:
-
-            # Do the registration to extract ROI from atlases
-            registration(folder_path, p_code)
-
-            # Extract ROI from freesurfer segmentation
-            # check if the freesurfer segmentation exist, otherwise skip subject
-            # Here we are assuming that the segmentation is already done
-            if not os.path.isdir(seg_path + "/" + p_code + "/mri"):
-                print("freesurfer segmentation isn't found for paritent: %s" % (p_code))
-                continue
-
-            freesurfer_mask_extraction(folder_path, seg_path, p_code)
-
-        roi_names = get_mask(subj_folder_path+"/masks")
-
-        ########### TRACTOGRAPHY ##########
-        for zone in tracts.keys():
-            for side in ["left", "right"]:
-                opts = {}
-
-                opts["seed_images"] = []
-                opts["include"] = []
-                opts["include_ordered"] = []
-                opts["exclude"] = []
-                opts["masks"] = []
-                opts["angle"] = 45
-                opts["cutoff"] = 0.1
-                opts["stop"] = True
-                opts["act"] = False
-
-                areAllROIs = True
-
-                # convert the option in path of the associated file
-                for opt, rois in tracts[zone].items():
-                    if type(rois) is list:
-                        for roi in rois:
-                            # find the file name inside the roi_names
-                            if roi.lower() not in roi_names[side]:
-                                print("Mask of roi %s isn't found: skipping it" % (roi.lower()))
-                                areAllROIs = False
-                                continue
-                            opts[opt].append(roi_names[side][roi.lower()].path)
-                    elif type(rois) is int or type(rois) is float or type(rois) is bool:
-                        opts[opt] = rois
-                
-                if not areAllROIs: # All the mask must be present
-                    continue
-
-                if len(opts["include_ordered"]) > 0 and len(opts["seed_images"]) > 1:
-                    print("The case of more seed_regions and an ordered list of regions is not handled by this program")
-                    continue
-
-                output_name = side+"-"+zone
-                output_path = subj_folder_path+"/dMRI/tractography/"+output_name+".tck"
-
-                # TODO Check for act files (5TT)
-                path_5tt = subj_folder_path + "/dMRI/5tt/subj00_5tt.nii.gz"
-                if opts["act"] == True and not os.path.isfile(path_5tt):
-                    seg_path = get_segmentation(sys.argv)
-                    colorLUT = os.getenv('FREESURFER_HOME') + "/FreeSurferColorLUT.txt"
-                    bashCommand = "5ttgen freesurfer %s %s" % (seg_path + "/" + p_code + "/mri/aparc+aseg.mgz", path_5tt, colorLUT)
-                    print(bashCommand)
-                    process = subprocess.Popen(bashCommand, stdout=subprocess.PIPE, shell=True)
-                    process.wait()
-
-                # forward
-                output_path_forward = find_tract(subj_folder_path, p_code, opts["seed_images"], opts["include"], opts["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_to.tmp")
-
-                optsReverse = {}
-                if len(opts["include_ordered"]) == 0: 
-                    optsReverse["seed_images"] = opts["include"]
-                    optsReverse["include"] = opts["seed_images"]
-                    optsReverse["include_ordered"] = []
-                elif len(opts["seed_images"]) == 1:
-                    optsReverse["seed_images"] = []
-                    optsReverse["seed_images"].append(opts["include_ordered"][-1])
-                    optsReverse["include_ordered"] = opts["include_ordered"][::-1][1:]
-                    optsReverse["include_ordered"].extend(opts["seed_images"])
-                    optsReverse["include"] = []
-
-                # backward
-                output_path_backward = find_tract(subj_folder_path, p_code, optsReverse["seed_images"], optsReverse["include"], optsReverse["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_from.tmp")
-
-                # select both tracks 
-                if os.path.isfile(output_path_forward) and os.path.isfile(output_path_backward):
-                    cmd = "tckedit -force %s %s %s" % (output_path_forward, output_path_backward, output_path)
-                    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
-                    process.wait()
-
-                    os.remove(output_path_forward); os.remove(output_path_backward)
-
-                    convertTck2Trk(subj_folder_path, p_code, output_path)
+    with ThreadPool(NTHEREADS) as pool:
+        args = [(p, folder_path, extract_roi, seg_path) for p in patient_list]
+        result = pool.starmap(compute_tracts, args)
 
 if __name__ == "__main__":
     exit(main())
