@@ -28,7 +28,7 @@ tracts = {
         #         "seed_images": ["amygdala"],
         #         "include" : [],
         #         "include_ordered" : ["fornixST", "fornix", "BNST"],
-        #         "exclude" : ["hippocampus", "thalamus", "lateral-ventricle", "Inf-Lat-Vent", "Caudate", "Putamen", "Pallidum", "CSF", "Accumbens-area", "3rd-Ventricle"]
+        #         "exclude" : ["hippocampus", "Thalamus-Proper", "lateral-ventricle", "Inf-Lat-Vent", "Caudate", "Putamen", "Pallidum", "CSF", "Accumbens-area", "3rd-Ventricle"]
         #     }
 
         "fornix":
@@ -36,21 +36,21 @@ tracts = {
                 "seed_images": ["hippocampus"],
                 "include" : [],
                 "include_ordered" : ["fornixST", "fornix"], 
-                "exclude" : ["thalamus", "lateral-ventricle", "Inf-Lat-Vent", "Caudate", "Putamen", "Pallidum", "CSF", "Accumbens-area", "3rd-Ventricle"],
+                "exclude" : ["Thalamus-Proper", "lateral-ventricle", "Inf-Lat-Vent", "Caudate", "Putamen", "Pallidum", "CSF", "Accumbens-area", "3rd-Ventricle"],
                 "angle" : 42.5,
                 "cutoff" : 0.12,
             },
 
         "thalamus-AntCingCtx":
             {
-                "seed_images": ["thalamus"],
+                "seed_images": ["Thalamus-Proper"],
                 "include_ordered" : ["aboveCC", "frontal-cingulate"],
                 "exclude" : ["Lateral-Ventricle", "caudate-dilated-3", "putamen-dilated-3", "pallidum-dilated-3", "csf"],
                 "angle" : 30
             },
         "thalamus-Insula":
             {
-                "seed_images": ["thalamus"],
+                "seed_images": ["Thalamus-Proper"],
                 "include" : ["insula"],
                 "exclude" : ["Lateral-Ventricle", "Inf-Lat-Vent", "Caudate", "Putamen", "Pallidum", "Hippocampus", "Amygdala", "CSF", "occipital-lobe-dilated-5", "parietal-lobe-dilated-5", "frontalNoOrbito-lobe-dilated-5"],
                 "angle" : 30
