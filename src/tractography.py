@@ -343,6 +343,11 @@ def compute_tracts(p_code, folder_path, extract_roi, seg_path):
         print("multi-tissue orientation distribution function is not found for patient: %s" % (p_code))
         return 1
 
+    if not os.path.isdir(subj_folder_path + "/dMRI/tractography/"):
+        os.mkdir(subj_folder_path + "/dMRI/tractography/")
+    if not os.path.isdir(subj_folder_path + "/masks/"):
+        os.mkdir(subj_folder_path + "/masks/")
+
     ############# ROI EXTRACTION ############
 
     if extract_roi:

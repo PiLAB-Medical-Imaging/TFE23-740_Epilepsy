@@ -6,8 +6,8 @@
 #SBATCH --output=seg_out.txt
 #SBATCH --error=seg_err.txt
 #
-#SBATCH --ntasks=23
-#SBATCH --cpus-per-task=2
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=46
 #SBATCH --time=24:00:00
 #SBATCH --mem-per-cpu=4096
 
