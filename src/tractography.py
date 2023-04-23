@@ -463,9 +463,11 @@ def main():
     with open(dest_success, 'r') as file:
         patient_list = json.load(file)
 
-    with ThreadPool(NTHEREADS) as pool:
-        args = [(p, folder_path, extract_roi, seg_path) for p in patient_list]
-        result = pool.starmap(compute_tracts, args)
+    print("mannaia la puttana")
+
+    # with ThreadPool(NTHEREADS) as pool:
+    #     args = [(p, folder_path, extract_roi, seg_path) for p in patient_list]
+    #     result = pool.starmap(compute_tracts, args)
 
 if __name__ == "__main__":
     exit(main())
