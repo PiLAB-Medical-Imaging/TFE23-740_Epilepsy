@@ -34,25 +34,22 @@ tracts = {
         "fornix":
             {
                 "seed_images": ["hippocampus"],
-                "include" : [],
                 "include_ordered" : ["fornixST", "fornix"], 
                 "exclude" : ["Thalamus-Proper", "lateral-ventricle", "Inf-Lat-Vent", "Caudate", "Putamen", "Pallidum", "CSF", "Accumbens-area", "3rd-Ventricle"],
-                "angle" : 42.5,
-                "cutoff" : 0.12,
             },
 
         "thalamus-AntCingCtx":
             {
                 "seed_images": ["Thalamus-Proper"],
                 "include_ordered" : ["aboveCC", "frontal-cingulate"],
-                "exclude" : ["Lateral-Ventricle", "caudate-dilated-3", "putamen-dilated-3", "pallidum-dilated-3", "csf"],
+                "exclude" : ["Lateral-Ventricle", "caudate-dilated-3", "putamen-dilated-3", "pallidum-dilated-3", "csf", "parietal-lobe", "frontal-lobe"],
                 "angle" : 30
             },
         "thalamus-Insula":
             {
                 "seed_images": ["Thalamus-Proper"],
                 "include" : ["insula"],
-                "exclude" : ["Lateral-Ventricle", "Inf-Lat-Vent", "Caudate", "Putamen", "Pallidum", "Hippocampus", "Amygdala", "CSF", "occipital-lobe-dilated-5", "parietal-lobe-dilated-5", "frontalNoOrbito-lobe-dilated-5"],
+                "exclude" : ["Lateral-Ventricle", "Inf-Lat-Vent", "Caudate", "Putamen", "Pallidum", "Hippocampus", "Amygdala", "CSF", "occipital-lobe-dilated-5", "parietal-lobe-dilated-5", "frontalNoOrbito-lobe-dilated-5", "superiortemporal"],
                 "angle" : 30
             },
 
@@ -98,6 +95,7 @@ roi_freesurfer = {
     "3rd-ventricle" : [14],
     "insula" : [1035, 2035],
     "wm" : [2, 41],
+    "ctx-superiortemporal" : [1030, 2030],
 
     # Union region
     "Left-Frontal-Cingulate" : [1026, 1002],
@@ -114,8 +112,8 @@ roi_freesurfer = {
     "Left-Occipital-Lobe" : [1011, 1013, 1005, 1021],
     "Right-Occipital-Lobe" : [2011, 2013, 2005, 2021],
 
-    "Left-FrontalNoOrbito-Lobe" : [1028, 1027, 1012, 1003, 1019, 1017, 1032],
-    "Right-FrontalNoOrbito-Lobe" : [2028, 2027, 2012, 2003, 2019, 2017, 2032],
+    "Left-FrontalNoOrbito-Lobe" : [1028, 1027, 1003, 1019, 1012, 1017, 1032],
+    "Right-FrontalNoOrbito-Lobe" : [2028, 2027, 2003, 2019, 2012 , 2017, 2032],
 }
 roi_num_name = {}
 dilatations = {
