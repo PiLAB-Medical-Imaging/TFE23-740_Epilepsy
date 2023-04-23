@@ -447,7 +447,7 @@ def compute_tracts(p_code, folder_path, extract_roi, seg_path):
 
                 convertTck2Trk(subj_folder_path, p_code, output_path)
 
-NTHREADS = 5
+NTHREADS = 20
 
 def main():
 
