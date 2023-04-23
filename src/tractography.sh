@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 #SBATCH --job-name=TRACKING
-#SBATCH --ntask=23
+#SBATCH --ntasks=4
 #SBATCH --cpus-per-task=4
 #SBATCH --mem-per-cpu=2048
 #SBATCH --time=24:00:00
@@ -19,4 +19,4 @@ mkdir $PROJECT_DIR/seg_subjs
 mkdir $PROJECT_DIR/src/outputs
 rm $PROJECT_DIR/src/outputs/*
 
-srun python3 $PROJECT_DIR/src/tractography.py
+srun python3 $PROJECT_DIR/src/tractography.py -f $PROJECT_DIR/study -roi -s $SUBJECTS_DIR
