@@ -2,35 +2,27 @@ import sys
 
 import elikopy
 import elikopy.utils
-from params import get_arguments
+from params import get_folder, get_model
 
-models_steps = ["all", "dti", "noddi", "diamond", "mf"]
+models = ["all", "dti", "noddi", "diamond", "mf"]
 
 def main():
     ## Getting Parameters
-    onSlurm, slurmEmail, cuda, f_path = get_arguments(sys.argv)
+    folder_path = get_folder(sys.argv)
     model = None
 
-    dictionary_path = "/home/users/n/d/ndelinte/fixed_rad_dist_wide.mat" if onSlurm else  f_path + "/static_files/mf_dic/fixed_rad_dist_wide.mat"
+    dictionary_path = "/home/users/n/d/ndelinte/fixed_rad_dist_wide.mat"
 
     ## Define which metric want to estimate
-    if "-s" in sys.argv[1:]:
-        parIdx = sys.argv.index("-s") + 1 # the index of the parameter after the option
-        par = sys.argv[parIdx]
-        assert par in models_steps, 'invalid model!'
-        model = par
-    else:
-        print("no model selected!")
-        exit(1)
+    model = get_model(sys.argv)
 
     ## Connect
-    study = elikopy.core.Elikopy(f_path, cuda=cuda, slurm=onSlurm, slurm_email=slurmEmail)
+    study = elikopy.core.Elikopy(folder_path, cuda=True, slurm=True, slurm_email="michele.cerra@student.uclouvain.be")
     
     ## Metrics Estimation
+    print("Computing %s model for all the subjects" % model.upper())
     if model in ("dti", "all"):
-        study.dti(
-            # if you want to other mask you have to compute it singularly with white_mask() 
-        )
+        study.dti()
     if model in ("diamond", "all"):
         study.diamond(
             # other params

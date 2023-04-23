@@ -41,3 +41,17 @@ def get_segmentation(argv):
         exit(1)
     
     return seg_fold
+
+models = ["all", "dti", "noddi", "diamond", "mf"]
+def get_model(argv):
+    model = None
+    if "-m" in argv[1:]:
+        parIdx = argv.index("-m") + 1 # the index of the parameter after the option
+        par = argv[parIdx]
+        assert par in models, 'invalid model!'
+        model = par
+    else:
+        print("no model selected!")
+        exit(1)
+
+    return model
