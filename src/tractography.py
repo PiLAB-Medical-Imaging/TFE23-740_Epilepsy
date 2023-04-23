@@ -161,6 +161,7 @@ def freesurfer_mask_extraction(folder_path, seg_path, subj_id):
     for num, name in roi_num_name.items():
         out_path = "%s/subjects/%s/masks/%s_%s_aparc+aseg.nii.gz" % (folder_path, subj_id, subj_id, name)
         cmd = "mri_extract_label -exit_none_found %s/%s/mri/aparc+aseg.mgz %d %s" % (seg_path, subj_id, num, out_path)
+        print(cmd)
         process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
         process.wait()
         if process.returncode != 0:
@@ -171,6 +172,7 @@ def freesurfer_mask_extraction(folder_path, seg_path, subj_id):
             roi_numbers_string = " ".join(str(i) for i in roi_numbers)
             out_path = "%s/subjects/%s/masks/%s_%s_aparc+aseg.nii.gz" % (folder_path, subj_id, subj_id, name)
             cmd = "mri_extract_label -exit_none_found %s/%s/mri/aparc+aseg.mgz %s %s" % (seg_path, subj_id, roi_numbers_string, out_path)
+            print(cmd)
             process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
             process.wait()
             if process.returncode != 0:
@@ -182,15 +184,16 @@ def freesurfer_mask_extraction(folder_path, seg_path, subj_id):
         file_path = masks_path + "/" + file_name
         ext = "."+".".join(file_name.split(".")[-2:])
         if os.path.isfile(file_path) and ext == ".nii.gz":
-            roi_name = "-".join(file_name.split("_")[1].split("-")[1:]).lower()
+            roi_name = "-".join(file_name.split(subj_id + "_")[1].split("_")[0].split("-")[1:]).lower()
 
             for roi_dila in dilatations.keys():
                 if roi_dila.lower() == roi_name.lower():
                     dilatation_cicle = dilatations[roi_dila]
-                    dilated_roi_name = file_name.split("_")[1] + "-dilated-" + str(dilatation_cicle)
+                    dilated_roi_name = file_name.split(subj_id + "_")[1].split("_")[0] + "-dilated-" + str(dilatation_cicle)
                     output_path = "%s/subjects/%s/masks/%s_%s_aparc+aseg.nii.gz" % (folder_path, subj_id, subj_id, dilated_roi_name)
 
                     cmd = "maskfilter -force -npass %d %s dilate %s" % (dilatation_cicle, file_path, output_path)
+                    print(cmd)
                     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
                     process.wait()
                     break
@@ -207,7 +210,7 @@ def registration(folder_path, subj_id):
 
     if not os.path.isfile(moving_file_FA) or not os.path.isfile(static_file_FA) or not os.path.isfile(moving_file_T1) or not os.path.isfile(static_file_T1):
         print("Images for subject: " + subj_id + " weren't found")
-        exit(1)
+        return 1
 
     mapping_FA = None
     mapping_T1 = None
@@ -243,7 +246,7 @@ def registration(folder_path, subj_id):
                     apply_transform(moving_file, mapping_T1, static_file_T1, output_path=output_path, binary=True, binary_thresh=0)
                 print("Transformed")
 
-def get_mask(mask_path):
+def get_mask(mask_path, subj_id):
     roi_names = {}
     roi_names["left"] = {}
     roi_names["right"]= {}
@@ -256,7 +259,7 @@ def get_mask(mask_path):
             if ext != ".nii.gz" :
                 continue
     
-            roiName = fileName.split("_")[1].lower().split("-")
+            roiName = fileName.split(subj_id+"_")[1].split("_")[0].lower().split("-")
             if "left" not in roiName and "right" not in roiName and "lh" not in roiName and "rh" not in roiName and "both" not in roiName:
                 if roiName[0] == "csf" or len(roiName) >= 2 :
                     roiName.insert(0, "both")
@@ -338,7 +341,7 @@ def compute_tracts(p_code, folder_path, extract_roi, seg_path):
     # check if the ODF exist for the subject, otherwise skip subject
     if not os.path.isdir(subj_folder_path + "/dMRI/ODF/MSMT-CSD/") :
         print("multi-tissue orientation distribution function is not found for patient: %s" % (p_code))
-        return
+        return 1
 
     ############# ROI EXTRACTION ############
 
@@ -346,19 +349,20 @@ def compute_tracts(p_code, folder_path, extract_roi, seg_path):
 
         # Do the registration to extract ROI from atlases
         print("Registration on %s" % p_code)
-        registration(folder_path, p_code)
+        if registration(folder_path, p_code) is not None:
+            return 1
 
         # Extract ROI from freesurfer segmentation
         # check if the freesurfer segmentation exist, otherwise skip subject
         # Here we are assuming that the segmentation is already done
         if not os.path.isdir(seg_path + "/" + p_code + "/mri"):
             print("freesurfer segmentation isn't found for paritent: %s" % (p_code))
-            return
+            return 1
 
         print("Freesurfer roi extraction on %s" % p_code)
         freesurfer_mask_extraction(folder_path, seg_path, p_code)
 
-    roi_names = get_mask(subj_folder_path+"/masks")
+    roi_names = get_mask(subj_folder_path+"/masks", p_code)
 
     ########### TRACTOGRAPHY ##########
     for zone in tracts.keys():
@@ -383,7 +387,7 @@ def compute_tracts(p_code, folder_path, extract_roi, seg_path):
                     for roi in rois:
                         # find the file name inside the roi_names
                         if roi.lower() not in roi_names[side]:
-                            print("Mask of roi %s isn't found: skipping it" % (roi.lower()))
+                            print("Mask of roi %s isn't found: skipping %s" % (roi.lower(), zone))
                             areAllROIs = False
                             continue
                         opts[opt].append(roi_names[side][roi.lower()].path)
@@ -438,7 +442,7 @@ def compute_tracts(p_code, folder_path, extract_roi, seg_path):
 
                 convertTck2Trk(subj_folder_path, p_code, output_path)
 
-NTHEREADS = 4
+NTHREADS = 4
 
 def main():
 
@@ -463,11 +467,9 @@ def main():
     with open(dest_success, 'r') as file:
         patient_list = json.load(file)
 
-    print("mannaia la puttana")
-
-    # with ThreadPool(NTHEREADS) as pool:
-    #     args = [(p, folder_path, extract_roi, seg_path) for p in patient_list]
-    #     result = pool.starmap(compute_tracts, args)
+    with ThreadPool(NTHREADS) as pool:
+        args = [(p, folder_path, extract_roi, seg_path) for p in patient_list]
+        pool.starmap(compute_tracts, args)
 
 if __name__ == "__main__":
     exit(main())
