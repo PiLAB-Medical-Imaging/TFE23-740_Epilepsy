@@ -1,6 +1,8 @@
-/study/
-/seg_subjs/
-/src/outputs/
-/src/.nfs000000000ccf20cb00052e95
-/.vscode/
-/prova/
+study/*
+!study/static_files/
+study/static_files/mf_dic
+seg_subjs/
+src/outputs/
+src/.nfs000000000ccf20cb00052e95
+.vscode/
+prova/

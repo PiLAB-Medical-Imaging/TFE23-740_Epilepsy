@@ -331,6 +331,8 @@ def convertTck2Trk(subj_folder_path, subj_id, tck_path):
     save_trk(tract, tck_path[:-3]+'trk')
 
 def compute_tracts(p_code, folder_path, extract_roi, seg_path):
+    print("Working on %s" % p_code)
+
     subj_folder_path = folder_path + '/subjects/' + p_code
         
     # check if the ODF exist for the subject, otherwise skip subject
@@ -343,6 +345,7 @@ def compute_tracts(p_code, folder_path, extract_roi, seg_path):
     if extract_roi:
 
         # Do the registration to extract ROI from atlases
+        print("Registration on %s" % p_code)
         registration(folder_path, p_code)
 
         # Extract ROI from freesurfer segmentation
@@ -352,6 +355,7 @@ def compute_tracts(p_code, folder_path, extract_roi, seg_path):
             print("freesurfer segmentation isn't found for paritent: %s" % (p_code))
             return
 
+        print("Freesurfer roi extraction on %s" % p_code)
         freesurfer_mask_extraction(folder_path, seg_path, p_code)
 
     roi_names = get_mask(subj_folder_path+"/masks")
