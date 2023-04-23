@@ -26,7 +26,6 @@ tracts = {
         # "stria_terminalis":
         #     {
         #         "seed_images": ["amygdala"],
-        #         "include" : [],
         #         "include_ordered" : ["fornixST", "fornix", "BNST"],
         #         "exclude" : ["hippocampus", "Thalamus-Proper", "lateral-ventricle", "Inf-Lat-Vent", "Caudate", "Putamen", "Pallidum", "CSF", "Accumbens-area", "3rd-Ventricle"]
         #     }
@@ -34,6 +33,7 @@ tracts = {
         "fornix":
             {
                 "seed_images": ["hippocampus"],
+                "include" : ["choroid-plexus-dilated-3"],
                 "include_ordered" : ["fornixST", "fornix"], 
                 "exclude" : ["Thalamus-Proper", "lateral-ventricle", "Inf-Lat-Vent", "Caudate", "Putamen", "Pallidum", "CSF", "Accumbens-area", "3rd-Ventricle"],
             },
@@ -43,14 +43,14 @@ tracts = {
                 "seed_images": ["Thalamus-Proper"],
                 "include_ordered" : ["aboveCC", "frontal-cingulate"],
                 "exclude" : ["Lateral-Ventricle", "caudate-dilated-3", "putamen-dilated-3", "pallidum-dilated-3", "csf", "parietal-lobe", "frontal-lobe"],
-                "angle" : 30
+                "angle" : 22
             },
         "thalamus-Insula":
             {
-                "seed_images": ["Thalamus-Proper"],
+                "seed_images": ["Thalamus"],
                 "include" : ["insula"],
-                "exclude" : ["Lateral-Ventricle", "Inf-Lat-Vent", "Caudate", "Putamen", "Pallidum", "Hippocampus", "Amygdala", "CSF", "occipital-lobe-dilated-5", "parietal-lobe-dilated-5", "frontalNoOrbito-lobe-dilated-5", "superiortemporal"],
-                "angle" : 30
+                "exclude" : ["Lateral-Ventricle", "Inf-Lat-Vent", "Caudate", "Putamen", "Pallidum", "Hippocampus", "Amygdala", "CSF", "occipital-lobe-dilated-4", "parietal-lobe-dilated-4", "frontalNoOrbito-lobe-dilated-1", "superiortemporal"],
+                "angle" : 22
             },
 
         "sup-longi-fasci":
@@ -95,6 +95,7 @@ roi_freesurfer = {
     "3rd-ventricle" : [14],
     "insula" : [1035, 2035],
     "wm" : [2, 41],
+    "choroid-plexus" : [31, 63],
     "ctx-superiortemporal" : [1030, 2030],
 
     # Union region
@@ -117,12 +118,13 @@ roi_freesurfer = {
 }
 roi_num_name = {}
 dilatations = {
-    "parietal-lobe" : 5,
-    "occipital-lobe" : 5,
-    "frontalNoOrbito-lobe" : 5,
+    "parietal-lobe" : 4,
+    "occipital-lobe" : 4,
+    "frontalNoOrbito-lobe" : 1,
     "putamen" : 3,
     "caudate" : 3,
     "pallidum" : 3,
+    "choroid-plexus": 3,
 }
 
 def expand_roi():
@@ -291,7 +293,7 @@ def find_tract(subj_folder_path, subj_id, seed_images, inclusions, inclusions_or
     tck_path = subj_folder_path+"/dMRI/tractography/"+output_name+".tck"
     process = None
 
-    bashCommand = "tckgen -nthreads 4 -algorithm iFOD2 -seeds 5M -max_attempts_per_seed 1000 -seed_unidirectional -force"
+    bashCommand = "tckgen -nthreads 4 -algorithm iFOD2 -seeds 1M -max_attempts_per_seed 1000 -seed_unidirectional -force"
 
     if stop:
         bashCommand += " -stop"
@@ -430,7 +432,7 @@ def compute_tracts(p_code, folder_path, extract_roi, seg_path):
                 optsReverse["seed_images"].append(opts["include_ordered"][-1])
                 optsReverse["include_ordered"] = opts["include_ordered"][::-1][1:]
                 optsReverse["include_ordered"].extend(opts["seed_images"])
-                optsReverse["include"] = []
+                optsReverse["include"] = opts["include"]
 
             # backward
             output_path_backward = find_tract(subj_folder_path, p_code, optsReverse["seed_images"], optsReverse["include"], optsReverse["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_from.tmp")
