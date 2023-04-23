@@ -1,8 +1,8 @@
 #!/bin/bash
 #
 #SBATCH --job-name=TRACKING
-#SBATCH --ntasks=4
-#SBATCH --cpus-per-task=2
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=20
 #SBATCH --mem-per-cpu=2048
 #SBATCH --time=24:00:00
 #SBATCH --mail-user=michele.cerra@student.uclouvain.be
