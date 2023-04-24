@@ -312,7 +312,7 @@
  \end{figure}
 
  \subsection{Diffusion Tensor Imaging (DTI)}
- One of the most popular and widely used mathematical models to describe the primary orientation of white math axonal path is called \emph{diffusion tenso imaging}. This model was introduced in 1994 \cite{basser1994mr} and it consists of estimating an effective \emph{diffusion tensor} ($\mathbf{D}$) within a voxel, which allows to represent its properties with a 3D ellipse. The diffusion tensor is described by a 3x3 symmetric tensor that uses 6 PGSE sequences, one for each different orientation of diffusion gradient, because $D_{yx}=D_{xy}$, $D_{zx}=D_{xz}$ and $D_{zy}=D_{yz}$.
+ One of the most popular and widely used mathematical models to describe the primary orientation of white math axonal path is called \emph{diffusion tensor imaging}. This model was introduced in 1994 \cite{basser1994mr} and it consists of estimating an effective \emph{diffusion tensor} ($\mathbf{D}$) within a voxel, which allows to represent its properties with a 3D ellipse. The diffusion tensor is described by a 3x3 symmetric tensor that uses 6 PGSE sequences, one for each different orientation of diffusion gradient, because $D_{yx}=D_{xy}$, $D_{zx}=D_{xz}$ and $D_{zy}=D_{yz}$.
  \begin{equation}
     \mathbf{D} = 
     \begin{pmatrix}
@@ -383,9 +383,22 @@
  %%%%% FALLO BENE DETTAGLIATO MA NON SPIEGARE LE COSE CHE NON USI, QUINDI QUESTO PUÒ ESSERE INIZATO MA DA FINIRE APPENA HAI UNA BELLA TECNICA PER FARE DEI BEI TRATTI FATTI SERI
 
 \section{DW-MRI Microstructural models}
- \subsection{DIAMOND}
-  \subsubsection*{Advantages and Limitations}
  \subsection{NODDI}
+ Dendrites and axons, known collectively as neurites, are the cellular building blocks of the computational circuitry of the brain. Quantifying neurite morphology in terms of its density and orientation distribution provides a view between normal populations and populations with brain disorder. \cite{zhang2012noddi}
+ Neurite Orientation Dispersion and Density Imaging (NODDI) is a three-compartment tissue model that models the microstructure complexity of dendrites and axons. Such indices of neurites provide more specific markers of brain tissue microstructure than DTI. \cite{zhang2012noddi}
+ \\\\
+ NODDI distinguishes three types of microstrctural environment: intra-cellular, extra-cellular and CSF compartments. Each gives to a separate normalized MR signal $A_i$ combined as
+ \begin{equation}
+   A=(1-\nu_{iso})(\nu_{ic}A_{ic}+(1-\nu_{ic})A_{ec})+\nu_{iso}A_{iso}
+ \end{equation}
+ where $A_{ic}$, $A_{ec}$, $A_{iso}$ and $\nu_{ic}$, $\nu_{iso}$ are the normalized signal and volume fraction of intra-cellular, extra-cellular and CSF compartments respectively.
+ \\
+ The intra-cellular compartment 
+
   \subsubsection*{Advantages and Limitations}
+ \subsection{DIAMOND}
+  
+  \subsubsection*{Advantages and Limitations}
+ 
  \subsection{Microstructure fingerprintign}
   \subsubsection*{Advantages and Limitations}

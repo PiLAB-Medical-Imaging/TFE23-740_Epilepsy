@@ -30,45 +30,45 @@ tracts = {
         #         "exclude" : ["hippocampus", "Thalamus-Proper", "lateral-ventricle", "Inf-Lat-Vent", "Caudate", "Putamen", "Pallidum", "CSF", "Accumbens-area", "3rd-Ventricle"]
         #     }
 
-        "fornix":
-            {
-                "seed_images": ["hippocampus"],
-                "include" : ["choroid-plexus-dilated-3"],
-                "include_ordered" : ["fornixST", "fornix"], 
-                "exclude" : ["Thalamus-Proper", "lateral-ventricle", "Inf-Lat-Vent", "Caudate", "Putamen", "Pallidum", "CSF", "Accumbens-area", "3rd-Ventricle"],
-            },
+        # "fornix":
+        #     {
+        #         "seed_images": ["hippocampus"],
+        #         "include" : ["choroid-plexus-dilated-3"],
+        #         "include_ordered" : ["fornixST", "fornix"], 
+        #         "exclude" : ["Thalamus-Proper", "lateral-ventricle", "Inf-Lat-Vent", "Caudate", "Putamen", "Pallidum", "CSF", "Accumbens-area", "3rd-Ventricle"],
+        #     },
 
-        "thalamus-AntCingCtx":
-            {
-                "seed_images": ["Thalamus-Proper"],
-                "include_ordered" : ["aboveCC", "frontal-cingulate"],
-                "exclude" : ["Lateral-Ventricle", "caudate-dilated-3", "putamen-dilated-3", "pallidum-dilated-3", "csf", "parietal-lobe", "frontal-lobe"],
-                "angle" : 22
-            },
+        # "thalamus-AntCingCtx":
+        #     {
+        #         "seed_images": ["Thalamus-Proper"],
+        #         "include_ordered" : ["aboveCC", "frontal-cingulate"],
+        #         "exclude" : ["Lateral-Ventricle", "caudate-dilated-3", "putamen-dilated-3", "pallidum-dilated-3", "csf", "parietal-lobe", "frontal-lobe"],
+        #         "angle" : 22
+        #     },
         "thalamus-Insula":
             {
-                "seed_images": ["Thalamus"],
+                "seed_images": ["Thalamus-Proper"],
                 "include" : ["insula"],
                 "exclude" : ["Lateral-Ventricle", "Inf-Lat-Vent", "Caudate", "Putamen", "Pallidum", "Hippocampus", "Amygdala", "CSF", "occipital-lobe-dilated-4", "parietal-lobe-dilated-4", "frontalNoOrbito-lobe-dilated-1", "superiortemporal"],
                 "angle" : 22
             },
 
-        "sup-longi-fasci":
-            { 
-                "seed_images" : ["frontal-lobe"],
-                "include" : ["parietal-lobe"],
-                "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
-                "angle" : 15,
-                "cutoff" : 0.09
-            },
-        "inf-longi-fasci":
-            { 
-                "seed_images" : ["occipital-lobe"],
-                "include" : ["temporal-lobe"],
-                "masks" : ["cerebral-white-matter", "occipital-lobe", "temporal-lobe"],
-                "angle" : 15,
-                "cutoff" : 0.09
-            },
+        # "sup-longi-fasci":
+        #     { 
+        #         "seed_images" : ["frontal-lobe"],
+        #         "include" : ["parietal-lobe"],
+        #         "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
+        #         "angle" : 15,
+        #         "cutoff" : 0.09
+        #     },
+        # "inf-longi-fasci":
+        #     { 
+        #         "seed_images" : ["occipital-lobe"],
+        #         "include" : ["temporal-lobe"],
+        #         "masks" : ["cerebral-white-matter", "occipital-lobe", "temporal-lobe"],
+        #         "angle" : 15,
+        #         "cutoff" : 0.09
+        #     },
 
         # Non conto l'Inferior front-occipital ma devo scriverlo nella tesi xche non l'ho messo.. la ragione e qualche foto
         # "inf-front-occipital-fasci":
