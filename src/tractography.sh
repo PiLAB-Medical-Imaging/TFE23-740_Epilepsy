@@ -2,9 +2,9 @@
 #
 #SBATCH --job-name=TRACKING
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=24
+#SBATCH --cpus-per-task=20
 #SBATCH --mem-per-cpu=2048
-#SBATCH --time=10:00:00
+#SBATCH --time=5:00:00
 #SBATCH --mail-user=michele.cerra@student.uclouvain.be
 #SBATCH --mail-type=FAIL
 #SBATCH --output=trk_out.txt
