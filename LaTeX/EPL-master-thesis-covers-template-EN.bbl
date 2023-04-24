@@ -247,6 +247,14 @@ Scheffer, I.~E., Berkovic, S., Capovilla, G., Connolly, M.~B., French, J.,
   commission for classification and terminology.
 \newblock {\em Epilepsia}, 58(4):512--521.
 
+\bibitem[Scherrer et~al., 2016]{scherrer2016diamond}
+Scherrer, B., Schwartzman, A., Taquet, M., Sahin, M., Prabhu, S.~P., and
+  Warfield, S.~K. (2016).
+\newblock Characterizing brain tissue by assessment of the distribution of
+  anisotropic microstructural environments in diffusion-compartment imaging
+  (diamond).
+\newblock {\em Magnetic resonance in medicine}, 76(3):963--977.
+
 \bibitem[Spencer and Huh, 2008]{SpencerHuh2008}
 Spencer, S. and Huh, L. (2008).
 \newblock Outcomes of epilepsy surgery in adults and children.
@@ -273,10 +281,22 @@ Wong, S., Mani, R., and Danish, S. (2019).
   devices.
 \newblock {\em Neurotherapeutics}, 16:369--380.
 
+\bibitem[Yablonskiy et~al., 2003]{yablonskiy2003}
+Yablonskiy, D.~A., Bretthorst, G.~L., and Ackerman, J.~J. (2003).
+\newblock Statistical model for diffusion attenuated mr signal.
+\newblock {\em Magnetic Resonance in Medicine: An Official Journal of the
+  International Society for Magnetic Resonance in Medicine}, 50(4):664--669.
+
 \bibitem[Yuen et~al., 2018]{yuen2018epilepsy}
 Yuen, A.~W., Keezer, M.~R., and Sander, J.~W. (2018).
 \newblock Epilepsy is a neurological and a systemic disorder.
 \newblock {\em Epilepsy \& Behavior}, 78:57--61.
+
+\bibitem[Zhang et~al., 2011]{zhang2011axon}
+Zhang, H., Hubbard, P.~L., Parker, G.~J., and Alexander, D.~C. (2011).
+\newblock Axon diameter mapping in the presence of orientation dispersion with
+  diffusion mri.
+\newblock {\em Neuroimage}, 56(3):1301--1315.
 
 \bibitem[Zhang et~al., 2012]{zhang2012noddi}
 Zhang, H., Schneider, T., Wheeler-Kingshott, C.~A., and Alexander, D.~C.

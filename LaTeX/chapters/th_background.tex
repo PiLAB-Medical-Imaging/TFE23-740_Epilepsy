@@ -392,13 +392,105 @@
    A=(1-\nu_{iso})(\nu_{ic}A_{ic}+(1-\nu_{ic})A_{ec})+\nu_{iso}A_{iso}
  \end{equation}
  where $A_{ic}$, $A_{ec}$, $A_{iso}$ and $\nu_{ic}$, $\nu_{iso}$ are the normalized signal and volume fraction of intra-cellular, extra-cellular and CSF compartments respectively.
- \\
- The intra-cellular compartment 
+ % Qua una foto de fa vedere i differenti tipi
+ \begin{figure}[h]
+   \centering
+   %\includegraphics[width=0.8\textwidth]{}
+   \caption{}
+   \label{fig:compartments}
+ \end{figure}
+ \\\\
+ The \emph{intra-cellular} compartment refers to the space bounded by the membrane of neurites. This space is modeled by cylinders of zero radius (\emph{stiks}), and their orientation distribution can range from higly parallel to highly dispersed. The orientation distribution function is modeled with a \emph{Watson distribution} \ref{fig:watson_distribution}:
+ % Qua una foto della distribuzione degli stiks
+ \begin{figure}[h]
+     \centering
+     %\includegraphics[width=0.8\textwidth]{}
+     \caption{}
+     \label{fig:watson_distribution}
+ \end{figure}
+ \begin{equation}
+   f(\mathbf{n}) = M(\frac{1}{2},\frac{3}{2},\kappa)^{-1}e^{\kappa(\mathbf{ \mu n})^2}
+ \end{equation}
+ where M is a confluent hypergeometric function, $\mu$ is the mean orientation, and $\kappa$ is the concentration parameter that measure the extent of orientation dispertion about $\mu$.
+ The normalized signal, $A_{ic}$, is expressed as follows:
+ \begin{equation}
+   A_{ic} = \int_{\mathbb{S}^2} f(\mathbf{n})e^{-bd_{\parallel}(\mathbf{q\cdot n})^2} \,d\mathbf{n}
+ \end{equation}
+ where $\mathbf{q}$ and $b$ are the gradeint direction and b-value of diffusion-weighting, $f(\mathbf{n})d\mathbf{n}$ gives the probability of finding stiks along orientation $\mathbf{n}$. $e^{-bd_{\parallel}(\mathbf{q\cdot n})^2}$ gives the signal attenuation due to unhindered diffusion along a stick with intrinsic diffusivity $d_{\parallel}$ and orientation $\mathbf{n}$.
+ \\\\
+ The \emph{extra-cellular} compartment refers to the space around the neurites which is occupied by varius types of glial cells and additionally gray matter and cell bodies \cite{zhang2012noddi}. The diffusion motion is modeled by a Gaussian anisotropic distribution and the normalized signal is modeled with a tensor since the perpendicular dissusivities are taken in account:
+ \begin{equation}
+   \log A_{ec} = -b\mathbf{q}^T(\int_{mathbb{S}^2} f(\mathbf{n})D(\mathbf{n})\,d\mathbf{n})\mathbf{q}
+ \end{equation}
+ where $D(\mathbf{n})$ is the diffusion tensor with the principal diffusion direction $\mathbf{n}$, diffusion coefficients $d_{\parallel}$ and $d_{\perp}$ parallel and perpendicular to $\mathbf{n}$ respectively. The perallel diffusivity ($d_{\parallel}$) is the same as the intrinsic free diffusivity of the intra-cellular compartment, while the perpendicular diffusivity ($d_{\perp}$) is set as $d_{\perp} = d_{\parallel}(1-\nu_{ic})$.
+ \\\\
+ The CSF compartment models the space occupied by cerebrospinal fluid and is model as isotropv Gaussian diffusion with diffusivity $d_{iso}$.
+ \begin{equation}
+   A_{ios} = e^{-b d_{iso}}
+ \end{equation}
+  \subsection*{Model parameters}
+  The complete set of parameters for the NODDI model is composed by: intra-cellular volume fraction ($\nu_{ic}$) also called \emph{Neurite Density Index} ($NDI$), parallel diffusion coefficient ($d_{\parallel}$), concentration parameter of Watson distribution ($\kappa$), mean orientation of Watson distribution ($\mathbf{\mu}$), isotropic volume fraction ($\nu_{iso}$), isotropic diffusivity ($d_{iso}$) \cite{zhang2012noddi}.
+  The diffusivities are fixed to typical values\footnote{The diffusivities are fixed to respective typical values: $d_{\parallel}=1.7\times10^-3 mm^2s^{-1}$ and $d_{iso}=3\times10^{-3}mm^2s^{-1}$} and the remaining parameter are estimated. Furthermore, it is possible to compute the \emph{Orientation Dispersion Index} ($ODI$) \cite{zhang2011axon} which is a NODDI's summary statistic for quantifying angular variation of neurite orientation.
+  \begin{equation}
+   ODI = \frac{2}{\pi}\arctan(\frac{1}{\kappa})
+  \end{equation}
 
-  \subsubsection*{Advantages and Limitations}
+  \subsubsection*{Limitations}
+  NODDI focuses on explicitly modelling the fascicle dispersion with a Watson distribution of sticks in each voxel, but this assumption is inconsistent with the know tissue microstructure: fasciles with various microstructures have been observed in the brain. Furthermore it ignores the intra-axonal radial diffusivity and considers only a single fascicle compartment per voxel, while fascicles crossing with angle $>40\circ$ occurs in $60-90\%$ of the voxels. NODDI can capture crossing fascicles as increased dispersion but cannot characterize each of them separately. \cite{scherrer2016diamond}
  \subsection{DIAMOND}
-  
-  \subsubsection*{Advantages and Limitations}
- 
+ The signal arising from a voxel is composed by signals of multiple compartments. Model whose parameters reflect the tissue compartment present in each voxel are called \emph{diffusion compartment models} \ref{fig:multicompartment}. The \emph{DIstribution of 3D Anisotropic MicrOstructural eNvironments in Diffusion-compartment imaging} (DIAMOND) is an hybrid biophysical model of the tissues that combines multicompartment and statistal modelling to provide insight into each compartment in each voxel.\cite{scherrer2016diamond}. It is inspired by the statistical framework of \cite{yablonskiy2003} but capable to characterize the three-dimensional anisotropy of diffusion observed in the brain and describe the spin packets' distribution of fascicles. 
+
+ % Qua che spiega i multi compartments
+ \begin{figure}[h]
+   \centering
+   %\includegraphics[width=0.8\textwidth]{}
+   \caption{}
+   \label{fig:multicompartment}
+ \end{figure}
+
+ DIAMOND requires the estimation of the number of tissue compartments in each voxel, which enables direct assesment of compartments-specific diffusion characteristic such as the compartment mean diffusivitu ($cMD$), axial diffusivity ($cAD$) and radial diffusivity ($cRD$). 
+ \\\\
+ The fraction of spin packets described by a 3D diffusivity $\mathbf{D}$ in the voxel is given by a \emph{matrix-variate} distribution $P(\mathbf{D})$. Therefore, if a voxel consisted of exaclty one \emph{homogeneous} microstrctural environment characterized by a tensor $\mathbf{D}^0$, then $P(\mathbf{D})$ would be a delta function $P(\mathbf{D})=\delta(\mathbf{D}-\mathbf{D}^0)$ and the model would be equivalent to DTI. While, if it consisted of several identifiable homogeneus microstructural eNvironments, a mixture of delta functions would be used \cite{scherrer2016diamond} \ref{fig:homogeneous_compartments_diamond}. Then the DW signal $S_k$ is modeled by:
+ \begin{equation}\label{eq:1.26}
+   S_k = S_0 \int_{\mathbf{D}\in Sym^{+}(3)} P(\mathbf{D})\exp(-b_k\mathbf{g}_k^T\mathbf{D}\mathbf{g}_k) \,d\mathbf{D}
+ \end{equation}
+ where $Sym^{+}(3)$ is the set of 3x3 SPD\footnote{SPD: symmetric positive-definite matrices 3x3} matrices, $\mathbf{g}_k$ is the orientation of the diffusion gradient and $b_k$ is the b-value of the sequence.
+
+  % foto e di fig 2
+ \begin{figure}[h]
+   \centering
+   %\includegraphics[width=0.8\textwidth]{}
+   \caption{}
+   \label{fig:homogeneous_compartments_diamond}
+ \end{figure}
+
+ More realistically each microstructural environment contain some degree of \emph{heterogeneity} and is best described by a \emph{population of spin packets}. To reach this by modelling each population with a peak-shaped matrix-variate distribution centred in $D^0$ \ref{fig:heterogeneous_compartments_diamond}. DIAMOND uses a \emph{matrix-variate Gamma} (mv-$\Gamma$) distribution with \emph{shape parameter} $\kappa > \frac{p-1}{2}$ and \emph{scale parameter} $\Sigma \in Sym^{+}(3)$ \cite{scherrer2016diamond}.
+ \begin{equation}
+   P_{\kappa,\Gamma}(\mathbf{D}) = \frac{|\mathbf{D}|^{\kappa-(p+1)/2}}{|\Sigma|^\kappa \Gamma_p(\kappa)}\exp (-trace(\Sigma^{-1}\mathbf{D}))
+ \end{equation}
+ where $|\cdot|$ is the matrix determinant and $\Gamma_p$ is the multi-variare gamma function. It's expectation is $\mathbf{D}^0=\kappa\Sigma$, and the shape parameter $\kappa$ determines the concentration of the densisty around the mean value $\mathbf{D}^0$. An heterogeneity index ($cHEI$) can be computed following the same transform as ODI in NODDI \cite{zhang2012noddi}: $cHEI(\kappa) = 2/\pi \arctan (1/\kappa)$.
+
+ Considering $N_p$ populations each of them with a mv-$\Gamma$ distribution $P_{\kappa_j,\Sigma_j}(\mathbf{D})$ with $j \in [1,...,N_p]$ the matrix-variate distribution is defined as \cite{scherrer2016diamond}:
+ \begin{equation}\label{eq:1.28}
+   P(\mathbf{D}) = \sum_{j=1}^{N_p} f_j P_{\kappa_j,\Sigma_j}(\mathbf{D})
+ \end{equation} 
+ where $f_j$ are the occupation fractions and $\sum_{j=1}^{N_p} f_j = 1$. 
+
+ % Qua che spiega i multi compartments
+ \begin{figure}[h]
+   \centering
+   %\includegraphics[width=0.8\textwidth]{}
+   \caption{}
+   \label{fig:heterogeneous_compartments_diamond}
+ \end{figure}
+
+ Combining \ref{eq:1.26} and \ref{eq:1.28} and using the Laplace transformation, the following model is found \cite{scherrer2016diamond}:
+ \begin{equation}
+   S_k=S_0 \sum_{j=1}^{N_p} f_j \mathcal{D}(\mathbf{D}^0_j, \kappa_j)
+ \end{equation}
+ where $\mathcal{D}(\mathbf{D}^0,\kappa) = S_0 (1+\frac{b_k\mathbf{g}_k^T\mathbf{D}^0\mathbf{g}_k}{\kappa})^{-\kappa}$.
+
+  \subsubsection*{Limitations}
+  To summarise, DIAMOND focuses on capturing the distribution of 3D diffusivities arising from each tissue compartment (\emph{model of the tissues}), and in constrast of the \emph{model of the signal}, it requires the estimation of the number of tissue compartments ($N_p$) in each voxel, that is, the number of mv-$\Gamma$ components. The estimation of $N_p$ could be the only limitation of this model.
  \subsection{Microstructure fingerprintign}
   \subsubsection*{Advantages and Limitations}
