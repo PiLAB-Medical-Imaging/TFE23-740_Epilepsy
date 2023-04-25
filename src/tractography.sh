@@ -3,7 +3,7 @@
 #SBATCH --job-name=TRACKING
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=20
-#SBATCH --mem-per-cpu=2048
+#SBATCH --mem-per-cpu=4096
 #SBATCH --time=5:00:00
 #SBATCH --mail-user=michele.cerra@student.uclouvain.be
 #SBATCH --mail-type=FAIL

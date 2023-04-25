@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.2.15)  24 APR 2023 08:25
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.2.15)  25 APR 2023 00:17
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -661,17 +661,52 @@ Underfull \hbox (badness 10000) in paragraph at lines 387--391
 
  []
 
-[14]) [15] [16]
-Chapter 2.
-(./chapters/epilepsy.tex [17
 
-] [18]
-<images/seizureTypes.png, id=443, 698.61pt x 376.40625pt>
+Underfull \hbox (badness 10000) in paragraph at lines 393--411
+
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[14]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 418--422
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 424--428
+
+ []
+
+[15]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 451--454
+
+ []
+
+[16]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[17]) [18]
+Chapter 2.
+(./chapters/epilepsy.tex [19
+
+] [20]
+<images/seizureTypes.png, id=495, 698.61pt x 376.40625pt>
 File: images/seizureTypes.png Graphic file (type png)
 <use images/seizureTypes.png>
 Package pdftex.def Info: images/seizureTypes.png  used on input line 46.
 (pdftex.def)             Requested size: 346.89731pt x 186.90462pt.
-<images/epilepsyTypes.png, id=446, 1539.7525pt x 778.91pt>
+<images/epilepsyTypes.png, id=498, 1539.7525pt x 778.91pt>
 File: images/epilepsyTypes.png Graphic file (type png)
 <use images/epilepsyTypes.png>
 Package pdftex.def Info: images/epilepsyTypes.png  used on input line 57.
@@ -689,8 +724,8 @@ Overfull \hbox (43.97011pt too wide) in paragraph at lines 69--71
 []\T1/lmr/m/n/12 (-20) Up to a third of all in-di-vid-u-als with epilepsy are re-frac-tory to AEDs [[]].
  []
 
-[19 <./images/seizureTypes.png>]
-<images/WongMani2019.jpeg, id=467, 602.25pt x 227.85126pt>
+[21 <./images/seizureTypes.png>]
+<images/WongMani2019.jpeg, id=519, 602.25pt x 227.85126pt>
 File: images/WongMani2019.jpeg Graphic file (type jpg)
 <use images/WongMani2019.jpeg>
 Package pdftex.def Info: images/WongMani2019.jpeg  used on input line 81.
@@ -699,8 +734,8 @@ Package pdftex.def Info: images/WongMani2019.jpeg  used on input line 81.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[20 <./images/epilepsyTypes.png>]
-<images/vagus_nerve_stimulation.jpg, id=490, 634.37pt x 539.01375pt>
+[22 <./images/epilepsyTypes.png>]
+<images/vagus_nerve_stimulation.jpg, id=542, 634.37pt x 539.01375pt>
 File: images/vagus_nerve_stimulation.jpg Graphic file (type jpg)
 <use images/vagus_nerve_stimulation.jpg>
 Package pdftex.def Info: images/vagus_nerve_stimulation.jpg  used on input line 98.
@@ -709,8 +744,8 @@ Package pdftex.def Info: images/vagus_nerve_stimulation.jpg  used on input line 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[21 <./images/WongMani2019.jpeg>]
-<images/vagus_afferent_network.jpg, id=510, 361.35pt x 470.9595pt>
+[23 <./images/WongMani2019.jpeg>]
+<images/vagus_afferent_network.jpg, id=562, 361.35pt x 470.9595pt>
 File: images/vagus_afferent_network.jpg Graphic file (type jpg)
 <use images/vagus_afferent_network.jpg>
 Package pdftex.def Info: images/vagus_afferent_network.jpg  used on input line 113.
@@ -723,8 +758,8 @@ Underfull \hbox (badness 2573) in paragraph at lines 116--116
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[22 <./images/vagus_nerve_stimulation.jpg>] [23 <./images/vagus_afferent_network.jpg>]
-<images/structuralFunctional.png, id=539, 1565.85pt x 876.27374pt>
+[24 <./images/vagus_nerve_stimulation.jpg>] [25 <./images/vagus_afferent_network.jpg>]
+<images/structuralFunctional.png, id=593, 1565.85pt x 876.27374pt>
 File: images/structuralFunctional.png Graphic file (type png)
 <use images/structuralFunctional.png>
 Package pdftex.def Info: images/structuralFunctional.png  used on input line 136.
@@ -734,7 +769,7 @@ Underfull \hbox (badness 7907) in paragraph at lines 137--137
 []\T1/lmr/m/n/12 (+20) Figure 2.6: []Differences be-tween struc-tural and func-tional con-nec-tiv-ity
  []
 
-[24 <./images/structuralFunctional.png>]) [25]
+[26 <./images/structuralFunctional.png>]) [27]
 Chapter 3.
 (./chapters/methods.tex
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 17.
@@ -749,25 +784,25 @@ Package microtype Info: Loading generic protrusion settings for font family
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-) [26
+) [28
 
-] [27]
+] [29]
 Chapter 4.
-[28
+[30
 
 ]
 Chapter 5.
-(./chapters/discussion.tex) [29
+(./chapters/discussion.tex) [31
 
-] (./EPL-master-thesis-covers-template-EN.bbl [30
+] (./EPL-master-thesis-covers-template-EN.bbl [32
 
 ] (/usr/share/texlive/texmf-dist/tex/latex/ucs/data/uni-1.def
 File: uni-1.def 2013/05/13 UCS: Unicode data U+0100..U+01FF
-) [31
+) [33
 
 ] (/usr/share/texlive/texmf-dist/tex/latex/ucs/data/uni-32.def
 File: uni-32.def 2013/05/13 UCS: Unicode data U+2000..U+20FF
-) [32] [33]) [34]
+) [34] [35] [36]) [37]
 *geometry* verbose mode - [ newgeometry ] result:
 * driver: pdftex
 * paper: a4paper
@@ -800,7 +835,7 @@ File: uni-32.def 2013/05/13 UCS: Unicode data U+2000..U+20FF
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-<_backbanner_EPL-master-thesis.pdf, id=619, 597.23125pt x 833.1125pt>
+<_backbanner_EPL-master-thesis.pdf, id=677, 597.23125pt x 833.1125pt>
 File: _backbanner_EPL-master-thesis.pdf Graphic file (type pdf)
 <use _backbanner_EPL-master-thesis.pdf>
 Package pdftex.def Info: _backbanner_EPL-master-thesis.pdf  used on input line 88.
@@ -810,7 +845,7 @@ Overfull \hbox (17.34673pt too wide) in paragraph at lines 88--88
 [][] 
  []
 
-[35
+[38
 
  <./_backbanner_EPL-master-thesis.pdf>] (./EPL-master-thesis-covers-template-EN.aux)
 
@@ -820,18 +855,18 @@ Package rerunfilecheck Info: File `EPL-master-thesis-covers-template-EN.out' has
 (rerunfilecheck)             Checksum: 231E354BC6D2203B7395D848BECCA74C;5078.
  ) 
 Here is how much of TeX's memory you used:
- 16345 strings out of 480247
- 253130 string characters out of 5896151
- 584369 words of memory out of 5000000
- 33540 multiletter control sequences out of 15000+600000
- 584841 words of font info for 216 fonts, out of 8000000 for 9000
+ 16412 strings out of 480247
+ 254031 string characters out of 5896151
+ 584765 words of memory out of 5000000
+ 33550 multiletter control sequences out of 15000+600000
+ 586560 words of font info for 233 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  75i,8n,77p,1137b,726s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx8.pfb></usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi6.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr6.pfb></usr/share/texmf/fonts/type1/public/lm/lmr7.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmri8.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
-Output written on EPL-master-thesis-covers-template-EN.pdf (36 pages, 3212894 bytes).
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx8.pfb></usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi6.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi7.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr6.pfb></usr/share/texmf/fonts/type1/public/lm/lmr7.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmri8.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy6.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy7.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
+Output written on EPL-master-thesis-covers-template-EN.pdf (39 pages, 3259990 bytes).
 PDF statistics:
- 785 PDF objects out of 1000 (max. 8388607)
- 673 compressed objects within 7 object streams
- 205 named destinations out of 1000 (max. 500000)
+ 869 PDF objects out of 1000 (max. 8388607)
+ 744 compressed objects within 8 object streams
+ 228 named destinations out of 1000 (max. 500000)
  59209 words of extra memory for PDF output out of 61914 (max. 10000000)
 
