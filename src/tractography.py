@@ -30,13 +30,13 @@ tracts = {
         #         "exclude" : ["hippocampus", "Thalamus-Proper", "lateral-ventricle", "Inf-Lat-Vent", "Caudate", "Putamen", "Pallidum", "CSF", "Accumbens-area", "3rd-Ventricle"]
         #     }
 
-        # "fornix":
-        #     {
-        #         "seed_images": ["hippocampus"],
-        #         "include" : ["choroid-plexus-dilated-3"],
-        #         "include_ordered" : ["fornixST", "fornix"], 
-        #         "exclude" : ["Thalamus-Proper", "lateral-ventricle", "Inf-Lat-Vent", "Caudate", "Putamen", "Pallidum", "CSF", "Accumbens-area", "3rd-Ventricle"],
-        #     },
+        "fornix":
+            {
+                "seed_images": ["hippocampus"],
+                "masks" : ["choroid-plexus-dilated-7", "hippocampus-dilated-5", "fornix-dilated-5", "fornixST-dilated-5"],
+                "include" : ["fornixST", "fornix"], 
+                "exclude" : ["Thalamus-Proper", "lateral-ventricle", "Inf-Lat-Vent", "Caudate", "Putamen", "Pallidum", "CSF", "Accumbens-area", "3rd-Ventricle"],
+            },
 
         # "thalamus-AntCingCtx":
         #     {
@@ -124,7 +124,10 @@ dilatations = {
     "putamen" : 3,
     "caudate" : 3,
     "pallidum" : 3,
-    "choroid-plexus": 3,
+    "choroid-plexus": 7,
+    "fornix" : 5,
+    "hippocampus": 5,
+    "fornixST" : 5
 }
 
 def expand_roi():
@@ -293,7 +296,7 @@ def find_tract(subj_folder_path, subj_id, seed_images, inclusions, inclusions_or
     tck_path = subj_folder_path+"/dMRI/tractography/"+output_name+".tck"
     process = None
 
-    bashCommand = "tckgen -nthreads 4 -algorithm iFOD2 -seeds 1M -max_attempts_per_seed 1000 -seed_unidirectional -force"
+    bashCommand = "tckgen -nthreads 4 -algorithm iFOD2 -seeds 500k -max_attempts_per_seed 1000 -seed_unidirectional -force"
 
     if stop:
         bashCommand += " -stop"

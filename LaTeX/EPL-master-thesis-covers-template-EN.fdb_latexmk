@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex EPL-master-thesis-covers-template-EN"] 1682374075 "EPL-master-thesis-covers-template-EN.aux" "EPL-master-thesis-covers-template-EN.bbl" "EPL-master-thesis-covers-template-EN" 1682374370
+["bibtex EPL-master-thesis-covers-template-EN"] 1682374075 "EPL-master-thesis-covers-template-EN.aux" "EPL-master-thesis-covers-template-EN.bbl" "EPL-master-thesis-covers-template-EN" 1682374652
   "/usr/share/texlive/texmf-dist/bibtex/bst/base/apalike.bst" 1292289607 24635 604dafcc79f521a11ea73e506e1fbd98 ""
-  "EPL-master-thesis-covers-template-EN.aux" 1682374370 17937 d233c05a5ad6e908672731178045a744 "pdflatex"
+  "EPL-master-thesis-covers-template-EN.aux" 1682374652 17937 d233c05a5ad6e908672731178045a744 "pdflatex"
   "refs.bib" 1682366077 66341 e064fcf11d7f09b6adc52232adc8a6e8 ""
   (generated)
   "EPL-master-thesis-covers-template-EN.bbl"
   "EPL-master-thesis-covers-template-EN.blg"
-["pdflatex"] 1682374369 "/home/michele/Dropbox (Politecnico Di Torino Studenti)/thesis/code/Epilepsy-dMRI-VNS/LaTeX/EPL-master-thesis-covers-template-EN.tex" "EPL-master-thesis-covers-template-EN.pdf" "EPL-master-thesis-covers-template-EN" 1682374370
+["pdflatex"] 1682374651 "/home/michele/Dropbox (Politecnico Di Torino Studenti)/thesis/code/Epilepsy-dMRI-VNS/LaTeX/EPL-master-thesis-covers-template-EN.tex" "EPL-master-thesis-covers-template-EN.pdf" "EPL-master-thesis-covers-template-EN" 1682374652
   "/etc/texmf/web2c/texmf.cnf" 1676466988 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/michele/Dropbox (Politecnico Di Torino Studenti)/thesis/code/Epilepsy-dMRI-VNS/LaTeX/EPL-master-thesis-covers-template-EN.tex" 1679239576 3053 7b5d4f10ec8be120c699da2c1d943fc6 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
@@ -184,17 +184,17 @@
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1676467795 128028 f533b797fba58d231669ea19e894e23e ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1676467798 1405647 6b094860cd24f6d4be894ece24da8518 ""
   "EPL-master-thesis-covers-EN.cls" 1681738071 3794 181d106c3e6587cea1e6d9dcb3816dfa ""
-  "EPL-master-thesis-covers-template-EN.aux" 1682374370 17937 d233c05a5ad6e908672731178045a744 "pdflatex"
+  "EPL-master-thesis-covers-template-EN.aux" 1682374652 17937 d233c05a5ad6e908672731178045a744 "pdflatex"
   "EPL-master-thesis-covers-template-EN.bbl" 1682374075 13532 7f2e392893db91814723bc21cc91d42d "bibtex EPL-master-thesis-covers-template-EN"
-  "EPL-master-thesis-covers-template-EN.out" 1682374370 5078 231e354bc6d2203b7395d848becca74c "pdflatex"
+  "EPL-master-thesis-covers-template-EN.out" 1682374652 5078 231e354bc6d2203b7395d848becca74c "pdflatex"
   "EPL-master-thesis-covers-template-EN.tex" 1679239576 3053 7b5d4f10ec8be120c699da2c1d943fc6 ""
-  "EPL-master-thesis-covers-template-EN.toc" 1682374370 2863 3b05d1aa4c7b03bd2dc7ba613bf4bb0e "pdflatex"
+  "EPL-master-thesis-covers-template-EN.toc" 1682374652 2863 3b05d1aa4c7b03bd2dc7ba613bf4bb0e "pdflatex"
   "_backbanner_EPL-master-thesis.pdf" 1676473400 37554 4fd5df65ccad50239923cb38c9fe433b ""
   "_frontbanner_EPL-master-thesis.pdf" 1676473400 48791 aa78b7ee4d4440617d1d1eec3a52c2f7 ""
   "chapters/discussion.tex" 1678879975 45 b8ad79f7fb811d6c39a260ea15aaa8c7 ""
   "chapters/epilepsy.tex" 1681547382 20507 3a93db09235f7551c6c39a6c7b1f6fa1 ""
   "chapters/methods.tex" 1681578874 3082 a5a4e0295d15e7d857504349a40e7bf2 ""
-  "chapters/th_background.tex" 1682374369 36185 edf47427a451d2c25f60c9b26014f27a ""
+  "chapters/th_background.tex" 1682374651 36186 59ec355c3d1982e7a185ec08e791fa83 ""
   "images/WongMani2019.jpeg" 1679227984 17284 cdc4815d816d4376e47cd367ab6473c3 ""
   "images/epilepsyTypes.png" 1679237521 81501 19d890b0801987225301097ad9aa1422 ""
   "images/seizureTypes.png" 1679239242 108440 6e12d7d9e6c1486ebcf52681148b2dea ""

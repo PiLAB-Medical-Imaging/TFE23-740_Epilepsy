@@ -420,7 +420,7 @@
  \\\\
  The \emph{extra-cellular} compartment refers to the space around the neurites which is occupied by varius types of glial cells and additionally gray matter and cell bodies \cite{zhang2012noddi}. The diffusion motion is modeled by a Gaussian anisotropic distribution and the normalized signal is modeled with a tensor since the perpendicular dissusivities are taken in account:
  \begin{equation}
-   \log A_{ec} = -b\mathbf{q}^T(\int_{mathbb{S}^2} f(\mathbf{n})D(\mathbf{n})\,d\mathbf{n})\mathbf{q}
+   \log A_{ec} = -b\mathbf{q}^T(\int_{\mathbb{S}^2} f(\mathbf{n})D(\mathbf{n})\,d\mathbf{n})\mathbf{q}
  \end{equation}
  where $D(\mathbf{n})$ is the diffusion tensor with the principal diffusion direction $\mathbf{n}$, diffusion coefficients $d_{\parallel}$ and $d_{\perp}$ parallel and perpendicular to $\mathbf{n}$ respectively. The perallel diffusivity ($d_{\parallel}$) is the same as the intrinsic free diffusivity of the intra-cellular compartment, while the perpendicular diffusivity ($d_{\perp}$) is set as $d_{\perp} = d_{\parallel}(1-\nu_{ic})$.
  \\\\

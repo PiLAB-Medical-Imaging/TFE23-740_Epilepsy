@@ -6,3 +6,4 @@ src/outputs/
 src/.nfs000000000ccf20cb00052e95
 .vscode/
 prova/
+*.tar.gz
