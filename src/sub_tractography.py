@@ -19,7 +19,7 @@ def main():
 
         study.odf_msmtcsd()
 
-    time=[]; time[0]=0; time[1]=1 
+    time = [0, 1]
 
     extract_roi = False
     if "-roi" in sys.argv[1:]:
