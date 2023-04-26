@@ -22,6 +22,7 @@ def main():
     time = [0, 1]
 
     extract_roi = False
+    seg_path = ""
     if "-roi" in sys.argv[1:]:
         extract_roi = True  
         seg_path = get_segmentation(sys.argv)
