@@ -7,8 +7,6 @@ import elikopy.utils
 
 from dipy.io.streamline import load_tractogram, save_trk
 from regis.core import find_transform, apply_transform
-from params import get_folder, get_segmentation
-from multiprocessing.pool import ThreadPool
 
 # absolute_path = os.path.dirname(__file__) # return the abs path of the folder of this file, wherever it is
 
@@ -336,7 +334,7 @@ def convertTck2Trk(subj_folder_path, subj_id, tck_path):
     tract = load_tractogram(tck_path, subj_folder_path+"/dMRI/preproc/"+subj_id+"_dmri_preproc.nii.gz")
     save_trk(tract, tck_path[:-3]+'trk')
 
-def compute_tracts(p_code, folder_path, extract_roi, seg_path, registration, tract):
+def compute_tracts(p_code, folder_path, extract_roi, seg_path, reg, tract):
     print("Working on %s" % p_code)
 
     subj_folder_path = folder_path + '/subjects/' + p_code
@@ -353,7 +351,7 @@ def compute_tracts(p_code, folder_path, extract_roi, seg_path, registration, tra
 
     ############# ROI EXTRACTION ############
 
-    if registration:
+    if reg:
         # Do the registration to extract ROI from atlases
         print("Registration on %s" % p_code)
         if registration(folder_path, p_code) is not None:
@@ -364,8 +362,10 @@ def compute_tracts(p_code, folder_path, extract_roi, seg_path, registration, tra
         # check if the freesurfer segmentation exist, otherwise skip subject
         # Here we are assuming that the segmentation is already done
         if not os.path.isdir(seg_path + "/" + p_code + "/mri"):
-            print("freesurfer segmentation isn't found for paritent: %s" % (p_code))
+            print("freesurfer segmentation isn't found for patient: %s" % (p_code))
             return 1
+
+        get_freesurfer_roi_names()
 
         print("Freesurfer roi extraction on %s" % p_code)
         freesurfer_mask_extraction(folder_path, seg_path, p_code)
@@ -388,7 +388,6 @@ def compute_tracts(p_code, folder_path, extract_roi, seg_path, registration, tra
             opts["angle"] = 45
             opts["cutoff"] = 0.1
             opts["stop"] = True
-            opts["act"] = False
 
             areAllROIs = True
 
@@ -414,16 +413,6 @@ def compute_tracts(p_code, folder_path, extract_roi, seg_path, registration, tra
 
             output_name = side+"-"+zone
             output_path = subj_folder_path+"/dMRI/tractography/"+output_name+".tck"
-
-            # TODO Check for act files (5TT) !!!!!!! DOESN'T WORK !!!!!!!!!
-            path_5tt = subj_folder_path + "/dMRI/5tt/subj00_5tt.nii.gz"
-            if opts["act"] == True and not os.path.isfile(path_5tt):
-                seg_path = get_segmentation(sys.argv)
-                colorLUT = os.getenv('FREESURFER_HOME') + "/FreeSurferColorLUT.txt"
-                bashCommand = "5ttgen freesurfer %s %s" % (seg_path + "/" + p_code + "/mri/aparc+aseg.mgz", path_5tt, colorLUT)
-                print(bashCommand)
-                process = subprocess.Popen(bashCommand, stdout=subprocess.PIPE, shell=True)
-                process.wait()
 
             # forward
             output_path_forward = find_tract(subj_folder_path, p_code, opts["seed_images"], opts["include"], opts["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_to.tmp")
@@ -453,42 +442,3 @@ def compute_tracts(p_code, folder_path, extract_roi, seg_path, registration, tra
 
                 convertTck2Trk(subj_folder_path, p_code, output_path)
 
-NTHREADS = 5
-
-def main():
-
-    ## Getting folder
-    folder_path = get_folder(sys.argv)
-    
-    # check if the user wants to compute the ODF and compute it
-    if "-odf" in sys.argv[1:]:
-        study = elikopy.core.Elikopy(folder_path, cuda=True, slurm=True, slurm_email="michele.cerra@student.uclouvain.be")
-
-        study.odf_msmtcsd()
-
-    extract_roi = False
-    seg_path = ""
-    if "-roi" in sys.argv[1:]:
-        extract_roi = True  
-        seg_path = get_segmentation(sys.argv)
-        get_freesurfer_roi_names()
-
-    registration = False
-    if "-reg" in sys.argv[1:]:
-        registration = True
-
-    tract = False
-    if "-tract" in sys.argv[1:]:
-        tract = True
-
-    ## Read the list of subjects and for each subject do the tractography
-    dest_success = folder_path + "/subjects/subj_list.json"
-    with open(dest_success, 'r') as file:
-        patient_list = json.load(file)
-
-    with ThreadPool(NTHREADS) as pool:
-        args = [(p, folder_path, extract_roi, seg_path, registration, tract) for p in patient_list]
-        pool.starmap(compute_tracts, args)
-
-if __name__ == "__main__":
-    exit(main())
