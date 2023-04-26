@@ -38,13 +38,13 @@ tracts = {
                 "exclude" : ["Thalamus-Proper", "lateral-ventricle", "Inf-Lat-Vent", "Caudate", "Putamen", "Pallidum", "CSF", "Accumbens-area", "3rd-Ventricle"],
             },
 
-        # "thalamus-AntCingCtx":
-        #     {
-        #         "seed_images": ["Thalamus-Proper"],
-        #         "include_ordered" : ["aboveCC", "frontal-cingulate"],
-        #         "exclude" : ["Lateral-Ventricle", "caudate-dilated-3", "putamen-dilated-3", "pallidum-dilated-3", "csf", "parietal-lobe", "frontal-lobe"],
-        #         "angle" : 22
-        #     },
+        "thalamus-AntCingCtx":
+            {
+                "seed_images": ["Thalamus-Proper"],
+                "include_ordered" : ["aboveCC", "frontal-cingulate"],
+                "exclude" : ["Lateral-Ventricle", "caudate-dilated-3", "putamen-dilated-3", "pallidum-dilated-3", "csf", "parietal-lobe", "frontal-lobe"],
+                "angle" : 22
+            },
         "thalamus-Insula":
             {
                 "seed_images": ["Thalamus-Proper"],
@@ -53,22 +53,22 @@ tracts = {
                 "angle" : 22
             },
 
-        # "sup-longi-fasci":
-        #     { 
-        #         "seed_images" : ["frontal-lobe"],
-        #         "include" : ["parietal-lobe"],
-        #         "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
-        #         "angle" : 15,
-        #         "cutoff" : 0.09
-        #     },
-        # "inf-longi-fasci":
-        #     { 
-        #         "seed_images" : ["occipital-lobe"],
-        #         "include" : ["temporal-lobe"],
-        #         "masks" : ["cerebral-white-matter", "occipital-lobe", "temporal-lobe"],
-        #         "angle" : 15,
-        #         "cutoff" : 0.09
-        #     },
+        "sup-longi-fasci":
+            { 
+                "seed_images" : ["frontal-lobe"],
+                "include" : ["parietal-lobe"],
+                "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
+                "angle" : 15,
+                "cutoff" : 0.09
+            },
+        "inf-longi-fasci":
+            { 
+                "seed_images" : ["occipital-lobe"],
+                "include" : ["temporal-lobe"],
+                "masks" : ["cerebral-white-matter", "occipital-lobe", "temporal-lobe"],
+                "angle" : 15,
+                "cutoff" : 0.09
+            },
 
         # Non conto l'Inferior front-occipital ma devo scriverlo nella tesi xche non l'ho messo.. la ragione e qualche foto
         # "inf-front-occipital-fasci":
@@ -336,7 +336,7 @@ def convertTck2Trk(subj_folder_path, subj_id, tck_path):
     tract = load_tractogram(tck_path, subj_folder_path+"/dMRI/preproc/"+subj_id+"_dmri_preproc.nii.gz")
     save_trk(tract, tck_path[:-3]+'trk')
 
-def compute_tracts(p_code, folder_path, extract_roi, seg_path):
+def compute_tracts(p_code, folder_path, extract_roi, seg_path, registration, tract):
     print("Working on %s" % p_code)
 
     subj_folder_path = folder_path + '/subjects/' + p_code
@@ -353,13 +353,13 @@ def compute_tracts(p_code, folder_path, extract_roi, seg_path):
 
     ############# ROI EXTRACTION ############
 
-    if extract_roi:
-
+    if registration:
         # Do the registration to extract ROI from atlases
         print("Registration on %s" % p_code)
         if registration(folder_path, p_code) is not None:
             return 1
 
+    if extract_roi:
         # Extract ROI from freesurfer segmentation
         # check if the freesurfer segmentation exist, otherwise skip subject
         # Here we are assuming that the segmentation is already done
@@ -373,6 +373,9 @@ def compute_tracts(p_code, folder_path, extract_roi, seg_path):
     roi_names = get_mask(subj_folder_path+"/masks", p_code)
 
     ########### TRACTOGRAPHY ##########
+    if not tract:
+        return
+
     for zone in tracts.keys():
         for side in ["left", "right"]:
             opts = {}
@@ -470,13 +473,21 @@ def main():
         seg_path = get_segmentation(sys.argv)
         get_freesurfer_roi_names()
 
+    registration = False
+    if "-reg" in sys.argv[1:]:
+        registration = True
+
+    tract = False
+    if "-tract" in sys.argv[1:]:
+        tract = True
+
     ## Read the list of subjects and for each subject do the tractography
     dest_success = folder_path + "/subjects/subj_list.json"
     with open(dest_success, 'r') as file:
         patient_list = json.load(file)
 
     with ThreadPool(NTHREADS) as pool:
-        args = [(p, folder_path, extract_roi, seg_path) for p in patient_list]
+        args = [(p, folder_path, extract_roi, seg_path, registration, tract) for p in patient_list]
         pool.starmap(compute_tracts, args)
 
 if __name__ == "__main__":

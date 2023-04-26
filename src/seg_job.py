@@ -18,7 +18,7 @@ threads = []
 def runShell(cmd):
     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
     process.wait()
-
+# TODO farlo con i thread pool...
 for i in range(19,nPatients+1):
     bashCommand = "recon-all -all -sd %s -s VNSLC_%02d -i %s/study/T1/VNSLC_%02d_T1.nii.gz -T2 %s/study/T1/VNSLC_%02d_T2.nii.gz -T2pial -qcache > %s/outputs/seg_out_VNSLC_%02d.txt" % (subjects_dir, i, project_dir, i, project_dir, i, absolute_path, i)
     
