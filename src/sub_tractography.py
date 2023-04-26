@@ -6,7 +6,8 @@ import json
 from params import get_folder, get_segmentation
 from elikopy.utils import submit_job, get_job_state
 
-NTHREADS_FOREACH = 4
+absolute_path = os.path.dirname(__file__) # return the abs path of the folder of this file, wherever it is
+
 
 def main():
 
@@ -30,7 +31,7 @@ def main():
 
     reg = False
     if "-reg" in sys.argv[1:]:
-        registration = True
+        reg = True
         time[0] += 1
         time[1] += 15
 
