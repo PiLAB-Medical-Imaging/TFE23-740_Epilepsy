@@ -388,6 +388,7 @@ def compute_tracts(p_code, folder_path, extract_roi, seg_path, reg, tract):
             opts["angle"] = 45
             opts["cutoff"] = 0.1
             opts["stop"] = True
+            opts["act"] = False
 
             areAllROIs = True
 
