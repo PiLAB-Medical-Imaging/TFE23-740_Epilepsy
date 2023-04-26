@@ -33,7 +33,7 @@ def main():
     if "-reg" in sys.argv[1:]:
         reg = True
         time[0] += 1
-        time[1] += 15
+        time[1] += 45
 
     tract = False
     if "-tract" in sys.argv[1:]:
@@ -41,6 +41,8 @@ def main():
         time[0] += 1
         time[1] += 15
 
+    time[0] += time[1]//60
+    time[1] %= 60
 
     ## Read the list of subjects and for each subject do the tractography
     dest_success = folder_path + "/subjects/subj_list.json"
@@ -67,7 +69,7 @@ def main():
         p_job_id["name"] = p_code
         job_list.append(p_job_id)
     
-    get_job_state(folder_path, job_list, )
+    elikopy.utils.getJobsState(folder_path, job_list, "log")
 
 if __name__ == "__main__":
     exit(main())
