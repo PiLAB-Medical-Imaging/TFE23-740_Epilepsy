@@ -54,7 +54,7 @@ def main():
             "wrap" : "export MKL_NUM_THREADS=4 ; export OMP_NUM_THREADS=4 ; python -c 'from tractography import compute_tracts; compute_tracts(\"%s\", \"%s\", %s, \"%s\", %s, %s)'" % (p_code, folder_path, str(extract_roi), seg_path, str(reg), str(tract)),
             "job_name" : "TRACKING_" + p_code,
             "ntasks" : 1,
-            "cpu_per_task" : 4,
+            "cpus_per_task" : 4,
             "mem_per_cpu" : 2048,
             "time" : "%s:%s:00" % (str(time[0]), str(time[1])),
             "mail_user" : "michele.cerra@student.uclouvain.be",
