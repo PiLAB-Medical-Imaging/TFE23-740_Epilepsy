@@ -1,30 +1,43 @@
-# THIS MINI PROGRAM RUN THE SEGMENTATION FOR ALL THE PATIENTS
-import subprocess
-import os
+import sys
+import json
+import elikopy
 
-from threading import Thread
-
-absolute_path = os.path.dirname(__file__) # return the abs path of the folder of this file, wherever it is
-project_dir = absolute_path + "/.."
-subjects_dir = project_dir + "/seg_subjs"
-
-nPatients = 19
+from params import get_segmentation, get_folder
+from elikopy.utils import submit_job
 
 # srun recon-all -all -s $SUB_ID -i $PROJECT_DIR/study/T1/${SUB_ID}_T1.nii.gz -T2 $PROJECT_DIR/study/T1/${SUB_ID}_T2.nii.gz -T2pial -qcache
 # srun --cpus-per-task=4 mri_cc -force -f -aseg aseg.mgz -o aseg.auto_CCseg.mgz $SUB_ID
 
-threads = []
+def main():
+    folder_path = get_folder(sys.argv)
+    seg_fold = get_segmentation(sys.argv)
 
-def runShell(cmd):
-    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
-    process.wait()
-# TODO farlo con i thread pool...
-for i in range(19,nPatients+1):
-    bashCommand = "recon-all -all -sd %s -s VNSLC_%02d -i %s/study/T1/VNSLC_%02d_T1.nii.gz -T2 %s/study/T1/VNSLC_%02d_T2.nii.gz -T2pial -qcache > %s/outputs/seg_out_VNSLC_%02d.txt" % (subjects_dir, i, project_dir, i, project_dir, i, absolute_path, i)
+    ## Read the list of subjects and for each subject do the tractography
+    dest_success = folder_path + "/subjects/subj_list.json"
+    with open(dest_success, 'r') as file:
+        patient_list = json.load(file)
+
+    job_list = []
+
+    for i in range(19,20): # CHANGE with patient list | all the patients
+        p_job = {
+            "wrap" : "recon-all -all -sd %s -s VNSLC_%02d -i %s/T1/VNSLC_%02d_T1.nii.gz -T2 %s/T1/VNSLC_%02d_T2.nii.gz -T2pial -qcache" % (seg_fold, i, folder_path, i, folder_path, i,),
+            "job_name" : "Seg_" + i,
+            "ntasks" : 1,
+            "cpus_per_task" : 4,
+            "mem_per_cpu" : 4096,
+            "time" : "12:00:00",
+            "mail_user" : "michele.cerra@student.uclouvain.be",
+            "mail_type" : "FAIL",
+            "output" : seg_fold + "/slurm-%j.out",
+            "error" : seg_fold + "/slurm-%j.err",
+        }
+        p_job_id = {}
+        p_job_id["id"] = submit_job(p_job)
+        p_job_id["name"] = "VNSLC_%02d" % i
+        job_list.append(p_job_id)
     
-    t = Thread(target=runShell, args=(bashCommand,))
-    t.run()
-    threads.append(t)
+    elikopy.utils.getJobsState(folder_path, job_list, "log")
 
-for t in threads:
-    t.join()
+if __name__ == "__main__" :
+    exit(main())

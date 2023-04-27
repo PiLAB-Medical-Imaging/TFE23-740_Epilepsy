@@ -4,7 +4,7 @@ import elikopy
 import json
 
 from params import get_folder, get_segmentation
-from elikopy.utils import submit_job, get_job_state
+from elikopy.utils import submit_job
 
 absolute_path = os.path.dirname(__file__) # return the abs path of the folder of this file, wherever it is
 
