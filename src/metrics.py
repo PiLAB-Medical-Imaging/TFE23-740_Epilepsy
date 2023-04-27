@@ -29,7 +29,7 @@ def main():
             customDiamond="", #TODO add or change it
         )
     if model in ("noddi", "all"):
-        study.noddi(
+        study.noddi_amico(
             #lambda_iso_diff=,
             #lambda_par_diff=,
         )
