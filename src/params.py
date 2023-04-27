@@ -55,3 +55,15 @@ def get_model(argv):
         exit(1)
 
     return model
+
+def get_patient(argv):
+    patient = None
+    if "-p" in argv[1:]:
+        parIdx = argv.index("-p") + 1 # the index of the parameter after the option
+        par = argv[parIdx]
+        patient = par
+    else:
+        print("no patient selected!")
+        exit(1)
+
+    return patient

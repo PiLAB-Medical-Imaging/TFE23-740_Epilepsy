@@ -7,6 +7,7 @@ import elikopy.utils
 
 from dipy.io.streamline import load_tractogram, save_trk
 from regis.core import find_transform, apply_transform
+from params import *
 
 # absolute_path = os.path.dirname(__file__) # return the abs path of the folder of this file, wherever it is
 
@@ -201,19 +202,21 @@ def freesurfer_mask_extraction(folder_path, seg_path, subj_id):
 
 def registration(folder_path, subj_id):
 
-    moving_file_FA = folder_path + "/static_files/atlases/FSL_HCP1065_FA_1mm.nii.gz"
+    # moving_file_FA = folder_path + "/static_files/atlases/FSL_HCP1065_FA_1mm.nii.gz"
     moving_file_T1 = folder_path + "/static_files/atlases/MNI152_T1_05mm.nii.gz"
 
-    static_file_FA = folder_path + "/subjects/" + subj_id + "/dMRI/microstructure/dti/" + subj_id + "_FA.nii.gz"
+    # static_file_FA = folder_path + "/subjects/" + subj_id + "/dMRI/microstructure/dti/" + subj_id + "_FA.nii.gz"
     static_file_T1 = folder_path + "/T1/" + subj_id + "_T1.nii.gz"
 
-    print(moving_file_FA, moving_file_T1, static_file_FA, static_file_T1)
-
-    if not os.path.isfile(moving_file_FA) or not os.path.isfile(static_file_FA) or not os.path.isfile(moving_file_T1) or not os.path.isfile(static_file_T1):
+    # if not os.path.isfile(moving_file_FA) or not os.path.isfile(static_file_FA) or not os.path.isfile(moving_file_T1) or not os.path.isfile(static_file_T1):
+    #     print("Images for subject: " + subj_id + " weren't found")
+    #     return 1
+    
+    if not os.path.isfile(moving_file_T1) or not os.path.isfile(static_file_T1):
         print("Images for subject: " + subj_id + " weren't found")
         return 1
 
-    mapping_FA = None
+    # mapping_FA = None
     mapping_T1 = None
 
     for path, dirs, files in os.walk(folder_path + "/static_files/atlases/masks"):
@@ -226,15 +229,15 @@ def registration(folder_path, subj_id):
 
                 print("Applying transformation from " + file.split(".")[0])
                 if "_FA_" in file:
-                    
-                    if mapping_FA is None:
-                        print("Finding transformation from atlas FA ")
-                        mapping_FA = find_transform(moving_file_FA, static_file_FA)
-                        print("Transformation found")
-
-                    print("FA:",end=" ")
-
-                    apply_transform(moving_file, mapping_FA, static_file_FA, output_path=output_path, binary=True, binary_thresh=0)
+                    pass
+                    # if mapping_FA is None:
+                    #     print("Finding transformation from atlas FA ")
+                    #     mapping_FA = find_transform(moving_file_FA, static_file_FA)
+                    #     print("Transformation found")
+                    # 
+                    # print("FA:",end=" ")
+                    # 
+                    # apply_transform(moving_file, mapping_FA, static_file_FA, output_path=output_path, binary=True, binary_thresh=0)
                 elif "_T1_" in file:
                     
                     if mapping_T1 is None:
@@ -443,3 +446,36 @@ def compute_tracts(p_code, folder_path, extract_roi, seg_path, reg, tract):
 
                 convertTck2Trk(subj_folder_path, p_code, output_path)
 
+def main():
+    
+    ## Getting folder
+    folder_path = get_folder(sys.argv)
+
+    ## Get the patient
+    p = get_patient(sys.argv)
+    
+    # check if the user wants to compute the ODF and compute it
+    if "-odf" in sys.argv[1:]:
+        study = elikopy.core.Elikopy(folder_path, cuda=True, slurm=True, slurm_email="michele.cerra@student.uclouvain.be")
+
+        study.odf_msmtcsd()
+
+    extract_roi = False
+    seg_path = ""
+    if "-roi" in sys.argv[1:]:
+        extract_roi = True  
+        seg_path = get_segmentation(sys.argv)
+
+
+    reg = False
+    if "-reg" in sys.argv[1:]:
+        reg = True
+
+    tract = False
+    if "-tract" in sys.argv[1:]:
+        tract = True
+
+    compute_tracts(p, folder_path, extract_roi, seg_path, reg, tract)
+
+if __name__ == "__main__":
+    exit(main())
