@@ -1,33 +1,29 @@
-% Scrivere di cosa si parlerà in questo capitolo
 \section{Magnetic Resonance Imaging}
-% un pò di storia (Nicolas)
-% atomi presenti del corpo e spin
  \subsection{Magnetic properties of nuclei}
  Biological organisms and tissues are naturally abundant of \emph{Hydrogen} atoms, mostly in water and fats. Thanks to the magnetic properties of Hydrogen atoms it is possible to build anatomical images of the human body.
 
- From a classical point of view an atomic nucleus can be assumed as sphere rotating around its axis \ref{fig:sphere_rotating}. This rotation is called spin and it is a fundamental property of nucleus. The \emph{spin} is the intrinsic angular momentum of the nucleus and can be an integer or a half-integer depending of the mass number\footnote{Mass number: number of protons and neutrons} and the atomic number\footnote{Atomic number: number of protons}. In the particular case of the Hydrogen it is present only a proton and the spin can take only tha values $1/2$ and $-1/2$. \\
- Since the nucleus is a charged particle, a rotation of it creates a magnetic field. From this point of view the particle behaves like a small magnetic dipole \ref{fig:sphere_rotating}: $\vec{\mu}=i\vec{S}$ where $\vec{\mu}$ is the intrinsic magnetic momentum that is aligned on its spin $\vec{S}$.
+ From a classical point of view an atomic nucleus can be assumed as sphere rotating around its axis \ref{fig:spin_proton}. This rotation is called spin and it is a fundamental property of nucleus. The \emph{spin} is the intrinsic angular momentum of the nucleus and can be an integer or a half-integer depending of the mass number\footnote{Mass number: number of protons and neutrons} and the atomic number\footnote{Atomic number: number of protons}. In the particular case of the Hydrogen it is present only a proton and the spin can take only tha values $1/2$ and $-1/2$. \\
+ Since the nucleus is a charged particle, a rotation of it creates a magnetic field. From this point of view the particle behaves like a small magnetic dipole \ref{fig:spin_proton}: $\vec{\mu}=i\vec{S}$ where $\vec{\mu}$ is the intrinsic magnetic momentum that is aligned on its spin $\vec{S}$.
 
-% Qua l'immagine del libro francese
- \begin{figure}[h]
-    \centering
-    %\includegraphics[width=0.8\textwidth]{}
-    \caption{}
-    \label{fig:sphere_rotating}
-  \end{figure}
+ \begin{figure}
+   \centering
+   \begin{subfigure}{.4\textwidth}
+     \centering
+     \includegraphics[width=0.7\linewidth]{images/magnetic_dipole.png}
+     \caption{}
+     \label{fig:spin_proton}
+   \end{subfigure}%
+   \begin{subfigure}{.6\textwidth}
+     \centering
+     \includegraphics[width=0.7\linewidth]{images/precession.png}
+     \caption{}
+     \label{fig:spin_precession}
+   \end{subfigure}
+   \caption{(a) Representation of the spin and the magnetic moment. \cite{KastlerVetterIRM}, (b) Precessional motion of a proton spin in an applied magnetic field. \cite{organicChemestry}}
+\end{figure}
 
  \noindent Normally orientation of $\vec{\mu}$ is completely random due to thermal random motion, therefore the sum of the magnetic fields is null ($\sum_{i} \mu_{i} = 0$). \\
- In a magnetic dipole, when an external magnetic field $\vec{B_{0}}$ is applied, the individual orientation can take two possible orientations: \emph{parallel} or \emph{anti-parallel}. This phenomena in the particles is different, since the particle is rotating, the external magnetic field creates a \emph{precession} around $\vec{B_{0}}$ like a spinning top \ref{fig:FieldB0}: $\vec{\Gamma}=\vec{\mu} \times \vec{B_{0}}$ where $\vec{\Gamma}$ is the \emph{torque}.
-
- % Qua l'immagine del libro ita 1.5
- \begin{figure}[h]
-    \centering
-    %\includegraphics[width=0.8\textwidth]{}
-    \caption{}
-    \label{fig:FieldB0}
- \end{figure}
-
- \noindent The axis rotates around the area of a "cone", with an angular speed proportional to the applied field following the \emph{Larmor's Law}:
+ In a magnetic dipole, when an external magnetic field $\vec{B_{0}}$ is applied, the individual orientation can take two possible orientations: \emph{parallel} or \emph{anti-parallel}. This phenomena in the particles is different, since the particle is rotating, the external magnetic field creates a \emph{precession} around $\vec{B_{0}}$ like a spinning top \ref{fig:spin_precession}: $\vec{\Gamma}=\vec{\mu} \times \vec{B_{0}}$ where $\vec{\Gamma}$ is the \emph{torque}. The axis rotates around the area of a "cone", with an angular speed proportional to the applied field following the \emph{Larmor's Law}:
  \begin{equation}
     f_{0}=\frac{\gamma}{2\pi} B_{0}
  \end{equation}
@@ -41,8 +37,8 @@
  % Qua l'immagine del libro ita 1.6
  \begin{figure}[h]
     \centering
-    %\includegraphics[width=0.8\textwidth]{}
-    \caption{}
+    \includegraphics[width=0.8\textwidth]{images/energy_protons.jpg}
+    \caption{Separation of different energy levels after the application of the external field $B_0$. The population of spins in the lower level is slightly more of the upper.\cite{elementiRisonanza} Translated.}
     \label{fig:macroscopic_magnetization}
  \end{figure}
 
@@ -72,27 +68,24 @@
     B_{1}(t)=2B_{1}(t)\cos(2\pi f_{RF}t+\phi)\vec{1_{xy}}
  \end{equation}
 
- % Qua l'immagine del libro ita 1.9
  \begin{figure}[h]
     \centering
-    %\includegraphics[width=0.8\textwidth]{}
-    \caption{}
+    \includegraphics[width=0.6\textwidth]{images/trajectory_magnetization.png}
+    \caption{Trajectory of the magnetization vector. The vector describes a spiral trajectory by rotating at the Larmor frequency, tilting more and more, until it gets to rotate on the transverse plane. \cite{elementiRisonanza}}
     \label{fig:trajectory_magnetization}
  \end{figure}
 
- % Qua l'immagine del libro ita 1.10
  \begin{figure}[h]
     \centering
-    %\includegraphics[width=0.8\textwidth]{}
-    \caption{}
-    % Qua descrivere bene tutti passaggi (come ha fatto Nicolas) 
+    \includegraphics[width=0.9\textwidth]{images/energy_gaining.png}
+    \caption{Effect of the RF impulse. (a) Initial situation; (b) System during the impulse; (c) System after 90 RF impulse. \cite{elementiRisonanza} Arranged.}
     \label{fig:energy_gaining}
  \end{figure}
 
  \noindent The \emph{flip angle} from the initial direction of the magnetization is defined by:
  \[\theta = \gamma B_{1}T_{RF}\]
  where $T_{RF}$ is the duration of the RF-pulse.\\
- Now the magnetization vector can be represented as:
+ Now the magnetization vector can be represented with a longitudinal magnetization $M_z$ and a transverse magnetization $M_{xy}$:
  \begin{equation}
     \vec{M}=M_{z}\vec{1_{z}}+M_{xz}\vec{1_{xy}}
  \end{equation}
@@ -103,93 +96,76 @@
  \[M_{z} \rightarrow M_{0}\]
  \[M_{xy} \rightarrow 0 \]
 
+ \begin{figure}[h]
+   \centering
+   \includegraphics[width=0.5\textwidth]{images/t1_relax_energy.png}
+   \caption{There is a progressively transition to the equilibrium from the high level to the lower lever of energy. \cite{KastlerVetterIRM}}
+   \label{fig:T1_relax_energy}
+ \end{figure}
+
  The first is the \emph{longitudinal relaxation} (\emph{spin-lattice relaxation} or \emph{T1-relaxation}) in which the magnetization recovers to its original $M_0$, because the energy state after the RF-pulse is unstable it will create a transition of spins from high energy to low energy \ref{fig:T1_relax_energy}.
  \begin{equation}
     M_{z}(t)=M_{0}+(M_{z}(0)-M_{0})e^{-\frac{t}{T_{1}}}
  \end{equation}
- Where $T_1$ is the time needed to $M_{z}$ to reach the $63\%$ of the initial value $M_{0}$ \ref{fig:T1_relax_tissues}.
-
- % Qua l'immagine del libro francese
- % quella dove fa vedere gli spin e l'energia 3.3
- \begin{figure}[h]
-    \centering
-    %\includegraphics[width=0.8\textwidth]{}
-    \caption{}
-    \label{fig:T1_relax_energy}
- \end{figure}
-
+ where $T_1$ is the time needed to $M_{z}$ to reach the $63\%$ of the initial value $M_{0}$ \ref{fig:T1_relax_tissues}.
+ 
  In the T\textsubscript{1}-weighted image the signals must depend on the $T_1$ relaxation. Therefore the time between the RF-pulses have to be brief, but sufficient to differentiate the different tissues \ref{fig:T1_relax_tissues}. In these scans, the white matter is represented in light grey, the grey matter in a darker shade of grey and the fluids in black.
 
  % Qua l'immagine del libro ita 2.4
  \begin{figure}[h]
     \centering
-    %\includegraphics[width=0.8\textwidth]{}
-    \caption{}
+    \includegraphics[width=1\textwidth]{images/t1_relax_tissues.png}
+    \caption{The T\textsubscript{1} relaxation time is different for type of tissues. \cite{elementiRisonanza} Translated.}
     \label{fig:T1_relax_tissues}
  \end{figure}
-
  The second phenomenon is the \emph{transverse relaxation} (\emph{spin-spin relaxation} or \emph{T2-relaxation}) and it is characterized by a loss in coherence of the spin phases \ref{fig:T2_relax_phases}.
  \begin{equation}
     M_{xy}(t)=M_{xy}(0)e^{-\frac{t}{T_{2}}}
  \end{equation}
- Where $T_2$ is the time needed to $M_{xy}$ to reduce itself to $37\%$ of the initial value \ref{fig:T2_relax}.
+ where $T_2$ is the time needed to $M_{xy}$ to reduce itself to $37\%$ of the initial value \ref{fig:T2_relax_tissues}.
 
- % Qua l'immagine del libro francese
- % quella dove fa vedere gli spin e l'energia 3.6
  \begin{figure}[h]
-    \centering
-    %\includegraphics[width=0.8\textwidth]{}
-    \caption{}
-    \label{fig:T2_relax_phases}
- \end{figure}
-
-% Qua l'immagine del libro ita
- % quella dove fa vedere il movimento degli spin 2.10 (da rittoccarlo)
- \begin{figure}[h]
-    \centering
-    %\includegraphics[width=0.8\textwidth]{}
-    \caption{}
-    \label{fig:T2_relax}
- \end{figure}
-
+   \centering
+   \includegraphics[width=0.5\textwidth]{images/t2_relax_phases.png}
+   \caption{After the RF impulse there is a fast dephasing of the protons. The transversal magnetization $M_{xy}$ decreases quickly. \cite{KastlerVetterIRM} }
+   \label{fig:T2_relax_phases}
+\end{figure}
+ 
  In the T\textsubscript{2}-weighted imaged the signals must depend only from the $T_2$ relaxation. Therefore is needed to wait that the $T_1$ relaxation effects are exhausted before reading the signal and send a new one. In these scans, the white matter is in dark grey, the grey matter is in light grey and the cerebrospinal fluid is in white \ref{fig:T2_relax_tissues}.
 
  % Qua l'immagine del libro ita 2.2
  \begin{figure}[h]
     \centering
-    %\includegraphics[width=0.8\textwidth]{}
-    \caption{}
+    \includegraphics[width=1\textwidth]{images/t2_relax_tissues.png}
+    \caption{The T\textsubscript{2} relaxation time is different for type of tissues. \cite{elementiRisonanza} Translated.}
     \label{fig:T2_relax_tissues}
  \end{figure}
 
- In real conditions of an imperfect homogeneity of the field $B_0$ we see the \emph{effective relaxation time}:
+ \noindent In real conditions of an imperfect homogeneity of the field $B_0$ we see the \emph{effective relaxation time}:
  \begin{equation}
     \frac{1}{T_{2}*} = \frac{1}{T_2}+\gamma\Delta B_0
  \end{equation}
  Where $\Delta B_0$ are the inhomogeneities in the magnetic field.
 
-% Block equations
  \subsection{Spin-echo sequence}
  To obtain images with different type of contrast is needed to control the time between RF-pulses and the time of between readings of the signal. \\
  The first sequence utilized for clinical purpose is the \emph{spin-echo}. It introduces two main parameters: \emph{Echo time} ($TE$) and the \emph{Repetition time} ($TR$). The time between two 90° RF-pulses is defined ad $TR$, while the time between the RF-pulse and the first echo is defined as $TE$.\\
  The strength of this sequence is the capacity of reading the T\textsubscript{2}-weighted signals and not the T\textsubscript{2}* \ref{fig:T2vsT2*}.
 
- % Qua l'immagine del libro ita 2.11
  \begin{figure}[h]
     \centering
-    %\includegraphics[width=0.8\textwidth]{}
-    \caption{}
+    \includegraphics[width=1\textwidth]{images/t2vst2star.png}
+    \caption{Recovering of the T\textsubscript{2}-weighted signals from the T\textsubscript{2}* through the Spin-echo sequence. The T\textsubscript{2}-weighted signals is created by interpolating the peaks of the spin echo signals. The time between $t_0$ and $t_2$ is defined ad $TE$ \cite{elementiRisonanza}}
     \label{fig:T2vsT2*}
  \end{figure}
 
- \noindent The spin-echo sequence is composed of two type of RF-pulses: a 90° pulse and many 180° pulses. These last pulses have a double intensity and are called \emph{echo impulses}. An echo impulse mirror all the spins of 180°, therefore the faster spins and the slower are inverted of position, creating the possibility that all the spins are refocused at time $TE$ \ref{fig:echo_seq}.
+ \noindent The spin-echo sequence is composed of two type of RF-pulses: a 90° pulse and many 180° pulses. These last pulses have a double intensity and are called \emph{echo impulses}. An echo impulse mirror all the spins of 180°, therefore the faster spins and the slower are inverted of position, creating the possibility that all the spins are refocused at time $TE$.
 
- % Qua l'immagine del libro ita 2.9
  \begin{figure}[h]
-    \centering
-    %\includegraphics[width=0.8\textwidth]{}
-    \caption{}
-    \label{fig:echo_seq}
+   \centering
+   \includegraphics[width=1\textwidth]{images/t2_relax.png}
+   \caption{(a) After the end of the 90° RF impulse the protons are with the same phase. (b) The protons precession are different due to the inhomogeneities of the magnetic field. (c) The phases are completely different, there are some faster protons than others. (d) A 180° RF impulse move the proton position in a symmetric way in order to the slower protons are after the faster. (e) In the rotation the spins recover progressively the same phase. (f) At this time is generated a spin echo. \cite{elementiRisonanza} Arranged.}
+   \label{fig:T2_relax}
  \end{figure}
 
  \subsubsection*{Contrast}
@@ -203,8 +179,8 @@
  % Qua l'immagine della matrice che fa vedere le differenze
  \begin{figure}[h]
     \centering
-    %\includegraphics[width=0.8\textwidth]{}
-    \caption{}
+    \includegraphics[width=0.8\textwidth]{images/matrix_contrast.png}
+    \caption{Matrix showing the different contrasts obtained with different $TE$ and $TR$ values. \cite{matrixContrast}}
     \label{fig:matrixTR_TE}
  \end{figure}
 
@@ -387,7 +363,7 @@
  Dendrites and axons, known collectively as neurites, are the cellular building blocks of the computational circuitry of the brain. Quantifying neurite morphology in terms of its density and orientation distribution provides a view between normal populations and populations with brain disorder. \cite{zhang2012noddi}
  Neurite Orientation Dispersion and Density Imaging (NODDI) is a three-compartment tissue model that models the microstructure complexity of dendrites and axons. Such indices of neurites provide more specific markers of brain tissue microstructure than DTI. \cite{zhang2012noddi}
  \\\\
- NODDI distinguishes three types of microstrctural environment: intra-cellular, extra-cellular and CSF compartments. Each gives to a separate normalized MR signal $A_i$ combined as
+ NODDI distinguishes three types of microstructural environment: intra-cellular, extra-cellular and CSF compartments. Each gives to a separate normalized MR signal $A_i$ combined as
  \begin{equation}
    A=(1-\nu_{iso})(\nu_{ic}A_{ic}+(1-\nu_{ic})A_{ec})+\nu_{iso}A_{iso}
  \end{equation}
@@ -450,7 +426,7 @@
 
  DIAMOND requires the estimation of the number of tissue compartments in each voxel, which enables direct assesment of compartments-specific diffusion characteristic such as the compartment mean diffusivitu ($cMD$), axial diffusivity ($cAD$) and radial diffusivity ($cRD$). 
  \\\\
- The fraction of spin packets described by a 3D diffusivity $\mathbf{D}$ in the voxel is given by a \emph{matrix-variate} distribution $P(\mathbf{D})$. Therefore, if a voxel consisted of exaclty one \emph{homogeneous} microstrctural environment characterized by a tensor $\mathbf{D}^0$, then $P(\mathbf{D})$ would be a delta function $P(\mathbf{D})=\delta(\mathbf{D}-\mathbf{D}^0)$ and the model would be equivalent to DTI. While, if it consisted of several identifiable homogeneus microstructural eNvironments, a mixture of delta functions would be used \cite{scherrer2016diamond} \ref{fig:homogeneous_compartments_diamond}. Then the DW signal $S_k$ is modeled by:
+ The fraction of spin packets described by a 3D diffusivity $\mathbf{D}$ in the voxel is given by a \emph{matrix-variate} distribution $P(\mathbf{D})$. Therefore, if a voxel consisted of exaclty one \emph{homogeneous} microstructural environment characterized by a tensor $\mathbf{D}^0$, then $P(\mathbf{D})$ would be a delta function $P(\mathbf{D})=\delta(\mathbf{D}-\mathbf{D}^0)$ and the model would be equivalent to DTI. While, if it consisted of several identifiable homogeneus microstructural eNvironments, a mixture of delta functions would be used \cite{scherrer2016diamond} \ref{fig:homogeneous_compartments_diamond}. Then the DW signal $S_k$ is modeled by:
  \begin{equation}\label{eq:1.26}
    S_k = S_0 \int_{\mathbf{D}\in Sym^{+}(3)} P(\mathbf{D})\exp(-b_k\mathbf{g}_k^T\mathbf{D}\mathbf{g}_k) \,d\mathbf{D}
  \end{equation}
@@ -492,5 +468,54 @@
 
   \subsubsection*{Limitations}
   To summarise, DIAMOND focuses on capturing the distribution of 3D diffusivities arising from each tissue compartment (\emph{model of the tissues}), and in constrast of the \emph{model of the signal}, it requires the estimation of the number of tissue compartments ($N_p$) in each voxel, that is, the number of mv-$\Gamma$ components. The estimation of $N_p$ could be the only limitation of this model.
- \subsection{Microstructure fingerprintign}
-  \subsubsection*{Advantages and Limitations}
+ \subsection{Microstructure fingerprinting}
+ Microstructure fingerprinting is a model which leverages Monte Carlo simulation for the estimation of physically interpretable microstructural parameters, both in single and in crossing fascicles of axons in each voxel \cite{rensonnet2019towards}. It is a multicompartment model as DIAMOND, each voxel is composed of different structures. Monte Carlo simulations of DW-MRI signals, or \emph{fingerprints}, are pre-computed for a large collection of microstructural configurations. At every voxel, the microstructural parameters are estimated by optimizing a spase combination of the fingerprints \cite{rensonnet2019towards}.
+
+ MF is based of the \emph{superposition principle} of crossing fascicles \ref{fig:superposition}, it assumes that the DW-MRI signal $S$ of each voxel is composed by independent contributions of $K$ fasciles of axons with different orientations $\mathbf{u}_k$ occupying fractions $\nu_k$ of the physical volume and of a partial volume $\nu_{CSF}$ of cerebrospinal fluid \cite{rensonnet2019towards}. $S$ can be espressed as:
+ \begin{equation}
+  \begin{aligned}
+   S ={} & M_0 \left[ \sum_{k=1}^{K} \nu_k A_{fasc} ( \,\mathbf{\Omega}_k,\mathbf{T}_k,\mathbf{u}_k;\mathbf{g}) \, + \nu_{csf} A_{csf}( \,D_{csf}, \mathbf{T}_{csf};\mathbf{g}) \, \right] \\
+    = & \sum_{k=1}^{K} w_k A_k + w_{csf}A_{csf} 
+  \end{aligned}
+ \end{equation}
+ where $M_0$ is the initial transverse magnetization of the voxel, $A_k := A_{fasc} ( \,\mathbf{\Omega}_k,\mathbf{T}_k,\mathbf{u}_k;\mathbf{g}) \,$ is the normalized DW-MRI signal of the k-th fascicle, modeled by a Monte Carlo simulation, that would arise from an environment composed of fasciles with parameters $\mathbf{\Omega}_k$ and $\mathbf{T}_k$, and $w_k$ is its weight defined as \ref{eq:1.31}. Water is assumed to diffuse freely and isotropically with a scalar diffusivity $D_{csf}$.
+ \begin{equation}\label{eq:1.31}
+   w_k = M_0\nu_k \iff \nu_k = \frac{w_k}{\sum_{k=1}^{K+1} w_k}
+ \end{equation}
+
+ % Qua 1.5 di rensonet 2015
+  \begin{figure}[h]
+   \centering
+   %\includegraphics[width=0.8\textwidth]{}
+   \caption{}
+   \label{fig:superposition}
+ \end{figure}
+
+ The dictionary is composed of DW-MRI signals (\emph{fingerprints}) obtained by Monte Carlo simulations of the random walk of water molecules in environments defined by \emph{hexagonal packing of impermeable cylinders} with different microstrucutral parameters $\Omega_k$ that rapresent the axons \cite{rensonnet2019towards}. The fasciles are modeled by an axonal radius ($r$) and separation between the cylinders ($s$).
+
+  % Qua 2.6 di Berger_brain anomalies  citarlo anche
+  \begin{figure}[h]
+   \centering
+   %\includegraphics[width=0.8\textwidth]{}
+   \caption{}
+   \label{fig:hexagonal packing}
+ \end{figure}
+
+ \noindent Fascicle can be described by its intra-axonal volume fraction (or fiber volume fraction $fvf$), defined as ratio between the area of axons within the hexagon and the area of the hexagon \ref{eq:1.32}, and by extra-axonal diffusivity $D_{ex}$.
+ \begin{equation}\label{eq:1.32}
+   fvf_{fasc} = \frac{A_{axons \subset hexagon}}{A_{hexagon}} = \frac{2\pi}{\sqrt{3}} \left(\frac{r}{s}\right) ^ 2
+ \end{equation}
+ A canonical dictionary along the orientation $k=0$, $C^0 = \left[ A^0_1 \dots A^0_N \right] \in \mathbb{R}^{M \times N}$ is composed by concatenation of all the combinations of the possible fingerprints ($fvf$ and $D_{ex}$). \cite{dessain2022fast}
+ \\\\
+ After pre-computing the canonical dictionary, the optimal combination of configurations is found at runtime. The runtime method consist in concatenating all the rotations of $C_0$ along each population and then solving a \emph{sparse optimization problem} to find the best combination of fingerprint and orientation. The sparisty constraint ensure that only one fascicle is chosen out of all possible fascicle for a specific orientation \cite{rensonnet2019vivo}. The sparsity constraint problem can be defined as:
+ \begin{equation}
+   (\hat{j}_1, \dots, \hat{j}_K) = \argmin_{1\leq j_1, \dots, j_K \leq N} \min_{\mathbf{w}\geq0} \norm{ \mathbf{y} - \left[ \mathbf{A}^1_{j_1} | \dots | \mathbf{A}^K_{j_K} | \mathbf{A}_{csf} \right] \cdot \begin{bmatrix} w_1 \\ \vdots \\ w_K \\ w_{csf} \end{bmatrix} }
+ \end{equation}
+ where $\mathbf{y}$ is the measured signal, and $\mathbf{A}^k_{j_k} = \left\{ A_{fasc} \left( \Omega_{j_k},\mathbf{T}_k, \mathbf{u}_k;\mathbf{g}_i(t)\right) \right\}^M_{i=1}, 1\leq j_k \leq N $ is the signal from of a fascile with orientation $u_k$ and microstructural parameters defined with index $j$. Finally, $\hat{j}_k$ is the index of the optimal fingerprint in the k-th direction.\\
+ From the optimal fingerprints and the weights is possible to extract the metrics by:
+ \begin{align*}
+ \nu_k = \frac{w_k}{\left(w_k + w_k\right)}; \; fvf_k = fvf_{\hat{j}_k}; \; D_{ex, k} = D_{ex, \hat{j}_k}
+ \end{align*}
+
+  \subsubsection*{Limitations}
+  The use of the single scalars $r$ and $s$ to characterize the intra-axonal signal and the assumption on the impermeability of them is an overestimation of axons. Furthermore, the sparsity constraints do not allow mixtures of fingerprints to reconstruct the signal arising from a single fascicle of axons, this could be a limitation for fascicles with differrent microstructural properties in different sub-regions. \cite{rensonnet2019vivo}

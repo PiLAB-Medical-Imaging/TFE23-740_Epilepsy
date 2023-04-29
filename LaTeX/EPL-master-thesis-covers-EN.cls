@@ -13,6 +13,9 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{xcolor}
+\usepackage[font=footnotesize,labelfont=bf]{caption}
+\usepackage{subcaption}
+\usepackage{url}
 \RequirePackage{microtype}   % Improves typography
 \RequirePackage[T1]{fontenc}
 \RequirePackage{lmodern}
@@ -38,6 +41,9 @@
 \newcommand{\readerfour}[1]{\def\@readerfour{#1}}
 \newcommand{\readerfive}[1]{\def\@readerfive{#1}}
 \newcommand{\years}[1]{\def\@years{#1}}
+
+\newcommand{\argmin}{\mathop{\mathrm{argmin}}\limits}
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
 
 % Lenghts
 \newlength{\tabAuthor}
