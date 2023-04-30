@@ -5,48 +5,48 @@ The style file: apalike.bst
 Database file #1: refs.bib
 Warning--entry type for "WHO" isn't style-file defined
 --line 107 of file refs.bib
-Warning--to sort, need author or key in QeA_MRI
-Warning--empty year in QeA_MRI
 Warning--empty year in campbell
-You've used 56 entries,
+Warning--empty year in QeA_MRI
+Warning--empty year in dtiBook
+You've used 63 entries,
             1935 wiz_defined-function locations,
-            851 strings with 16613 characters,
-and the built_in function-call counts, 25981 in all, are:
-= -- 2409
-> -- 1515
-< -- 23
-+ -- 549
-- -- 543
-* -- 2476
-:= -- 4615
-add.period$ -- 166
-call.type$ -- 56
-change.case$ -- 548
-chr.to.int$ -- 56
-cite$ -- 60
-duplicate$ -- 788
-empty$ -- 1569
-format.name$ -- 612
-if$ -- 4925
+            885 strings with 17739 characters,
+and the built_in function-call counts, 28040 in all, are:
+= -- 2615
+> -- 1592
+< -- 30
++ -- 575
+- -- 567
+* -- 2613
+:= -- 5025
+add.period$ -- 189
+call.type$ -- 63
+change.case$ -- 594
+chr.to.int$ -- 63
+cite$ -- 66
+duplicate$ -- 867
+empty$ -- 1696
+format.name$ -- 644
+if$ -- 5306
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 53
-newline$ -- 280
-num.names$ -- 167
-pop$ -- 455
+missing$ -- 56
+newline$ -- 317
+num.names$ -- 191
+pop$ -- 487
 preamble$ -- 1
-purify$ -- 550
+purify$ -- 597
 quote$ -- 0
-skip$ -- 583
+skip$ -- 649
 stack$ -- 0
-substring$ -- 1678
-swap$ -- 72
+substring$ -- 1784
+swap$ -- 74
 text.length$ -- 5
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 330
+type$ -- 370
 warning$ -- 3
-while$ -- 175
+while$ -- 192
 width$ -- 0
-write$ -- 718
+write$ -- 808
 (There were 4 warnings)

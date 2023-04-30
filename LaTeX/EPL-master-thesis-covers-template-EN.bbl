@@ -1,8 +1,5 @@
 \begin{thebibliography}{}
 
-\bibitem[QeA, ]{QeA_MRI}
-Eddy currents.
-
 \bibitem[Aghajanian et~al., 1977]{AGHAJANIAN1977570}
 Aghajanian, G., Cedarbaum, J., and Wang, R. (1977).
 \newblock Evidence for norepinephrine-mediated collateral inhibition of locus
@@ -41,6 +38,13 @@ Beekwilder, J. and Beems, T. (2010).
 Ben-Menachem, E. (2001).
 \newblock Vagus nerve stimulation, side effects, and long-term safety.
 \newblock {\em Journal of clinical neurophysiology}, 18(5):415--418.
+
+\bibitem[Berger, 2020]{berger2020}
+Berger, A. (2020).
+\newblock Quantifying microstructural brain anomalies in patients with
+  alzheimer's disease via diffusion magnetic resonance imaging.
+\newblock Master's thesis, Ecole polytechnique de Louvain, Université
+  catholique de Louvain.
 
 \bibitem[Berger et~al., 2021]{BergerVespa2021}
 Berger, A., Vespa, S., Dricot, L., Dumoulin, M., Iachim, E., Doguet, P.,
@@ -94,6 +98,12 @@ Devinsky, O., Spruill, T., Thurman, D., and Friedman, D. (2016).
 Duncan, J.~S., Sander, J.~W., Sisodiya, S.~M., and Walker, M.~C. (2006).
 \newblock Adult epilepsy.
 \newblock {\em The Lancet}, 367(9516):1087--1100.
+
+\bibitem[Elster, ]{QeA_MRI}
+Elster, A.~D.
+\newblock Eddy currents.
+\newblock Available at
+  \url{https://mriquestions.com/eddy-current-problems.html}.
 
 \bibitem[Englot et~al., 2013]{Englot2013}
 Englot, D.~J., Lee, A.~T., Tsai, C., Halabi, C., Barbaro, N.~M., Auguste,
@@ -235,6 +245,11 @@ O.~Rampado, M.~C. (2017).
 \newblock {\em Elementi di risonanza magnetica}.
 \newblock Springer.
 
+\bibitem[Peeters, UCL]{slides}
+Peeters, F. (UCL).
+\newblock Medical imaging, chapter 4 : Magnetic resonance imaging.
+\newblock LGBIO2050.
+
 \bibitem[Penry and Dean, 1990]{Penry1990}
 Penry, J.~K. and Dean, J.~C. (1990).
 \newblock Prevention of intractable partial seizures by intermittent vagal
@@ -246,6 +261,13 @@ Pinault, D. and O'brien, T.~J. (2005).
 \newblock Cellular and network mechanisms of genetically-determined absence
   seizures.
 \newblock {\em Thalamus \& related systems}, 3(3):181--203.
+
+\bibitem[Rensonnet, 2015]{rensonnet2015}
+Rensonnet, G. (2015).
+\newblock Generation of a dictionary of dw-mri signals from arbitrary brain
+  microstructure configurations.
+\newblock Master's thesis, Ecole polytechnique de Louvain, Université
+  catholique de Louvain.
 
 \bibitem[Rensonnet, 2019]{rensonnet2019vivo}
 Rensonnet, G. (2019).
@@ -300,10 +322,23 @@ Spencer, S. and Huh, L. (2008).
 \newblock Outcomes of epilepsy surgery in adults and children.
 \newblock {\em The Lancet Neurology}, 7(6):525--537.
 
+\bibitem[Tariq et~al., 2016]{TARIQ2016207}
+Tariq, M., Schneider, T., Alexander, D.~C., {Gandini Wheeler-Kingshott}, C.~A.,
+  and Zhang, H. (2016).
+\newblock Bingham–noddi: Mapping anisotropic orientation dispersion of
+  neurites using diffusion mri.
+\newblock {\em NeuroImage}, 133:207--223.
+
 \bibitem[Thijs et~al., 2019]{THIJS2019689}
 Thijs, R.~D., Surges, R., O'Brien, T.~J., and Sander, J.~W. (2019).
 \newblock Epilepsy in adults.
 \newblock {\em The Lancet}, 393(10172):689--701.
+
+\bibitem[Tromp, 2015]{ellipsoidDTI}
+Tromp, D. (2015).
+\newblock The diffusion tensor, and its relation to fa, md, ad and rd.
+\newblock Available at
+  \url{https://www.diffusion-imaging.com/2015/10/what-is-diffusion-tensor.html}.
 
 \bibitem[Walker et~al., 1999]{GABA}
 Walker, B.~R., Easton, A., and Gale, K. (1999).
@@ -311,9 +346,19 @@ Walker, B.~R., Easton, A., and Gale, K. (1999).
   transmission in nucleus tractus solitarius.
 \newblock {\em Epilepsia}, 40(8):1051--1057.
 
+\bibitem[Weerakkody~Y., 2012]{artifacts}
+Weerakkody~Y., Murphy~A., B.~Y. (2012).
+\newblock Mri artifacts.
+\newblock Available at \url{https://radiopaedia.org/articles/16585}.
+
 \bibitem[WHO, 2023]{WHO}
 WHO (2023).
 \newblock Epilepsy fact sheet.
+
+\bibitem[Wim Van~Hecke, ]{dtiBook}
+Wim Van~Hecke, Louise~Emsell, S.~S.
+\newblock {\em Diffusion Tensor Imaging, A Pratical Handbook}.
+\newblock Springer.
 
 \bibitem[Wong et~al., 2019]{wong2019comparison}
 Wong, S., Mani, R., and Danish, S. (2019).
