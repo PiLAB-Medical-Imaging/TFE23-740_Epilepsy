@@ -255,11 +255,11 @@
  \begin{equation}
     I = I_0 \cdot e^{-b_{PGSE} \cdot D}
  \end{equation}
- Where $I$ is the intensity of received signal, $I_0$ is the intensity of base signal (T\textsubscript{2}-weighted), $b_{PGSE}$ is the factor of sensibility (parameters of PGSE sequence) and $D$ is the coefficient of diffusivity (intrinsic characteristic of the tissue).
+ where $I$ is the intensity of received signal, $I_0$ is the intensity of base signal (T\textsubscript{2}-weighted), $b_{PGSE}$ is the factor of sensibility (parameters of PGSE sequence) and $D$ is the coefficient of diffusivity (intrinsic characteristic of the tissue).
  \begin{equation}
     b_{PGSE} = (\gamma G \delta)^{2}(\Delta - \frac{\delta}{3}) [s/mm^2]
  \end{equation}
- Where $G$ is the diffusion gradient intensity, $\delta$ is the duration of the diffusion gradient and $\Delta$ is the time between the first diffusion and the second.
+ where $G$ is the diffusion gradient intensity, $\delta$ is the duration of the diffusion gradient and $\Delta$ is the time between the first diffusion and the second.
 
  \begin{figure}[h]
     \centering
@@ -293,6 +293,8 @@
       \label{fig:isotropiAnisotropi}
     \end{minipage}
  \end{figure}
+
+ DWI collection involves setting a pre-determined number of gradient directions. That is, how many different angles within a 360-degree circle will water molecules be stimulated. For example, a DWI collection with 12 gradient directions will measure the diffusivity of water on every 30 degree angle, whereas a 32 gradient direction scan will measure every 11.25 degrees. \cite{de2011basic}
 
  \subsection{Diffusion Tensor Imaging (DTI)}
  One of the most popular and widely used mathematical models to describe the primary orientation of white math axonal path is called \emph{diffusion tensor imaging}. This model was introduced in 1994 \cite{basser1994mr} and it consists of estimating an effective \emph{diffusion tensor} ($\mathbf{D}$) within a voxel, which allows to represent its properties with a 3D ellipse. The diffusion tensor is described by a 3x3 symmetric tensor that uses 6 PGSE sequences, one for each different orientation of diffusion gradient, because $D_{yx}=D_{xy}$, $D_{zx}=D_{xz}$ and $D_{zy}=D_{yz}$.
@@ -343,7 +345,7 @@
 
  Both $FA$ and $MD$ can be represented on \emph{diffusion direction maps}. The CSF will have an high $MD$ since the water is free to move in all the directions, while the WM will have an high $FA$ because oriented along a single direction. The image obtained from $FA$ is called \emph{FA map} and often they are displayed as \emph{RGB FA maps}, in which colors are used to represent the principal direction of the diffusion (Red: left-right; Green: anterior-posterior; Blue: superior-inferior) .
 
-  \subsubsection*{Limitations of DTI}
+  \subsubsection*{Limitations of DTI}\label{section:dti_limitations}
   The main limitation of DTI model is that water molecules follow a Gaussian distribution. Therefore, only a bundle of fibers can be modeled inside each voxel, but in reality a complex organization of fibers is observed in every voxel. For example, a voxel containing two crossing fibers is modeled by a large diffusion tensor rather than two narrow tensors. Therefore in these voxel, the DTI model does not hold the assumption of a Gaussian distribution, and the resulting FA or MD metrics do not reflect the actual anatomical microstructure \ref{fig:fiber_crossing}. \cite{elementiRisonanza}
 
   \begin{figure}[h]
@@ -353,7 +355,47 @@
       \label{fig:fiber_crossing}
   \end{figure}
  \subsection{Tractography}
- %%%%% FALLO BENE DETTAGLIATO MA NON SPIEGARE LE COSE CHE NON USI, QUINDI QUESTO PUÒ ESSERE INIZATO MA DA FINIRE APPENA HAI UNA BELLA TECNICA PER FARE DEI BEI TRATTI FATTI SERI
+ Tractography is a technique to estimate the pathways of the white matter fibers in the brain using data from DW-MRI. At the begin tractography was introduced by \cite{basser1998fiber} using his proposed DTI model \cite{basser1994mr} \cite{basser2011microstructural}. But, DTI assumes that white matter fibers have a single orientation (tensor) within each voxel, which can lead to false trajectory results in regions with crossing fibers, as explained in \ref{section:dti_limitations} and figure \ref{fig:fiber_crossing} \cite{basser2000vivo}. To resolve these limitation more advanced algorithms as CSD (\emph{Constrained Spherical Deconvolution}) \cite{tournier2007robust} are used.
+ % Parlare dei algoritm, non parlare qua di MRtrxi 3 di quello se ne parlerà nei method usati
+
+ CSD estimate the \emph{fiber orientation distribution} (FOD) from diffusion data. This distribution value provide information on other independent direction signal present within a voxel. In CSD model the signal $S(\theta, \phi)$ is assumed as convolution over the unit sphere \ref{fig:csv_conv} between the fiber orientation density function (FOD) $F(\theta, \phi)$ and the response function $R(\theta)$, as defined in \cite{tournier2004direct}: 
+ \begin{equation}
+   S(\theta, \phi) = F(\theta, \phi) \circledast R(\theta)
+ \end{equation}
+
+ \begin{figure}
+   \centering
+   \begin{subfigure}{.47\textwidth}
+     \centering
+     \includegraphics[width=\linewidth]{images/csv_conv.png}
+     \caption{2D illustration of a voxel containing two fiber population. It can be expressed as a convolution over the unit sphere of an axially symmetric response function $R(\theta)$ with a fiber orientation density function $F(\theta, \phi)$. In this case $F(\theta, \phi) = \frac{1}{2}\delta(\theta_1, \phi_1)+\frac{1}{2} \delta(\theta_2, \phi_2)$. \cite{tournier2004direct}}
+     \label{fig:csv_conv}
+   \end{subfigure}\hfill
+   \begin{subfigure}{.47\textwidth}
+     \centering
+     \includegraphics[width=\linewidth]{images/spherical_harmonics.png}
+     \caption{ Real parts of the spherical harmonics up to third order ( $n=0,1,2,3$), for degree between $-3≤m≤3$, with lobes in cyan color indicating positive values and lobes in red color indicating negative values. \cite{e21060579}}
+     \label{fig:spherical_harmonics}
+   \end{subfigure}
+\end{figure}
+
+ % https://youtube.com/playlist?list=PLQN7oTTjz44SVSnMXDy66cFQrkm9a-jbw
+  \noindent In order to estimate the FOD using CSD, it is first necessary to represent the FOD as a linear combination of \emph{spherical harmonic basis functions} \ref{fig:spherical_harmonics}. Then the fiber ODF $F(\theta, \phi)$ can be obtained by doing the \emph{spherical deconvolution} \cite{healy1998spherical}. 
+ \\\\\\
+ \noindent CSD supports only data acquired form a single shell\footnote{In diffusion MRI, a "shell" refers to a set of diffusion-weighted images acquired using the same b-value or a range of b-values. Multi-shell diffusion MRI refers to the acquisition of diffusion-weighted images using multiple b-values(e.g., b=0, b=1000, 2000, 3000 $s/mm^2$)}, and can provide high quality fODF estimates in voxel containing WM only, in other cases the results may be unreliable and noisy. In \cite{jeurissen2014multi} was developed a new model MSMT-CSD (\emph{Multi-shell Multi-tissue CSD}), which takes in account also extra-cellular and other tissues for each voxel.
+
+ There are two different strategies used in fiber tractography: deterministic and probabilistic algorithms \ref{fig:det_prob_tract}. Both of them get as input diffusion data or a FOD, and starting from seed points they follow a preferred diffusion direction. \emph{Deterministic tractography} is a straightforward approach that involves tracking the dominant direction of diffusion at each voxel in the brain. However, deterministic tractography is sensitive to noise, crossing fibers (e.g. DTI model). \emph{Probabilistic tractography} models the distribution of possible pathways rather than a single deterministic solution, the resulting tractography is based on a probability distribution of possible pathways. Probabilistic tractography can provide a more robust estimate of the tracts in the brain (e.g. MSMT-CSD model). \cite{behrens2007probabilistic}
+
+ \begin{figure}[h]
+   \centering
+   \begin{minipage}[c]{0.6\textwidth}
+     \includegraphics[width=\textwidth]{images/det_prob_tract.png}
+   \end{minipage}\hfill
+   \begin{minipage}[b]{0.37\textwidth}
+      \caption{Basic example showing the difference between deterministic and probabilistic tracking models. \cite{phdthesisGaryfallidis}}
+      \label{fig:det_prob_tract}
+   \end{minipage}
+\end{figure}
 
 \section{DW-MRI Microstructural models}
  \subsection{NODDI}

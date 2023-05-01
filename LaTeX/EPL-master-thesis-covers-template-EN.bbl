@@ -18,10 +18,27 @@ B.~Kastler, D.~V. (1988).
 \newblock {\em Comprendre l'IRM: Manuel d'auto-apprenissage}.
 \newblock Imagerie médicale DIAGNOSTIC.
 
+\bibitem[Basser, 1998]{basser1998fiber}
+Basser, P.~J. (1998).
+\newblock Fiber-tractography via diffusion tensor mri (dt-mri).
+\newblock In {\em Proceedings of the 6th Annual Meeting ISMRM, Sydney,
+  Australia}, volume 1226.
+
 \bibitem[Basser et~al., 1994]{basser1994mr}
 Basser, P.~J., Mattiello, J., and LeBihan, D. (1994).
 \newblock Mr diffusion tensor spectroscopy and imaging.
 \newblock {\em Biophysical journal}, 66(1):259--267.
+
+\bibitem[Basser et~al., 2000]{basser2000vivo}
+Basser, P.~J., Pajevic, S., Pierpaoli, C., Duda, J., and Aldroubi, A. (2000).
+\newblock In vivo fiber tractography using dt-mri data.
+\newblock {\em Magnetic resonance in medicine}, 44(4):625--632.
+
+\bibitem[Basser and Pierpaoli, 2011]{basser2011microstructural}
+Basser, P.~J. and Pierpaoli, C. (2011).
+\newblock Microstructural and physiological features of tissues elucidated by
+  quantitative-diffusion-tensor mri.
+\newblock {\em Journal of magnetic resonance}, 213(2):560--570.
 
 \bibitem[Beckstead et~al., 1980]{BecksteadJoel2980}
 Beckstead, R.~M., Morse, J.~R., and Norgren, R. (1980).
@@ -33,6 +50,13 @@ Beckstead, R.~M., Morse, J.~R., and Norgren, R. (1980).
 Beekwilder, J. and Beems, T. (2010).
 \newblock Overview of the clinical applications of vagus nerve stimulation.
 \newblock {\em Journal of clinical neurophysiology}, 27(2):130--138.
+
+\bibitem[Behrens et~al., 2007]{behrens2007probabilistic}
+Behrens, T.~E., Berg, H.~J., Jbabdi, S., Rushworth, M.~F., and Woolrich, M.~W.
+  (2007).
+\newblock Probabilistic diffusion tractography with multiple fibre
+  orientations: What can we gain?
+\newblock {\em neuroimage}, 34(1):144--155.
 
 \bibitem[Ben-Menachem, 2001]{ben2001vagus}
 Ben-Menachem, E. (2001).
@@ -76,6 +100,12 @@ Cabral, J., Kringelbach, M.~L., and Deco, G. (2017).
 \bibitem[Campbell, ]{campbell}
 Campbell, K.
 \newblock Medical and science illustration, animations and communications.
+
+\bibitem[de~Figueiredo et~al., 2011]{de2011basic}
+de~Figueiredo, E.~H., Borgonovi, A.~F., and Doring, T.~M. (2011).
+\newblock Basic concepts of mr imaging, diffusion mr imaging, and diffusion
+  tensor imaging.
+\newblock {\em Magnetic Resonance Imaging Clinics}, 19(1):1--22.
 
 \bibitem[Dessain et~al., 2022]{dessain2022fast}
 Dessain, Q., Delinte, N., Macq, B., and Rensonnet, G. (2022).
@@ -161,6 +191,12 @@ Galanopoulou, A.~S. (2008).
 \newblock Gabaa receptors in normal development and seizures: friends or foes?
 \newblock {\em Current neuropharmacology}, 6(1):1--20.
 
+\bibitem[Garyfallidis, 2012]{phdthesisGaryfallidis}
+Garyfallidis, E. (2012).
+\newblock {\em Eleftherios Garyfallidis, "Towards an accurate brain
+  tractography", PhD thesis, University of Cambridge, 2012}.
+\newblock PhD thesis.
+
 \bibitem[Hachem et~al., 2018]{HanchemWongIbrahim2018}
 Hachem, L.~D., Wong, S.~M., and Ibrahim, G.~M. (2018).
 \newblock The vagus afferent network: emerging role in translational
@@ -175,6 +211,11 @@ Hays, S.~A., Rennaker, R.~L., and Kilgard, M.~P. (2013).
   Changing Brains}, volume 207 of {\em Progress in Brain Research}, pages
   275--299. Elsevier.
 
+\bibitem[Healy~Jr et~al., 1998]{healy1998spherical}
+Healy~Jr, D.~M., Hendriks, H., and Kim, P.~T. (1998).
+\newblock Spherical deconvolution.
+\newblock {\em Journal of Multivariate Analysis}, 67(1):1--22.
+
 \bibitem[Ibrahim et~al., 2017]{IBRAHIM2017634}
 Ibrahim, G.~M., Sharma, P., Hyslop, A., Guillen, M.~R., Morgan, B.~R., Wong,
   S., Abel, T.~J., Elkaim, L., Cajigas, I., Shah, A.~H., Fallah, A., Weil,
@@ -183,6 +224,13 @@ Ibrahim, G.~M., Sharma, P., Hyslop, A., Guillen, M.~R., Morgan, B.~R., Wong,
 \newblock Presurgical thalamocortical connectivity is associated with response
   to vagus nerve stimulation in children with intractable epilepsy.
 \newblock {\em NeuroImage: Clinical}, 16:634--642.
+
+\bibitem[Jeurissen et~al., 2014]{jeurissen2014multi}
+Jeurissen, B., Tournier, J.-D., Dhollander, T., Connelly, A., and Sijbers, J.
+  (2014).
+\newblock Multi-tissue constrained spherical deconvolution for improved
+  analysis of multi-shell diffusion mri data.
+\newblock {\em NeuroImage}, 103:411--426.
 
 \bibitem[Kennepohl~D., 2019]{organicChemestry}
 Kennepohl~D., Farmer~S., S.~R. (2019).
@@ -334,6 +382,19 @@ Thijs, R.~D., Surges, R., O'Brien, T.~J., and Sander, J.~W. (2019).
 \newblock Epilepsy in adults.
 \newblock {\em The Lancet}, 393(10172):689--701.
 
+\bibitem[Tournier et~al., 2007]{tournier2007robust}
+Tournier, J.-D., Calamante, F., and Connelly, A. (2007).
+\newblock Robust determination of the fibre orientation distribution in
+  diffusion mri: non-negativity constrained super-resolved spherical
+  deconvolution.
+\newblock {\em Neuroimage}, 35(4):1459--1472.
+
+\bibitem[Tournier et~al., 2004]{tournier2004direct}
+Tournier, J.-D., Calamante, F., Gadian, D.~G., and Connelly, A. (2004).
+\newblock Direct estimation of the fiber orientation density function from
+  diffusion-weighted mri data using spherical deconvolution.
+\newblock {\em Neuroimage}, 23(3):1176--1185.
+
 \bibitem[Tromp, 2015]{ellipsoidDTI}
 Tromp, D. (2015).
 \newblock The diffusion tensor, and its relation to fa, md, ad and rd.
@@ -365,6 +426,12 @@ Wong, S., Mani, R., and Danish, S. (2019).
 \newblock Comparison and selection of current implantable anti-epileptic
   devices.
 \newblock {\em Neurotherapeutics}, 16:369--380.
+
+\bibitem[Xiang and Landschoot, 2019]{e21060579}
+Xiang, N. and Landschoot, C. (2019).
+\newblock Bayesian inference for acoustic direction of arrival analysis using
+  spherical harmonics.
+\newblock {\em Entropy}, 21(6).
 
 \bibitem[Yablonskiy et~al., 2003]{yablonskiy2003}
 Yablonskiy, D.~A., Bretthorst, G.~L., and Ackerman, J.~J. (2003).

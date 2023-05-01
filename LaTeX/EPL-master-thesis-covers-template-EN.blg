@@ -7,46 +7,47 @@ Warning--entry type for "WHO" isn't style-file defined
 --line 107 of file refs.bib
 Warning--empty year in campbell
 Warning--empty year in QeA_MRI
+Warning--empty school in phdthesisGaryfallidis
 Warning--empty year in dtiBook
-You've used 63 entries,
+You've used 74 entries,
             1935 wiz_defined-function locations,
-            885 strings with 17739 characters,
-and the built_in function-call counts, 28040 in all, are:
-= -- 2615
-> -- 1592
-< -- 30
-+ -- 575
-- -- 567
-* -- 2613
-:= -- 5025
-add.period$ -- 189
-call.type$ -- 63
-change.case$ -- 594
-chr.to.int$ -- 63
-cite$ -- 66
-duplicate$ -- 867
-empty$ -- 1696
-format.name$ -- 644
-if$ -- 5306
+            943 strings with 19850 characters,
+and the built_in function-call counts, 32538 in all, are:
+= -- 3056
+> -- 1793
+< -- 35
++ -- 643
+- -- 635
+* -- 3028
+:= -- 5816
+add.period$ -- 222
+call.type$ -- 74
+change.case$ -- 682
+chr.to.int$ -- 74
+cite$ -- 78
+duplicate$ -- 1022
+empty$ -- 2000
+format.name$ -- 727
+if$ -- 6161
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 56
-newline$ -- 317
-num.names$ -- 191
-pop$ -- 487
+missing$ -- 66
+newline$ -- 372
+num.names$ -- 224
+pop$ -- 558
 preamble$ -- 1
-purify$ -- 597
+purify$ -- 686
 quote$ -- 0
-skip$ -- 649
+skip$ -- 762
 stack$ -- 0
-substring$ -- 1784
-swap$ -- 74
-text.length$ -- 5
+substring$ -- 2110
+swap$ -- 86
+text.length$ -- 6
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 370
-warning$ -- 3
-while$ -- 192
+type$ -- 436
+warning$ -- 4
+while$ -- 230
 width$ -- 0
-write$ -- 808
-(There were 4 warnings)
+write$ -- 950
+(There were 5 warnings)

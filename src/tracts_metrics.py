@@ -100,6 +100,8 @@ metrics = {
     #mf : ["fvf", "frac", "DIFF_ex"]
 }
 
+# !!! AGGIUNGERE ANCHE L'ESTRAZIONE DELLE INFORMAZIONI DALLE ROI
+
 
    
 def tract_metrics(p_code, folder_path):
