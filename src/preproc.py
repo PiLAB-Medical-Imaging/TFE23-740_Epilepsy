@@ -35,6 +35,7 @@ def preprocess(folder_path):
 
         ## EDDY and MOTION correction
         eddy=True,
+        cuda_name="eddy_cuda10.2", # Depends on the version that you have installed
 
         ## BIAS FIELD correction
         biasfield=True, 
