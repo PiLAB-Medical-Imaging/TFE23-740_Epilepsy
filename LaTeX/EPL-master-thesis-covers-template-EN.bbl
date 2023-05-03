@@ -1,460 +1,452 @@
-\begin{thebibliography}{}
+\begin{thebibliography}{10}
 
-\bibitem[Aghajanian et~al., 1977]{AGHAJANIAN1977570}
-Aghajanian, G., Cedarbaum, J., and Wang, R. (1977).
-\newblock Evidence for norepinephrine-mediated collateral inhibition of locus
-  coeruleus neurons.
-\newblock {\em Brain Research}, 136(3):570--577.
+\bibitem{slides}
+F.~Peeters, ``Medical imaging, chapter 4 : Magnetic resonance imaging.''
+  LGBIO2050, UCL.
 
-\bibitem[Ardell and Randall, 1986]{ardell1986selective}
-Ardell, J.~L. and Randall, W.~C. (1986).
-\newblock Selective vagal innervation of sinoatrial and atrioventricular nodes
-  in canine heart.
-\newblock {\em American Journal of Physiology-Heart and Circulatory
-  Physiology}, 251(4):H764--H773.
+\bibitem{KastlerVetterIRM}
+D.~V. B.~Kastler, {\em Comprendre l'IRM: Manuel d'auto-apprenissage}.
+\newblock Imagerie médicale DIAGNOSTIC, 1988.
 
-\bibitem[B.~Kastler, 1988]{KastlerVetterIRM}
-B.~Kastler, D.~V. (1988).
-\newblock {\em Comprendre l'IRM: Manuel d'auto-apprenissage}.
-\newblock Imagerie médicale DIAGNOSTIC.
+\bibitem{organicChemestry}
+S.~R. Kennepohl~D., Farmer~S., {\em Theory of Nuclear Magnetic Resonance
+  (NMR)}, ch.~13.
+\newblock MindTouch, 2019.
 
-\bibitem[Basser, 1998]{basser1998fiber}
-Basser, P.~J. (1998).
-\newblock Fiber-tractography via diffusion tensor mri (dt-mri).
-\newblock In {\em Proceedings of the 6th Annual Meeting ISMRM, Sydney,
-  Australia}, volume 1226.
+\bibitem{elementiRisonanza}
+M.~C. O.~Rampado, {\em Elementi di risonanza magnetica}.
+\newblock Springer, 2017.
 
-\bibitem[Basser et~al., 1994]{basser1994mr}
-Basser, P.~J., Mattiello, J., and LeBihan, D. (1994).
-\newblock Mr diffusion tensor spectroscopy and imaging.
-\newblock {\em Biophysical journal}, 66(1):259--267.
+\bibitem{matrixContrast}
+Q.~Sameer, ``Magnetic resonance imaging (mri) in orthopaedics,'' 2017.
+\newblock Last accessed 28 April 2023.
 
-\bibitem[Basser et~al., 2000]{basser2000vivo}
-Basser, P.~J., Pajevic, S., Pierpaoli, C., Duda, J., and Aldroubi, A. (2000).
-\newblock In vivo fiber tractography using dt-mri data.
-\newblock {\em Magnetic resonance in medicine}, 44(4):625--632.
+\bibitem{artifacts}
+B.~Y. Weerakkody~Y., Murphy~A., ``Mri artifacts,'' 2012.
+\newblock Available at \url{https://radiopaedia.org/articles/16585}.
 
-\bibitem[Basser and Pierpaoli, 2011]{basser2011microstructural}
-Basser, P.~J. and Pierpaoli, C. (2011).
-\newblock Microstructural and physiological features of tissues elucidated by
-  quantitative-diffusion-tensor mri.
-\newblock {\em Journal of magnetic resonance}, 213(2):560--570.
-
-\bibitem[Beckstead et~al., 1980]{BecksteadJoel2980}
-Beckstead, R.~M., Morse, J.~R., and Norgren, R. (1980).
-\newblock The nucleus of the solitary tract in the monkey: Projections to the
-  thalamus and brain stem nuclei.
-\newblock {\em Journal of Comparative Neurology}, 190(2):259--282.
-
-\bibitem[Beekwilder and Beems, 2010]{BeekwilderBeems2010}
-Beekwilder, J. and Beems, T. (2010).
-\newblock Overview of the clinical applications of vagus nerve stimulation.
-\newblock {\em Journal of clinical neurophysiology}, 27(2):130--138.
-
-\bibitem[Behrens et~al., 2007]{behrens2007probabilistic}
-Behrens, T.~E., Berg, H.~J., Jbabdi, S., Rushworth, M.~F., and Woolrich, M.~W.
-  (2007).
-\newblock Probabilistic diffusion tractography with multiple fibre
-  orientations: What can we gain?
-\newblock {\em neuroimage}, 34(1):144--155.
-
-\bibitem[Ben-Menachem, 2001]{ben2001vagus}
-Ben-Menachem, E. (2001).
-\newblock Vagus nerve stimulation, side effects, and long-term safety.
-\newblock {\em Journal of clinical neurophysiology}, 18(5):415--418.
-
-\bibitem[Berger, 2020]{berger2020}
-Berger, A. (2020).
-\newblock Quantifying microstructural brain anomalies in patients with
-  alzheimer's disease via diffusion magnetic resonance imaging.
-\newblock Master's thesis, Ecole polytechnique de Louvain, Université
-  catholique de Louvain.
-
-\bibitem[Berger et~al., 2021]{BergerVespa2021}
-Berger, A., Vespa, S., Dricot, L., Dumoulin, M., Iachim, E., Doguet, P.,
-  Vandewalle, G., and El~Tahry, R. (2021).
-\newblock How is the norepinephrine system involved in the antiepileptic
-  effects of vagus nerve stimulation?
-\newblock {\em Frontiers in Neuroscience}, 15.
-
-\bibitem[Bonaz et~al., 2017]{BonazSinniger2017}
-Bonaz, B., Sinniger, V., and Pellissier, S. (2017).
-\newblock The vagus nerve in the neuro-immune axis: Implications in the
-  pathology of the gastrointestinal tract.
-\newblock {\em Frontiers in Immunology}, 8.
-
-\bibitem[Broncel et~al., 2020]{BRONCEL202037}
-Broncel, A., Bocian, R., Kłos-Wojtczak, P., Kulbat-Warycha, K., and Konopacki,
-  J. (2020).
-\newblock Vagal nerve stimulation as a promising tool in the improvement of
-  cognitive disorders.
-\newblock {\em Brain Research Bulletin}, 155:37--47.
-
-\bibitem[Cabral et~al., 2017]{CABRAL201784}
-Cabral, J., Kringelbach, M.~L., and Deco, G. (2017).
-\newblock Functional connectivity dynamically evolves on multiple time-scales
-  over a static structural connectome: Models and mechanisms.
-\newblock {\em NeuroImage}, 160:84--96.
-\newblock Functional Architecture of the Brain.
-
-\bibitem[Campbell, ]{campbell}
-Campbell, K.
-\newblock Medical and science illustration, animations and communications.
-
-\bibitem[de~Figueiredo et~al., 2011]{de2011basic}
-de~Figueiredo, E.~H., Borgonovi, A.~F., and Doring, T.~M. (2011).
-\newblock Basic concepts of mr imaging, diffusion mr imaging, and diffusion
-  tensor imaging.
-\newblock {\em Magnetic Resonance Imaging Clinics}, 19(1):1--22.
-
-\bibitem[Dessain et~al., 2022]{dessain2022fast}
-Dessain, Q., Delinte, N., Macq, B., and Rensonnet, G. (2022).
-\newblock Fast multi-compartment microstructure fingerprinting using deep
-  neural networks.
-\newblock In {\em Proc. Intl. Soc. Mag. Reson. Med}, volume~30, page 0560.
-
-\bibitem[Devinsky, 2011]{Devinsky2011}
-Devinsky, O. (2011).
-\newblock Sudden, unexpected death in epilepsy.
-\newblock {\em New England Journal of Medicine}, 365(19):1801--1811.
-\newblock PMID: 22070477.
-
-\bibitem[Devinsky et~al., 2016]{Devinsky779}
-Devinsky, O., Spruill, T., Thurman, D., and Friedman, D. (2016).
-\newblock Recognizing and preventing epilepsy-related mortality.
-\newblock {\em Neurology}, 86(8):779--786.
-
-\bibitem[Duncan et~al., 2006]{DUNCAN2006}
-Duncan, J.~S., Sander, J.~W., Sisodiya, S.~M., and Walker, M.~C. (2006).
-\newblock Adult epilepsy.
-\newblock {\em The Lancet}, 367(9516):1087--1100.
-
-\bibitem[Elster, ]{QeA_MRI}
-Elster, A.~D.
-\newblock Eddy currents.
+\bibitem{QeA_MRI}
+A.~D. Elster, ``Eddy currents.''
 \newblock Available at
   \url{https://mriquestions.com/eddy-current-problems.html}.
 
-\bibitem[Englot et~al., 2013]{Englot2013}
-Englot, D.~J., Lee, A.~T., Tsai, C., Halabi, C., Barbaro, N.~M., Auguste,
-  K.~I., Garcia, P.~A., and Chang, E.~F. (2013).
-\newblock Seizure types and frequency in patients who “fail” temporal
-  lobectomy for intractable epilepsy.
-\newblock {\em Neurosurgery}, 73(5):838--844.
-
-\bibitem[Englot et~al., 2016]{Englot2016}
-Englot, D.~J., Rolston, J.~D., Wright, C.~W., Hassnain, K.~H., and Chang, E.~F.
-  (2016).
-\newblock Rates and predictors of seizure freedom with vagus nerve stimulation
-  for intractable epilepsy.
-\newblock {\em Neurosurgery}, 79(3):345--353.
-
-\bibitem[Fan et~al., 2014]{Fan2014}
-Fan, P.-C., Peng, S. S.-F., Yen, R.-F., Shieh, J.-Y., and Kuo, M.-F. (2014).
-\newblock Neuroimaging and electroencephalographic changes after vagus nerve
-  stimulation in a boy with medically intractable myoclonic astatic epilepsy.
-\newblock {\em Journal of the Formosan Medical Association}, 113(4):258--263.
-
-\bibitem[Fiest et~al., 2017]{Fiest296}
-Fiest, K.~M., Sauro, K.~M., Wiebe, S., Patten, S.~B., Kwon, C.-S., Dykeman, J.,
-  Pringsheim, T., Lorenzetti, D.~L., and Jett{\'e}, N. (2017).
-\newblock Prevalence and incidence of epilepsy.
-\newblock {\em Neurology}, 88(3):296--303.
-
-\bibitem[Fisher et~al., 2014]{defEpilepsy}
-Fisher, R.~S., Acevedo, C., Arzimanoglou, A., Bogacz, A., Cross, J.~H., Elger,
-  C.~E., Engel~Jr, J., Forsgren, L., French, J.~A., Glynn, M., Hesdorffer,
-  D.~C., Lee, B., Mathern, G.~W., Moshé, S.~L., Perucca, E., Scheffer, I.~E.,
-  Tomson, T., Watanabe, M., and Wiebe, S. (2014).
-\newblock Ilae official report: A practical clinical definition of epilepsy.
-\newblock {\em Epilepsia}, 55(4):475--482.
-
-\bibitem[Fisher et~al., 2005]{pathophysiology}
-Fisher, R.~S., Boas, W. v.~E., Blume, W., Elger, C., Genton, P., Lee, P., and
-  Engel~Jr., J. (2005).
-\newblock Epileptic seizures and epilepsy: Definitions proposed by the
-  international league against epilepsy (ilae) and the international bureau for
-  epilepsy (ibe).
-\newblock {\em Epilepsia}, 46(4):470--472.
-
-\bibitem[Fisher et~al., 2017]{classification}
-Fisher, R.~S., Cross, J.~H., French, J.~A., Higurashi, N., Hirsch, E., Jansen,
-  F.~E., Lagae, L., Moshé, S.~L., Peltola, J., Roulet~Perez, E., Scheffer,
-  I.~E., and Zuberi, S.~M. (2017).
-\newblock Operational classification of seizure types by the international
-  league against epilepsy: Position paper of the ilae commission for
-  classification and terminology.
-\newblock {\em Epilepsia}, 58(4):522--530.
-
-\bibitem[Galanopoulou, 2008]{galanopoulou2008gabaa}
-Galanopoulou, A.~S. (2008).
-\newblock Gabaa receptors in normal development and seizures: friends or foes?
-\newblock {\em Current neuropharmacology}, 6(1):1--20.
-
-\bibitem[Garyfallidis, 2012]{phdthesisGaryfallidis}
-Garyfallidis, E. (2012).
-\newblock {\em Eleftherios Garyfallidis, "Towards an accurate brain
-  tractography", PhD thesis, University of Cambridge, 2012}.
-\newblock PhD thesis.
-
-\bibitem[Hachem et~al., 2018]{HanchemWongIbrahim2018}
-Hachem, L.~D., Wong, S.~M., and Ibrahim, G.~M. (2018).
-\newblock The vagus afferent network: emerging role in translational
-  connectomics.
-\newblock {\em Neurosurgical Focus FOC}, 45(3):E2.
-
-\bibitem[Hays et~al., 2013]{HAYS2013275}
-Hays, S.~A., Rennaker, R.~L., and Kilgard, M.~P. (2013).
-\newblock Chapter 11 - targeting plasticity with vagus nerve stimulation to
-  treat neurological disease.
-\newblock In Merzenich, M.~M., Nahum, M., and {Van Vleet}, T.~M., editors, {\em
-  Changing Brains}, volume 207 of {\em Progress in Brain Research}, pages
-  275--299. Elsevier.
-
-\bibitem[Healy~Jr et~al., 1998]{healy1998spherical}
-Healy~Jr, D.~M., Hendriks, H., and Kim, P.~T. (1998).
-\newblock Spherical deconvolution.
-\newblock {\em Journal of Multivariate Analysis}, 67(1):1--22.
-
-\bibitem[Ibrahim et~al., 2017]{IBRAHIM2017634}
-Ibrahim, G.~M., Sharma, P., Hyslop, A., Guillen, M.~R., Morgan, B.~R., Wong,
-  S., Abel, T.~J., Elkaim, L., Cajigas, I., Shah, A.~H., Fallah, A., Weil,
-  A.~G., Altman, N., Bernal, B., Medina, S., Widjaja, E., Jayakar, P., Ragheb,
-  J., and Bhatia, S. (2017).
-\newblock Presurgical thalamocortical connectivity is associated with response
-  to vagus nerve stimulation in children with intractable epilepsy.
-\newblock {\em NeuroImage: Clinical}, 16:634--642.
-
-\bibitem[Jeurissen et~al., 2014]{jeurissen2014multi}
-Jeurissen, B., Tournier, J.-D., Dhollander, T., Connelly, A., and Sijbers, J.
-  (2014).
-\newblock Multi-tissue constrained spherical deconvolution for improved
-  analysis of multi-shell diffusion mri data.
-\newblock {\em NeuroImage}, 103:411--426.
-
-\bibitem[Kennepohl~D., 2019]{organicChemestry}
-Kennepohl~D., Farmer~S., S.~R. (2019).
-\newblock {\em Theory of Nuclear Magnetic Resonance (NMR)}, chapter~13.
-\newblock MindTouch.
-
-\bibitem[Kiriakopoulos et~al., 2018]{kiriakopoulos_cascino_britton_2018}
-Kiriakopoulos, E., Cascino, G.~D., and Britton, J.~W. (2018).
-\newblock Types of epilepsy surgery.
-
-\bibitem[Krahl et~al., 2004]{KRAHL2004135}
-Krahl, S.~E., Martin, F.~C., and Handforth, A. (2004).
-\newblock Vagus nerve stimulation inhibits harmaline-induced tremor.
-\newblock {\em Brain Research}, 1011(1):135--138.
-
-\bibitem[Kwan et~al., 2010]{drug_resist}
-Kwan, P., Arzimanoglou, A., Berg, A.~T., Brodie, M.~J., Allen~Hauser, W.,
-  Mathern, G., Moshé, S.~L., Perucca, E., Wiebe, S., and French, J. (2010).
-\newblock Definition of drug resistant epilepsy: Consensus proposal by the ad
-  hoc task force of the ilae commission on therapeutic strategies.
-\newblock {\em Epilepsia}, 51(6):1069--1077.
-
-\bibitem[Langan et~al., 2000]{Langan211}
-Langan, Y., Nashef, L., and Sander, J. W. A.~S. (2000).
-\newblock Sudden unexpected death in epilepsy: a series of witnessed deaths.
-\newblock {\em Journal of Neurology, Neurosurgery \& Psychiatry},
-  68(2):211--213.
-
-\bibitem[Mithani et~al., 2019]{Mithani2019}
-Mithani, K., Mikhail, M., Morgan, B.~R., Wong, S., Weil, A.~G., Deschenes, S.,
-  Wang, S., Bernal, B., Guillen, M.~R., Ochi, A., Otsubo, H., Yau, I., Lo, W.,
-  Pang, E., Holowka, S., Snead, O.~C., Donner, E., Rutka, J.~T., Go, C.,
-  Widjaja, E., and Ibrahim, G.~M. (2019).
-\newblock Connectomic profiling identifies responders to vagus nerve
-  stimulation.
-\newblock {\em Annals of Neurology}, 86(5):743--753.
-
-\bibitem[Mithani et~al., 2020]{Mithani2020}
-Mithani, K., Wong, S.~M., Mikhail, M., Pourmotabbed, H., Pang, E., Sharma, R.,
-  Yau, I., Ochi, A., Otsubo, H., Snead, O.~C., Donner, E., Go, C., Widjaja, E.,
-  Babajani-Feremi, A., and Ibrahim, G.~M. (2020).
-\newblock Somatosensory evoked fields predict response to vagus nerve
-  stimulation.
-\newblock {\em NeuroImage: Clinical}, 26:102205.
-
-\bibitem[Narayanan et~al., 2002]{NarayananWatts2002}
-Narayanan, J., Watts, R., Haddad, N., Labar, D., Li, P., and Filippi, C.
-  (2002).
-\newblock Cerebral activation during vagus nerve stimulation: A functional mr
-  study.
-\newblock {\em Epilepsia}, 43(12):1509--1514.
-
-\bibitem[Nashef, 1997]{Nashef1997}
-Nashef, L. (1997).
-\newblock Sudden unexpected death in epilepsy: Terminology and definitions.
-\newblock {\em Epilepsia}, 38(s11):S6--S8.
-
-\bibitem[O.~Rampado, 2017]{elementiRisonanza}
-O.~Rampado, M.~C. (2017).
-\newblock {\em Elementi di risonanza magnetica}.
+\bibitem{dtiBook}
+S.~S. Wim Van~Hecke, Louise~Emsell, {\em Diffusion Tensor Imaging, A Pratical
+  Handbook}.
 \newblock Springer.
 
-\bibitem[Peeters, UCL]{slides}
-Peeters, F. (UCL).
-\newblock Medical imaging, chapter 4 : Magnetic resonance imaging.
-\newblock LGBIO2050.
+\bibitem{de2011basic}
+E.~H. de~Figueiredo, A.~F. Borgonovi, and T.~M. Doring, ``Basic concepts of mr
+  imaging, diffusion mr imaging, and diffusion tensor imaging,'' {\em Magnetic
+  Resonance Imaging Clinics}, vol.~19, no.~1, pp.~1--22, 2011.
 
-\bibitem[Penry and Dean, 1990]{Penry1990}
-Penry, J.~K. and Dean, J.~C. (1990).
-\newblock Prevention of intractable partial seizures by intermittent vagal
-  stimulation in humans: Preliminary results.
-\newblock {\em Epilepsia}, 31(s2):S40--S43.
+\bibitem{basser1994mr}
+P.~J. Basser, J.~Mattiello, and D.~LeBihan, ``Mr diffusion tensor spectroscopy
+  and imaging,'' {\em Biophysical journal}, vol.~66, no.~1, pp.~259--267, 1994.
 
-\bibitem[Pinault and O'brien, 2005]{pinault2005cellular}
-Pinault, D. and O'brien, T.~J. (2005).
-\newblock Cellular and network mechanisms of genetically-determined absence
-  seizures.
-\newblock {\em Thalamus \& related systems}, 3(3):181--203.
-
-\bibitem[Rensonnet, 2015]{rensonnet2015}
-Rensonnet, G. (2015).
-\newblock Generation of a dictionary of dw-mri signals from arbitrary brain
-  microstructure configurations.
-\newblock Master's thesis, Ecole polytechnique de Louvain, Université
-  catholique de Louvain.
-
-\bibitem[Rensonnet, 2019]{rensonnet2019vivo}
-Rensonnet, G. (2019).
-\newblock In vivo diffusion magnetic resonance imaging of the white matter
-  microstructure from dictionaries generated by monte carlo simulations:
-  development and validation.
-\newblock Technical report, EPFL.
-
-\bibitem[Rensonnet et~al., 2019]{rensonnet2019towards}
-Rensonnet, G., Scherrer, B., Girard, G., Jankovski, A., Warfield, S.~K., Macq,
-  B., Thiran, J.-P., and Taquet, M. (2019).
-\newblock Towards microstructure fingerprinting: estimation of tissue
-  properties from a dictionary of monte carlo diffusion mri simulations.
-\newblock {\em NeuroImage}, 184:964--980.
-
-\bibitem[Ricardo and {Tongju Koh}, 1978]{RICARDO19781}
-Ricardo, J.~A. and {Tongju Koh}, E. (1978).
-\newblock Anatomical evidence of direct projections from the nucleus of the
-  solitary tract to the hypothalamus, amygdala, and other forebrain structures
-  in the rat.
-\newblock {\em Brain Research}, 153(1):1--26.
-
-\bibitem[Sameer, 2017]{matrixContrast}
-Sameer, Q. (2017).
-\newblock Magnetic resonance imaging (mri) in orthopaedics.
-\newblock Last accessed 28 April 2023.
-
-\bibitem[Saxena and Li, 2017]{defeating_epilepsy}
-Saxena, S. and Li, S. (2017).
-\newblock Defeating epilepsy: A global public health commitment.
-\newblock {\em Epilepsia Open}, 2(2):153--155.
-
-\bibitem[Scheffer et~al., 2017]{Scheffer2017}
-Scheffer, I.~E., Berkovic, S., Capovilla, G., Connolly, M.~B., French, J.,
-  Guilhoto, L., Hirsch, E., Jain, S., Mathern, G.~W., Moshé, S.~L., Nordli,
-  D.~R., Perucca, E., Tomson, T., Wiebe, S., Zhang, Y.-H., and Zuberi, S.~M.
-  (2017).
-\newblock Ilae classification of the epilepsies: Position paper of the ilae
-  commission for classification and terminology.
-\newblock {\em Epilepsia}, 58(4):512--521.
-
-\bibitem[Scherrer et~al., 2016]{scherrer2016diamond}
-Scherrer, B., Schwartzman, A., Taquet, M., Sahin, M., Prabhu, S.~P., and
-  Warfield, S.~K. (2016).
-\newblock Characterizing brain tissue by assessment of the distribution of
-  anisotropic microstructural environments in diffusion-compartment imaging
-  (diamond).
-\newblock {\em Magnetic resonance in medicine}, 76(3):963--977.
-
-\bibitem[Spencer and Huh, 2008]{SpencerHuh2008}
-Spencer, S. and Huh, L. (2008).
-\newblock Outcomes of epilepsy surgery in adults and children.
-\newblock {\em The Lancet Neurology}, 7(6):525--537.
-
-\bibitem[Tariq et~al., 2016]{TARIQ2016207}
-Tariq, M., Schneider, T., Alexander, D.~C., {Gandini Wheeler-Kingshott}, C.~A.,
-  and Zhang, H. (2016).
-\newblock Bingham–noddi: Mapping anisotropic orientation dispersion of
-  neurites using diffusion mri.
-\newblock {\em NeuroImage}, 133:207--223.
-
-\bibitem[Thijs et~al., 2019]{THIJS2019689}
-Thijs, R.~D., Surges, R., O'Brien, T.~J., and Sander, J.~W. (2019).
-\newblock Epilepsy in adults.
-\newblock {\em The Lancet}, 393(10172):689--701.
-
-\bibitem[Tournier et~al., 2007]{tournier2007robust}
-Tournier, J.-D., Calamante, F., and Connelly, A. (2007).
-\newblock Robust determination of the fibre orientation distribution in
-  diffusion mri: non-negativity constrained super-resolved spherical
-  deconvolution.
-\newblock {\em Neuroimage}, 35(4):1459--1472.
-
-\bibitem[Tournier et~al., 2004]{tournier2004direct}
-Tournier, J.-D., Calamante, F., Gadian, D.~G., and Connelly, A. (2004).
-\newblock Direct estimation of the fiber orientation density function from
-  diffusion-weighted mri data using spherical deconvolution.
-\newblock {\em Neuroimage}, 23(3):1176--1185.
-
-\bibitem[Tromp, 2015]{ellipsoidDTI}
-Tromp, D. (2015).
-\newblock The diffusion tensor, and its relation to fa, md, ad and rd.
+\bibitem{ellipsoidDTI}
+D.~Tromp, ``The diffusion tensor, and its relation to fa, md, ad and rd,''
+  2015.
 \newblock Available at
   \url{https://www.diffusion-imaging.com/2015/10/what-is-diffusion-tensor.html}.
 
-\bibitem[Walker et~al., 1999]{GABA}
-Walker, B.~R., Easton, A., and Gale, K. (1999).
-\newblock Regulation of limbic motor seizures by gaba and glutamate
-  transmission in nucleus tractus solitarius.
-\newblock {\em Epilepsia}, 40(8):1051--1057.
+\bibitem{basser1998fiber}
+P.~J. Basser, ``Fiber-tractography via diffusion tensor mri (dt-mri),'' in {\em
+  Proceedings of the 6th Annual Meeting ISMRM, Sydney, Australia}, vol.~1226,
+  1998.
 
-\bibitem[Weerakkody~Y., 2012]{artifacts}
-Weerakkody~Y., Murphy~A., B.~Y. (2012).
-\newblock Mri artifacts.
-\newblock Available at \url{https://radiopaedia.org/articles/16585}.
+\bibitem{basser2011microstructural}
+P.~J. Basser and C.~Pierpaoli, ``Microstructural and physiological features of
+  tissues elucidated by quantitative-diffusion-tensor mri,'' {\em Journal of
+  magnetic resonance}, vol.~213, no.~2, pp.~560--570, 2011.
 
-\bibitem[WHO, 2023]{WHO}
-WHO (2023).
-\newblock Epilepsy fact sheet.
+\bibitem{basser2000vivo}
+P.~J. Basser, S.~Pajevic, C.~Pierpaoli, J.~Duda, and A.~Aldroubi, ``In vivo
+  fiber tractography using dt-mri data,'' {\em Magnetic resonance in medicine},
+  vol.~44, no.~4, pp.~625--632, 2000.
 
-\bibitem[Wim Van~Hecke, ]{dtiBook}
-Wim Van~Hecke, Louise~Emsell, S.~S.
-\newblock {\em Diffusion Tensor Imaging, A Pratical Handbook}.
-\newblock Springer.
+\bibitem{tournier2007robust}
+J.-D. Tournier, F.~Calamante, and A.~Connelly, ``Robust determination of the
+  fibre orientation distribution in diffusion mri: non-negativity constrained
+  super-resolved spherical deconvolution,'' {\em Neuroimage}, vol.~35, no.~4,
+  pp.~1459--1472, 2007.
 
-\bibitem[Wong et~al., 2019]{wong2019comparison}
-Wong, S., Mani, R., and Danish, S. (2019).
-\newblock Comparison and selection of current implantable anti-epileptic
-  devices.
-\newblock {\em Neurotherapeutics}, 16:369--380.
+\bibitem{tournier2004direct}
+J.-D. Tournier, F.~Calamante, D.~G. Gadian, and A.~Connelly, ``Direct
+  estimation of the fiber orientation density function from diffusion-weighted
+  mri data using spherical deconvolution,'' {\em Neuroimage}, vol.~23, no.~3,
+  pp.~1176--1185, 2004.
 
-\bibitem[Xiang and Landschoot, 2019]{e21060579}
-Xiang, N. and Landschoot, C. (2019).
-\newblock Bayesian inference for acoustic direction of arrival analysis using
-  spherical harmonics.
-\newblock {\em Entropy}, 21(6).
+\bibitem{e21060579}
+N.~Xiang and C.~Landschoot, ``Bayesian inference for acoustic direction of
+  arrival analysis using spherical harmonics,'' {\em Entropy}, vol.~21, no.~6,
+  2019.
 
-\bibitem[Yablonskiy et~al., 2003]{yablonskiy2003}
-Yablonskiy, D.~A., Bretthorst, G.~L., and Ackerman, J.~J. (2003).
-\newblock Statistical model for diffusion attenuated mr signal.
-\newblock {\em Magnetic Resonance in Medicine: An Official Journal of the
-  International Society for Magnetic Resonance in Medicine}, 50(4):664--669.
+\bibitem{healy1998spherical}
+D.~M. Healy~Jr, H.~Hendriks, and P.~T. Kim, ``Spherical deconvolution,'' {\em
+  Journal of Multivariate Analysis}, vol.~67, no.~1, pp.~1--22, 1998.
 
-\bibitem[Yuen et~al., 2018]{yuen2018epilepsy}
-Yuen, A.~W., Keezer, M.~R., and Sander, J.~W. (2018).
-\newblock Epilepsy is a neurological and a systemic disorder.
-\newblock {\em Epilepsy \& Behavior}, 78:57--61.
+\bibitem{jeurissen2014multi}
+B.~Jeurissen, J.-D. Tournier, T.~Dhollander, A.~Connelly, and J.~Sijbers,
+  ``Multi-tissue constrained spherical deconvolution for improved analysis of
+  multi-shell diffusion mri data,'' {\em NeuroImage}, vol.~103, pp.~411--426,
+  2014.
 
-\bibitem[Zhang et~al., 2011]{zhang2011axon}
-Zhang, H., Hubbard, P.~L., Parker, G.~J., and Alexander, D.~C. (2011).
-\newblock Axon diameter mapping in the presence of orientation dispersion with
-  diffusion mri.
-\newblock {\em Neuroimage}, 56(3):1301--1315.
+\bibitem{behrens2007probabilistic}
+T.~E. Behrens, H.~J. Berg, S.~Jbabdi, M.~F. Rushworth, and M.~W. Woolrich,
+  ``Probabilistic diffusion tractography with multiple fibre orientations: What
+  can we gain?,'' {\em neuroimage}, vol.~34, no.~1, pp.~144--155, 2007.
 
-\bibitem[Zhang et~al., 2012]{zhang2012noddi}
-Zhang, H., Schneider, T., Wheeler-Kingshott, C.~A., and Alexander, D.~C.
-  (2012).
-\newblock Noddi: practical in vivo neurite orientation dispersion and density
-  imaging of the human brain.
-\newblock {\em Neuroimage}, 61(4):1000--1016.
+\bibitem{phdthesisGaryfallidis}
+E.~Garyfallidis, {\em Eleftherios Garyfallidis, "Towards an accurate brain
+  tractography", PhD thesis, University of Cambridge, 2012}.
+\newblock PhD thesis, 05 2012.
+
+\bibitem{zhang2012noddi}
+H.~Zhang, T.~Schneider, C.~A. Wheeler-Kingshott, and D.~C. Alexander, ``Noddi:
+  practical in vivo neurite orientation dispersion and density imaging of the
+  human brain,'' {\em Neuroimage}, vol.~61, no.~4, pp.~1000--1016, 2012.
+
+\bibitem{TARIQ2016207}
+M.~Tariq, T.~Schneider, D.~C. Alexander, C.~A. {Gandini Wheeler-Kingshott}, and
+  H.~Zhang, ``Bingham–noddi: Mapping anisotropic orientation dispersion of
+  neurites using diffusion mri,'' {\em NeuroImage}, vol.~133, pp.~207--223,
+  2016.
+
+\bibitem{zhang2011axon}
+H.~Zhang, P.~L. Hubbard, G.~J. Parker, and D.~C. Alexander, ``Axon diameter
+  mapping in the presence of orientation dispersion with diffusion mri,'' {\em
+  Neuroimage}, vol.~56, no.~3, pp.~1301--1315, 2011.
+
+\bibitem{scherrer2016diamond}
+B.~Scherrer, A.~Schwartzman, M.~Taquet, M.~Sahin, S.~P. Prabhu, and S.~K.
+  Warfield, ``Characterizing brain tissue by assessment of the distribution of
+  anisotropic microstructural environments in diffusion-compartment imaging
+  (diamond),'' {\em Magnetic resonance in medicine}, vol.~76, no.~3,
+  pp.~963--977, 2016.
+
+\bibitem{yablonskiy2003}
+D.~A. Yablonskiy, G.~L. Bretthorst, and J.~J. Ackerman, ``Statistical model for
+  diffusion attenuated mr signal,'' {\em Magnetic Resonance in Medicine: An
+  Official Journal of the International Society for Magnetic Resonance in
+  Medicine}, vol.~50, no.~4, pp.~664--669, 2003.
+
+\bibitem{rensonnet2019towards}
+G.~Rensonnet, B.~Scherrer, G.~Girard, A.~Jankovski, S.~K. Warfield, B.~Macq,
+  J.-P. Thiran, and M.~Taquet, ``Towards microstructure fingerprinting:
+  estimation of tissue properties from a dictionary of monte carlo diffusion
+  mri simulations,'' {\em NeuroImage}, vol.~184, pp.~964--980, 2019.
+
+\bibitem{rensonnet2015}
+G.~Rensonnet, ``Generation of a dictionary of dw-mri signals from arbitrary
+  brain microstructure configurations,'' Master's thesis, Ecole polytechnique
+  de Louvain, Université catholique de Louvain, 2015.
+
+\bibitem{berger2020}
+A.~Berger, ``Quantifying microstructural brain anomalies in patients with
+  alzheimer's disease via diffusion magnetic resonance imaging,'' Master's
+  thesis, Ecole polytechnique de Louvain, Université catholique de Louvain,
+  2020.
+
+\bibitem{dessain2022fast}
+Q.~Dessain, N.~Delinte, B.~Macq, and G.~Rensonnet, ``Fast multi-compartment
+  microstructure fingerprinting using deep neural networks,'' in {\em Proc.
+  Intl. Soc. Mag. Reson. Med}, vol.~30, p.~0560, 2022.
+
+\bibitem{rensonnet2019vivo}
+G.~Rensonnet, ``In vivo diffusion magnetic resonance imaging of the white
+  matter microstructure from dictionaries generated by monte carlo simulations:
+  development and validation,'' tech. rep., EPFL, 2019.
+
+\bibitem{defEpilepsy}
+R.~S. Fisher, C.~Acevedo, A.~Arzimanoglou, A.~Bogacz, J.~H. Cross, C.~E. Elger,
+  J.~Engel~Jr, L.~Forsgren, J.~A. French, M.~Glynn, D.~C. Hesdorffer, B.~Lee,
+  G.~W. Mathern, S.~L. Moshé, E.~Perucca, I.~E. Scheffer, T.~Tomson,
+  M.~Watanabe, and S.~Wiebe, ``Ilae official report: A practical clinical
+  definition of epilepsy,'' {\em Epilepsia}, vol.~55, no.~4, pp.~475--482,
+  2014.
+
+\bibitem{WHO}
+WHO, ``Epilepsy fact sheet,'' 2023.
+
+\bibitem{defeating_epilepsy}
+S.~Saxena and S.~Li, ``Defeating epilepsy: A global public health commitment,''
+  {\em Epilepsia Open}, vol.~2, no.~2, pp.~153--155, 2017.
+
+\bibitem{THIJS2019689}
+R.~D. Thijs, R.~Surges, T.~J. O'Brien, and J.~W. Sander, ``Epilepsy in
+  adults,'' {\em The Lancet}, vol.~393, no.~10172, pp.~689--701, 2019.
+
+\bibitem{Fiest296}
+K.~M. Fiest, K.~M. Sauro, S.~Wiebe, S.~B. Patten, C.-S. Kwon, J.~Dykeman,
+  T.~Pringsheim, D.~L. Lorenzetti, and N.~Jett{\'e}, ``Prevalence and incidence
+  of epilepsy,'' {\em Neurology}, vol.~88, no.~3, pp.~296--303, 2017.
+
+\bibitem{Langan211}
+Y.~Langan, L.~Nashef, and J.~W. A.~S. Sander, ``Sudden unexpected death in
+  epilepsy: a series of witnessed deaths,'' {\em Journal of Neurology,
+  Neurosurgery \& Psychiatry}, vol.~68, no.~2, pp.~211--213, 2000.
+
+\bibitem{Devinsky779}
+O.~Devinsky, T.~Spruill, D.~Thurman, and D.~Friedman, ``Recognizing and
+  preventing epilepsy-related mortality,'' {\em Neurology}, vol.~86, no.~8,
+  pp.~779--786, 2016.
+
+\bibitem{Nashef1997}
+L.~Nashef, ``Sudden unexpected death in epilepsy: Terminology and
+  definitions,'' {\em Epilepsia}, vol.~38, no.~s11, pp.~S6--S8, 1997.
+
+\bibitem{Devinsky2011}
+O.~Devinsky, ``Sudden, unexpected death in epilepsy,'' {\em New England Journal
+  of Medicine}, vol.~365, no.~19, pp.~1801--1811, 2011.
+\newblock PMID: 22070477.
+
+\bibitem{yuen2018epilepsy}
+A.~W. Yuen, M.~R. Keezer, and J.~W. Sander, ``Epilepsy is a neurological and a
+  systemic disorder,'' {\em Epilepsy \& Behavior}, vol.~78, pp.~57--61, 2018.
+
+\bibitem{AbsenceS25:online}
+P.~O.~S. Elaine~Kiriakopoulos, ``Absence seizures | symptoms \& risks |
+  epilepsy foundation.''
+  \url{https://www.epilepsy.com/what-is-epilepsy/seizure-types/absence-seizures},
+  2019.
+\newblock (Accessed on 05/03/2023).
+
+\bibitem{pathophysiology}
+R.~S. Fisher, W.~v.~E. Boas, W.~Blume, C.~Elger, P.~Genton, P.~Lee, and
+  J.~Engel~Jr., ``Epileptic seizures and epilepsy: Definitions proposed by the
+  international league against epilepsy (ilae) and the international bureau for
+  epilepsy (ibe),'' {\em Epilepsia}, vol.~46, no.~4, pp.~470--472, 2005.
+
+\bibitem{DUNCAN2006}
+J.~S. Duncan, J.~W. Sander, S.~M. Sisodiya, and M.~C. Walker, ``Adult
+  epilepsy,'' {\em The Lancet}, vol.~367, no.~9516, pp.~1087--1100, 2006.
+
+\bibitem{classification}
+R.~S. Fisher, J.~H. Cross, J.~A. French, N.~Higurashi, E.~Hirsch, F.~E. Jansen,
+  L.~Lagae, S.~L. Moshé, J.~Peltola, E.~Roulet~Perez, I.~E. Scheffer, and
+  S.~M. Zuberi, ``Operational classification of seizure types by the
+  international league against epilepsy: Position paper of the ilae commission
+  for classification and terminology,'' {\em Epilepsia}, vol.~58, no.~4,
+  pp.~522--530, 2017.
+
+\bibitem{pinault2005cellular}
+D.~Pinault and T.~J. O'brien, ``Cellular and network mechanisms of
+  genetically-determined absence seizures,'' {\em Thalamus \& related systems},
+  vol.~3, no.~3, pp.~181--203, 2005.
+
+\bibitem{galanopoulou2008gabaa}
+A.~S. Galanopoulou, ``Gabaa receptors in normal development and seizures:
+  friends or foes?,'' {\em Current neuropharmacology}, vol.~6, no.~1,
+  pp.~1--20, 2008.
+
+\bibitem{Scheffer2017}
+I.~E. Scheffer, S.~Berkovic, G.~Capovilla, M.~B. Connolly, J.~French,
+  L.~Guilhoto, E.~Hirsch, S.~Jain, G.~W. Mathern, S.~L. Moshé, D.~R. Nordli,
+  E.~Perucca, T.~Tomson, S.~Wiebe, Y.-H. Zhang, and S.~M. Zuberi, ``Ilae
+  classification of the epilepsies: Position paper of the ilae commission for
+  classification and terminology,'' {\em Epilepsia}, vol.~58, no.~4,
+  pp.~512--521, 2017.
+
+\bibitem{SpencerHuh2008}
+S.~Spencer and L.~Huh, ``Outcomes of epilepsy surgery in adults and children,''
+  {\em The Lancet Neurology}, vol.~7, no.~6, pp.~525--537, 2008.
+
+\bibitem{drug_resist}
+P.~Kwan, A.~Arzimanoglou, A.~T. Berg, M.~J. Brodie, W.~Allen~Hauser,
+  G.~Mathern, S.~L. Moshé, E.~Perucca, S.~Wiebe, and J.~French, ``Definition
+  of drug resistant epilepsy: Consensus proposal by the ad hoc task force of
+  the ilae commission on therapeutic strategies,'' {\em Epilepsia}, vol.~51,
+  no.~6, pp.~1069--1077, 2010.
+
+\bibitem{Englot2013}
+D.~J. Englot, A.~T. Lee, C.~Tsai, C.~Halabi, N.~M. Barbaro, K.~I. Auguste,
+  P.~A. Garcia, and E.~F. Chang, ``Seizure types and frequency in patients who
+  “fail” temporal lobectomy for intractable epilepsy,'' {\em Neurosurgery},
+  vol.~73, no.~5, pp.~838--844, 2013.
+
+\bibitem{wong2019comparison}
+S.~Wong, R.~Mani, and S.~Danish, ``Comparison and selection of current
+  implantable anti-epileptic devices,'' {\em Neurotherapeutics}, vol.~16,
+  pp.~369--380, 2019.
+
+\bibitem{Neuromod7:online}
+``Neuromodulation, university of florida.''
+  \url{https://neurology.ufl.edu/divisions/epilepsy/neuromodulation-vns-rns-dbs/}.
+\newblock (Accessed on 05/02/2023).
+
+\bibitem{KRAHL2004135}
+S.~E. Krahl, F.~C. Martin, and A.~Handforth, ``Vagus nerve stimulation inhibits
+  harmaline-induced tremor,'' {\em Brain Research}, vol.~1011, no.~1,
+  pp.~135--138, 2004.
+
+\bibitem{HAYS2013275}
+S.~A. Hays, R.~L. Rennaker, and M.~P. Kilgard, ``Chapter 11 - targeting
+  plasticity with vagus nerve stimulation to treat neurological disease,'' in
+  {\em Changing Brains} (M.~M. Merzenich, M.~Nahum, and T.~M. {Van Vleet},
+  eds.), vol.~207 of {\em Progress in Brain Research}, pp.~275--299, Elsevier,
+  2013.
+
+\bibitem{BRONCEL202037}
+A.~Broncel, R.~Bocian, P.~Kłos-Wojtczak, K.~Kulbat-Warycha, and J.~Konopacki,
+  ``Vagal nerve stimulation as a promising tool in the improvement of cognitive
+  disorders,'' {\em Brain Research Bulletin}, vol.~155, pp.~37--47, 2020.
+
+\bibitem{BeekwilderBeems2010}
+J.~Beekwilder and T.~Beems, ``Overview of the clinical applications of vagus
+  nerve stimulation,'' {\em Journal of clinical neurophysiology}, vol.~27,
+  no.~2, pp.~130--138, 2010.
+
+\bibitem{Penry1990}
+J.~K. Penry and J.~C. Dean, ``Prevention of intractable partial seizures by
+  intermittent vagal stimulation in humans: Preliminary results,'' {\em
+  Epilepsia}, vol.~31, no.~s2, pp.~S40--S43, 1990.
+
+\bibitem{Englot2016}
+D.~J. Englot, J.~D. Rolston, C.~W. Wright, K.~H. Hassnain, and E.~F. Chang,
+  ``Rates and predictors of seizure freedom with vagus nerve stimulation for
+  intractable epilepsy,'' {\em Neurosurgery}, vol.~79, no.~3, pp.~345--353,
+  2016.
+
+\bibitem{IBRAHIM2017634}
+G.~M. Ibrahim, P.~Sharma, A.~Hyslop, M.~R. Guillen, B.~R. Morgan, S.~Wong,
+  T.~J. Abel, L.~Elkaim, I.~Cajigas, A.~H. Shah, A.~Fallah, A.~G. Weil,
+  N.~Altman, B.~Bernal, S.~Medina, E.~Widjaja, P.~Jayakar, J.~Ragheb, and
+  S.~Bhatia, ``Presurgical thalamocortical connectivity is associated with
+  response to vagus nerve stimulation in children with intractable epilepsy,''
+  {\em NeuroImage: Clinical}, vol.~16, pp.~634--642, 2017.
+
+\bibitem{ardell1986selective}
+J.~L. Ardell and W.~C. Randall, ``Selective vagal innervation of sinoatrial and
+  atrioventricular nodes in canine heart,'' {\em American Journal of
+  Physiology-Heart and Circulatory Physiology}, vol.~251, no.~4,
+  pp.~H764--H773, 1986.
+
+\bibitem{ben2001vagus}
+E.~Ben-Menachem, ``Vagus nerve stimulation, side effects, and long-term
+  safety,'' {\em Journal of clinical neurophysiology}, vol.~18, no.~5,
+  pp.~415--418, 2001.
+
+\bibitem{MayoClinic}
+``Mayo clinic vagus nerve stimulation.''
+  \url{https://www.mayoclinic.org/tests-procedures/vagus-nerve-stimulation/about/pac-20384565}.
+\newblock (Accessed on 05/02/2023).
+
+\bibitem{BonazSinniger2017}
+B.~Bonaz, V.~Sinniger, and S.~Pellissier, ``The vagus nerve in the neuro-immune
+  axis: Implications in the pathology of the gastrointestinal tract,'' {\em
+  Frontiers in Immunology}, vol.~8, 2017.
+
+\bibitem{HanchemWongIbrahim2018}
+L.~D. Hachem, S.~M. Wong, and G.~M. Ibrahim, ``The vagus afferent network:
+  emerging role in translational connectomics,'' {\em Neurosurgical Focus FOC},
+  vol.~45, no.~3, p.~E2, 2018.
+
+\bibitem{RICARDO19781}
+J.~A. Ricardo and E.~{Tongju Koh}, ``Anatomical evidence of direct projections
+  from the nucleus of the solitary tract to the hypothalamus, amygdala, and
+  other forebrain structures in the rat,'' {\em Brain Research}, vol.~153,
+  no.~1, pp.~1--26, 1978.
+
+\bibitem{GABA}
+B.~R. Walker, A.~Easton, and K.~Gale, ``Regulation of limbic motor seizures by
+  gaba and glutamate transmission in nucleus tractus solitarius,'' {\em
+  Epilepsia}, vol.~40, no.~8, pp.~1051--1057, 1999.
+
+\bibitem{campbell}
+K.~Campbell, ``Medical and science illustration, animations and
+  communications.''
+
+\bibitem{AGHAJANIAN1977570}
+G.~Aghajanian, J.~Cedarbaum, and R.~Wang, ``Evidence for
+  norepinephrine-mediated collateral inhibition of locus coeruleus neurons,''
+  {\em Brain Research}, vol.~136, no.~3, pp.~570--577, 1977.
+
+\bibitem{BergerVespa2021}
+A.~Berger, S.~Vespa, L.~Dricot, M.~Dumoulin, E.~Iachim, P.~Doguet,
+  G.~Vandewalle, and R.~El~Tahry, ``How is the norepinephrine system involved
+  in the antiepileptic effects of vagus nerve stimulation?,'' {\em Frontiers in
+  Neuroscience}, vol.~15, 2021.
+
+\bibitem{sporns2022structure}
+O.~Sporns, ``Structure and function of complex brain networks,'' {\em Dialogues
+  in clinical neuroscience}, 2022.
+
+\bibitem{GRAFTON2019237}
+S.~T. Grafton and L.~J. Volz, ``Chapter 13 - from ideas to action: The
+  prefrontal–premotor connections that shape motor behavior,'' in {\em The
+  Frontal Lobes} (M.~D'Esposito and J.~H. Grafman, eds.), vol.~163 of {\em
+  Handbook of Clinical Neurology}, pp.~237--255, Elsevier, 2019.
+
+\bibitem{CABRAL201784}
+J.~Cabral, M.~L. Kringelbach, and G.~Deco, ``Functional connectivity
+  dynamically evolves on multiple time-scales over a static structural
+  connectome: Models and mechanisms,'' {\em NeuroImage}, vol.~160, pp.~84--96,
+  2017.
+\newblock Functional Architecture of the Brain.
+
+\bibitem{NarayananWatts2002}
+J.~Narayanan, R.~Watts, N.~Haddad, D.~Labar, P.~Li, and C.~Filippi, ``Cerebral
+  activation during vagus nerve stimulation: A functional mr study,'' {\em
+  Epilepsia}, vol.~43, no.~12, pp.~1509--1514, 2002.
+
+\bibitem{Mithani2019}
+K.~Mithani, M.~Mikhail, B.~R. Morgan, S.~Wong, A.~G. Weil, S.~Deschenes,
+  S.~Wang, B.~Bernal, M.~R. Guillen, A.~Ochi, H.~Otsubo, I.~Yau, W.~Lo,
+  E.~Pang, S.~Holowka, O.~C. Snead, E.~Donner, J.~T. Rutka, C.~Go, E.~Widjaja,
+  and G.~M. Ibrahim, ``Connectomic profiling identifies responders to vagus
+  nerve stimulation,'' {\em Annals of Neurology}, vol.~86, no.~5, pp.~743--753,
+  2019.
+
+\bibitem{Mithani2020}
+K.~Mithani, S.~M. Wong, M.~Mikhail, H.~Pourmotabbed, E.~Pang, R.~Sharma,
+  I.~Yau, A.~Ochi, H.~Otsubo, O.~C. Snead, E.~Donner, C.~Go, E.~Widjaja,
+  A.~Babajani-Feremi, and G.~M. Ibrahim, ``Somatosensory evoked fields predict
+  response to vagus nerve stimulation,'' {\em NeuroImage: Clinical}, vol.~26,
+  p.~102205, 2020.
+
+\bibitem{frangos2017access}
+E.~Frangos and B.~R. Komisaruk, ``Access to vagal projections via cutaneous
+  electrical stimulation of the neck: fmri evidence in healthy humans,'' {\em
+  Brain stimulation}, vol.~10, no.~1, pp.~19--27, 2017.
+
+\bibitem{Fan2014}
+P.-C. Fan, S.~S.-F. Peng, R.-F. Yen, J.-Y. Shieh, and M.-F. Kuo, ``Neuroimaging
+  and electroencephalographic changes after vagus nerve stimulation in a boy
+  with medically intractable myoclonic astatic epilepsy,'' {\em Journal of the
+  Formosan Medical Association}, vol.~113, no.~4, pp.~258--263, 2014.
+
+\bibitem{BecksteadJoel2980}
+R.~M. Beckstead, J.~R. Morse, and R.~Norgren, ``The nucleus of the solitary
+  tract in the monkey: Projections to the thalamus and brain stem nuclei,''
+  {\em Journal of Comparative Neurology}, vol.~190, no.~2, pp.~259--282, 1980.
+
+\bibitem{standring2005gray}
+S.~Standring, H.~Ellis, J.~Healy, D.~Johnson, A.~Williams, P.~Collins, and
+  C.~Wigley, ``Gray's anatomy: the anatomical basis of clinical practice,''
+  {\em American journal of neuroradiology}, vol.~26, no.~10, p.~2703, 2005.
+
+\bibitem{Fornixof88:online}
+A.~A. Gordana~Sendić, ``Fornix of the brain: Anatomy and functions | kenhub.''
+  \url{https://www.kenhub.com/en/library/anatomy/fornix-of-the-brain}, 2022.
+\newblock (Accessed on 05/02/2023).
+
+\bibitem{DUDAS20211}
+B.~Dudás, ``Part i - morphology of the human hypothalamus: Anatomy, blood
+  supply, nuclei and pathways,'' in {\em Atlas of the Human Hypothalamus}
+  (B.~Dudás, ed.), pp.~1--24, Academic Press, 2021.
+
+\bibitem{alahmari2021}
+A.~Alahmari, ``Neuroimaging role in mental illnesses,'' 04 2021.
+
+\bibitem{10.1093/cercor/bhh186}
+N.~Makris, D.~N. Kennedy, S.~McInerney, A.~G. Sorensen, R.~Wang, J.~Caviness,
+  Verne~S., and D.~N. Pandya, ``{Segmentation of Subcomponents within the
+  Superior Longitudinal Fascicle in Humans: A Quantitative, In Vivo, DT-MRI
+  Study},'' {\em Cerebral Cortex}, vol.~15, pp.~854--869, 12 2004.
+
+\bibitem{sobottaAtlas1908}
+D.~J. Sobotta, {\em Sobotta's Atlast and Textbook of Human Anatomy}.
+\newblock 1908.
 
 \end{thebibliography}

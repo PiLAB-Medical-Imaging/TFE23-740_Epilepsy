@@ -1,53 +1,53 @@
 This is BibTeX, Version 0.99d (TeX Live 2022/dev/Debian)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: EPL-master-thesis-covers-template-EN.aux
-The style file: apalike.bst
+The style file: ieeetr.bst
 Database file #1: refs.bib
 Warning--entry type for "WHO" isn't style-file defined
 --line 107 of file refs.bib
-Warning--empty year in campbell
-Warning--empty year in QeA_MRI
-Warning--empty school in phdthesisGaryfallidis
 Warning--empty year in dtiBook
-You've used 74 entries,
-            1935 wiz_defined-function locations,
-            943 strings with 19850 characters,
-and the built_in function-call counts, 32538 in all, are:
-= -- 3056
-> -- 1793
-< -- 35
-+ -- 643
-- -- 635
-* -- 3028
-:= -- 5816
-add.period$ -- 222
-call.type$ -- 74
-change.case$ -- 682
-chr.to.int$ -- 74
-cite$ -- 78
-duplicate$ -- 1022
-empty$ -- 2000
-format.name$ -- 727
-if$ -- 6161
-int.to.chr$ -- 1
-int.to.str$ -- 0
-missing$ -- 66
-newline$ -- 372
-num.names$ -- 224
-pop$ -- 558
+Warning--empty school in phdthesisGaryfallidis
+Warning--empty journal in alahmari2021
+Warning--empty publisher in sobottaAtlas1908
+You've used 85 entries,
+            1876 wiz_defined-function locations,
+            1012 strings with 21711 characters,
+and the built_in function-call counts, 24994 in all, are:
+= -- 2408
+> -- 1176
+< -- 0
++ -- 428
+- -- 343
+* -- 1894
+:= -- 3606
+add.period$ -- 99
+call.type$ -- 85
+change.case$ -- 80
+chr.to.int$ -- 0
+cite$ -- 89
+duplicate$ -- 1175
+empty$ -- 2209
+format.name$ -- 343
+if$ -- 6062
+int.to.chr$ -- 0
+int.to.str$ -- 85
+missing$ -- 75
+newline$ -- 274
+num.names$ -- 89
+pop$ -- 219
 preamble$ -- 1
-purify$ -- 686
+purify$ -- 0
 quote$ -- 0
-skip$ -- 762
+skip$ -- 880
 stack$ -- 0
-substring$ -- 2110
-swap$ -- 86
-text.length$ -- 6
+substring$ -- 1655
+swap$ -- 534
+text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 436
+type$ -- 0
 warning$ -- 4
-while$ -- 230
-width$ -- 0
-write$ -- 950
+while$ -- 227
+width$ -- 87
+write$ -- 867
 (There were 5 warnings)

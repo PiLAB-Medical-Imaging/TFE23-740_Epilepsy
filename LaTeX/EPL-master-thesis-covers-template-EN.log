@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.2.15)  1 MAY 2023 18:24
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.2.15)  3 MAY 2023 10:28
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -534,7 +534,7 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman (
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-<_frontbanner_EPL-master-thesis.pdf, id=147, 597.23125pt x 833.1125pt>
+<_frontbanner_EPL-master-thesis.pdf, id=143, 597.23125pt x 833.1125pt>
 File: _frontbanner_EPL-master-thesis.pdf Graphic file (type pdf)
 <use _frontbanner_EPL-master-thesis.pdf>
 Package pdftex.def Info: _frontbanner_EPL-master-thesis.pdf  used on input line 53.
@@ -615,12 +615,12 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <7> on input line 5.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <5> on input line 5.
-<images/magnetic_dipole.png, id=232, 1242.6425pt x 903.375pt>
+<images/magnetic_dipole.png, id=227, 1242.6425pt x 903.375pt>
 File: images/magnetic_dipole.png Graphic file (type png)
 <use images/magnetic_dipole.png>
 Package pdftex.def Info: images/magnetic_dipole.png  used on input line 12.
 (pdftex.def)             Requested size: 121.41121pt x 88.26135pt.
-<images/precession.png, id=234, 220.825pt x 186.6975pt>
+<images/precession.png, id=229, 220.825pt x 186.6975pt>
 File: images/precession.png Graphic file (type png)
 <use images/precession.png>
 Package pdftex.def Info: images/precession.png  used on input line 18.
@@ -628,41 +628,33 @@ Package pdftex.def Info: images/precession.png  used on input line 18.
  [6
 
  <./images/magnetic_dipole.png> <./images/precession.png>]
-<images/energy_protons.jpg, id=266, 1648.1575pt x 777.90625pt>
+<images/energy_protons.jpg, id=261, 1648.1575pt x 777.90625pt>
 File: images/energy_protons.jpg Graphic file (type jpg)
 <use images/energy_protons.jpg>
 Package pdftex.def Info: images/energy_protons.jpg  used on input line 39.
 (pdftex.def)             Requested size: 346.89731pt x 163.7331pt.
  [7 <./images/energy_protons.jpg>]
-Overfull \hbox (2.7566pt too wide) in paragraph at lines 55--58
-\T1/lmr/m/n/12 (-20) The equi-lib-rium macro-scopic mag-ne-ti-za-tion is non-zero and is de-fined by [[]]: 
- []
-
-<images/trajectory_magnetization.png, id=294, 1396.21625pt x 932.48375pt>
+<images/trajectory_magnetization.png, id=289, 1396.21625pt x 932.48375pt>
 File: images/trajectory_magnetization.png Graphic file (type png)
 <use images/trajectory_magnetization.png>
 Package pdftex.def Info: images/trajectory_magnetization.png  used on input line 73.
 (pdftex.def)             Requested size: 216.81pt x 144.7896pt.
-<images/energy_gaining.png, id=297, 1403.2425pt x 623.32875pt>
+<images/energy_gaining.png, id=292, 1403.2425pt x 623.32875pt>
 File: images/energy_gaining.png Graphic file (type png)
 <use images/energy_gaining.png>
 Package pdftex.def Info: images/energy_gaining.png  used on input line 83.
 (pdftex.def)             Requested size: 390.25534pt x 173.35146pt.
 
+
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-
-Overfull \hbox (4.37047pt too wide) in paragraph at lines 88--89
-\T1/lmr/m/n/12 (-20) The \T1/lmr/m/it/12 (-20) flip an-gle \T1/lmr/m/n/12 (-20) from the ini-tial di-rec-tion of the mag-ne-ti-za-tion is de-fined by [[]]: 
- []
-
 [8 <./images/trajectory_magnetization.png>]
-<images/t1_relax_energy.png, id=314, 1572.87625pt x 808.01875pt>
+<images/t1_relax_energy.png, id=309, 1572.87625pt x 808.01875pt>
 File: images/t1_relax_energy.png Graphic file (type png)
 <use images/t1_relax_energy.png>
 Package pdftex.def Info: images/t1_relax_energy.png  used on input line 104.
 (pdftex.def)             Requested size: 216.81pt x 111.37108pt.
-<images/t1_relax_tissues.png, id=321, 1680.2775pt x 478.78876pt>
+<images/t1_relax_tissues.png, id=316, 1680.2775pt x 478.78876pt>
 File: images/t1_relax_tissues.png Graphic file (type png)
 <use images/t1_relax_tissues.png>
 Package pdftex.def Info: images/t1_relax_tissues.png  used on input line 123.
@@ -671,21 +663,13 @@ Package pdftex.def Info: images/t1_relax_tissues.png  used on input line 123.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<images/t2_relax_phases.png, id=327, 1523.6925pt x 910.40125pt>
+<images/t2_relax_phases.png, id=322, 1523.6925pt x 910.40125pt>
 File: images/t2_relax_phases.png Graphic file (type png)
 <use images/t2_relax_phases.png>
 Package pdftex.def Info: images/t2_relax_phases.png  used on input line 136.
 (pdftex.def)             Requested size: 216.81pt x 129.53903pt.
-
-Underfull \hbox (badness 1173) in paragraph at lines 139--139
-\T1/lmr/m/n/10 (+20) sal mag-ne-ti-za-tion $\OML/lmm/m/it/10 M[]$ \T1/lmr/m/n/10 (+20) de-creases quickly.
- []
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
 [9 <./images/energy_gaining.png> <./images/t1_relax_energy.png>]
-<images/t2_relax_tissues.png, id=343, 1677.26625pt x 480.79625pt>
+<images/t2_relax_tissues.png, id=335, 1677.26625pt x 480.79625pt>
 File: images/t2_relax_tissues.png Graphic file (type png)
 <use images/t2_relax_tissues.png>
 Package pdftex.def Info: images/t2_relax_tissues.png  used on input line 149.
@@ -694,18 +678,18 @@ LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 16
  (/usr/share/texmf/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [10 <./images/t1_relax_tissues.png> <./images/t2_relax_phases.png> <./images/t2_relax_tissues.png>]
-<images/t2vst2star.png, id=358, 1531.7225pt x 629.35126pt>
+<images/t2vst2star.png, id=353, 1531.7225pt x 629.35126pt>
 File: images/t2vst2star.png Graphic file (type png)
 <use images/t2vst2star.png>
 Package pdftex.def Info: images/t2vst2star.png  used on input line 167.
 (pdftex.def)             Requested size: 433.62pt x 178.15697pt.
-<images/t2_relax.png, id=362, 1535.7375pt x 316.18124pt>
+<images/t2_relax.png, id=357, 1535.7375pt x 316.18124pt>
 File: images/t2_relax.png Graphic file (type png)
 <use images/t2_relax.png>
 Package pdftex.def Info: images/t2_relax.png  used on input line 176.
 (pdftex.def)             Requested size: 433.62pt x 89.27312pt.
  [11 <./images/t2vst2star.png> <./images/t2_relax.png>]
-<images/matrix_contrast.png, id=376, 1082.0425pt x 782.925pt>
+<images/matrix_contrast.png, id=371, 1082.0425pt x 782.925pt>
 File: images/matrix_contrast.png Graphic file (type png)
 <use images/matrix_contrast.png>
 Package pdftex.def Info: images/matrix_contrast.png  used on input line 191.
@@ -715,7 +699,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 197--199
 
  []
 
-<images/gradZ.png, id=381, 742.775pt x 727.71875pt>
+<images/gradZ.png, id=376, 742.775pt x 727.71875pt>
 File: images/gradZ.png Graphic file (type png)
 <use images/gradZ.png>
 Package pdftex.def Info: images/gradZ.png  used on input line 205.
@@ -724,87 +708,56 @@ Package pdftex.def Info: images/gradZ.png  used on input line 205.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [12 <./images/matrix_contrast.png>]
-<images/gradxy.png, id=397, 2240.37pt x 702.625pt>
+<images/gradxy.png, id=392, 2240.37pt x 702.625pt>
 File: images/gradxy.png Graphic file (type png)
 <use images/gradxy.png>
 Package pdftex.def Info: images/gradxy.png  used on input line 221.
 (pdftex.def)             Requested size: 433.62pt x 135.98744pt.
  [13 <./images/gradZ.png> <./images/gradxy.png>]
-<images/artifacts.JPG, id=418, 1857.94125pt x 448.67625pt>
+<images/artifacts.JPG, id=413, 1857.94125pt x 448.67625pt>
 File: images/artifacts.JPG Graphic file (type jpg)
 <use images/artifacts.JPG>
 Package pdftex.def Info: images/artifacts.JPG  used on input line 243.
 (pdftex.def)             Requested size: 433.62pt x 104.71323pt.
  [14 <./images/artifacts.JPG>]
-<images/PGSE.png, id=435, 1833.85126pt x 923.45pt>
+<images/PGSE.png, id=430, 1833.85126pt x 923.45pt>
 File: images/PGSE.png Graphic file (type png)
 <use images/PGSE.png>
 Package pdftex.def Info: images/PGSE.png  used on input line 267.
 (pdftex.def)             Requested size: 303.53267pt x 152.84175pt.
 
-Underfull \hbox (badness 2529) in paragraph at lines 270--270
-\T1/lmr/m/n/10 (+20) the two dif-fu-sion gra-
- []
-
-
-Underfull \hbox (badness 5359) in paragraph at lines 270--270
-\T1/lmr/m/n/10 (+20) di-ents is present the
- []
-
-
-Underfull \hbox (badness 2401) in paragraph at lines 270--270
-\T1/lmr/m/n/10 (+20) 180\TS1/lmr/m/n/10 (+20) ° \T1/lmr/m/n/10 (+20) RF pulse, there-
- []
-
-
-Underfull \hbox (badness 1983) in paragraph at lines 270--270
-\T1/lmr/m/n/10 (+20) fore the sec-ond gra-di-
- []
-
-
-Underfull \hbox (badness 7064) in paragraph at lines 270--270
-\T1/lmr/m/n/10 (+20) ent is equal to the
- []
-
-
-Underfull \hbox (badness 1769) in paragraph at lines 270--270
-\T1/lmr/m/n/10 (+20) first one, be-cause the
+Underfull \hbox (badness 3803) in paragraph at lines 270--270
+\T1/lmr/m/n/10 (+20) to the first one, be-
  []
 
 [15 <./images/PGSE.png>]
-<images/anisotropi.png, id=450, 1532.72626pt x 946.53625pt>
+<images/anisotropi.png, id=445, 1532.72626pt x 946.53625pt>
 File: images/anisotropi.png Graphic file (type png)
 <use images/anisotropi.png>
 Package pdftex.def Info: images/anisotropi.png  used on input line 289.
 (pdftex.def)             Requested size: 173.44534pt x 107.109pt.
- [16 <./images/anisotropi.png>]
-<images/ellipses.png, id=468, 1606.0pt x 950.55125pt>
+<images/ellipses.png, id=451, 1606.0pt x 950.55125pt>
 File: images/ellipses.png Graphic file (type png)
 <use images/ellipses.png>
 Package pdftex.def Info: images/ellipses.png  used on input line 323.
 (pdftex.def)             Requested size: 173.44534pt x 102.6464pt.
- [17 <./images/ellipses.png>]
-<images/fiber_orientations.png, id=487, 1743.51375pt x 666.49pt>
+ [16 <./images/anisotropi.png>] [17 <./images/ellipses.png>]
+<images/fiber_orientations.png, id=482, 1743.51375pt x 666.49pt>
 File: images/fiber_orientations.png Graphic file (type png)
 <use images/fiber_orientations.png>
 Package pdftex.def Info: images/fiber_orientations.png  used on input line 353.
 (pdftex.def)             Requested size: 346.89731pt x 132.60408pt.
-
-Overfull \hbox (36.48776pt too wide) in paragraph at lines 358--360
-\T1/lmr/m/n/12 (-20) [[]] us-ing his pro-posed DTI model [[]] [[]].
- []
-
-<images/csv_conv.png, id=499, 1102.1175pt x 483.8075pt>
+<images/csv_conv.png, id=494, 1102.1175pt x 483.8075pt>
 File: images/csv_conv.png Graphic file (type png)
 <use images/csv_conv.png>
 Package pdftex.def Info: images/csv_conv.png  used on input line 370.
 (pdftex.def)             Requested size: 203.80193pt x 89.45868pt.
-<images/spherical_harmonics.png, id=502, 3605.47pt x 2048.65375pt>
+<images/spherical_harmonics.png, id=497, 3605.47pt x 2048.65375pt>
 File: images/spherical_harmonics.png Graphic file (type png)
 <use images/spherical_harmonics.png>
 Package pdftex.def Info: images/spherical_harmonics.png  used on input line 376.
 (pdftex.def)             Requested size: 203.80193pt x 115.78665pt.
-(/usr/share/texlive/texmf-dist/tex/latex/ucs/data/uni-34.def
+ (/usr/share/texlive/texmf-dist/tex/latex/ucs/data/uni-34.def
 File: uni-34.def 2013/05/13 UCS: Unicode data U+2200..U+22FF
 )
 Underfull \hbox (badness 10000) in paragraph at lines 383--386
@@ -817,7 +770,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 383--386
  []
 
 [18 <./images/fiber_orientations.png>]
-<images/det_prob_tract.png, id=529, 853.1875pt x 615.29875pt>
+<images/det_prob_tract.png, id=525, 853.1875pt x 615.29875pt>
 File: images/det_prob_tract.png Graphic file (type png)
 <use images/det_prob_tract.png>
 Package pdftex.def Info: images/det_prob_tract.png  used on input line 392.
@@ -828,7 +781,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 402--406
  []
 
 [19 <./images/csv_conv.png> <./images/spherical_harmonics.png> <./images/det_prob_tract.png>]
-<images/noddi_tissues.jpg, id=546, 330.12936pt x 143.96184pt>
+<images/noddi_tissues.jpg, id=541, 330.12936pt x 143.96184pt>
 File: images/noddi_tissues.jpg Graphic file (type jpg)
 <use images/noddi_tissues.jpg>
 Package pdftex.def Info: images/noddi_tissues.jpg  used on input line 413.
@@ -849,17 +802,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 433--437
  []
 
 [21]
-<images/diamond1.png, id=582, 529.98pt x 573.14125pt>
+<images/diamond1.png, id=577, 529.98pt x 573.14125pt>
 File: images/diamond1.png Graphic file (type png)
 <use images/diamond1.png>
 Package pdftex.def Info: images/diamond1.png  used on input line 457.
 (pdftex.def)             Requested size: 138.76157pt x 150.06265pt.
-<images/diamond2.png, id=583, 524.96124pt x 573.14125pt>
+<images/diamond2.png, id=578, 524.96124pt x 573.14125pt>
 File: images/diamond2.png Graphic file (type png)
 <use images/diamond2.png>
 Package pdftex.def Info: images/diamond2.png  used on input line 463.
 (pdftex.def)             Requested size: 138.76157pt x 151.4969pt.
-<images/diamond3.png, id=584, 524.96124pt x 573.14125pt>
+<images/diamond3.png, id=579, 524.96124pt x 573.14125pt>
 File: images/diamond3.png Graphic file (type png)
 <use images/diamond3.png>
 Package pdftex.def Info: images/diamond3.png  used on input line 469.
@@ -869,18 +822,19 @@ Underfull \hbox (badness 10000) in paragraph at lines 476--479
 
  []
 
-[22 <./images/diamond1.png> <./images/diamond2.png> <./images/diamond3.png>] [23]
+[22 <./images/diamond1.png> <./images/diamond2.png> <./images/diamond3.png>]
 Overfull \hbox (2.85875pt too wide) in paragraph at lines 513--515
 \T1/lmr/m/n/12 (-20) where $\OML/lmm/m/it/12 M[]$ \T1/lmr/m/n/12 (-20) is the ini-tial trans-verse mag-ne-ti-za-tion of the voxel, $\OML/lmm/m/it/12 A[] \OT1/lmr/m/n/12 (-20) := \OML/lmm/m/it/12 A[]\OT1/lmr/m/n/12 (-20) ( \OT1/lmr/bx/n/12 (-20) 
 []\OML/lmm/m/it/12 ; \OT1/lmr/bx/n/12 (-20) T[]\OML/lmm/m/it/12 ; \OT1/lmr/bx/n/12 (-20) u[]\OT1/lmr/m/n/12 (-20) ; \OT1/lmr/bx/n/12 (-20) g\OT1/lmr/m/n/12 (-20) ) $
  []
 
-<images/superPosition.png, id=622, 1730.465pt x 323.2075pt>
+[23]
+<images/superPosition.png, id=619, 1730.465pt x 323.2075pt>
 File: images/superPosition.png Graphic file (type png)
 <use images/superPosition.png>
 Package pdftex.def Info: images/superPosition.png  used on input line 521.
 (pdftex.def)             Requested size: 346.89731pt x 64.7883pt.
-<images/geometry_axons.png, id=627, 1184.425pt x 523.9575pt>
+<images/geometry_axons.png, id=624, 1184.425pt x 523.9575pt>
 File: images/geometry_axons.png Graphic file (type png)
 <use images/geometry_axons.png>
 Package pdftex.def Info: images/geometry_axons.png  used on input line 532.
@@ -891,13 +845,8 @@ Underfull \hbox (badness 3118) in paragraph at lines 535--535
  []
 
 
-Underfull \hbox (badness 4144) in paragraph at lines 535--535
-\T1/lmr/m/n/10 (+20) of hexag-o-nal pack-ing of cilin-
- []
-
-
-Underfull \hbox (badness 1371) in paragraph at lines 535--535
-\T1/lmr/m/n/10 (+20) hexagon $\OML/lmm/m/it/10 A[]$\T1/lmr/m/n/10 (+20) , at the
+Underfull \hbox (badness 1062) in paragraph at lines 535--535
+\T1/lmr/m/n/10 (+20) At left a rap-re-sen-ta-tion of the
  []
 
 
@@ -910,12 +859,12 @@ Chapter 2.
 (./chapters/epilepsy.tex [26
 
 ] [27]
-<images/seizureTypes.png, id=708, 698.61pt x 376.40625pt>
+<images/seizureTypes.png, id=706, 698.61pt x 376.40625pt>
 File: images/seizureTypes.png Graphic file (type png)
 <use images/seizureTypes.png>
 Package pdftex.def Info: images/seizureTypes.png  used on input line 46.
 (pdftex.def)             Requested size: 346.89731pt x 186.90462pt.
-<images/epilepsyTypes.png, id=712, 1539.7525pt x 778.91pt>
+<images/epilepsyTypes.png, id=710, 1539.7525pt x 778.91pt>
 File: images/epilepsyTypes.png Graphic file (type png)
 <use images/epilepsyTypes.png>
 Package pdftex.def Info: images/epilepsyTypes.png  used on input line 57.
@@ -924,13 +873,8 @@ Package pdftex.def Info: images/epilepsyTypes.png  used on input line 57.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-
-Overfull \hbox (43.97011pt too wide) in paragraph at lines 69--71
-[]\T1/lmr/m/n/12 (-20) Up to a third of all in-di-vid-u-als with epilepsy are re-frac-tory to AEDs [[]].
- []
-
 [28 <./images/seizureTypes.png>]
-<images/WongMani2019.jpeg, id=732, 602.25pt x 227.85126pt>
+<images/WongMani2019.jpeg, id=735, 602.25pt x 227.85126pt>
 File: images/WongMani2019.jpeg Graphic file (type jpg)
 <use images/WongMani2019.jpeg>
 Package pdftex.def Info: images/WongMani2019.jpeg  used on input line 81.
@@ -940,17 +884,17 @@ Package pdftex.def Info: images/WongMani2019.jpeg  used on input line 81.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [29 <./images/epilepsyTypes.png>]
-<images/vagus_nerve_stimulation.jpg, id=755, 634.37pt x 539.01375pt>
+<images/vagus_nerve_stimulation.jpg, id=763, 634.37pt x 539.01375pt>
 File: images/vagus_nerve_stimulation.jpg Graphic file (type jpg)
 <use images/vagus_nerve_stimulation.jpg>
 Package pdftex.def Info: images/vagus_nerve_stimulation.jpg  used on input line 98.
-(pdftex.def)             Requested size: 346.89731pt x 294.76419pt.
+(pdftex.def)             Requested size: 303.53267pt x 257.90941pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [30 <./images/WongMani2019.jpeg>]
-<images/vagus_afferent_network.jpg, id=777, 361.35pt x 470.9595pt>
+<images/vagus_afferent_network.jpg, id=788, 361.35pt x 470.9595pt>
 File: images/vagus_afferent_network.jpg Graphic file (type jpg)
 <use images/vagus_afferent_network.jpg>
 Package pdftex.def Info: images/vagus_afferent_network.jpg  used on input line 113.
@@ -963,13 +907,34 @@ Underfull \hbox (badness 3240) in paragraph at lines 116--116
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[31 <./images/vagus_nerve_stimulation.jpg>] [32 <./images/vagus_afferent_network.jpg>]
-<images/structuralFunctional.png, id=807, 1565.85pt x 876.27374pt>
+[31 <./images/vagus_nerve_stimulation.jpg>]
+<images/structuralFunctional.png, id=810, 1565.85pt x 876.27374pt>
 File: images/structuralFunctional.png Graphic file (type png)
 <use images/structuralFunctional.png>
 Package pdftex.def Info: images/structuralFunctional.png  used on input line 136.
 (pdftex.def)             Requested size: 346.89731pt x 194.11789pt.
- [33 <./images/structuralFunctional.png>]) [34]
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[32 <./images/vagus_afferent_network.jpg>] [33 <./images/structuralFunctional.png>]
+<images/fornixST.jpg, id=853, 451.6875pt x 394.47375pt>
+File: images/fornixST.jpg Graphic file (type jpg)
+<use images/fornixST.jpg>
+Package pdftex.def Info: images/fornixST.jpg  used on input line 172.
+(pdftex.def)             Requested size: 260.17464pt x 227.22993pt.
+ [34 <./images/fornixST.jpg>]
+<images/SLF.png, id=874, 768.8725pt x 514.92375pt>
+File: images/SLF.png Graphic file (type png)
+<use images/SLF.png>
+Package pdftex.def Info: images/SLF.png  used on input line 189.
+(pdftex.def)             Requested size: 205.96883pt x 137.93913pt.
+<images/ILf.png, id=875, 760.8425pt x 534.99875pt>
+File: images/ILf.png Graphic file (type png)
+<use images/ILf.png>
+Package pdftex.def Info: images/ILf.png  used on input line 195.
+(pdftex.def)             Requested size: 205.96883pt x 144.8271pt.
+) [35 <./images/SLF.png (PNG copy)> <./images/ILf.png (PNG copy)>]
 Chapter 3.
 (./chapters/methods.tex
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 17.
@@ -984,25 +949,30 @@ Package microtype Info: Loading generic protrusion settings for font family
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-) [35
+) [36
 
-] [36]
+] [37]
 Chapter 4.
-[37
+[38
 
 ]
 Chapter 5.
-(./chapters/discussion.tex) [38
+(./chapters/discussion.tex) [39
 
-] (./EPL-master-thesis-covers-template-EN.bbl [39
+] (./EPL-master-thesis-covers-template-EN.bbl [40
 
-] [40
+]
+Underfull \hbox (badness 10000) in paragraph at lines 29--32
+[]\T1/lmr/m/n/10 (+20) A. D. El-ster, ``Eddy cur-rents.''  Avail-able at []$\T1/lmtt/m/n/10 https : / / mriquestions . com /
+ []
 
-] (/usr/share/texlive/texmf-dist/tex/latex/ucs/data/uni-1.def
-File: uni-1.def 2013/05/13 UCS: Unicode data U+0100..U+01FF
-) (/usr/share/texlive/texmf-dist/tex/latex/ucs/data/uni-32.def
+[41
+
+] (/usr/share/texlive/texmf-dist/tex/latex/ucs/data/uni-32.def
 File: uni-32.def 2013/05/13 UCS: Unicode data U+2000..U+20FF
-) [41] [42] [43] [44]) [45]
+) [42] [43] (/usr/share/texlive/texmf-dist/tex/latex/ucs/data/uni-1.def
+File: uni-1.def 2013/05/13 UCS: Unicode data U+0100..U+01FF
+) [44]) [45]
 *geometry* verbose mode - [ newgeometry ] result:
 * driver: pdftex
 * paper: a4paper
@@ -1035,13 +1005,13 @@ File: uni-32.def 2013/05/13 UCS: Unicode data U+2000..U+20FF
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-<_backbanner_EPL-master-thesis.pdf, id=899, 597.23125pt x 833.1125pt>
+<_backbanner_EPL-master-thesis.pdf, id=950, 597.23125pt x 833.1125pt>
 File: _backbanner_EPL-master-thesis.pdf Graphic file (type pdf)
 <use _backbanner_EPL-master-thesis.pdf>
-Package pdftex.def Info: _backbanner_EPL-master-thesis.pdf  used on input line 88.
+Package pdftex.def Info: _backbanner_EPL-master-thesis.pdf  used on input line 89.
 (pdftex.def)             Requested size: 597.22978pt x 833.11047pt.
 
-Overfull \hbox (17.34673pt too wide) in paragraph at lines 88--88
+Overfull \hbox (17.34673pt too wide) in paragraph at lines 89--89
 [][] 
  []
 
@@ -1052,21 +1022,21 @@ Overfull \hbox (17.34673pt too wide) in paragraph at lines 88--88
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `EPL-master-thesis-covers-template-EN.out' has not changed.
-(rerunfilecheck)             Checksum: 9CA472331B5023C9C4987244482C9F07;5078.
+(rerunfilecheck)             Checksum: 426D948954ADDB0A4279272E159A0011;4896.
  ) 
 Here is how much of TeX's memory you used:
- 18632 strings out of 480247
- 293909 string characters out of 5896151
- 609396 words of memory out of 5000000
- 35614 multiletter control sequences out of 15000+600000
- 600745 words of font info for 275 fonts, out of 8000000 for 9000
+ 18744 strings out of 480247
+ 295474 string characters out of 5896151
+ 615636 words of memory out of 5000000
+ 35649 multiletter control sequences out of 15000+600000
+ 604097 words of font info for 305 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 75i,10n,77p,1137b,970s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx8.pfb></usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi6.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi7.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr6.pfb></usr/share/texmf/fonts/type1/public/lm/lmr7.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmri8.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy6.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy7.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
-Output written on EPL-master-thesis-covers-template-EN.pdf (47 pages, 11400194 bytes).
+ 75i,10n,77p,1144b,970s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx8.pfb></usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi6.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi7.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr6.pfb></usr/share/texmf/fonts/type1/public/lm/lmr7.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmri8.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy6.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy7.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
+Output written on EPL-master-thesis-covers-template-EN.pdf (47 pages, 12487562 bytes).
 PDF statistics:
- 1116 PDF objects out of 1200 (max. 8388607)
- 895 compressed objects within 9 object streams
- 264 named destinations out of 1000 (max. 500000)
- 67541 words of extra memory for PDF output out of 74296 (max. 10000000)
+ 1174 PDF objects out of 1200 (max. 8388607)
+ 944 compressed objects within 10 object streams
+ 279 named destinations out of 1000 (max. 500000)
+ 68060 words of extra memory for PDF output out of 74296 (max. 10000000)
 
