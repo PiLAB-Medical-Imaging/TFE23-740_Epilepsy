@@ -10,7 +10,7 @@ from params import *
 def preprocess(folder_path):
 
     ## Connect
-    study : Elikopy = elikopy.core.Elikopy(folder_path, cuda=True, slurm=True, slurm_email="michele.cerra@student.uclouvain.be")
+    study : Elikopy = elikopy.core.Elikopy(folder_path, cuda=False, slurm=True, slurm_email="michele.cerra@student.uclouvain.be")
     study.patient_list()
 
     ## Preprocessing
