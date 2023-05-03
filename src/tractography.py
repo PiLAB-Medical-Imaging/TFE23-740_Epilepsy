@@ -202,15 +202,15 @@ def freesurfer_mask_extraction(folder_path, seg_path, subj_id):
 
 def registration(folder_path, subj_id):
 
-    # moving_file_FA = folder_path + "/static_files/atlases/FSL_HCP1065_FA_1mm.nii.gz"
+    moving_file_FA = folder_path + "/static_files/atlases/FSL_HCP1065_FA_1mm.nii.gz"
     moving_file_T1 = folder_path + "/static_files/atlases/MNI152_T1_05mm.nii.gz"
 
-    # static_file_FA = folder_path + "/subjects/" + subj_id + "/dMRI/microstructure/dti/" + subj_id + "_FA.nii.gz"
+    static_file_FA = folder_path + "/subjects/" + subj_id + "/dMRI/microstructure/dti/" + subj_id + "_FA.nii.gz"
     static_file_T1 = folder_path + "/T1/" + subj_id + "_T1.nii.gz"
 
-    # if not os.path.isfile(moving_file_FA) or not os.path.isfile(static_file_FA) or not os.path.isfile(moving_file_T1) or not os.path.isfile(static_file_T1):
-    #     print("Images for subject: " + subj_id + " weren't found")
-    #     return 1
+    if not os.path.isfile(moving_file_FA) or not os.path.isfile(static_file_FA) or not os.path.isfile(moving_file_T1) or not os.path.isfile(static_file_T1):
+        print("Images for subject: " + subj_id + " weren't found")
+        return 1
     
     if not os.path.isfile(moving_file_T1) or not os.path.isfile(static_file_T1):
         print("Images for subject: " + subj_id + " weren't found")
@@ -230,14 +230,14 @@ def registration(folder_path, subj_id):
                 print("Applying transformation from " + file.split(".")[0])
                 if "_FA_" in file:
                     pass
-                    # if mapping_FA is None:
-                    #     print("Finding transformation from atlas FA ")
-                    #     mapping_FA = find_transform(moving_file_FA, static_file_FA)
-                    #     print("Transformation found")
-                    # 
-                    # print("FA:",end=" ")
-                    # 
-                    # apply_transform(moving_file, mapping_FA, static_file_FA, output_path=output_path, binary=True, binary_thresh=0)
+                    if mapping_FA is None:
+                        print("Finding transformation from atlas FA ")
+                        mapping_FA = find_transform(moving_file_FA, static_file_FA)
+                        print("Transformation found")
+                    
+                    print("FA:",end=" ")
+                    
+                    apply_transform(moving_file, mapping_FA, static_file_FA, output_path=output_path, binary=True, binary_thresh=0)
                 elif "_T1_" in file:
                     
                     if mapping_T1 is None:
