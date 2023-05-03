@@ -3,15 +3,14 @@ import os
 import elikopy
 
 from elikopy.core import Elikopy
+from elikopy.utils import submit_job
 
-from params import get_arguments
+from params import *
 
-def main():
-    ## Getting Parameters
-    onSlurm, slurmEmail, cuda, f_path = get_arguments(sys.argv)
+def preprocess(folder_path):
 
-    ## Init
-    study : Elikopy = elikopy.core.Elikopy(f_path, cuda=cuda, slurm=onSlurm, slurm_email=slurmEmail)
+    ## Connect
+    study : Elikopy = elikopy.core.Elikopy(folder_path, cuda=True, slurm=True, slurm_email="michele.cerra@student.uclouvain.be")
     study.patient_list()
 
     ## Preprocessing
@@ -32,7 +31,6 @@ def main():
 
         ## Susceptibility field estimation
         topup=True,
-        topupConfig=None, 
         forceSynb0DisCo=True,
 
         ## EDDY and MOTION correction
@@ -42,6 +40,28 @@ def main():
         biasfield=True, 
     )
     return 0
+
+def main():
+
+    ## Getting Folder
+    folder_path = get_folder(sys.argv)
+
+    job = {
+            "wrap" : "export MKL_NUM_THREADS=4 ; export OMP_NUM_THREADS=4 ; python -c 'from preproc import preprocess; preprocess(\"%s\")'" % (folder_path),
+            "job_name" : "PREPROCM",
+            "ntasks" : 1,
+            "cpus_per_task" : 4,
+            "mem_per_cpu" : 2048,
+            "time" : "15:00:00",
+            "mail_user" : "michele.cerra@student.uclouvain.be",
+            "mail_type" : "FAIL",
+        }
+    job_id = {}
+    job_id["id"] = submit_job(job)
+    job_id["name"] = "master"
+    
+    elikopy.utils.getJobsState(folder_path, [job_id], "log")
+
 
 if __name__ == "__main__":
     exit(main())
