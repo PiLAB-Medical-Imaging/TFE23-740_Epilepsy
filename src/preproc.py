@@ -39,6 +39,9 @@ def preprocess(folder_path):
 
         ## BIAS FIELD correction
         biasfield=True, 
+
+        # Registration
+        qc_reg=False,
     )
     return 0
 
