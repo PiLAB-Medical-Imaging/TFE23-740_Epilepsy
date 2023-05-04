@@ -4,9 +4,11 @@ import subprocess
 import json
 import elikopy
 import elikopy.utils
+import ants
+import nibabel as nib
 
 from dipy.io.streamline import load_tractogram, save_trk
-from regis.core import find_transform, apply_transform
+from nibabel import Nifti1Image
 from params import *
 
 # absolute_path = os.path.dirname(__file__) # return the abs path of the folder of this file, wherever it is
@@ -160,26 +162,56 @@ def get_freesurfer_roi_names():
                 break
 
 def freesurfer_mask_extraction(folder_path, seg_path, subj_id):
+    ## Registration from T1 to dMRI
+    registration_path = folder_path + "/subjects/" + subj_id + "/registration"
+    if not os.path.isdir(registration_path):
+        os.mkdir(registration_path)
+
+    # Find the transformation matrix
+    cmd = "bbregister --s %s --mov study/subjects/%s/dMRI/preproc/%s_dmri_preproc.nii.gz --reg %s/transf_t1_dMRI.dat --dti --init-fsl" % (subj_id, subj_id, subj_id, registration_path)
+    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+    process.wait()
+    if process.returncode != 0:
+        return 1
+    
+    # Apply transformation to T1 to see the result
+    cmd = "mri_vol2vol --reg %s/transf_t1_dMRI.dat --mov %s/subjects/%s/dMRI/preproc/%s_dmri_preproc.nii.gz --fstarg --o %s/%s_T1_brain_reg.nii.gz --interp nearest --no-resample --inv" % (registration_path, folder_path, subj_id, subj_id, registration_path, subj_id)
+    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+    process.wait()
+    if process.returncode != 0:
+        return 1
+
+    # Apply transformation to aseg+aparc
+    cmd = "mri_vol2vol --reg %s/transf_t1_dMRI.dat --targ %s/subjects/%s/mri/aparc+aseg.mgz --mov %s/subjects/%s/dMRI/preproc/%s_dmri_preproc.nii.gz --o %s/aparc+aseg_reg.mgz --interp nearest --no-resample --inv" % (registration_path, folder_path, subj_id, folder_path, subj_id, subj_id, registration_path)
+    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+    process.wait()
+    if process.returncode != 0:
+        return 1
+
+    # Normal regions
     for num, name in roi_num_name.items():
         out_path = "%s/subjects/%s/masks/%s_%s_aparc+aseg.nii.gz" % (folder_path, subj_id, subj_id, name)
-        cmd = "mri_extract_label -exit_none_found %s/%s/mri/aparc+aseg.mgz %d %s" % (seg_path, subj_id, num, out_path)
-        print(cmd)
+
+        cmd = "mri_extract_label -exit_none_found %s/aparc+aseg_reg.mgz %d %s" % (registration_path, num, out_path)
+
         process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
         process.wait()
         if process.returncode != 0:
             os.remove(out_path)
 
+    # Union Regions
     for name, roi_numbers in roi_freesurfer.items():
         if "lobe" in name.lower() or "cingulate" in name.lower():
             roi_numbers_string = " ".join(str(i) for i in roi_numbers)
             out_path = "%s/subjects/%s/masks/%s_%s_aparc+aseg.nii.gz" % (folder_path, subj_id, subj_id, name)
-            cmd = "mri_extract_label -exit_none_found %s/%s/mri/aparc+aseg.mgz %s %s" % (seg_path, subj_id, roi_numbers_string, out_path)
+            cmd = "mri_extract_label -exit_none_found %s/aparc+aseg_reg.mgz %s %s" % (registration_path, roi_numbers_string, out_path)
             print(cmd)
             process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
             process.wait()
             if process.returncode != 0:
                 os.remove(out_path)
 
+    # Dilated regions
     masks_path = "%s/subjects/%s/masks" % (folder_path, subj_id)
     file_extracted_names = os.listdir(masks_path)
     for file_name in file_extracted_names:
@@ -201,54 +233,71 @@ def freesurfer_mask_extraction(folder_path, seg_path, subj_id):
                     break
 
 def registration(folder_path, subj_id):
-
-    moving_file_FA = folder_path + "/static_files/atlases/FSL_HCP1065_FA_1mm.nii.gz"
-    moving_file_T1 = folder_path + "/static_files/atlases/MNI152_T1_05mm.nii.gz"
-
-    static_file_FA = folder_path + "/subjects/" + subj_id + "/dMRI/microstructure/dti/" + subj_id + "_FA.nii.gz"
-    static_file_T1 = folder_path + "/T1/" + subj_id + "_T1.nii.gz"
-
-    if not os.path.isfile(moving_file_FA) or not os.path.isfile(static_file_FA) or not os.path.isfile(moving_file_T1) or not os.path.isfile(static_file_T1):
-        print("Images for subject: " + subj_id + " weren't found")
-        return 1
+    masks_path = folder_path + "/static_files/atlases/masks"
+    # Atlas MNI152
+    atlas_file = folder_path + "/static_files/atlases/MNI152_T1_1mm_brain.nii.gz"
+    atlas_map = ants.image_read(atlas_file)
+    # Subject T1 only brain
+    subj_t1_file = folder_path + "/subjects/" + subj_id + "/mri/brain.mgz"
+    subj_t1_map = ants.image_read(subj_t1_file)
+    # Subject dMRI extraction of b0
+    subj_dmri_file = folder_path + "/subjects/" + subj_id + "/dMRI/preproc/" + subj_id + "_dmri_preproc.nii.gz"
+    subj_b0_file = folder_path + "/subjects/" + subj_id + "/dMRI/preproc/" + subj_id + "_b0_preproc.nii.gz"
+    # Here I use nibabel to extract the b0 map
+    subj_dmri_map : Nifti1Image = nib.load(subj_dmri_file)
+    subj_dmri_numpy = subj_dmri_map.get_fdata() # get the numpy array
+    subj_b0_numpy = subj_dmri_numpy[:,:,:,0] # get only the first volume (b0)
+    subj_b0_map = Nifti1Image(subj_b0_numpy, subj_dmri_map.affine) # convert to nii.gz image with same affine information of the full dmri map
+    nib.save(subj_b0_map, subj_b0_file) # save it 
+    subj_b0_map = ants.image_read(subj_b0_file) # load with ants
     
-    if not os.path.isfile(moving_file_T1) or not os.path.isfile(static_file_T1):
-        print("Images for subject: " + subj_id + " weren't found")
-        return 1
+    # Find transformation
 
-    # mapping_FA = None
-    mapping_T1 = None
+    # Transform Atlas -> T1
+    tx_atl_t1 = ants.registration(
+        fixed=subj_t1_map, 
+        moving=atlas_map, 
+        type_of_transform='SyNAggro',
+        reg_iterations = [10000, 1000, 100]
+        )
+    # Transform T1 -> dMRI
+    tx_t1_dmri = ants.registration(
+        fixed=subj_b0_map,
+        moving=subj_t1_map,
+        type_of_transform="SyNBoldAff",
+        reg_iterations = [10000, 1000, 100]
+    )
+    # Combine the two transformations
+    transform =  tx_t1_dmri["fwdtransforms"] + tx_atl_t1["fwdtransforms"]
 
-    for path, dirs, files in os.walk(folder_path + "/static_files/atlases/masks"):
-        for file in files: # register all the masks
-            if file.endswith(".nii.gz") :
+    # Apply transformation to MNI152 to see the result
+    mask_moved = ants.apply_transforms(
+    fixed=subj_b0_map,
+    moving=atlas_map,
+    transformlist=transform,
+    interpolator= "nearestNeighbor"
+    )
+    registration_path = folder_path + "/subjects/" + subj_id + "/registration"
+    if not os.path.isdir(registration_path):
+        os.mkdir(registration_path)
+    ants.image_write(mask_moved, registration_path + "MNI152_T1_1mm_brain_reg.nii.gz")
 
-                mask_file = path + "/" + file
-                moving_file = mask_file
-                output_path = folder_path + "/subjects/" + subj_id + "/masks/" + subj_id + "_" + file
+    # Apply the transformation to all the mask
+    for file in os.listdir(masks_path):
+        ext = ".".join(file.split(".")[-2:])
+        mask_file = masks_path + "/" + file
+        if os.path.isfile(mask_file) and ext == "nii.gz":
 
-                print("Applying transformation from " + file.split(".")[0])
-                if "_FA_" in file:
-                    pass
-                    if mapping_FA is None:
-                        print("Finding transformation from atlas FA ")
-                        mapping_FA = find_transform(moving_file_FA, static_file_FA)
-                        print("Transformation found")
-                    
-                    print("FA:",end=" ")
-                    
-                    apply_transform(moving_file, mapping_FA, static_file_FA, output_path=output_path, binary=True, binary_thresh=0)
-                elif "_T1_" in file:
-                    
-                    if mapping_T1 is None:
-                        print("Finding transformation from atlas T1")
-                        mapping_T1 = find_transform(moving_file_T1, static_file_T1)
-                        print("Transformation found")
-                    
-                    print("T1:",end=" ")
+            mask_map = ants.image_read(mask_file)
 
-                    apply_transform(moving_file, mapping_T1, static_file_T1, output_path=output_path, binary=True, binary_thresh=0)
-                print("Transformed")
+            print("Applying transformation: " + file.split(".")[0])
+            mask_moved = ants.apply_transforms(
+                fixed=subj_b0_map,
+                moving=mask_map,
+                transformlist=transform,
+                interpolator= "nearestNeighbor"
+            )
+            ants.image_write(mask_moved, folder_path + "/subjects/" + subj_id + "/masks/" + subj_id + "_" + file)
 
 def get_mask(mask_path, subj_id):
     roi_names = {}
@@ -371,7 +420,9 @@ def compute_tracts(p_code, folder_path, extract_roi, seg_path, reg, tract):
         get_freesurfer_roi_names()
 
         print("Freesurfer roi extraction on %s" % p_code)
-        freesurfer_mask_extraction(folder_path, seg_path, p_code)
+        if freesurfer_mask_extraction(folder_path, seg_path, p_code) is not None:
+            print("Error freesurfer extraction or registration")
+            return 1
 
     roi_names = get_mask(subj_folder_path+"/masks", p_code)
 

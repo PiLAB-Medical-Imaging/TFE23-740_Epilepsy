@@ -56,7 +56,7 @@ def main():
             "ntasks" : 1,
             "cpus_per_task" : 4,
             "mem_per_cpu" : 2048,
-            "time" : "15:00:00",
+            "time" : "20:00:00",
             "mail_user" : "michele.cerra@student.uclouvain.be",
             "mail_type" : "FAIL",
         }
