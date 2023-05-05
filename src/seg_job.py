@@ -10,7 +10,7 @@ from elikopy.utils import submit_job
 
 def main():
     folder_path = get_folder(sys.argv)
-    seg_fold = get_segmentation(sys.argv)
+    seg_fold = folder_path + "/subjects"
 
     ## Read the list of subjects and for each subject do the tractography
     dest_success = folder_path + "/subjects/subj_list.json"

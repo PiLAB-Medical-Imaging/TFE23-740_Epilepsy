@@ -386,7 +386,7 @@ def convertTck2Trk(subj_folder_path, subj_id, tck_path):
     tract = load_tractogram(tck_path, subj_folder_path+"/dMRI/preproc/"+subj_id+"_dmri_preproc.nii.gz")
     save_trk(tract, tck_path[:-3]+'trk')
 
-def compute_tracts(p_code, folder_path, extract_roi, seg_path, reg, tract):
+def compute_tracts(p_code, folder_path, extract_roi, seg_path, tract):
     print("Working on %s" % p_code)
 
     subj_folder_path = folder_path + '/subjects/' + p_code
@@ -402,14 +402,12 @@ def compute_tracts(p_code, folder_path, extract_roi, seg_path, reg, tract):
         os.mkdir(subj_folder_path + "/masks/")
 
     ############# ROI EXTRACTION ############
-
-    if reg:
-        # Do the registration to extract ROI from atlases
-        print("Registration on %s" % p_code)
+    if extract_roi:
+        # extract ROI from atlases
+        print("MNI152 roi extraction on %s" % p_code)
         if registration(folder_path, p_code) is not None:
             return 1
 
-    if extract_roi:
         # Extract ROI from freesurfer segmentation
         # check if the freesurfer segmentation exist, otherwise skip subject
         # Here we are assuming that the segmentation is already done
@@ -517,16 +515,11 @@ def main():
         extract_roi = True  
         seg_path = get_segmentation(sys.argv)
 
-
-    reg = False
-    if "-reg" in sys.argv[1:]:
-        reg = True
-
     tract = False
     if "-tract" in sys.argv[1:]:
         tract = True
 
-    compute_tracts(p, folder_path, extract_roi, seg_path, reg, tract)
+    compute_tracts(p, folder_path, extract_roi, seg_path, tract)
 
 if __name__ == "__main__":
     exit(main())
