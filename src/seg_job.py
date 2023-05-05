@@ -21,7 +21,7 @@ def main():
 
     for i in range(19,20): # CHANGE with patient list | all the patients
         p_job = {
-            "wrap" : "recon-all -all -sd %s -s VNSLC_%02d -i %s/T1/VNSLC_%02d_T1.nii.gz -T2 %s/T1/VNSLC_%02d_T2.nii.gz -T2pial -qcache -hemi lh" % (seg_fold, i, folder_path, i, folder_path, i,),
+            "wrap" : "recon-all -all -sd %s -s VNSLC_%02d -T2 %s/T1/VNSLC_%02d_T2.nii.gz -T2pial -qcache -hemi lh" % (seg_fold, i, folder_path, i, folder_path, i,),
             "job_name" : "Seg_" + str(i),
             "ntasks" : 1,
             "cpus_per_task" : 4,
