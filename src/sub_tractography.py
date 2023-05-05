@@ -16,23 +16,15 @@ def main():
     
     # check if the user wants to compute the ODF and compute it
     if "-odf" in sys.argv[1:]:
-        study = elikopy.core.Elikopy(folder_path, cuda=True, slurm=True, slurm_email="michele.cerra@student.uclouvain.be")
+        study = elikopy.core.Elikopy(folder_path, cuda=False, slurm=True, slurm_email="michele.cerra@student.uclouvain.be")
 
         study.odf_msmtcsd()
 
     time = [0, 1]
 
     extract_roi = False
-    seg_path = ""
     if "-roi" in sys.argv[1:]:
         extract_roi = True  
-        seg_path = get_segmentation(sys.argv)
-        time[1] += 15
-
-    reg = False
-    if "-reg" in sys.argv[1:]:
-        reg = True
-        time[0] += 1
         time[1] += 45
 
     tract = False
@@ -53,7 +45,7 @@ def main():
 
     for p_code in patient_list:
         p_job = {
-            "wrap" : "export MKL_NUM_THREADS=4 ; export OMP_NUM_THREADS=4 ; python -c 'from tractography import compute_tracts; compute_tracts(\"%s\", \"%s\", %s, \"%s\", %s, %s)'" % (p_code, folder_path, str(extract_roi), seg_path, str(reg), str(tract)),
+            "wrap" : "export MKL_NUM_THREADS=4 ; export OMP_NUM_THREADS=4 ; python -c 'from tractography import compute_tracts; compute_tracts(\"%s\", \"%s\", %s, %s)'" % (p_code, folder_path, str(extract_roi), str(tract)),
             "job_name" : "TRACKING_" + p_code,
             "ntasks" : 1,
             "cpus_per_task" : 4,
