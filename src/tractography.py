@@ -34,42 +34,43 @@ tracts = {
         "fornix":
             {
                 "seed_images": ["hippocampus"],
-                "masks" : ["choroid-plexus-dilated-7", "hippocampus-dilated-5", "fornix-dilated-5", "fornixST-dilated-5"],
-                "include" : ["fornixST", "fornix"], 
-                "exclude" : ["Thalamus-Proper", "lateral-ventricle", "Inf-Lat-Vent", "Caudate", "Putamen", "Pallidum", "CSF", "Accumbens-area", "3rd-Ventricle"],
+                "include_ordered" : ["plane-fornix", "plane-mammillary-body", "mammillary-body"], 
+                # Change Thalamus-Proper to Thalamus depending on the version of freesurfer
+                "exclude" : ["Thalamus", "Caudate", "Putamen", "Pallidum", "Accumbens-area"],
+                "cutoff" : 0.075,
             },
 
-        "thalamus-AntCingCtx":
-            {
-                "seed_images": ["Thalamus-Proper"],
-                "include_ordered" : ["aboveCC", "frontal-cingulate"],
-                "exclude" : ["Lateral-Ventricle", "caudate-dilated-3", "putamen-dilated-3", "pallidum-dilated-3", "csf", "parietal-lobe", "frontal-lobe"],
-                "angle" : 22
-            },
-        "thalamus-Insula":
-            {
-                "seed_images": ["Thalamus-Proper"],
-                "include" : ["insula"],
-                "exclude" : ["Lateral-Ventricle", "Inf-Lat-Vent", "Caudate", "Putamen", "Pallidum", "Hippocampus", "Amygdala", "CSF", "occipital-lobe-dilated-4", "parietal-lobe-dilated-4", "frontalNoOrbito-lobe-dilated-1", "superiortemporal"],
-                "angle" : 22
-            },
+        # "thalamus-AntCingCtx":
+        #     {
+        #         "seed_images": ["Thalamus-Proper"],
+        #         "include_ordered" : ["aboveCC", "frontal-cingulate"],
+        #         "exclude" : ["Lateral-Ventricle", "caudate-dilated-3", "putamen-dilated-3", "pallidum-dilated-3", "csf", "parietal-lobe", "frontal-lobe"],
+        #         "angle" : 22
+        #     },
+        # "thalamus-Insula":
+        #     {
+        #         "seed_images": ["Thalamus-Proper"],
+        #         "include" : ["insula"],
+        #         "exclude" : ["Lateral-Ventricle", "Inf-Lat-Vent", "Caudate", "Putamen", "Pallidum", "Hippocampus", "Amygdala", "CSF", "occipital-lobe-dilated-4", "parietal-lobe-dilated-4", "frontalNoOrbito-lobe-dilated-1", "superiortemporal"],
+        #         "angle" : 22
+        #     },
 
-        "sup-longi-fasci":
-            { 
-                "seed_images" : ["frontal-lobe"],
-                "include" : ["parietal-lobe"],
-                "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
-                "angle" : 15,
-                "cutoff" : 0.09
-            },
-        "inf-longi-fasci":
-            { 
-                "seed_images" : ["occipital-lobe"],
-                "include" : ["temporal-lobe"],
-                "masks" : ["cerebral-white-matter", "occipital-lobe", "temporal-lobe"],
-                "angle" : 15,
-                "cutoff" : 0.09
-            },
+        # "sup-longi-fasci":
+        #     { 
+        #         "seed_images" : ["frontal-lobe"],
+        #         "include" : ["parietal-lobe"],
+        #         "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
+        #         "angle" : 15,
+        #         "cutoff" : 0.09
+        #     },
+        # "inf-longi-fasci":
+        #     { 
+        #         "seed_images" : ["occipital-lobe"],
+        #         "include" : ["temporal-lobe"],
+        #         "masks" : ["cerebral-white-matter", "occipital-lobe", "temporal-lobe"],
+        #         "angle" : 15,
+        #         "cutoff" : 0.09
+        #     },
 
         # Non conto l'Inferior front-occipital ma devo scriverlo nella tesi xche non l'ho messo.. la ragione e qualche foto
         # "inf-front-occipital-fasci":
@@ -87,16 +88,12 @@ roi_freesurfer = {
     "hippocampus" : [17, 53],
     "amygdala" : [18, 54],
     "thalamus" : [10, 49],
-    "lateral-ventricles" : [4, 43, 5, 44],
     "caudate" : [11, 50],
     "putamen" : [12, 51],
     "pallidum" : [13, 52],
-    "csf" : [24],
     "accumbens" : [26, 58],
-    "3rd-ventricle" : [14],
     "insula" : [1035, 2035],
     "wm" : [2, 41],
-    "choroid-plexus" : [31, 63],
     "ctx-superiortemporal" : [1030, 2030],
 
     # Union region
@@ -126,9 +123,7 @@ dilatations = {
     "caudate" : 3,
     "pallidum" : 3,
     "choroid-plexus": 7,
-    "fornix" : 5,
     "hippocampus": 5,
-    "fornixST" : 5
 }
 
 def expand_roi():
@@ -161,24 +156,27 @@ def get_freesurfer_roi_names():
             if k == len(roi_nums_tot):
                 break
 
-def freesurfer_mask_extraction(folder_path, seg_path, subj_id):
+def freesurfer_mask_extraction(folder_path, subj_id):
     ## Registration from T1 to dMRI
     registration_path = folder_path + "/subjects/" + subj_id + "/registration"
     if not os.path.isdir(registration_path):
         os.mkdir(registration_path)
 
-    # Find the transformation matrix
-    cmd = "bbregister --s %s --mov study/subjects/%s/dMRI/preproc/%s_dmri_preproc.nii.gz --reg %s/transf_t1_dMRI.dat --dti --init-fsl" % (subj_id, subj_id, subj_id, registration_path)
-    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
-    process.wait()
-    if process.returncode != 0:
-        return 1
+    if not os.path.isfile(registration_path + "/transf_t1_dMRI.dat"):
+        # Find the transformation matrix
+        cmd = "bbregister --s %s --mov %s/subjects/%s/dMRI/preproc/%s_dmri_preproc.nii.gz --reg %s/transf_t1_dMRI.dat --dti --init-fsl" % (subj_id, folder_path, subj_id, subj_id, registration_path)
+        process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+        process.wait()
+        if process.returncode != 0:
+            print("Error freesurfer bbregister")
+            return 1
     
     # Apply transformation to T1 to see the result
     cmd = "mri_vol2vol --reg %s/transf_t1_dMRI.dat --mov %s/subjects/%s/dMRI/preproc/%s_dmri_preproc.nii.gz --fstarg --o %s/%s_T1_brain_reg.nii.gz --interp nearest --no-resample --inv" % (registration_path, folder_path, subj_id, subj_id, registration_path, subj_id)
     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
     process.wait()
     if process.returncode != 0:
+        print("Error freesurfer mri_vol2vol T1")
         return 1
 
     # Apply transformation to aseg+aparc
@@ -186,6 +184,7 @@ def freesurfer_mask_extraction(folder_path, seg_path, subj_id):
     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
     process.wait()
     if process.returncode != 0:
+        print("Error freesurfer mri_vol2vol aseg")
         return 1
 
     # Normal regions
@@ -205,7 +204,6 @@ def freesurfer_mask_extraction(folder_path, seg_path, subj_id):
             roi_numbers_string = " ".join(str(i) for i in roi_numbers)
             out_path = "%s/subjects/%s/masks/%s_%s_aparc+aseg.nii.gz" % (folder_path, subj_id, subj_id, name)
             cmd = "mri_extract_label -exit_none_found %s/aparc+aseg_reg.mgz %s %s" % (registration_path, roi_numbers_string, out_path)
-            print(cmd)
             process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
             process.wait()
             if process.returncode != 0:
@@ -227,7 +225,6 @@ def freesurfer_mask_extraction(folder_path, seg_path, subj_id):
                     output_path = "%s/subjects/%s/masks/%s_%s_aparc+aseg.nii.gz" % (folder_path, subj_id, subj_id, dilated_roi_name)
 
                     cmd = "maskfilter -force -npass %d %s dilate %s" % (dilatation_cicle, file_path, output_path)
-                    print(cmd)
                     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
                     process.wait()
                     break
@@ -250,42 +247,64 @@ def registration(folder_path, subj_id):
     subj_b0_map = Nifti1Image(subj_b0_numpy, subj_dmri_map.affine) # convert to nii.gz image with same affine information of the full dmri map
     nib.save(subj_b0_map, subj_b0_file) # save it 
     subj_b0_map = ants.image_read(subj_b0_file) # load with ants
-    
-    # Find transformation
 
-    # Transform Atlas -> T1
-    tx_atl_t1 = ants.registration(
-        fixed=subj_t1_map, 
-        moving=atlas_map, 
-        type_of_transform='SyNAggro',
-        reg_iterations = [10000, 1000, 100]
-        )
-    # Transform T1 -> dMRI
-    tx_t1_dmri = ants.registration(
-        fixed=subj_b0_map,
-        moving=subj_t1_map,
-        type_of_transform="SyNBoldAff",
-        reg_iterations = [10000, 1000, 100]
-    )
-    # Combine the two transformations
-    transform =  tx_t1_dmri["fwdtransforms"] + tx_atl_t1["fwdtransforms"]
-
-    # Apply transformation to MNI152 to see the result
-    mask_moved = ants.apply_transforms(
-    fixed=subj_b0_map,
-    moving=atlas_map,
-    transformlist=transform,
-    interpolator= "nearestNeighbor"
-    )
+    # folder to save the registrations
     registration_path = folder_path + "/subjects/" + subj_id + "/registration"
     if not os.path.isdir(registration_path):
         os.mkdir(registration_path)
-    ants.image_write(mask_moved, registration_path + "MNI152_T1_1mm_brain_reg.nii.gz")
+    if not os.path.isdir(registration_path + "/ants"):
+        os.mkdir(registration_path + "/ants")
+
+    cwd = os.getcwd() # save the current working directory
+    os.chdir(registration_path + "/ants") # change dir inside /ants
+
+    if not os.path.isfile("./tx_t1_dMRI_1Warp.nii.gz") or not os.path.isfile("./tx_t1_dMRI_0GenericAffine.mat") or not os.path.isfile("./tx_atl_t1_1Warp.nii.gz") or not os.path.isfile("./tx_atl_t1_0GenericAffine.mat"):
+    
+        # Find transformation
+
+        # Transform Atlas -> T1
+        tx_atl_t1 = ants.registration(
+            fixed=subj_t1_map, 
+            moving=atlas_map, 
+            type_of_transform='SyNAggro',
+            reg_iterations = [10000, 1000, 100],
+            outprefix="tx_atl_t1_"
+            )
+        # Transform T1 -> dMRI
+        tx_t1_dmri = ants.registration(
+            fixed=subj_b0_map,
+            moving=subj_t1_map,
+            type_of_transform="SyNBoldAff",
+            reg_iterations = [10000, 1000, 100],
+            outprefix="tx_t1_dMRI_"
+        )
+
+        # Combine the two transformations
+        transform =  tx_t1_dmri["fwdtransforms"] + tx_atl_t1["fwdtransforms"]
+
+    else:
+        # Use the transformations already computed
+        transform = [
+        "tx_t1_dMRI_1Warp.nii.gz",
+        "tx_t1_dMRI_0GenericAffine.mat",
+        "tx_atl_t1_1Warp.nii.gz",
+        "tx_atl_t1_0GenericAffine.mat",
+        ]
+
+    # Apply transformation to MNI152 to see the result
+    mask_moved = ants.apply_transforms(
+        fixed=subj_b0_map,
+        moving=atlas_map,
+        transformlist=transform,
+        interpolator= "nearestNeighbor"
+    )
+    
+    ants.image_write(mask_moved, cwd + "/" + registration_path + "/MNI152_T1_1mm_brain_reg.nii.gz")
 
     # Apply the transformation to all the mask
-    for file in os.listdir(masks_path):
+    for file in os.listdir(cwd + "/" + masks_path):
         ext = ".".join(file.split(".")[-2:])
-        mask_file = masks_path + "/" + file
+        mask_file = cwd + "/" + masks_path + "/" + file
         if os.path.isfile(mask_file) and ext == "nii.gz":
 
             mask_map = ants.image_read(mask_file)
@@ -297,7 +316,9 @@ def registration(folder_path, subj_id):
                 transformlist=transform,
                 interpolator= "nearestNeighbor"
             )
-            ants.image_write(mask_moved, folder_path + "/subjects/" + subj_id + "/masks/" + subj_id + "_" + file)
+            ants.image_write(mask_moved, cwd + "/" + folder_path + "/subjects/" + subj_id + "/masks/" + subj_id + "_" + file)
+    
+    os.chdir(cwd) # return to the cwd
 
 def get_mask(mask_path, subj_id):
     roi_names = {}
@@ -386,10 +407,11 @@ def convertTck2Trk(subj_folder_path, subj_id, tck_path):
     tract = load_tractogram(tck_path, subj_folder_path+"/dMRI/preproc/"+subj_id+"_dmri_preproc.nii.gz")
     save_trk(tract, tck_path[:-3]+'trk')
 
-def compute_tracts(p_code, folder_path, extract_roi, seg_path, tract):
+def compute_tracts(p_code, folder_path, extract_roi, tract):
     print("Working on %s" % p_code)
 
     subj_folder_path = folder_path + '/subjects/' + p_code
+    seg_path = folder_path + "/subjects"
         
     # check if the ODF exist for the subject, otherwise skip subject
     if not os.path.isdir(subj_folder_path + "/dMRI/ODF/MSMT-CSD/") :
@@ -414,11 +436,13 @@ def compute_tracts(p_code, folder_path, extract_roi, seg_path, tract):
         if not os.path.isdir(seg_path + "/" + p_code + "/mri"):
             print("freesurfer segmentation isn't found for patient: %s" % (p_code))
             return 1
+        
+        os.environ["SUBJECTS_DIR"] = seg_path
 
         get_freesurfer_roi_names()
 
         print("Freesurfer roi extraction on %s" % p_code)
-        if freesurfer_mask_extraction(folder_path, seg_path, p_code) is not None:
+        if freesurfer_mask_extraction(folder_path, p_code) is not None:
             print("Error freesurfer extraction or registration")
             return 1
 
@@ -510,16 +534,14 @@ def main():
         study.odf_msmtcsd()
 
     extract_roi = False
-    seg_path = ""
     if "-roi" in sys.argv[1:]:
         extract_roi = True  
-        seg_path = get_segmentation(sys.argv)
 
     tract = False
     if "-tract" in sys.argv[1:]:
         tract = True
 
-    compute_tracts(p, folder_path, extract_roi, seg_path, tract)
+    compute_tracts(p, folder_path, extract_roi, tract)
 
 if __name__ == "__main__":
     exit(main())
