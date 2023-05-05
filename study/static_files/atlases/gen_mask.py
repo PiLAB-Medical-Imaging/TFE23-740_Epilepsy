@@ -4,43 +4,67 @@ import nibabel as nib
 from nibabel import Nifti1Image
 
 # Prob masks atlas Juelich
-mamm_body_map = nib.load("./Both-Mammillary-body_Juelich.nii.gz")
+mamm_body_map = nib.load("./mammillary_body/Both-Mammillary-body_Juelich.nii.gz")
 mamm_body = mamm_body_map.get_fdata()
-fornix_juelich = nib.load("./Both-Fornix_Juelich.nii.gz").get_fdata()
+
+fornix_juelich = nib.load("./fornix/Both-Fornix_Juelich.nii.gz").get_fdata()
+
+l_cingulum_juelich = nib.load("./cingulum/Left-Cingulum_Juelich.nii.gz").get_fdata()
+r_cingulum_juelich = nib.load("./cingulum/Right-Cingulum_Juelich.nii.gz").get_fdata()
 
 # Prob masks atlas Xtract
-l_fornix_xtract = nib.load("./Left-Fornix_Xtract.nii.gz").get_fdata()
-r_fornix_xtract = nib.load("./Right-Fornix_Xtract.nii.gz").get_fdata()
+l_fornix_xtract = nib.load("./fornix/Left-Fornix_Xtract.nii.gz").get_fdata()
+r_fornix_xtract = nib.load("./fornix/Right-Fornix_Xtract.nii.gz").get_fdata()
 
-# Non prob atlas Jhu
-fornix_jhu = nib.load("./Both-Fornix_Jhu-labels.nii.gz").get_fdata()
-l_fornixSt_jhu = nib.load("./Left-FornixST_Jhu-labels.nii.gz").get_fdata()
-r_fornixSt_jhu = nib.load("./Right-FornixST_Jhu-labels.nii.gz").get_fdata()
+l_cingulum_xtract = nib.load("./cingulum/Left-Cingulum_Xtract.nii.gz").get_fdata()
+r_cingulum_xtract = nib.load("./cingulum/Right-Cingulum_Xtract.nii.gz").get_fdata()
 
-# Non prob atlas Talairach
-l_mamm_body_tal = nib.load("./Left-Mammillary-body_Talairach.nii.gz").get_fdata()
-r_mamm_body_tal = nib.load("./Right-Mammillary-body_Talairach.nii.gz").get_fdata()
+# Prob masks  atlas Jhu
+l_cingulum_jhu_trac = nib.load("./cingulum/Left-Cingulum_Jhu-tracts.nii.gz").get_fdata()
+r_cingulum_jhu_trac = nib.load("./cingulum/Right-Cingulum_Jhu-tracts.nii.gz").get_fdata()
 
-# Threshold the prob masks
-prob_masks = [mamm_body, fornix_juelich, l_fornix_xtract, r_fornix_xtract]
-for mask in prob_masks:
-    mask[mask < 15] = 0
+# TODO the density should be thresholded depending on the p-value 
+thres = 11
+
+mamm_body[mamm_body < thres] = 0 # threshold the density
 
 # Merging of fornix masks
-fornix_masks = [fornix_juelich, l_fornix_xtract, r_fornix_xtract, fornix_jhu, l_fornixSt_jhu, r_fornixSt_jhu]
-fornix = np.zeros(fornix_juelich.shape, dtype=np.float64) # empty mask
-for mask in fornix_masks:
-    fornix += mask
+fornix_masks = [
+    np.expand_dims(fornix_juelich, 3),
+    np.expand_dims(l_fornix_xtract, 3),
+    np.expand_dims(r_fornix_xtract, 3)
+    ]
+fornix = np.concatenate(fornix_masks, axis=3)
+fornix = fornix.mean(axis=3)
+fornix[fornix < thres] = 0 # threshold the density 
 
-# Merging of mammillary body
-mamm_masks = [mamm_body, l_mamm_body_tal, r_mamm_body_tal]
-mamm = np.zeros(mamm_body.shape, dtype=np.float64) # empty mask
-for mask in mamm_masks:
-    mamm += mask
+# Merging of cingulum
+l_cingulum_masks = [
+    np.expand_dims(l_cingulum_juelich, 3),
+    np.expand_dims(l_cingulum_xtract, 3),
+    np.expand_dims(l_cingulum_jhu_trac, 3),
+]
+r_cingulum_masks = [
+    np.expand_dims(r_cingulum_juelich, 3),
+    np.expand_dims(r_cingulum_xtract, 3),
+    np.expand_dims(r_cingulum_jhu_trac, 3),
+]
+l_cingulum = np.concatenate(l_cingulum_masks, axis=3)
+l_cingulum = l_cingulum.mean(axis=3)
+l_cingulum[l_cingulum < thres] = 0 # threshold the density
+
+r_cingulum = np.concatenate(r_cingulum_masks, axis=3)
+r_cingulum = r_cingulum.mean(axis=3)
+r_cingulum[r_cingulum < thres] = 0 # threshold the density
 
 # Saving 
-mamm_mask_map = Nifti1Image(mamm, mamm_body_map.affine)
+mamm_mask_map = Nifti1Image(mamm_body, mamm_body_map.affine)
 nib.save(mamm_mask_map, "./masks/Both-Mammillary-body_Atlas-Merge.nii.gz")
 
-fornix_mask_map = Nifti1Image(fornix, mamm_body_map.affine) # they have se same affine informations
+fornix_mask_map = Nifti1Image(fornix, mamm_body_map.affine) # they have se same affine information
 nib.save(fornix_mask_map, "./masks/Both-Fornix_Atlas-Merge.nii.gz")
+
+l_cingulum_map = Nifti1Image(l_cingulum, mamm_body_map.affine) # they have se same affine information
+r_cingulum_map = Nifti1Image(r_cingulum, mamm_body_map.affine) # they have se same affine information
+nib.save(l_cingulum_map, "./masks/Left-Cingulum_Atlas-Merge.nii.gz")
+nib.save(r_cingulum_map, "./masks/Right-Cingulum_Atlas-Merge.nii.gz")
