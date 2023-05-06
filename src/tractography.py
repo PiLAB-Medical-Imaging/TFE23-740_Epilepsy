@@ -32,30 +32,29 @@ tracts = {
         #         "exclude" : ["hippocampus", "Thalamus-Proper", "lateral-ventricle", "Inf-Lat-Vent", "Caudate", "Putamen", "Pallidum", "CSF", "Accumbens-area", "3rd-Ventricle"]
         #     }
 
-        "fornix":
+        # "fornix": # OK NON LO TOCCARE PIÙÙÙÙ
+        #     {
+        #         "seed_images": ["hippocampus"],
+        #         "include" : ["mammillary-body"],
+        #         "include_ordered" : ["plane-fornix", "plane-ort-fornix", "plane-mammillary-body", "plane1-mammillary-body"], 
+        #         # Change Thalamus-Proper to Thalamus depending on the version of freesurfer
+        #         "exclude" : ["Thalamus-Proper", "Caudate", "Putamen", "Pallidum", "Accumbens-area"],
+        #         "cutoff" : 0.07,
+        #         "angle" : 25
+        #     },
+
+        "thalamus-AntCingCtx":
             {
-                "seed_images": ["hippocampus"],
-                "include" : ["mammillary-body"],
-                "include_ordered" : ["plane-fornix", "plane-ort-fornix", "plane-mammillary-body", "plane1-mammillary-body"], 
-                # Change Thalamus-Proper to Thalamus depending on the version of freesurfer
-                "exclude" : ["Thalamus-Proper", "Caudate", "Putamen", "Pallidum", "Accumbens-area"],
-                "cutoff" : 0.07,
+                "seed_images": ["Thalamus-Proper"],
+                "include_ordered" : ["plane-cingulum", "plane-cingulate", "frontal-cingulate"],
                 "angle" : 25
             },
-
-        # "thalamus-AntCingCtx":
-        #     {
-        #         "seed_images": ["Thalamus-Proper"],
-        #         "include_ordered" : ["aboveCC", "frontal-cingulate"],
-        #         "exclude" : ["Lateral-Ventricle", "caudate-dilated-3", "putamen-dilated-3", "pallidum-dilated-3", "csf", "parietal-lobe", "frontal-lobe"],
-        #         "angle" : 22
-        #     },
         # "thalamus-Insula":
         #     {
         #         "seed_images": ["Thalamus-Proper"],
         #         "include" : ["insula"],
-        #         "exclude" : ["Lateral-Ventricle", "Inf-Lat-Vent", "Caudate", "Putamen", "Pallidum", "Hippocampus", "Amygdala", "CSF", "occipital-lobe-dilated-4", "parietal-lobe-dilated-4", "frontalNoOrbito-lobe-dilated-1", "superiortemporal"],
-        #         "angle" : 22
+        #         "exclude" : ["Lateral-Ventricle", "Inf-Lat-Vent", "Caudate", "Putamen", "Pallidum", "Hippocampus", "Amygdala", "occipital-lobe-dilated-4", "parietal-lobe-dilated-4", "frontalNoOrbito-lobe-dilated-1", "superiortemporal"],
+        #         "angle" : 25
         #     },
 
         # "sup-longi-fasci":
@@ -99,9 +98,9 @@ roi_freesurfer = {
     # "wm" : [2, 41],
     # "ctx-superiortemporal" : [1030, 2030],
 
-    # # Union region
-    # "Left-Frontal-Cingulate" : [1026, 1002],
-    # "Right-Frontal-Cingulate" : [2026, 2002],
+    # Union region
+    "Left-Frontal-Cingulate" : [1026, 1002],
+    "Right-Frontal-Cingulate" : [2026, 2002],
     # # Lobe informations taken from:
     # # Freesurfer: https://surfer.nmr.mgh.harvard.edu/fswiki/CorticalParcellation
     # # Wikipedia: https://en.wikipedia.org/wiki/Association_fiber
