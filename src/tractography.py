@@ -24,6 +24,7 @@ class ROI:
 
 tracts = {
         # Non conto lo Stria-Terminalis ma devo scriverlo nella tesi che non l'ho messo.. la ragione e qualche foto
+        # Il livello di definizione delle immaggini non permette la tractografia della ST
         # "stria_terminalis":
         #     {
         #         "seed_images": ["amygdala"],
@@ -34,10 +35,12 @@ tracts = {
         "fornix":
             {
                 "seed_images": ["hippocampus"],
-                "include_ordered" : ["plane-fornix", "plane-mammillary-body", "mammillary-body"], 
+                "include" : ["mammillary-body"],
+                "include_ordered" : ["plane-fornix", "plane-ort-fornix", "plane-mammillary-body", "plane1-mammillary-body"], 
                 # Change Thalamus-Proper to Thalamus depending on the version of freesurfer
                 "exclude" : ["Thalamus-Proper", "Caudate", "Putamen", "Pallidum", "Accumbens-area"],
-                "cutoff" : 0.075,
+                "cutoff" : 0.07,
+                "angle" : 25
             },
 
         # "thalamus-AntCingCtx":
