@@ -47,16 +47,16 @@ tracts = {
             {
                 "seed_images": ["Thalamus-Proper"],
                 "include_ordered" : ["plane-cingulum", "plane-cingulate", "frontal-cingulate"],
-                "angle" : 25,
+                "angle" : 30,
                 "cutoff" : 0.07,
             },
-        # "thalamus-Insula":
-        #     {
-        #         "seed_images": ["Thalamus-Proper"],
-        #         "include" : ["insula"],
-        #         "exclude" : ["Lateral-Ventricle", "Inf-Lat-Vent", "Caudate", "Putamen", "Pallidum", "Hippocampus", "Amygdala", "occipital-lobe-dilated-4", "parietal-lobe-dilated-4", "frontalNoOrbito-lobe-dilated-1", "superiortemporal"],
-        #         "angle" : 25
-        #     },
+        "thalamus-Insula":
+            {
+                "seed_images": ["Thalamus-Proper"],
+                "include" : ["insula"],
+                "exclude" : ["Caudate", "Putamen", "Pallidum", "Hippocampus", "Amygdala", "occipital-lobe-dilated-4", "parietal-lobe-dilated-4", "frontalNoOrbito-lobe-dilated-1", "superiortemporal"],
+                "angle" : 25
+            },
 
         # "sup-longi-fasci":
         #     { 
@@ -89,15 +89,15 @@ tracts = {
 # Freesurfer LUT: https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/AnatomicalROI/FreeSurferColorLUT
 roi_freesurfer = {
     "hippocampus" : [17, 53],
-    # "amygdala" : [18, 54],
+    "amygdala" : [18, 54],
     "thalamus" : [10, 49],
     "caudate" : [11, 50],
     "putamen" : [12, 51],
     "pallidum" : [13, 52],
     "accumbens" : [26, 58],
-    # "insula" : [1035, 2035],
+    "insula" : [1035, 2035],
     # "wm" : [2, 41],
-    # "ctx-superiortemporal" : [1030, 2030],
+    "ctx-superiortemporal" : [1030, 2030],
 
     # Union region
     "Left-Frontal-Cingulate" : [1026, 1002],
@@ -109,24 +109,19 @@ roi_freesurfer = {
     # "Right-Frontal-Lobe" : [2028, 2027, 2003, 2018, 2019, 2020, 2012, 2014, 2024, 2017, 2032],
     # "Left-Temporal-Lobe" : [1030, 1015, 1009, 1001, 1007, 1034, 1006, 1033, 1016],
     # "Right-Temporal-Lobe" : [2030, 2015, 2009, 2001, 2007, 2034, 2006, 2033, 2016],
-    # "Left-Parietal-Lobe" : [1008, 1029, 1031, 1022, 1025],
-    # "Right-Parietal-Lobe" : [2008, 2029, 2031, 2022, 2025],
-    # "Left-Occipital-Lobe" : [1011, 1013, 1005, 1021],
-    # "Right-Occipital-Lobe" : [2011, 2013, 2005, 2021],
+    "Left-Parietal-Lobe" : [1008, 1029, 1031, 1022, 1025],
+    "Right-Parietal-Lobe" : [2008, 2029, 2031, 2022, 2025],
+    "Left-Occipital-Lobe" : [1011, 1013, 1005, 1021],
+    "Right-Occipital-Lobe" : [2011, 2013, 2005, 2021],
 # 
-    # "Left-FrontalNoOrbito-Lobe" : [1028, 1027, 1003, 1019, 1012, 1017, 1032],
-    # "Right-FrontalNoOrbito-Lobe" : [2028, 2027, 2003, 2019, 2012 , 2017, 2032],
+    "Left-FrontalNoOrbito-Lobe" : [1028, 1027, 1003, 1019, 1012, 1017, 1032],
+    "Right-FrontalNoOrbito-Lobe" : [2028, 2027, 2003, 2019, 2012 , 2017, 2032],
 }
 roi_num_name = {}
 dilatations = {
-    # "parietal-lobe" : 4,
-    # "occipital-lobe" : 4,
-    # "frontalNoOrbito-lobe" : 1,
-    # "putamen" : 3,
-    # "caudate" : 3,
-    # "pallidum" : 3,
-    # "choroid-plexus": 7,
-    # "hippocampus": 5,
+    "parietal-lobe" : 4,
+    "occipital-lobe" : 4,
+    "frontalNoOrbito-lobe" : 1,
 }
 
 def expand_roi():
