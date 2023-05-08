@@ -31,7 +31,6 @@ def main():
     if "-tract" in sys.argv[1:]:
         tract = True
         time[0] += 1
-        time[1] += 15
 
     time[0] += time[1]//60
     time[1] %= 60
@@ -45,10 +44,10 @@ def main():
 
     for p_code in patient_list:
         p_job = {
-            "wrap" : "export MKL_NUM_THREADS=4 ; export OMP_NUM_THREADS=4 ; python -c 'from tractography import compute_tracts; compute_tracts(\"%s\", \"%s\", %s, %s)'" % (p_code, folder_path, str(extract_roi), str(tract)),
+            "wrap" : "export MKL_NUM_THREADS=2 ; export OMP_NUM_THREADS=2 ; python -c 'from tractography import compute_tracts; compute_tracts(\"%s\", \"%s\", %s, %s)'" % (p_code, folder_path, str(extract_roi), str(tract)),
             "job_name" :  p_code,
             "ntasks" : 1,
-            "cpus_per_task" : 4,
+            "cpus_per_task" : 2,
             "mem_per_cpu" : 2048,
             "time" : "%s:%s:00" % (str(time[0]), str(time[1])),
             "mail_user" : "michele.cerra@student.uclouvain.be",
