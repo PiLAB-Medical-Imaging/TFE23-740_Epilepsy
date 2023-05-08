@@ -43,19 +43,19 @@ tracts = {
         #         "angle" : 25
         #     },
 
-        "thalamus-AntCingCtx":
+        "thalamus-AntCingCtx": # OK
             {
                 "seed_images": ["Thalamus-Proper"],
                 "include_ordered" : ["plane-cingulum", "plane-cingulate", "frontal-cingulate"],
-                "angle" : 30,
+                "angle" : 15, # prima 30 adesso provo 15
                 "cutoff" : 0.07,
             },
-        "thalamus-Insula":
+        "thalamus-Insula": # è rimasto un pò di rumore dietro e sopra un po a tutti, da togliere con zone di exclusion
             {
                 "seed_images": ["Thalamus-Proper"],
                 "include" : ["insula"],
                 "exclude" : ["Caudate", "Putamen", "Pallidum", "Hippocampus", "Amygdala", "occipital-lobe-dilated-4", "parietal-lobe-dilated-4", "frontalNoOrbito-lobe-dilated-1", "superiortemporal"],
-                "angle" : 25
+                "angle" : 15 # prima 25 adesso provo 15
             },
 
         # "sup-longi-fasci":
