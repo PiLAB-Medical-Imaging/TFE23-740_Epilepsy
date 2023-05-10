@@ -10,6 +10,7 @@ import nibabel as nib
 from dipy.io.streamline import load_tractogram, save_trk
 from nibabel import Nifti1Image
 from params import *
+from skimage.morphology import convex_hull_image
 
 # absolute_path = os.path.dirname(__file__) # return the abs path of the folder of this file, wherever it is
 
@@ -32,28 +33,29 @@ tracts = {
         #         "exclude" : ["hippocampus", "Thalamus-Proper", "lateral-ventricle", "Inf-Lat-Vent", "Caudate", "Putamen", "Pallidum", "CSF", "Accumbens-area", "3rd-Ventricle"]
         #     }
 
-        # "fornix": # OK NON LO TOCCARE PIÙÙÙÙ
-        #     {
-        #         "seed_images": ["hippocampus"],
-        #         "include" : ["mammillary-body"],
-        #         "include_ordered" : ["plane-fornix", "plane-ort-fornix", "plane-mammillary-body", "plane1-mammillary-body"], 
-        #         # Change Thalamus-Proper to Thalamus depending on the version of freesurfer
-        #         "exclude" : ["Thalamus-Proper", "Caudate", "Putamen", "Pallidum", "Accumbens-area"],
-        #         "cutoff" : 0.07,
-        #         "angle" : 25
-        #     },
+        "fornix": # OK NON LO TOCCARE PIÙÙÙÙ
+            {
+                "seed_images": ["hippocampus"],
+                "include" : ["mammillary-body"],
+                "include_ordered" : ["plane-fornix", "plane-ort-fornix", "plane-mammillary-body", "plane1-mammillary-body"], 
+                # Change Thalamus-Proper to Thalamus depending on the version of freesurfer
+                "exclude" : ["Thalamus-Proper", "Caudate", "Putamen", "Pallidum", "Accumbens-area"],
+                "cutoff" : 0.07,
+                "angle" : 25
+            },
 
         "thalamus-AntCingCtx": # OK
             {
                 "seed_images": ["Thalamus-Proper"],
                 "include_ordered" : ["plane-cingulum", "plane-cingulate", "frontal-cingulate"],
-                "angle" : 25, #30
+                "angle" : 30,
                 "cutoff" : 0.07,
             },
         "thalamus-Insula": # OK
             {
                 "seed_images": ["Thalamus-Proper"],
                 "include" : ["insula"],
+                "mask" : ["thalamus-insula-hull-dilated-15"],
                 "angle" : 20
             },
 
@@ -97,30 +99,38 @@ roi_freesurfer = {
     "insula" : [1035, 2035],
     # "wm" : [2, 41],
     "ctx-superiortemporal" : [1030, 2030],
-
-    # Union region
-    "Left-Frontal-Cingulate" : [1026, 1002],
-    "Right-Frontal-Cingulate" : [2026, 2002],
-    # # Lobe informations taken from:
-    # # Freesurfer: https://surfer.nmr.mgh.harvard.edu/fswiki/CorticalParcellation
-    # # Wikipedia: https://en.wikipedia.org/wiki/Association_fiber
-    # "Left-Frontal-Lobe" : [1028, 1027, 1003, 1018, 1019, 1020, 1012, 1014, 1024, 1017, 1032],
-    # "Right-Frontal-Lobe" : [2028, 2027, 2003, 2018, 2019, 2020, 2012, 2014, 2024, 2017, 2032],
-    # "Left-Temporal-Lobe" : [1030, 1015, 1009, 1001, 1007, 1034, 1006, 1033, 1016],
-    # "Right-Temporal-Lobe" : [2030, 2015, 2009, 2001, 2007, 2034, 2006, 2033, 2016],
-    "Left-Parietal-Lobe" : [1008, 1029, 1031, 1022, 1025],
-    "Right-Parietal-Lobe" : [2008, 2029, 2031, 2022, 2025],
-    "Left-Occipital-Lobe" : [1011, 1013, 1005, 1021],
-    "Right-Occipital-Lobe" : [2011, 2013, 2005, 2021],
-# 
-    "Left-FrontalNoOrbito-Lobe" : [1028, 1027, 1003, 1019, 1012, 1017, 1032],
-    "Right-FrontalNoOrbito-Lobe" : [2028, 2027, 2003, 2019, 2012 , 2017, 2032],
 }
 roi_num_name = {}
+
+union_reg = {
+    # "Left-Frontal-Cingulate" : [1026, 1002],
+    # "Right-Frontal-Cingulate" : [2026, 2002],
+    # # # Lobe informations taken from:
+    # # # Freesurfer: https://surfer.nmr.mgh.harvard.edu/fswiki/CorticalParcellation
+    # # # Wikipedia: https://en.wikipedia.org/wiki/Association_fiber
+    # # "Left-Frontal-Lobe" : [1028, 1027, 1003, 1018, 1019, 1020, 1012, 1014, 1024, 1017, 1032],
+    # # "Right-Frontal-Lobe" : [2028, 2027, 2003, 2018, 2019, 2020, 2012, 2014, 2024, 2017, 2032],
+    # # "Left-Temporal-Lobe" : [1030, 1015, 1009, 1001, 1007, 1034, 1006, 1033, 1016],
+    # # "Right-Temporal-Lobe" : [2030, 2015, 2009, 2001, 2007, 2034, 2006, 2033, 2016],
+    # "Left-Parietal-Lobe" : [1008, 1029, 1031, 1022, 1025],
+    # "Right-Parietal-Lobe" : [2008, 2029, 2031, 2022, 2025],
+    # "Left-Occipital-Lobe" : [1011, 1013, 1005, 1021],
+    # "Right-Occipital-Lobe" : [2011, 2013, 2005, 2021],
+ # 
+    # "Left-FrontalNoOrbito-Lobe" : [1028, 1027, 1003, 1019, 1012, 1017, 1032],
+    # "Right-FrontalNoOrbito-Lobe" : [2028, 2027, 2003, 2019, 2012 , 2017, 2032],
+}
+
+# Change thalamus-proper in thalamus depending on the version of freesurfer
+convex_hull = {
+    "thalamus-insula-hull" : ["thalamus", "insula"]
+}
+
 dilatations = {
     "parietal-lobe" : 4,
     "occipital-lobe" : 4,
     "frontalNoOrbito-lobe" : 1,
+    "thalamus-insula-hull" : 15
 }
 
 def expand_roi():
@@ -153,12 +163,37 @@ def get_freesurfer_roi_names():
             if k == len(roi_nums_tot):
                 break
 
+def save_convex_hull(mask_paths, out_path):
+    if len(mask_paths) == 0:
+        return
+    
+    affine_info = None
+    union_mask = None # Here we do the sum of the mask and then we transform them in binary
+    for i, mask_path in enumerate(mask_paths):
+        mask_map : Nifti1Image = nib.load(mask_path)
+        mask_np = mask_map.get_fdata()
+
+        if i == 0: # get the affine of the first element, we suppose that all the mask are in the same space, with same affine information
+            affine_info = mask_map.affine
+            union_mask = mask_np
+        else:
+            union_mask = union_mask + mask_np
+    
+    union_mask[union_mask > 0] = 1 # binaryze it 
+    hull = convex_hull_image(union_mask)
+
+    hull = hull + 0 # tranform in integer
+    hull = hull.astype("float64") # tranform in float becayse Nifti1Image wants floats
+    hull_map = Nifti1Image(hull, affine_info)
+    nib.save(hull_map, out_path)
+
 def freesurfer_mask_extraction(folder_path, subj_id):
     ## Registration from T1 to dMRI
     registration_path = folder_path + "/subjects/" + subj_id + "/registration"
     if not os.path.isdir(registration_path):
         os.mkdir(registration_path)
 
+    print("Computing matrix transformation between T1 and dMRI")
     if not os.path.isfile(registration_path + "/transf_t1_dMRI.dat"):
         # Find the transformation matrix
         cmd = "bbregister --s %s --mov %s/subjects/%s/dMRI/preproc/%s_dmri_preproc.nii.gz --reg %s/transf_t1_dMRI.dat --dti --init-fsl" % (subj_id, folder_path, subj_id, subj_id, registration_path)
@@ -169,6 +204,7 @@ def freesurfer_mask_extraction(folder_path, subj_id):
             return 1
     
     # Apply transformation to T1 to see the result
+    print("Apply transformation: T1 to dMRI")
     cmd = "mri_vol2vol --reg %s/transf_t1_dMRI.dat --mov %s/subjects/%s/dMRI/preproc/%s_dmri_preproc.nii.gz --fstarg --o %s/%s_T1_brain_reg.nii.gz --interp nearest --no-resample --inv" % (registration_path, folder_path, subj_id, subj_id, registration_path, subj_id)
     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
     process.wait()
@@ -177,6 +213,7 @@ def freesurfer_mask_extraction(folder_path, subj_id):
         return 1
 
     # Apply transformation to aseg+aparc
+    print("Apply transformation: aparc+aseg to dMRI")
     cmd = "mri_vol2vol --reg %s/transf_t1_dMRI.dat --targ %s/subjects/%s/mri/aparc+aseg.mgz --mov %s/subjects/%s/dMRI/preproc/%s_dmri_preproc.nii.gz --o %s/aparc+aseg_reg.mgz --interp nearest --no-resample --inv" % (registration_path, folder_path, subj_id, folder_path, subj_id, subj_id, registration_path)
     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
     process.wait()
@@ -186,6 +223,7 @@ def freesurfer_mask_extraction(folder_path, subj_id):
 
     # Normal regions
     for num, name in roi_num_name.items():
+        print("Extraction ROI: %s" % name)
         out_path = "%s/subjects/%s/masks/%s_%s_aparc+aseg.nii.gz" % (folder_path, subj_id, subj_id, name)
 
         cmd = "mri_extract_label -exit_none_found %s/aparc+aseg_reg.mgz %d %s" % (registration_path, num, out_path)
@@ -196,15 +234,29 @@ def freesurfer_mask_extraction(folder_path, subj_id):
             os.remove(out_path)
 
     # Union Regions
-    for name, roi_numbers in roi_freesurfer.items():
-        if "lobe" in name.lower() or "cingulate" in name.lower():
-            roi_numbers_string = " ".join(str(i) for i in roi_numbers)
-            out_path = "%s/subjects/%s/masks/%s_%s_aparc+aseg.nii.gz" % (folder_path, subj_id, subj_id, name)
-            cmd = "mri_extract_label -exit_none_found %s/aparc+aseg_reg.mgz %s %s" % (registration_path, roi_numbers_string, out_path)
-            process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
-            process.wait()
-            if process.returncode != 0:
-                os.remove(out_path)
+    for name, roi_numbers in union_reg.items():
+        print("Union ROI: %s" % name)
+        roi_numbers_string = " ".join(str(i) for i in roi_numbers)
+        out_path = "%s/subjects/%s/masks/%s_%s_aparc+aseg.nii.gz" % (folder_path, subj_id, subj_id, name)
+        cmd = "mri_extract_label -exit_none_found %s/aparc+aseg_reg.mgz %s %s" % (registration_path, roi_numbers_string, out_path)
+        process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+        process.wait()
+        if process.returncode != 0:
+            os.remove(out_path)
+
+    roi_names = get_mask(folder_path+"/subjects/"+ subj_id +"/masks", subj_id)
+
+    for roi_hull, rois in convex_hull.items():
+        print("Convex Hull ROI: %s" % roi_hull)
+        for side in ["left", "right"]:
+            roi_paths = []
+            for roi in rois:
+                if roi in roi_names[side].keys():
+                    roi_paths.append(roi_names[side][roi].path)
+                else:
+                    print("Error convex hull: %s ; %s doesn't found" % (roi_hull, roi))
+                    return 1
+            save_convex_hull(roi_paths, "%s/subjects/%s/masks/%s_%s-%s_aparc+aseg.nii.gz" % (folder_path, subj_id, subj_id, side, roi_hull))
 
     # Dilated regions
     masks_path = "%s/subjects/%s/masks" % (folder_path, subj_id)
@@ -217,6 +269,7 @@ def freesurfer_mask_extraction(folder_path, subj_id):
 
             for roi_dila in dilatations.keys():
                 if roi_dila.lower() == roi_name.lower():
+                    print("Dilatation ROI: %s" % roi_dila)
                     dilatation_cicle = dilatations[roi_dila]
                     dilated_roi_name = file_name.split(subj_id + "_")[1].split("_")[0] + "-dilated-" + str(dilatation_cicle)
                     output_path = "%s/subjects/%s/masks/%s_%s_aparc+aseg.nii.gz" % (folder_path, subj_id, subj_id, dilated_roi_name)
