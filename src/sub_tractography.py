@@ -45,7 +45,7 @@ def main():
 
     for p_code in patient_list:
         p_job = {
-            "wrap" : "export MKL_NUM_THREADS=4 ; export OMP_NUM_THREADS=2 ; python -c 'from tractography import compute_tracts; compute_tracts(\"%s\", \"%s\", %s, %s)'" % (p_code, folder_path, str(extract_roi), str(tract)),
+            "wrap" : "export MKL_NUM_THREADS=4 ; export OMP_NUM_THREADS=4 ; python -c 'from tractography import compute_tracts; compute_tracts(\"%s\", \"%s\", %s, %s)'" % (p_code, folder_path, str(extract_roi), str(tract)),
             "job_name" :  p_code,
             "ntasks" : 1,
             "cpus_per_task" : 4,

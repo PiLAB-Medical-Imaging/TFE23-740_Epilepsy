@@ -123,7 +123,7 @@ union_reg = {
 
 # Change thalamus-proper in thalamus depending on the version of freesurfer
 convex_hull = {
-    "thalamus-insula-hull" : ["thalamus", "insula"]
+    "thalamus-insula-hull" : ["thalamus-proper", "insula"]
 }
 
 dilatations = {
