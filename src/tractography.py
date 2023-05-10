@@ -55,7 +55,7 @@ tracts = {
             {
                 "seed_images": ["Thalamus-Proper"],
                 "include" : ["insula"],
-                "mask" : ["thalamus-insula-hull-dilated-15"],
+                "masks" : ["thalamus-insula-hull-dilated-15"],
                 "angle" : 20
             },
 
