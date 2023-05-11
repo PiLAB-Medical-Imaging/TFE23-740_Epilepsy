@@ -30,7 +30,7 @@ tracts = {
         #     {
         #         "seed_images": ["amygdala"],
         #         "include_ordered" : ["fornixST", "fornix", "BNST"],
-        #         "exclude" : ["hippocampus", "Thalamus-Proper", "lateral-ventricle", "Inf-Lat-Vent", "Caudate", "Putamen", "Pallidum", "CSF", "Accumbens-area", "3rd-Ventricle"]
+        #         "exclude" : ["hippocampus", "Thalamus-Proper", "Caudate", "Putamen", "Pallidum"]
         #     }
 
         "fornix": # OK NON LO TOCCARE PIÙÙÙÙ
@@ -39,7 +39,7 @@ tracts = {
                 "include" : ["mammillary-body"],
                 "include_ordered" : ["plane-fornix", "plane-ort-fornix", "plane-mammillary-body", "plane1-mammillary-body"], 
                 # Change Thalamus-Proper to Thalamus depending on the version of freesurfer
-                "exclude" : ["Thalamus-Proper", "Caudate", "Putamen", "Pallidum", "Accumbens-area"],
+                "exclude" : ["Thalamus-Proper", "Caudate", "Putamen", "Pallidum"],
                 "cutoff" : 0.07,
                 "angle" : 25
             },
@@ -98,7 +98,7 @@ roi_freesurfer = {
     "accumbens" : [26, 58],
     "insula" : [1035, 2035],
     # "wm" : [2, 41],
-    "ctx-superiortemporal" : [1030, 2030],
+    # "ctx-superiortemporal" : [1030, 2030],
 }
 roi_num_name = {}
 
@@ -194,9 +194,9 @@ def freesurfer_mask_extraction(folder_path, subj_id):
         os.mkdir(registration_path)
 
     print("Computing matrix transformation between T1 and dMRI")
-    if not os.path.isfile(registration_path + "/transf_t1_dMRI.dat"):
+    if not os.path.isfile(registration_path + "/transf_dMRI_t1.dat"):
         # Find the transformation matrix
-        cmd = "bbregister --s %s --mov %s/subjects/%s/dMRI/preproc/%s_dmri_preproc.nii.gz --reg %s/transf_t1_dMRI.dat --dti --init-fsl" % (subj_id, folder_path, subj_id, subj_id, registration_path)
+        cmd = "bbregister --s %s --mov %s/subjects/%s/dMRI/preproc/%s_dmri_preproc.nii.gz --reg %s/transf_dMRI_t1.dat --dti --init-fsl" % (subj_id, folder_path, subj_id, subj_id, registration_path)
         process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
         process.wait()
         if process.returncode != 0:
@@ -205,7 +205,7 @@ def freesurfer_mask_extraction(folder_path, subj_id):
     
     # Apply transformation to T1 to see the result
     print("Apply transformation: T1 to dMRI")
-    cmd = "mri_vol2vol --reg %s/transf_t1_dMRI.dat --mov %s/subjects/%s/dMRI/preproc/%s_dmri_preproc.nii.gz --fstarg --o %s/%s_T1_brain_reg.nii.gz --interp nearest --no-resample --inv" % (registration_path, folder_path, subj_id, subj_id, registration_path, subj_id)
+    cmd = "mri_vol2vol --reg %s/transf_dMRI_t1.dat --mov %s/subjects/%s/dMRI/preproc/%s_dmri_preproc.nii.gz --fstarg --o %s/%s_T1_brain_reg.nii.gz --interp nearest --no-resample --inv" % (registration_path, folder_path, subj_id, subj_id, registration_path, subj_id)
     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
     process.wait()
     if process.returncode != 0:
@@ -214,7 +214,7 @@ def freesurfer_mask_extraction(folder_path, subj_id):
 
     # Apply transformation to aseg+aparc
     print("Apply transformation: aparc+aseg to dMRI")
-    cmd = "mri_vol2vol --reg %s/transf_t1_dMRI.dat --targ %s/subjects/%s/mri/aparc+aseg.mgz --mov %s/subjects/%s/dMRI/preproc/%s_dmri_preproc.nii.gz --o %s/aparc+aseg_reg.mgz --interp nearest --no-resample --inv" % (registration_path, folder_path, subj_id, folder_path, subj_id, subj_id, registration_path)
+    cmd = "mri_vol2vol --reg %s/transf_dMRI_t1.dat --targ %s/subjects/%s/mri/aparc+aseg.mgz --mov %s/subjects/%s/dMRI/preproc/%s_dmri_preproc.nii.gz --o %s/aparc+aseg_reg.mgz --interp nearest --no-resample --inv" % (registration_path, folder_path, subj_id, folder_path, subj_id, subj_id, registration_path)
     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
     process.wait()
     if process.returncode != 0:
