@@ -272,6 +272,7 @@ def compute_metricsPerROI(p_code, folder_path):
     subject_path = "%s/subjects/%s" % (folder_path, p_code)
     tracts_path = "%s/dMRI/tractography" % subject_path
     m = {}
+    m["ID"] = p_code
     density_maps = {}
 
     def addMetrics(roi_name, metric, model, metric_map, density_map):
