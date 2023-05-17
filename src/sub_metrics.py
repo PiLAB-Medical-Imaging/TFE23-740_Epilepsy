@@ -25,7 +25,7 @@ def main():
 
     for p_code in patient_list:
         p_job = {
-            "wrap" : "export MKL_NUM_THREADS=2 ; export OMP_NUM_THREADS=2 ; python -c 'from tracts_metrics import compute_metricsPerROI; compute_metricsPerROI(\"%s\", \"%s\")'" % (p_code, folder_path),
+            "wrap" : "export MKL_NUM_THREADS=2 ; export OMP_NUM_THREADS=2 ; python -c 'from metrics import compute_metricsPerROI; compute_metricsPerROI(\"%s\", \"%s\")'" % (p_code, folder_path),
             "job_name" :  p_code,
             "ntasks" : 1,
             "cpus_per_task" : 2,

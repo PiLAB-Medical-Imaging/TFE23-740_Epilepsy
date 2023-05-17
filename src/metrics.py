@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 import nibabel as nib
 import subprocess
+import json
 
 from dipy.io.streamline import load_tractogram
 from unravel.utils import *
@@ -255,8 +256,8 @@ def trilinearInterpROI(subj_path, subj_id, masks : dict):
 metrics = {
     "dti" : ["FA", "AD", "RD", "MD"],
     "noddi" : ["icvf", "odi", "fbundle", "fextra", "fintra", "fiso" ],
-    "diamond" : ["wFA", "wMD", "wAxD", "wRD", "frac_c0", "frac_c1", "frac_diamond_csf"],
-    "mf" : ["fvf_f0", "fvf_f1", "fvf_tot", "frac_f0", "frac_f1", "frac_mf_csf"]
+    "diamond" : ["wFA", "wMD", "wAxD", "wRD", "frac_c0", "frac_c1", "frac_csf"],
+    "mf" : ["fvf_f0", "fvf_f1", "fvf_tot", "frac_f0", "frac_f1", "frac_csf"]
 }
 
 # Freesurfer LUT: https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/AnatomicalROI/FreeSurferColorLUT
@@ -273,13 +274,18 @@ def compute_metricsPerROI(p_code, folder_path):
     m = {}
     density_maps = {}
 
-    def addMetrics(roi_name, metric, metric_map, density_map):
+    def addMetrics(roi_name, metric, model, metric_map, density_map):
         attr_name = "%s_%s" % (roi_name, metric)
+        if "frac_csf" == metric:
+            if "diamond" == model:
+                attr_name += "_d"
+            elif "mf" == model:
+                attr_name += "_mf"
 
         m[attr_name + "_mean"] = w_mean(metric_map, density_map)
-        # m[attr_name + "_std"] = np.sqrt(w_var(metric_map, density_map))
-        # m[attr_name + "_skew"] = w_skew(metric_map, density_map)
-        # m[attr_name + "_kurt"] = w_kurt(metric_map, density_map)
+        m[attr_name + "_std"] = np.sqrt(w_var(metric_map, density_map))
+        m[attr_name + "_skew"] = w_skew(metric_map, density_map)
+        m[attr_name + "_kurt"] = w_kurt(metric_map, density_map)
 
     # Trilinear interpolation of the segments into dMRI space
     # We consider the interpolated voxels as a weighted mask (density mask)
@@ -326,7 +332,7 @@ def compute_metricsPerROI(p_code, folder_path):
                     else:
                         density_map = density_maps[tract_path]
 
-                    addMetrics(tract_name, metric, metric_map, density_map)
+                    addMetrics(tract_name, metric, model, metric_map, density_map)
 
             for mask_name, mask_path in trilInterp_paths:
                 # save in memory the density_map of the mask, in order to not open them every time, and speedup
@@ -337,10 +343,14 @@ def compute_metricsPerROI(p_code, folder_path):
                 else:
                     density_map = density_maps[mask_path]
 
-                addMetrics(mask_name.lower(), metric, metric_map, density_map)
+                addMetrics(mask_name.lower(), metric, model, metric_map, density_map)
+
+    print(json.dumps(m,indent=2, sort_keys=True))
+    with open("%s/dMRI/microstructure/%s_metrics.json" % (subject_path, p_code), "w") as outfile:
+        json.dump(m, outfile, indent=2, sort_keys=True)
                 
-    df = pd.DataFrame(m)
-    df.to_csv("%s/dMRI/microstructure/%s_metrics.csv" % (subject_path, p_code))
+    df = pd.DataFrame([m])
+    df.to_csv("%s/dMRI/microstructure/%s_metrics.csv" % (subject_path, p_code), index=False)
 
 def main():
     

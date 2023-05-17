@@ -33,7 +33,7 @@ tracts = {
         #         "exclude" : ["hippocampus", "Thalamus-Proper", "Caudate", "Putamen", "Pallidum"]
         #     }
 
-        "fornix": # OK NON LO TOCCARE PIÙÙÙÙ
+        "fornix":
             {
                 "seed_images": ["hippocampus"],
                 "include" : ["mammillary-body"],
@@ -44,14 +44,14 @@ tracts = {
                 "angle" : 25
             },
 
-        "thalamus-AntCingCtx": # OK
+        "thalamus-AntCingCtx":
             {
                 "seed_images": ["Thalamus-Proper"],
                 "include_ordered" : ["plane-cingulum", "plane-cingulate", "frontal-cingulate"],
                 "angle" : 30,
                 "cutoff" : 0.07,
             },
-        "thalamus-Insula": # OK
+        "thalamus-Insula":
             {
                 "seed_images": ["Thalamus-Proper"],
                 "include" : ["insula"],
@@ -414,7 +414,7 @@ def find_tract(subj_folder_path, subj_id, seed_images, inclusions, inclusions_or
     tck_path = subj_folder_path+"/dMRI/tractography/"+output_name+".tck"
     process = None
 
-    bashCommand = "tckgen -nthreads 4 -algorithm iFOD2 -seeds 500k -max_attempts_per_seed 1000 -seed_unidirectional -force"
+    bashCommand = "tckgen -nthreads 4 -algorithm iFOD2 -seeds 10M -max_attempts_per_seed 1000 -seed_unidirectional -force"
 
     if stop:
         bashCommand += " -stop"
