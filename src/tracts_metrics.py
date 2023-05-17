@@ -20,9 +20,11 @@ def vrow(v):
     return v.reshape(1, v.size)
 
 def w_mean(v, w):
+    assert v.size == w.size
+
     v = vcol(v)
     w = vrow(w)
-    return np.dot(w,v)/np.sum(w)
+    return np.ravel(np.dot(w,v)/np.sum(w))[0]
 
 def w_var(v, w):
     v = vcol(v)
@@ -35,9 +37,11 @@ def w_var(v, w):
 
     w_var = np.dot(w, v_centr**2)/V1 # m_2
 
-    w_var_unbias = V1**2/(V1**2-V2) * w_var # M_2
+    with np.errstate(divide='ignore', invalid='ignore'):
+        w_var_unbias = V1**2/(V1**2-V2) * w_var # M_2
+        w_var_unbias = np.nan_to_num(w_var_unbias)
 
-    return w_var_unbias
+    return np.ravel(w_var_unbias)[0]
 """
 @article{rimoldini2014weighted,
   title={Weighted skewness and kurtosis unbiased by sample size and Gaussian uncertainties},
@@ -61,9 +65,11 @@ def w_skew(v, w):
 
     w_skew = np.dot(w, v_centr**3)/V1 # m_3
 
-    w_skew_unbias = V1**3/(V1**3-3*V1*V2+2*V3) * w_skew # M_3
+    with np.errstate(divide='ignore', invalid='ignore'):
+        w_skew_unbias = V1**3/(V1**3-3*V1*V2+2*V3) * w_skew # M_3
+        w_skew_unbias = np.nan_to_num(w_skew_unbias)
 
-    return w_skew_unbias
+    return np.ravel(w_skew_unbias)[0]
 """
 @article{rimoldini2014weighted,
   title={Weighted skewness and kurtosis unbiased by sample size and Gaussian uncertainties},
@@ -90,9 +96,11 @@ def w_kurt(v, w):
     w_kurt = np.dot(w, v_centr**4)/V1 # m_4
 
     denominator = (V1**2 - V2)*(V1**4 - 6*V1**2*V2 + 8*V1*V3 + 3*V2**2 - 6*V4)
-    w_kurt_unbias = V1**2*(V1**4 - 3*V1**2*V2 + 2*V1*V3 + 3*V2**2 - 3*V4)/denominator * w_kurt - 3*V1**2*(2*V1**2*V2 - 2*V1*V3 - 3*V2**2 + 3*V4)/denominator * w_var**2
+    with np.errstate(divide='ignore', invalid='ignore'):
+        w_kurt_unbias = V1**2*(V1**4 - 3*V1**2*V2 + 2*V1*V3 + 3*V2**2 - 3*V4)/denominator * w_kurt - 3*V1**2*(2*V1**2*V2 - 2*V1*V3 - 3*V2**2 + 3*V4)/denominator * w_var**2
+        w_kurt_unbias = np.nan_to_num(w_kurt_unbias)
 
-    return w_kurt_unbias
+    return np.ravel(w_kurt_unbias)[0]
 
 def MD(eigvals):
     return np.mean(eigvals, axis=3)
@@ -244,12 +252,11 @@ def trilinearInterpROI(subj_path, subj_id, masks : dict):
         trilInterp_paths.append((name, out_trilInterp_path))
     return trilInterp_paths
 
-# TODO verificare con una mask da pochi pixel se i calcoli sono correttamente
 metrics = {
     "dti" : ["FA", "AD", "RD", "MD"],
     "noddi" : ["icvf", "odi", "fbundle", "fextra", "fintra", "fiso" ],
-    "diamond" : ["wFA", "wMD", "wAxD", "wRD", "frac_c0", "frac_c1", "frac_csf"],
-    "mf" : ["fvf_f0", "fvf_f1", "fvf_tot", "frac_f0", "frac_f1", "frac_csf"]
+    "diamond" : ["wFA", "wMD", "wAxD", "wRD", "frac_c0", "frac_c1", "frac_diamond_csf"],
+    "mf" : ["fvf_f0", "fvf_f1", "fvf_tot", "frac_f0", "frac_f1", "frac_mf_csf"]
 }
 
 # Freesurfer LUT: https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/AnatomicalROI/FreeSurferColorLUT
@@ -266,18 +273,13 @@ def compute_metricsPerROI(p_code, folder_path):
     m = {}
     density_maps = {}
 
-    def addMetrics(model, roi_name, metric, metric_map, density_map):
-        attr_name = "%s_%s_%s" % (model, roi_name, metric)
+    def addMetrics(roi_name, metric, metric_map, density_map):
+        attr_name = "%s_%s" % (roi_name, metric)
 
-        weightedMean = w_mean(metric_map, density_map)
-        weightedStd = np.sqrt(w_var(metric_map, density_map))
-        weightedSkew = w_skew(metric_map, density_map)
-        weightedKurt = w_kurt(metric_map, density_map)
-
-        m[attr_name + "_mean"] = np.ravel(weightedMean)
-        m[attr_name + "_std"] = np.ravel(weightedStd)
-        m[attr_name + "_skew"] = np.ravel(weightedSkew)
-        m[attr_name + "_kurt"] = np.ravel(weightedKurt)
+        m[attr_name + "_mean"] = w_mean(metric_map, density_map)
+        # m[attr_name + "_std"] = np.sqrt(w_var(metric_map, density_map))
+        # m[attr_name + "_skew"] = w_skew(metric_map, density_map)
+        # m[attr_name + "_kurt"] = w_kurt(metric_map, density_map)
 
     # Trilinear interpolation of the segments into dMRI space
     # We consider the interpolated voxels as a weighted mask (density mask)
@@ -324,7 +326,7 @@ def compute_metricsPerROI(p_code, folder_path):
                     else:
                         density_map = density_maps[tract_path]
 
-                    addMetrics(model, tract_name, metric, metric_map, density_map)
+                    addMetrics(tract_name, metric, metric_map, density_map)
 
             for mask_name, mask_path in trilInterp_paths:
                 # save in memory the density_map of the mask, in order to not open them every time, and speedup
@@ -335,10 +337,10 @@ def compute_metricsPerROI(p_code, folder_path):
                 else:
                     density_map = density_maps[mask_path]
 
-                addMetrics(model, mask_name.lower(), metric, metric_map, density_map)
+                addMetrics(mask_name.lower(), metric, metric_map, density_map)
                 
     df = pd.DataFrame(m)
-    df.to_csv("data.csv")
+    df.to_csv("%s/dMRI/microstructure/%s_metrics.csv" % (subject_path, p_code))
 
 def main():
     

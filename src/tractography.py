@@ -56,25 +56,26 @@ tracts = {
                 "seed_images": ["Thalamus-Proper"],
                 "include" : ["insula"],
                 "masks" : ["thalamus-insula-hull-dilated-15"],
+                "exclude" : ["hippocampus"],
                 "angle" : 20
             },
 
-        # "sup-longi-fasci":
-        #     { 
-        #         "seed_images" : ["frontal-lobe"],
-        #         "include" : ["parietal-lobe"],
-        #         "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
-        #         "angle" : 15,
-        #         "cutoff" : 0.09
-        #     },
-        # "inf-longi-fasci":
-        #     { 
-        #         "seed_images" : ["occipital-lobe"],
-        #         "include" : ["temporal-lobe"],
-        #         "masks" : ["cerebral-white-matter", "occipital-lobe", "temporal-lobe"],
-        #         "angle" : 15,
-        #         "cutoff" : 0.09
-        #     },
+        "sup-longi-fasci":
+            { 
+                "seed_images" : ["frontal-lobe"],
+                "include" : ["parietal-lobe"],
+                "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
+                "angle" : 15,
+                "cutoff" : 0.09
+            },
+        "inf-longi-fasci":
+            { 
+                "seed_images" : ["occipital-lobe"],
+                "include" : ["temporal-lobe"],
+                "masks" : ["cerebral-white-matter", "occipital-lobe", "temporal-lobe"],
+                "angle" : 15,
+                "cutoff" : 0.09
+            },
 
         # Non conto l'Inferior front-occipital ma devo scriverlo nella tesi xche non l'ho messo.. la ragione e qualche foto
         # "inf-front-occipital-fasci":
@@ -97,28 +98,24 @@ roi_freesurfer = {
     "pallidum" : [13, 52],
     "accumbens" : [26, 58],
     "insula" : [1035, 2035],
-    # "wm" : [2, 41],
-    # "ctx-superiortemporal" : [1030, 2030],
+    "wm" : [2, 41],
 }
 roi_num_name = {}
 
 union_reg = {
-    # "Left-Frontal-Cingulate" : [1026, 1002],
-    # "Right-Frontal-Cingulate" : [2026, 2002],
-    # # # Lobe informations taken from:
-    # # # Freesurfer: https://surfer.nmr.mgh.harvard.edu/fswiki/CorticalParcellation
-    # # # Wikipedia: https://en.wikipedia.org/wiki/Association_fiber
-    # # "Left-Frontal-Lobe" : [1028, 1027, 1003, 1018, 1019, 1020, 1012, 1014, 1024, 1017, 1032],
-    # # "Right-Frontal-Lobe" : [2028, 2027, 2003, 2018, 2019, 2020, 2012, 2014, 2024, 2017, 2032],
-    # # "Left-Temporal-Lobe" : [1030, 1015, 1009, 1001, 1007, 1034, 1006, 1033, 1016],
-    # # "Right-Temporal-Lobe" : [2030, 2015, 2009, 2001, 2007, 2034, 2006, 2033, 2016],
-    # "Left-Parietal-Lobe" : [1008, 1029, 1031, 1022, 1025],
-    # "Right-Parietal-Lobe" : [2008, 2029, 2031, 2022, 2025],
-    # "Left-Occipital-Lobe" : [1011, 1013, 1005, 1021],
-    # "Right-Occipital-Lobe" : [2011, 2013, 2005, 2021],
- # 
-    # "Left-FrontalNoOrbito-Lobe" : [1028, 1027, 1003, 1019, 1012, 1017, 1032],
-    # "Right-FrontalNoOrbito-Lobe" : [2028, 2027, 2003, 2019, 2012 , 2017, 2032],
+    "Left-Frontal-Cingulate" : [1026, 1002],
+    "Right-Frontal-Cingulate" : [2026, 2002],
+    # Lobe information taken from:
+    # Freesurfer: https://surfer.nmr.mgh.harvard.edu/fswiki/CorticalParcellation
+    # Wikipedia: https://en.wikipedia.org/wiki/Association_fiber
+    "Left-Frontal-Lobe" : [1028, 1027, 1003, 1018, 1019, 1020, 1012, 1014, 1032], # Without considering the Pre-central and Para-central
+    "Right-Frontal-Lobe" : [2028, 2027, 2003, 2018, 2019, 2020, 2012, 2014, 2032], # Without considering the Pre-central and Para-central
+    "Left-Temporal-Lobe" : [1030, 1015, 1009, 1001, 1007, 1034, 1006, 1033, 1016],
+    "Right-Temporal-Lobe" : [2030, 2015, 2009, 2001, 2007, 2034, 2006, 2033, 2016],
+    "Left-Parietal-Lobe" : [1008, 1029, 1031, 1025], # Without considering the Post-central
+    "Right-Parietal-Lobe" : [2008, 2029, 2031, 2025], # Without considering the Post-central
+    "Left-Occipital-Lobe" : [1011, 1013, 1005, 1021],
+    "Right-Occipital-Lobe" : [2011, 2013, 2005, 2021],
 }
 
 # Change thalamus-proper in thalamus depending on the version of freesurfer
