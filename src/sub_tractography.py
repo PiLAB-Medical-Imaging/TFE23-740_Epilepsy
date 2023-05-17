@@ -30,8 +30,8 @@ def main():
     tract = False
     if "-tract" in sys.argv[1:]:
         tract = True
-        time[0] += 1
-        time[1] += 15
+        time[0] += 24
+        time[1] += 0
 
     time[0] += time[1]//60
     time[1] %= 60
