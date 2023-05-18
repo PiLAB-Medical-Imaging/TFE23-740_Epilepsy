@@ -11,7 +11,7 @@ def main():
     ## Getting folder
     folder_path = get_folder(sys.argv)
 
-    time = [5, 0]
+    time = [1, 30]
 
     time[0] += time[1]//60
     time[1] %= 60
@@ -25,11 +25,11 @@ def main():
 
     for p_code in patient_list:
         p_job = {
-            "wrap" : "export MKL_NUM_THREADS=2 ; export OMP_NUM_THREADS=2 ; python -c 'from metrics import compute_metricsPerROI; compute_metricsPerROI(\"%s\", \"%s\")'" % (p_code, folder_path),
+            "wrap" : "export MKL_NUM_THREADS=1 ; export OMP_NUM_THREADS=1 ; python -c 'from metrics import compute_metricsPerROI; compute_metricsPerROI(\"%s\", \"%s\")'" % (p_code, folder_path),
             "job_name" :  p_code,
             "ntasks" : 1,
-            "cpus_per_task" : 2,
-            "mem_per_cpu" : 2048,
+            "cpus_per_task" : 1,
+            "mem_per_cpu" : 1024,
             "time" : "%s:%s:00" % (str(time[0]), str(time[1])),
             "mail_user" : "michele.cerra@student.uclouvain.be",
             "mail_type" : "FAIL",

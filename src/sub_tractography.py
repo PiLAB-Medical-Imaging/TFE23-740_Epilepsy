@@ -30,7 +30,7 @@ def main():
     tract = False
     if "-tract" in sys.argv[1:]:
         tract = True
-        time[0] += 24
+        time[0] += 15
         time[1] += 0
 
     time[0] += time[1]//60
@@ -49,7 +49,7 @@ def main():
             "job_name" :  p_code,
             "ntasks" : 1,
             "cpus_per_task" : 4,
-            "mem_per_cpu" : 2048,
+            "mem_per_cpu" : 1536,
             "time" : "%s:%s:00" % (str(time[0]), str(time[1])),
             "mail_user" : "michele.cerra@student.uclouvain.be",
             "mail_type" : "FAIL",

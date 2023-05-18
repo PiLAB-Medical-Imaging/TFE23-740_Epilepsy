@@ -40,7 +40,6 @@ def w_var(v, w):
 
     with np.errstate(divide='ignore', invalid='ignore'):
         w_var_unbias = V1**2/(V1**2-V2) * w_var # M_2
-        w_var_unbias = np.nan_to_num(w_var_unbias)
 
     return np.ravel(w_var_unbias)[0]
 """
@@ -68,7 +67,6 @@ def w_skew(v, w):
 
     with np.errstate(divide='ignore', invalid='ignore'):
         w_skew_unbias = V1**3/(V1**3-3*V1*V2+2*V3) * w_skew # M_3
-        w_skew_unbias = np.nan_to_num(w_skew_unbias)
 
     return np.ravel(w_skew_unbias)[0]
 """
@@ -99,7 +97,6 @@ def w_kurt(v, w):
     denominator = (V1**2 - V2)*(V1**4 - 6*V1**2*V2 + 8*V1*V3 + 3*V2**2 - 6*V4)
     with np.errstate(divide='ignore', invalid='ignore'):
         w_kurt_unbias = V1**2*(V1**4 - 3*V1**2*V2 + 2*V1*V3 + 3*V2**2 - 3*V4)/denominator * w_kurt - 3*V1**2*(2*V1**2*V2 - 2*V1*V3 - 3*V2**2 + 3*V4)/denominator * w_var**2
-        w_kurt_unbias = np.nan_to_num(w_kurt_unbias)
 
     return np.ravel(w_kurt_unbias)[0]
 
