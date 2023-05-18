@@ -330,10 +330,12 @@ def compute_metricsPerROI(p_code, folder_path):
                         trk.to_corner()
                         density_map = get_streamline_density(trk)
                         density_maps[tract_path] = density_map
+                        m[tract_name + "_nTracts"] =  get_streamline_count(trk)
                     else:
                         density_map = density_maps[tract_path]
 
                     addMetrics(tract_name, metric, model, metric_map, density_map)
+                        
 
             for mask_name, mask_path in trilInterp_paths:
                 # save in memory the density_map of the mask, in order to not open them every time, and speedup
