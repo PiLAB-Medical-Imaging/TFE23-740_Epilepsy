@@ -49,7 +49,7 @@ tracts = {
                 "seed_images": ["Thalamus-Proper"],
                 "include_ordered" : ["plane-cingulum", "plane-cingulate", "frontal-cingulate"],
                 "angle" : 30,
-                "cutoff" : 0.07,
+                "cutoff" : 0.05,
             },
         # "thalamus-Insula":
         #     {
