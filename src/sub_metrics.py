@@ -11,7 +11,7 @@ def main():
     ## Getting folder
     folder_path = get_folder(sys.argv)
 
-    time = [0, 30]
+    time = [5, 0]
 
     time[0] += time[1]//60
     time[1] %= 60
