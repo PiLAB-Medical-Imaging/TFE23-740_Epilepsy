@@ -263,6 +263,8 @@ masks_freesurfer = {
     "hippocampus" : [17, 53],
     "amygdala" : [18, 54],
     "accumbens" : [26, 58],
+    "putamen" : [12, 51],
+    "pallidum" : [13, 52],
 }
 
 def compute_metricsPerROI(p_code, folder_path):
