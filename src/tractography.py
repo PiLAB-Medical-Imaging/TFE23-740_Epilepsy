@@ -51,31 +51,31 @@ tracts = {
                 "angle" : 30,
                 "cutoff" : 0.07,
             },
-        # "thalamus-Insula":
-        #     {
-        #         "seed_images": ["Thalamus-Proper"],
-        #         "include" : ["insula"],
-        #         "masks" : ["thalamus-insula-hull-dilated-15"],
-        #         "exclude" : ["hippocampus"],
-        #         "angle" : 20
-        #     },
-# 
-        # "sup-longi-fasci":
-        #     { 
-        #         "seed_images" : ["frontal-lobe"],
-        #         "include" : ["parietal-lobe"],
-        #         "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
-        #         "angle" : 15,
-        #         "cutoff" : 0.09
-        #     },
-        # "inf-longi-fasci":
-        #     { 
-        #         "seed_images" : ["occipital-lobe"],
-        #         "include" : ["temporal-lobe"],
-        #         "masks" : ["cerebral-white-matter", "occipital-lobe", "temporal-lobe"],
-        #         "angle" : 15,
-        #         "cutoff" : 0.09
-        #     },
+        "thalamus-Insula":
+            {
+                "seed_images": ["Thalamus-Proper"],
+                "include" : ["insula"],
+                "masks" : ["thalamus-insula-hull-dilated-15"],
+                "exclude" : ["hippocampus"],
+                "angle" : 20
+            },
+
+        "sup-longi-fasci":
+            { 
+                "seed_images" : ["frontal-lobe"],
+                "include" : ["parietal-lobe"],
+                "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
+                "angle" : 15,
+                "cutoff" : 0.09
+            },
+        "inf-longi-fasci":
+            { 
+                "seed_images" : ["occipital-lobe"],
+                "include" : ["temporal-lobe"],
+                "masks" : ["cerebral-white-matter", "occipital-lobe", "temporal-lobe"],
+                "angle" : 15,
+                "cutoff" : 0.09
+            },
 
         # Non conto l'Inferior front-occipital ma devo scriverlo nella tesi xche non l'ho messo.. la ragione e qualche foto
         # "inf-front-occipital-fasci":
@@ -243,6 +243,7 @@ def freesurfer_mask_extraction(folder_path, subj_id):
 
     roi_names = get_mask(folder_path+"/subjects/"+ subj_id +"/masks", subj_id)
 
+    # Convex hull regions
     for roi_hull, rois in convex_hull.items():
         print("Convex Hull ROI: %s" % roi_hull)
         for side in ["left", "right"]:

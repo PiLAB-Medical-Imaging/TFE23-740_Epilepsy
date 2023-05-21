@@ -19,7 +19,7 @@ def main():
 
     job_list = []
 
-    for i in range(19,20): # CHANGE with patient list | all the patients
+    for i in range(1,23+1):
         p_job = {
             "wrap" : "recon-all -all -sd %s -s VNSLC_%02d -i %s/T1/VNSLC_%02d_T1.nii.gz -T2 %s/T1/VNSLC_%02d_T2.nii.gz -T2pial -qcache" % (seg_fold, i, folder_path, i, folder_path, i),
             "job_name" : "Seg_" + str(i),

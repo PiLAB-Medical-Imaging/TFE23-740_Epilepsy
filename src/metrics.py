@@ -186,7 +186,7 @@ def save_DIAMOND_cMap_wMap_divideFract(diamond_fold, subj_id):
     nib.save(nib.squeeze_image(fracs.slicer[..., 2]), diamond_fold + "/" + subj_id + "_diamond_frac_csf.nii.gz")
 
 def trilinearInterpROI(subj_path, subj_id, masks : dict):
-    # should exist the registration done in the tractography step
+    # must exist the registration done in the tractography step
     registration_path = subj_path + "/registration"
     if not os.path.isdir(registration_path):
         return 1

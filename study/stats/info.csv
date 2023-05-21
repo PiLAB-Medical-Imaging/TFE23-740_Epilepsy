@@ -1,4 +1,4 @@
-ID,NR-RP/R,NR-RP-R,age,therapy_duration,sex,AEDs,benzo,epilepsy_onset_age,epilepsy_type,epilepsy_duration
+ID,resp,respPart,age,therapy_duration,sex,AEDs,benzo,epilepsy_onset_age,epilepsy_type,epilepsy_duration
 VNSLC_01,1,2,36,93,1,3,0,5,1,31
 VNSLC_02,1,2,29,13,2,2,0,14,1,15
 VNSLC_03,1,2,65,234,1,3,0,15,1,50
