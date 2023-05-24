@@ -250,6 +250,12 @@ def trilinearInterpROI(subj_path, subj_id, masks : dict):
         trilInterp_paths.append((name, out_trilInterp_path))
     return trilInterp_paths
 
+def correctWeightsTract(weights, nStreamLines):
+    n_fascs, n_voxs = np.unique(weights, return_counts=True)
+    for n_fasc, n_vox in zip(n_fascs, n_voxs):
+        weights[weights == n_fasc] = weights[weights == n_fasc] / n_vox
+    return weights/nStreamLines
+
 metrics = {
     "dti" : ["FA", "AD", "RD", "MD"],
     "noddi" : ["icvf", "odi", "fbundle", "fextra", "fintra", "fiso" ],
@@ -310,7 +316,9 @@ def compute_metricsPerROI(p_code, folder_path):
             elif model in ["noddi", "diamond", "mf"]:
                 metric_path = "%s/%s_%s_%s.nii.gz" % (model_path, p_code, model, metric)
             
-            metric_map = nib.load(metric_path).get_fdata()
+            metric_map : Nifti1Image = nib.load(metric_path)
+            affine_info = metric_map.affine
+            metric_map = metric_map.get_fdata()
 
             for tract_filename in os.listdir(tracts_path):
                 tract_name_ext = tract_filename.split(".")
@@ -328,8 +336,11 @@ def compute_metricsPerROI(p_code, folder_path):
                         trk.to_vox()
                         trk.to_corner()
                         density_map = get_streamline_density(trk)
-                        density_maps[tract_path] = density_map
                         m[tract_name + "_nTracts"] =  get_streamline_count(trk)
+                        density_map = correctWeightsTract(density_map, m[tract_name + "_nTracts"])
+                        
+                        density_maps[tract_path] = density_map
+                        nib.save(nib.Nift1Image(density_maps[tract_path], affine_info), "%s/masks/%s_%s_tract.nii.gz" % (subject_path, p_code, tract_name))
                     else:
                         density_map = density_maps[tract_path]
 

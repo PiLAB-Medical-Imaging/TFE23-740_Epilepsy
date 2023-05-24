@@ -124,9 +124,6 @@ convex_hull = {
 }
 
 dilatations = {
-    "parietal-lobe" : 4,
-    "occipital-lobe" : 4,
-    "frontalNoOrbito-lobe" : 1,
     "thalamus-insula-hull" : 15
 }
 
