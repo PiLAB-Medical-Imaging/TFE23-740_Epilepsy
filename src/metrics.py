@@ -340,7 +340,7 @@ def compute_metricsPerROI(p_code, folder_path):
                         density_map = correctWeightsTract(density_map, m[tract_name + "_nTracts"])
                         
                         density_maps[tract_path] = density_map
-                        nib.save(nib.Nift1Image(density_maps[tract_path], affine_info), "%s/masks/%s_%s_tract.nii.gz" % (subject_path, p_code, tract_name))
+                        nib.save(nib.Nifti1Image(density_maps[tract_path], affine_info), "%s/masks/%s_%s_tract.nii.gz" % (subject_path, p_code, tract_name))
                     else:
                         density_map = density_maps[tract_path]
 
