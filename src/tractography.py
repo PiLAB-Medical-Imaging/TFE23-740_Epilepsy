@@ -8,6 +8,7 @@ import ants
 import nibabel as nib
 
 from dipy.io.streamline import load_tractogram, save_trk
+from dipy.tracking.utils import length
 from unravel.utils import *
 from nibabel import Nifti1Image
 from params import *
@@ -36,7 +37,7 @@ tracts = {
 
         "fornix":
             {
-                "seed_images": ["hippocampus"],
+                "seed_images": ["hippocampus", "amygdala"],
                 "include" : ["mammillary-body"],
                 "include_ordered" : ["plane-fornix", "plane-ort-fornix", "plane-mammillary-body", "plane1-mammillary-body"], 
                 # Change Thalamus-Proper to Thalamus depending on the version of freesurfer
@@ -371,38 +372,35 @@ def get_mask(mask_path, subj_id):
     roi_names["left"] = {}
     roi_names["right"]= {}
 
-    for path, _, files in os.walk(mask_path):
-        for file in files:
-            fileName_ext = file.split(".")
-            fileName = fileName_ext[0]
-            ext = "."+".".join(fileName_ext[1:])
-            if ext != ".nii.gz" :
-                continue
-    
-            roiName = fileName.split(subj_id+"_")[1].split("_")[0].lower().split("-")
-            if "left" not in roiName and "right" not in roiName and "lh" not in roiName and "rh" not in roiName and "both" not in roiName:
-                if roiName[0] == "csf" or len(roiName) >= 2 :
-                    roiName.insert(0, "both")
-                else :
-                    continue
-            if len(roiName) < 2:
-                    continue
-            name = None; side = None; isCortex = None
+    for file in os.listdir(mask_path):
+        if not file.endswith(".nii.gz"):
+            continue
+        fileName = file.split(".")[0]
 
-            if "ctx" != roiName[0]:
-                side, name = roiName[0], "-".join(roiName[1:])
-                isCortex = False
+        roiName = fileName.split(subj_id+"_")[1].split("_")[0].lower().split("-")
+        if "left" not in roiName and "right" not in roiName and "lh" not in roiName and "rh" not in roiName and "both" not in roiName:
+            if roiName[0] == "csf" or len(roiName) >= 2 :
+                roiName.insert(0, "both")
             else :
-                side, name = roiName[1], "-".join(roiName[2:])
-                side = "left" if side == "lh" else "right"
-                isCortex = True
-            
-            if side == "both":
-                roi_names["left"][name] = ROI(name, path+"/"+file, isCortex)
-                roi_names["right"][name] = ROI(name, path+"/"+file, isCortex)
                 continue
+        if len(roiName) < 2:
+                continue
+        name = None; side = None; isCortex = None
 
-            roi_names[side][name] = ROI(name, path+"/"+file, isCortex)
+        if "ctx" != roiName[0]:
+            side, name = roiName[0], "-".join(roiName[1:])
+            isCortex = False
+        else :
+            side, name = roiName[1], "-".join(roiName[2:])
+            side = "left" if side == "lh" else "right"
+            isCortex = True
+        
+        if side == "both":
+            roi_names["left"][name] = ROI(name, mask_path+"/"+file, isCortex)
+            roi_names["right"][name] = ROI(name, mask_path+"/"+file, isCortex)
+            continue
+
+        roi_names[side][name] = ROI(name, mask_path+"/"+file, isCortex)
 
     return roi_names
 
@@ -452,6 +450,45 @@ def convertTck2Trk(subj_folder_path, subj_id, tck_path):
     print("Converting %s" % tck_path)
     tract = load_tractogram(tck_path, subj_folder_path+"/dMRI/preproc/"+subj_id+"_dmri_preproc.nii.gz")
     save_trk(tract, tck_path[:-3]+'trk')
+
+def removeOutliers(tck_path):
+    """
+    Remotion of outliers streamlines with the IQR rule
+    """
+    if not os.path.isfile(tck_path): # only if there was an error during the tractography, to not block everything
+        return
+    
+    trk_path_noExt = tck_path[:-4]
+    removed_path = trk_path_noExt+"_rmvd.tck"
+
+
+    bundle  = nib.streamlines.load(tck_path).streamlines
+    lengths = list(length(bundle))
+    if len(lengths) > 0:
+        q1 = np.quantile(lengths, 0.20)
+        q3 = np.quantile(lengths, 0.80)
+    else:
+        q1 = 0
+        q3 = 0
+    iqr = q3 - q1
+    upper = q3 + 1.5*iqr
+    lower = q1 - 1.5*iqr
+
+    if upper < 0: upper = 0
+    if lower < 0: lower = 0
+    print(lower, upper)
+
+    # Save the difference tracts (The ones that have been removed)
+    cmd = "tckedit -maxlength %f -force %s %s_lower.tck && tckedit -minlength %f -force %s %s_upper.tck && tckedit -force %s_lower.tck %s_upper.tck %s" % (lower, tck_path, trk_path_noExt, upper, tck_path, trk_path_noExt, trk_path_noExt, trk_path_noExt, removed_path)
+    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+    process.wait()
+    os.remove(trk_path_noExt+"_lower.tck"); os.remove(trk_path_noExt+"_upper.tck")
+
+    # Remove the outliers
+    cmd = "tckedit -minlength %f -maxlength %f -force %s %s" % (lower, upper, tck_path, tck_path)
+    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+    process.wait()
+    
 
 def compute_tracts(p_code, folder_path, extract_roi, tract):
     print("Working on %s" % p_code)
@@ -530,17 +567,17 @@ def compute_tracts(p_code, folder_path, extract_roi, tract):
             if not areAllROIs: # All the mask must be present
                 continue
 
-            if len(opts["include_ordered"]) > 0 and len(opts["seed_images"]) > 1:
-                print("The case of more seed_regions and an ordered list of regions is not handled by this program")
-                continue
-
             output_name = side+"-"+zone
             output_path = subj_folder_path+"/dMRI/tractography/"+output_name+".tck"
 
+            print(json.dumps(opts, indent=2))
+
             # forward try at maximum 3 times to find something
             for _ in range(3):
-                output_path_forward = find_tract(subj_folder_path, p_code, opts["seed_images"], opts["include"], opts["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_to.tmp")
-                nTracts = get_streamline_count(load_tractogram(output_path_forward, "same"))
+                output_path_forward = find_tract(subj_folder_path, p_code, opts["seed_images"], opts["include"], opts["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_to")
+
+                trk = load_tractogram(output_path_forward, subj_folder_path + "/dMRI/ODF/MSMT-CSD/"+p_code+"_MSMT-CSD_WM_ODF.nii.gz")
+                nTracts = get_streamline_count(trk)
                 if nTracts > 0:
                     break
 
@@ -555,20 +592,70 @@ def compute_tracts(p_code, folder_path, extract_roi, tract):
                 optsReverse["include_ordered"] = opts["include_ordered"][::-1][1:]
                 optsReverse["include_ordered"].extend(opts["seed_images"])
                 optsReverse["include"] = opts["include"]
+            else:
+                optsReverse["seed_images"] = []
+                optsReverse["seed_images"].append(opts["include_ordered"][-1])
+                optsReverse["include_ordered"] = opts["include_ordered"][::-1][1:]
+                optsReverse["include"] = opts["include"]
 
             # backward try at maximum 3 times to find something
             for _ in range(3):
-                output_path_backward = find_tract(subj_folder_path, p_code, optsReverse["seed_images"], optsReverse["include"], optsReverse["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_from.tmp")
-                nTracts = get_streamline_count(load_tractogram(output_path_forward, "same"))
+                output_path_backward = ""
+                if len(opts["include_ordered"]) > 0 and len(opts["seed_images"]) > 1:
+                    output_path_backward = subj_folder_path+"/dMRI/tractography/"+output_name+"_from"
+                    cmd = "tckedit -force" # command to do the union of all the tracts
+        
+                    # The reverse of more seed regions
+                    for i, seed_path in enumerate(opts["seed_images"]):
+                        optsReverse["include_ordered"].append(seed_path)
+                        cmd = cmd + " " + output_path_backward + str(i) + ".tck"
+                        # # #   
+
+                        find_tract(subj_folder_path, p_code, optsReverse["seed_images"], optsReverse["include"], optsReverse["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_from" + str(i))
+
+                        # # #
+                        optsReverse["include_ordered"].pop()
+
+                    # Union of the tracts
+                    cmd = cmd + " " + output_path_backward + ".tck"
+                    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+                    process.wait()
+
+                    # remove the temp file
+                    for i, seed_path in enumerate(opts["seed_images"]):
+                        os.remove(output_path_backward + str(i) + ".tck")
+
+                    output_path_backward = output_path_backward + ".tck"
+
+                else:
+                    # The reverse of one seed region
+                    output_path_backward = find_tract(subj_folder_path, p_code, optsReverse["seed_images"], optsReverse["include"], optsReverse["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_from")
+
+                # check that there is at least some tract, for 3 times
+                trk = load_tractogram(output_path_backward, subj_folder_path + "/dMRI/ODF/MSMT-CSD/"+p_code+"_MSMT-CSD_WM_ODF.nii.gz")
+                nTracts = get_streamline_count(trk)
                 if nTracts > 0:
                     break
 
             # select both tracks 
             if os.path.isfile(output_path_forward) and os.path.isfile(output_path_backward):
-                cmd = "tckedit -force %s %s %s" % (output_path_forward, output_path_backward, output_path)
+                removeOutliers(output_path_forward)
+                removeOutliers(output_path_backward)
+
+                # Union of the removed tracts in forward and backward
+                cmd = "tckedit -force %s %s %s" % (output_path_forward[:-4] + "_rmvd.tck", output_path_backward[:-4] + "_rmvd.tck", output_path[:-4] + "_rmvd.tck")
                 process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
                 process.wait()
 
+                os.remove(output_path_forward[:-4] + "_rmvd.tck"); 
+                os.remove(output_path_backward[:-4] + "_rmvd.tck")
+
+                convertTck2Trk(subj_folder_path, p_code, output_path[:-4] + "_rmvd.tck")
+
+                # Union of the track in forward and backward
+                cmd = "tckedit -force %s %s %s" % (output_path_forward, output_path_backward, output_path)
+                process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+                process.wait()
                 os.remove(output_path_forward); os.remove(output_path_backward)
 
                 convertTck2Trk(subj_folder_path, p_code, output_path)
