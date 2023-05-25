@@ -250,6 +250,9 @@ def trilinearInterpROI(subj_path, subj_id, masks : dict):
         trilInterp_paths.append((name, out_trilInterp_path))
     return trilInterp_paths
 
+"""
+Explain of the correction in the thesis
+"""
 def correctWeightsTract(weights, nStreamLines):
     n_fascs, n_voxs = np.unique(weights, return_counts=True)
     for n_fasc, n_vox in zip(n_fascs, n_voxs):
@@ -335,12 +338,15 @@ def compute_metricsPerROI(p_code, folder_path):
                         trk = load_tractogram(tract_path, "same")
                         trk.to_vox()
                         trk.to_corner()
+
                         density_map = get_streamline_density(trk)
+                        nib.save(nib.Nifti1Image(density_map, affine_info), "%s/masks/%s_%s_tractNoCorr.nii.gz" % (subject_path, p_code, tract_name))
+
                         m[tract_name + "_nTracts"] =  get_streamline_count(trk)
                         density_map = correctWeightsTract(density_map, m[tract_name + "_nTracts"])
                         
                         density_maps[tract_path] = density_map
-                        nib.save(nib.Nifti1Image(density_maps[tract_path], affine_info), "%s/masks/%s_%s_tract.nii.gz" % (subject_path, p_code, tract_name))
+                        nib.save(nib.Nifti1Image(density_map, affine_info), "%s/masks/%s_%s_tract.nii.gz" % (subject_path, p_code, tract_name))
                     else:
                         density_map = density_maps[tract_path]
 
