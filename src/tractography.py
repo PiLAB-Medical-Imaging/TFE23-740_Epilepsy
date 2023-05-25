@@ -8,6 +8,7 @@ import ants
 import nibabel as nib
 
 from dipy.io.streamline import load_tractogram, save_trk
+from unravel.utils import *
 from nibabel import Nifti1Image
 from params import *
 from skimage.morphology import convex_hull_image
@@ -536,8 +537,12 @@ def compute_tracts(p_code, folder_path, extract_roi, tract):
             output_name = side+"-"+zone
             output_path = subj_folder_path+"/dMRI/tractography/"+output_name+".tck"
 
-            # forward
-            output_path_forward = find_tract(subj_folder_path, p_code, opts["seed_images"], opts["include"], opts["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_to.tmp")
+            # forward try at maximum 3 times to find something
+            for _ in range(3):
+                output_path_forward = find_tract(subj_folder_path, p_code, opts["seed_images"], opts["include"], opts["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_to.tmp")
+                nTracts = get_streamline_count(load_tractogram(output_path_forward, "same"))
+                if nTracts > 0:
+                    break
 
             optsReverse = {}
             if len(opts["include_ordered"]) == 0: 
@@ -551,8 +556,12 @@ def compute_tracts(p_code, folder_path, extract_roi, tract):
                 optsReverse["include_ordered"].extend(opts["seed_images"])
                 optsReverse["include"] = opts["include"]
 
-            # backward
-            output_path_backward = find_tract(subj_folder_path, p_code, optsReverse["seed_images"], optsReverse["include"], optsReverse["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_from.tmp")
+            # backward try at maximum 3 times to find something
+            for _ in range(3):
+                output_path_backward = find_tract(subj_folder_path, p_code, optsReverse["seed_images"], optsReverse["include"], optsReverse["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_from.tmp")
+                nTracts = get_streamline_count(load_tractogram(output_path_forward, "same"))
+                if nTracts > 0:
+                    break
 
             # select both tracks 
             if os.path.isfile(output_path_forward) and os.path.isfile(output_path_backward):
