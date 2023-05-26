@@ -13,6 +13,10 @@ def main():
 
     ## Getting folder
     folder_path = get_folder(sys.argv)
+
+    if "-p" in sys.argv[1:]:
+        parIdx = sys.argv.index("-p") + 1 # the index of the parameter after the option
+        pat = sys.argv[parIdx]
     
     # check if the user wants to compute the ODF and compute it
     if "-odf" in sys.argv[1:]:
@@ -30,7 +34,7 @@ def main():
     tract = False
     if "-tract" in sys.argv[1:]:
         tract = True
-        time[0] += 20
+        time[0] += 21
         time[1] += 0
 
     time[0] += time[1]//60
@@ -40,6 +44,13 @@ def main():
     dest_success = folder_path + "/subjects/subj_list.json"
     with open(dest_success, 'r') as file:
         patient_list = json.load(file)
+
+    if "-p" in sys.argv[1:]:
+        if pat in patient_list:
+            patient_list = [pat]
+        else:
+            print("Error: The inserted patient doesn't exist")
+            exit(1)
 
     job_list = []
 

@@ -35,32 +35,32 @@ tracts = {
         #         "exclude" : ["hippocampus", "Thalamus-Proper", "Caudate", "Putamen", "Pallidum"]
         #     }
 
-        "fornix":
-            {
-                "seed_images": ["hippocampus", "amygdala"],
-                "include" : ["mammillary-body"],
-                "include_ordered" : ["plane-fornix", "plane-ort-fornix", "plane-mammillary-body", "plane1-mammillary-body"], 
-                # Change Thalamus-Proper to Thalamus depending on the version of freesurfer
-                "exclude" : ["Thalamus-Proper", "Caudate", "Putamen", "Pallidum"],
-                "cutoff" : 0.07,
-                "angle" : 25
-            },
-
-        "thalamus-AntCingCtx":
-            {
-                "seed_images": ["Thalamus-Proper"],
-                "include_ordered" : ["plane-cingulum", "plane-cingulate", "frontal-cingulate"],
-                "angle" : 30,
-                "cutoff" : 0.07,
-            },
-        "thalamus-Insula":
-            {
-                "seed_images": ["Thalamus-Proper"],
-                "include" : ["insula"],
-                "masks" : ["thalamus-insula-hull-dilated-15"],
-                "exclude" : ["hippocampus"],
-                "angle" : 20
-            },
+        # "fornix":
+        #     {
+        #         "seed_images": ["hippocampus", "amygdala"],
+        #         "include" : ["mammillary-body"],
+        #         "include_ordered" : ["plane-fornix", "plane-ort-fornix", "plane-mammillary-body", "plane1-mammillary-body"], 
+        #         # Change Thalamus-Proper to Thalamus depending on the version of freesurfer
+        #         "exclude" : ["Thalamus-Proper", "Caudate", "Putamen", "Pallidum"],
+        #         "cutoff" : 0.07,
+        #         "angle" : 25
+        #     },
+# 
+        # "thalamus-AntCingCtx":
+        #     {
+        #         "seed_images": ["Thalamus-Proper"],
+        #         "include_ordered" : ["plane-cingulum", "plane-cingulate", "frontal-cingulate"],
+        #         "angle" : 30,
+        #         "cutoff" : 0.07,
+        #     },
+        # "thalamus-Insula":
+        #     {
+        #         "seed_images": ["Thalamus-Proper"],
+        #         "include" : ["insula"],
+        #         "masks" : ["thalamus-insula-hull-dilated-15"],
+        #         "exclude" : ["hippocampus"],
+        #         "angle" : 20
+        #     },
 
         "sup-longi-fasci":
             { 
