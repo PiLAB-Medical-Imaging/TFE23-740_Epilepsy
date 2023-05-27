@@ -329,6 +329,9 @@ def compute_metricsPerROI(p_code, folder_path):
                     continue
                 tract_name, ext = tract_name_ext
 
+                if "rmvd" in tract_name:
+                    continue
+
                 if ext == "trk":
                     tract_path = os.path.join(tracts_path, tract_filename)
 
