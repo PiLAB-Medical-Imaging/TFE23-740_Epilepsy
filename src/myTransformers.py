@@ -332,22 +332,6 @@ class GeneticSelection(SelectorMixin, MetaEstimatorMixin, BaseEstimator):
     def _get_support_mask(self):
         # return the chromosome with the best score
         return
-
-class FilterSmall(SelectorMixin, BaseEstimator):
-
-    def __init__(self, threshold, discrete):
-        self.threshold = threshold
-        self.discrete_mask = np.array(discrete)
-
-    def fit(self, X, y=None):
-        self.mask_ = np.array(np.min(np.abs(X), axis=0) > self.threshold) | self.discrete_mask
-
-    def transform(self, X):
-        X = np.array(X)
-        return X[:, self._get_support_mask()]
-
-    def _get_support_mask(self):
-        return self.mask_
     
 if __name__ == "__main__":
     ## TESTS
