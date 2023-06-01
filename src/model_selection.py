@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import seaborn as sns
 import sys
 
 from params import *
@@ -21,8 +20,6 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.naive_bayes import GaussianNB, MultinomialNB, ComplementNB, BernoulliNB, CategoricalNB
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import confusion_matrix, balanced_accuracy_score, roc_auc_score
-
-sns.set_theme()
 
 def myScoreFunc(X, y):
     mi_score = mutual_info_classif(X, y)

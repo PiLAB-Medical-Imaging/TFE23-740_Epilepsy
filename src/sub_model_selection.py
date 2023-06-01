@@ -14,7 +14,7 @@ def main():
     ## Getting folder
     folder_path = get_folder(sys.argv)
 
-    time = [10, 0]
+    time = [1, 0]
 
     time[0] += time[1]//60
     time[1] %= 60
@@ -25,7 +25,7 @@ def main():
         "wrap" : "export MKL_NUM_THREADS=24 ; export OMP_NUM_THREADS=24 ; python -c 'from model_selection import model_selection; model_selection(\"%s\")'" % (folder_path),
         "job_name" :  "mod_sel",
         "ntasks" : 1,
-        "cpus_per_task" : 24,
+        "cpus_per_task" : 4,
         "mem_per_cpu" : 256,
         "time" : "%s:%s:00" % (str(time[0]), str(time[1])),
         "mail_user" : "michele.cerra@student.uclouvain.be",
