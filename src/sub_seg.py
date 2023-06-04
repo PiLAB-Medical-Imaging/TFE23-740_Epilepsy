@@ -24,7 +24,7 @@ def main():
             "wrap" : "recon-all -all -sd %s -s sub%02d_E1 -i %s/T1/sub%02d_E1_T1.nii.gz -qcache" % (seg_fold, i, folder_path, i),
             "job_name" : "Seg_" + str(i),
             "ntasks" : 1,
-            "cpus_per_task" : 4,
+            "cpus_per_task" : 1,
             "mem_per_cpu" : 4096,
             "time" : "20:00:00",
             "mail_user" : "michele.cerra@student.uclouvain.be",
