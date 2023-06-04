@@ -34,7 +34,7 @@ def main():
     tract = False
     if "-tract" in sys.argv[1:]:
         tract = True
-        time[0] += 21
+        time[0] += 3
         time[1] += 0
 
     time[0] += time[1]//60
@@ -52,11 +52,16 @@ def main():
             print("Error: The inserted patient doesn't exist")
             exit(1)
 
+    side = ""
+    if "-side" in sys.argv[1:]:
+        parIdx = sys.argv.index("-side") + 1 # the index of the parameter after the option
+        side = sys.argv[parIdx]
+
     job_list = []
 
     for p_code in patient_list:
         p_job = {
-            "wrap" : "export MKL_NUM_THREADS=4 ; export OMP_NUM_THREADS=4 ; python -c 'from tractography import compute_tracts; compute_tracts(\"%s\", \"%s\", %s, %s)'" % (p_code, folder_path, str(extract_roi), str(tract)),
+            "wrap" : "export MKL_NUM_THREADS=4 ; export OMP_NUM_THREADS=4 ; python -c 'from tractography import compute_tracts; compute_tracts(\"%s\", \"%s\", %s, %s, \"%s\")'" % (p_code, folder_path, str(extract_roi), str(tract), side),
             "job_name" :  p_code,
             "ntasks" : 1,
             "cpus_per_task" : 4,

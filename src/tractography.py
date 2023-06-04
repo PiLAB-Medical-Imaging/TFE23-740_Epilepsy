@@ -35,17 +35,17 @@ tracts = {
         #         "exclude" : ["hippocampus", "Thalamus-Proper", "Caudate", "Putamen", "Pallidum"]
         #     }
 
-        # "fornix":
-        #     {
-        #         "seed_images": ["hippocampus", "amygdala"],
-        #         "include" : ["mammillary-body"],
-        #         "include_ordered" : ["plane-fornix", "plane-ort-fornix", "plane-mammillary-body", "plane1-mammillary-body"], 
-        #         # Change Thalamus-Proper to Thalamus depending on the version of freesurfer
-        #         "exclude" : ["Thalamus-Proper", "Caudate", "Putamen", "Pallidum"],
-        #         "cutoff" : 0.07,
-        #         "angle" : 25
-        #     },
-# 
+        "fornix":
+            {
+                "seed_images": ["hippocampus", "amygdala"],
+                "include" : ["mammillary-body"],
+                "include_ordered" : ["plane-fornix", "plane-ort-fornix", "plane-mammillary-body", "plane1-mammillary-body"], 
+                # Change Thalamus-Proper to Thalamus depending on the version of freesurfer
+                "exclude" : ["Thalamus-Proper", "Caudate", "Putamen", "Pallidum"],
+                "cutoff" : 0.05,
+                "angle" : 25
+            },
+
         # "thalamus-AntCingCtx":
         #     {
         #         "seed_images": ["Thalamus-Proper"],
@@ -61,23 +61,23 @@ tracts = {
         #         "exclude" : ["hippocampus"],
         #         "angle" : 20
         #     },
-
-        "sup-longi-fasci":
-            { 
-                "seed_images" : ["frontal-lobe"],
-                "include" : ["parietal-lobe"],
-                "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
-                "angle" : 15,
-                "cutoff" : 0.09
-            },
-        "inf-longi-fasci":
-            { 
-                "seed_images" : ["occipital-lobe"],
-                "include" : ["temporal-lobe"],
-                "masks" : ["cerebral-white-matter", "occipital-lobe", "temporal-lobe"],
-                "angle" : 15,
-                "cutoff" : 0.09
-            },
+  
+        # "sup-longi-fasci":
+        #     { 
+        #         "seed_images" : ["frontal-lobe"],
+        #         "include" : ["parietal-lobe"],
+        #         "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
+        #         "angle" : 15,
+        #         "cutoff" : 0.09
+        #     },
+        # "inf-longi-fasci":
+        #     { 
+        #         "seed_images" : ["occipital-lobe"],
+        #         "include" : ["temporal-lobe"],
+        #         "masks" : ["cerebral-white-matter", "occipital-lobe", "temporal-lobe"],
+        #         "angle" : 15,
+        #         "cutoff" : 0.09
+        #     },
 
         # Non conto l'Inferior front-occipital ma devo scriverlo nella tesi xche non l'ho messo.. la ragione e qualche foto
         # "inf-front-occipital-fasci":
@@ -490,7 +490,7 @@ def removeOutliers(tck_path):
     process.wait()
     
 
-def compute_tracts(p_code, folder_path, extract_roi, tract):
+def compute_tracts(p_code, folder_path, extract_roi, tract, onlySide:str):
     print("Working on %s" % p_code)
 
     subj_folder_path = folder_path + '/subjects/' + p_code
@@ -537,6 +537,9 @@ def compute_tracts(p_code, folder_path, extract_roi, tract):
 
     for zone in tracts.keys():
         for side in ["left", "right"]:
+            if onlySide!="" and onlySide.lower() != side.lower():
+                continue
+
             opts = {}
 
             opts["seed_images"] = []
@@ -682,7 +685,12 @@ def main():
     if "-tract" in sys.argv[1:]:
         tract = True
 
-    compute_tracts(p, folder_path, extract_roi, tract)
+    side = ""
+    if "-side" in sys.argv[1:]:
+        parIdx = sys.argv.index("-side") + 1 # the index of the parameter after the option
+        side = sys.argv[parIdx]
+
+    compute_tracts(p, folder_path, extract_roi, tract, side)
 
 if __name__ == "__main__":
     exit(main())
