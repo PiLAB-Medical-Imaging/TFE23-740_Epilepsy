@@ -23,6 +23,7 @@ def main():
         study = elikopy.core.Elikopy(folder_path, cuda=False, slurm=True, slurm_email="michele.cerra@student.uclouvain.be")
 
         study.odf_msmtcsd()
+        return 0
 
     time = [0, 1]
 
