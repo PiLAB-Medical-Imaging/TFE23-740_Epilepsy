@@ -61,6 +61,9 @@ def main():
     job_list = []
 
     for p_code in patient_list:
+        if not os.path.isdir(folder_path + '/subjects/' + p_code + "/dMRI/tractography/"):
+            os.mkdir(folder_path + '/subjects/' + p_code + "/dMRI/tractography/")
+
         p_job = {
             "wrap" : "export MKL_NUM_THREADS=4 ; export OMP_NUM_THREADS=4 ; python -c 'from tractography import compute_tracts; compute_tracts(\"%s\", \"%s\", %s, %s, \"%s\")'" % (p_code, folder_path, str(extract_roi), str(tract), side),
             "job_name" :  p_code,
