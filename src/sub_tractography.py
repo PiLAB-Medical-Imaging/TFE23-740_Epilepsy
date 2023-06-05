@@ -42,7 +42,7 @@ def main():
     time[1] %= 60
 
     ## Read the list of subjects and for each subject do the tractography
-    dest_success = folder_path + "/subjects/subj_list.json"
+    dest_success = folder_path + "/subjects/subj_list1.json"
     with open(dest_success, 'r') as file:
         patient_list = json.load(file)
 
