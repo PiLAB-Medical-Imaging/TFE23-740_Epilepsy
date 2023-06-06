@@ -5,3 +5,4 @@ study/static_files/mf_dic
 .vscode/
 prova/
 *.tar.gz
+env/
