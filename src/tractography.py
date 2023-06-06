@@ -46,38 +46,38 @@ tracts = {
                 "angle" : 25
             },
 
-        "thalamus-AntCingCtx":
-            {
-                "seed_images": ["Thalamus-Proper"],
-                "include_ordered" : ["plane-cingulum", "plane-cingulate", "frontal-cingulate"],
-                "angle" : 30,
-                "cutoff" : 0.07,
-            },
-        "thalamus-Insula":
-            {
-                "seed_images": ["Thalamus-Proper"],
-                "include" : ["insula"],
-                "masks" : ["thalamus-insula-hull-dilated-15"],
-                "exclude" : ["hippocampus"],
-                "angle" : 20
-            },
-            
-        "sup-longi-fasci":
-            { 
-                "seed_images" : ["frontal-lobe"],
-                "include" : ["parietal-lobe"],
-                "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
-                "angle" : 15,
-                "cutoff" : 0.09
-            },
-        "inf-longi-fasci":
-            { 
-                "seed_images" : ["occipital-lobe"],
-                "include" : ["temporal-lobe"],
-                "masks" : ["cerebral-white-matter", "occipital-lobe", "temporal-lobe"],
-                "angle" : 15,
-                "cutoff" : 0.09
-            },
+        # "thalamus-AntCingCtx":
+        #     {
+        #         "seed_images": ["Thalamus-Proper"],
+        #         "include_ordered" : ["plane-cingulum", "plane-cingulate", "frontal-cingulate"],
+        #         "angle" : 30,
+        #         "cutoff" : 0.07,
+        #     },
+        # "thalamus-Insula":
+        #     {
+        #         "seed_images": ["Thalamus-Proper"],
+        #         "include" : ["insula"],
+        #         "masks" : ["thalamus-insula-hull-dilated-15"],
+        #         "exclude" : ["hippocampus"],
+        #         "angle" : 20
+        #     },
+        #     
+        # "sup-longi-fasci":
+        #     { 
+        #         "seed_images" : ["frontal-lobe"],
+        #         "include" : ["parietal-lobe"],
+        #         "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
+        #         "angle" : 15,
+        #         "cutoff" : 0.09
+        #     },
+        # "inf-longi-fasci":
+        #     { 
+        #         "seed_images" : ["occipital-lobe"],
+        #         "include" : ["temporal-lobe"],
+        #         "masks" : ["cerebral-white-matter", "occipital-lobe", "temporal-lobe"],
+        #         "angle" : 15,
+        #         "cutoff" : 0.09
+        #     },
 
         # Non conto l'Inferior front-occipital ma devo scriverlo nella tesi xche non l'ho messo.. la ragione e qualche foto
         # "inf-front-occipital-fasci":
@@ -575,8 +575,9 @@ def compute_tracts(p_code, folder_path, extract_roi, tract, onlySide:str):
 
             print(json.dumps(opts, indent=2))
 
-            # forward try at maximum 3 times to find something
-            for _ in range(3):
+            # decrement the cutoff to find a solution with more noise
+            original_cutoff = opts["cutoff"]
+            while opts["cutoff"] > 0:
                 output_path_forward = find_tract(subj_folder_path, p_code, opts["seed_images"], opts["include"], opts["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_to")
 
                 trk = load_tractogram(output_path_forward, subj_folder_path + "/dMRI/ODF/MSMT-CSD/"+p_code+"_MSMT-CSD_WM_ODF.nii.gz")
@@ -584,6 +585,9 @@ def compute_tracts(p_code, folder_path, extract_roi, tract, onlySide:str):
                 if nTracts > 0:
                     break
 
+                opts["cutoff"] -= 0.01
+            opts["cutoff"] = original_cutoff
+            
             optsReverse = {}
             if len(opts["include_ordered"]) == 0: 
                 optsReverse["seed_images"] = opts["include"]
@@ -601,8 +605,8 @@ def compute_tracts(p_code, folder_path, extract_roi, tract, onlySide:str):
                 optsReverse["include_ordered"] = opts["include_ordered"][::-1][1:]
                 optsReverse["include"] = opts["include"]
 
-            # backward try at maximum 3 times to find something
-            for _ in range(3):
+            # decrement the cutoff to find a solution with more noise
+            while opts["cutoff"] > 0:
                 output_path_backward = ""
                 if len(opts["include_ordered"]) > 0 and len(opts["seed_images"]) > 1:
                     output_path_backward = subj_folder_path+"/dMRI/tractography/"+output_name+"_from"
@@ -639,6 +643,9 @@ def compute_tracts(p_code, folder_path, extract_roi, tract, onlySide:str):
                 nTracts = get_streamline_count(trk)
                 if nTracts > 0:
                     break
+
+                opts["cutoff"] -= 0.01
+            opts["cutoff"] = original_cutoff
 
             # select both tracks 
             if os.path.isfile(output_path_forward) and os.path.isfile(output_path_backward):
