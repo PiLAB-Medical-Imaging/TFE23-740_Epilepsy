@@ -6,3 +6,4 @@ study/static_files/mf_dic
 prova/
 *.tar.gz
 env/
+.venv/
