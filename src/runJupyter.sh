@@ -1,1 +1,1 @@
-srun --spread-job -J kernJupy -c 8 -n 1 -t 00:30:00 --mem-per-cpu 1024 --cluster=$CLUSTER_NAME --pty bash -c 'ml load releases/2019b; ml load IPython/7.9.0-foss-2019b-Python-3.7.4; jupyter notebook --ip $(hostname -i) --no-browser'
+srun -J kernJupy -c 8 -n 1 -t 03:30:00 --mem-per-cpu 1024 --cluster=$CLUSTER_NAME --pty bash -c 'jupyter notebook --ip $(hostname -i) --no-browser'

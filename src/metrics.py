@@ -11,6 +11,7 @@ from unravel.utils import *
 from unravel.core import *
 from nibabel import Nifti1Image
 from numpy import linalg as LA
+from scipy import stats
 
 from params import *
 
@@ -20,12 +21,54 @@ def vcol(v):
 def vrow(v):
     return v.reshape(1, v.size)
 
-def w_mean(v, w):
+def pthPowerWeights(w, p):
+    wp = np.power(w, p)
+    return np.sum(wp)
+
+def w_mean(v, w, p=1):
     assert v.size == w.size
 
-    v = vcol(v)
+    v = np.power(vcol(v), p)
     w = vrow(w)
-    return np.ravel(np.dot(w,v)/np.sum(w))[0]
+
+    V1 = pthPowerWeights(w, 1)
+    return np.ravel(np.dot(w,v)/V1)[0]
+
+def w_mean_alt(v, w, K = 1000):
+    v = v.ravel()
+    w = w.ravel()
+    w = w/np.sum(w) # normalization
+
+    assert np.rint(w.sum()) == 1
+
+    ra = np.random.random(v.size*K)
+
+    #r = np.random.random(v.size*K)
+    # si hanno gli stessi risultati ma è velocissimo, ma ovviamente prende troppo memoria e con K elevati si blocca tutto
+    r = ra
+    r = vcol(r)
+    rep_col_r = np.tile(r, (1, w.size))
+
+    cumsum = w.cumsum()
+    cumsum = vrow(cumsum)
+    rep_row_cumsum = np.tile(cumsum, (v.size*K, 1))
+
+    weight_rand_idx = (rep_col_r <= rep_row_cumsum).argmax(axis=1)
+
+    ##################
+
+    #r = np.random.random(v.size*K)
+    r = ra
+    for i, rv in enumerate(r):
+        r[i:i+1] = (rv <= w.cumsum()).argmax()
+    r = np.array(r, dtype=int)
+    
+
+    print("\t", np.mean(v[r]))
+
+    print("\t", np.mean(v[weight_rand_idx]))
+
+    return 0
 
 def w_var(v, w):
     v = vcol(v)
@@ -33,15 +76,30 @@ def w_var(v, w):
 
     v_centr = v - w_mean(v, w) # centerinig the values
 
-    V1 = np.sum(w**1)
-    V2 = np.sum(w**2)
+    V_1 = pthPowerWeights(w, 1)
+    V_2 = pthPowerWeights(w, 2)
 
-    w_var = np.dot(w, v_centr**2)/V1 # m_2
+    m_2 = w_mean(v_centr, w, p=2) 
 
     with np.errstate(divide='ignore', invalid='ignore'):
-        w_var_unbias = V1**2/(V1**2-V2) * w_var # M_2
+        M_2 = V_1**2/(V_1**2-V_2) * m_2 
 
-    return np.ravel(w_var_unbias)[0]
+    return M_2
+
+def w_std_alt(v, w, K = 1000):
+    v = v.ravel()
+    w = w.ravel()
+    w = w/np.sum(w) # normalization
+
+    assert np.rint(w.sum()) == 1
+
+    r = np.random.random(v.size*K)
+    for i, rv in enumerate(r):
+        r[i:i+1] = (rv <= w.cumsum()).argmax()
+    r = np.array(r, dtype=int)
+
+    return stats.tstd(v[r])
+
 """
 @article{rimoldini2014weighted,
   title={Weighted skewness and kurtosis unbiased by sample size and Gaussian uncertainties},
@@ -59,16 +117,31 @@ def w_skew(v, w):
 
     v_centr = v - w_mean(v, w) # centerinig the values
 
-    V1 = np.sum(w**1)
-    V2 = np.sum(w**2)
-    V3 = np.sum(w**3)
+    V_1 = pthPowerWeights(w, 1)
+    V_2 = pthPowerWeights(w, 2)
+    V_3 = pthPowerWeights(w, 3)
 
-    w_skew = np.dot(w, v_centr**3)/V1 # m_3
+    m_3 = w_mean(v_centr, w, p=3)
 
     with np.errstate(divide='ignore', invalid='ignore'):
-        w_skew_unbias = V1**3/(V1**3-3*V1*V2+2*V3) * w_skew # M_3
+        M_3 = (V_1**3)/(V_1**3 - 3*V_1*V_2 + 2*V_3) * m_3 
 
-    return np.ravel(w_skew_unbias)[0]
+    return m_3
+
+def w_skew(v, w, K = 1000):
+    v = v.ravel()
+    w = w.ravel()
+    w = w/np.sum(w) # normalization
+
+    assert np.rint(w.sum()) == 1
+
+    r = np.random.random(v.size*K)
+    for i, rv in enumerate(r):
+        r[i:i+1] = (rv <= w.cumsum()).argmax()
+    r = np.array(r, dtype=int)
+
+    return stats.skew(v[r], bias=False)
+
 """
 @article{rimoldini2014weighted,
   title={Weighted skewness and kurtosis unbiased by sample size and Gaussian uncertainties},
@@ -86,19 +159,33 @@ def w_kurt(v, w):
 
     v_centr = v - w_mean(v, w) # centerinig the values
 
-    V1 = np.sum(w**1)
-    V2 = np.sum(w**2)
-    V3 = np.sum(w**3)
-    V4 = np.sum(w**4)
+    V_1 = pthPowerWeights(w, 1)
+    V_2 = pthPowerWeights(w, 2)
+    V_3 = pthPowerWeights(w, 3)
+    V_4 = pthPowerWeights(w, 4)
 
-    w_var = np.dot(w, v_centr**2)/V1 # m_2
-    w_kurt = np.dot(w, v_centr**4)/V1 # m_4
+    m_2 = w_mean(v_centr, w, p=2)
+    m_4 = w_mean(v_centr, w, p=4)
 
-    denominator = (V1**2 - V2)*(V1**4 - 6*V1**2*V2 + 8*V1*V3 + 3*V2**2 - 6*V4)
+    denominator = (V_1**2 - V_2)*(V_1**4 - 6*V_1**2*V_2 + 8*V_1*V_3 + 3*V_2**2 - 6*V_4)
     with np.errstate(divide='ignore', invalid='ignore'):
-        w_kurt_unbias = V1**2*(V1**4 - 3*V1**2*V2 + 2*V1*V3 + 3*V2**2 - 3*V4)/denominator * w_kurt - 3*V1**2*(2*V1**2*V2 - 2*V1*V3 - 3*V2**2 + 3*V4)/denominator * w_var**2
+        M_4 = V_1**2*(V_1**4 - 4*V_1*V_3 + 3*V_2**2)/denominator * m_4 - 3*V_1**2*(V_1**4 - 2*V_1**2*V_2 + 4*V_1*V_3 - 3*V_2**2)/denominator * m_2**2
 
-    return np.ravel(w_kurt_unbias)[0]
+    return M_4
+
+def w_kurt(v, w, K = 1000):
+    v = v.ravel()
+    w = w.ravel()
+    w = w/np.sum(w) # normalization
+
+    assert np.rint(w.sum()) == 1
+
+    r = np.random.random(v.size*K)
+    for i, rv in enumerate(r):
+        r[i:i+1] = (rv <= w.cumsum()).argmax()
+    r = np.array(r, dtype=int)
+
+    return stats.kurtosis(v[r], fisher=True, bias=False)
 
 def MD(eigvals):
     return np.mean(eigvals, axis=3)
@@ -257,7 +344,8 @@ def correctWeightsTract(weights, nStreamLines):
     n_fascs, n_voxs = np.unique(weights, return_counts=True)
     for n_fasc, n_vox in zip(n_fascs, n_voxs):
         weights[weights == n_fasc] = weights[weights == n_fasc] / n_vox
-    return weights/nStreamLines
+    #return weights/nStreamLines
+    return weights/np.sum(weights)
 
 metrics = {
     "dti" : ["FA", "AD", "RD", "MD"],
