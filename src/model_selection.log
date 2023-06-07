@@ -67,4 +67,80 @@ Scaler: StandardScaler , filter: f_classif
 ROC-AUC: 0.375 (0.247)
 ----------------------------
 Scaler: StandardScaler , filter: mutual_info_classif
-Exception ignored on calling ctypes callback function: <function _ThreadpoolInfo._find_modules_with_dl_iterate_phdr.<locals>.match_module_callback at 0x2ab6ac0404c0>
+Exception ignored on calling ctypes callback function: <function _ThreadpoolInfo._find_modules_with_dl_iterate_phdr.<locals>.match_module_callback at 0x2ae59ae650d0>
+Traceback (most recent call last):
+  File "/opt/cecisw/arch/easybuild/2021b/software/Python/3.9.6-GCCcore-11.2.0/lib/python3.9/site-packages/threadpoolctl.py", line 400, in match_module_callback
+[IPKernelApp] Exception in execute request:
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mKeyboardInterrupt[0m                         Traceback (most recent call last)
+[0;32m/tmp/ipykernel_66128/3168183556.py[0m in [0;36m<module>[0;34m[0m
+[1;32m     62[0m         ])
+[1;32m     63[0m [0;34m[0m[0m
+[0;32m---> 64[0;31m         [0mestimate_score_NestedCV[0m[0;34m([0m[0mpipe[0m[0;34m,[0m [0mX[0m[0;34m,[0m [0my[0m[0;34m,[0m [0mskfOuter[0m[0;34m,[0m [0mfig[0m[0;34m,[0m [0mname[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     65[0m [0;34m[0m[0m
+[1;32m     66[0m [0;31m# Forward method[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/tmp/ipykernel_66128/3420206608.py[0m in [0;36mestimate_score_NestedCV[0;34m(estimator, X, y, cvOuter, fig, name)[0m
+[1;32m     28[0m [0;34m[0m[0m
+[1;32m     29[0m     [0;31m# Outer Cross-Validaton for the estimation of the score[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 30[0;31m     scores = cross_val_score(
+[0m[1;32m     31[0m         [0mestimator[0m[0;34m,[0m [0mX[0m[0;34m,[0m [0my[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     32[0m         [0mscoring[0m[0;34m=[0m[0;34m"roc_auc"[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/.local/lib/python3.9/site-packages/sklearn/model_selection/_validation.py[0m in [0;36mcross_val_score[0;34m(estimator, X, y, groups, scoring, cv, n_jobs, verbose, fit_params, pre_dispatch, error_score)[0m
+[1;32m    513[0m     [0mscorer[0m [0;34m=[0m [0mcheck_scoring[0m[0;34m([0m[0mestimator[0m[0;34m,[0m [0mscoring[0m[0;34m=[0m[0mscoring[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    514[0m [0;34m[0m[0m
+[0;32m--> 515[0;31m     cv_results = cross_validate(
+[0m[1;32m    516[0m         [0mestimator[0m[0;34m=[0m[0mestimator[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    517[0m         [0mX[0m[0;34m=[0m[0mX[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/.local/lib/python3.9/site-packages/sklearn/model_selection/_validation.py[0m in [0;36mcross_validate[0;34m(estimator, X, y, groups, scoring, cv, n_jobs, verbose, fit_params, pre_dispatch, return_train_score, return_estimator, error_score)[0m
+[1;32m    264[0m     [0;31m# independent, and that it is pickle-able.[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    265[0m     [0mparallel[0m [0;34m=[0m [0mParallel[0m[0;34m([0m[0mn_jobs[0m[0;34m=[0m[0mn_jobs[0m[0;34m,[0m [0mverbose[0m[0;34m=[0m[0mverbose[0m[0;34m,[0m [0mpre_dispatch[0m[0;34m=[0m[0mpre_dispatch[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 266[0;31m     results = parallel(
+[0m[1;32m    267[0m         delayed(_fit_and_score)(
+[1;32m    268[0m             [0mclone[0m[0;34m([0m[0mestimator[0m[0;34m)[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/.local/lib/python3.9/site-packages/sklearn/utils/parallel.py[0m in [0;36m__call__[0;34m(self, iterable)[0m
+[1;32m     61[0m             [0;32mfor[0m [0mdelayed_func[0m[0;34m,[0m [0margs[0m[0;34m,[0m [0mkwargs[0m [0;32min[0m [0miterable[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     62[0m         )
+[0;32m---> 63[0;31m         [0;32mreturn[0m [0msuper[0m[0;34m([0m[0;34m)[0m[0;34m.[0m[0m__call__[0m[0;34m([0m[0miterable_with_config[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     64[0m [0;34m[0m[0m
+[1;32m     65[0m [0;34m[0m[0m
+
+[0;32m~/.local/lib/python3.9/site-packages/joblib/parallel.py[0m in [0;36m__call__[0;34m(self, iterable)[0m
+[1;32m   1096[0m [0;34m[0m[0m
+[1;32m   1097[0m             [0;32mwith[0m [0mself[0m[0;34m.[0m[0m_backend[0m[0;34m.[0m[0mretrieval_context[0m[0;34m([0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1098[0;31m                 [0mself[0m[0;34m.[0m[0mretrieve[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   1099[0m             [0;31m# Make sure that we get a last message telling us we are done[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1100[0m             [0melapsed_time[0m [0;34m=[0m [0mtime[0m[0;34m.[0m[0mtime[0m[0;34m([0m[0;34m)[0m [0;34m-[0m [0mself[0m[0;34m.[0m[0m_start_time[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/.local/lib/python3.9/site-packages/joblib/parallel.py[0m in [0;36mretrieve[0;34m(self)[0m
+[1;32m    973[0m             [0;32mtry[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    974[0m                 [0;32mif[0m [0mgetattr[0m[0;34m([0m[0mself[0m[0;34m.[0m[0m_backend[0m[0;34m,[0m [0;34m'supports_timeout'[0m[0;34m,[0m [0;32mFalse[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 975[0;31m                     [0mself[0m[0;34m.[0m[0m_output[0m[0;34m.[0m[0mextend[0m[0;34m([0m[0mjob[0m[0;34m.[0m[0mget[0m[0;34m([0m[0mtimeout[0m[0;34m=[0m[0mself[0m[0;34m.[0m[0mtimeout[0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    976[0m                 [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    977[0m                     [0mself[0m[0;34m.[0m[0m_output[0m[0;34m.[0m[0mextend[0m[0;34m([0m[0mjob[0m[0;34m.[0m[0mget[0m[0;34m([0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/.local/lib/python3.9/site-packages/joblib/_parallel_backends.py[0m in [0;36mwrap_future_result[0;34m(future, timeout)[0m
+[1;32m    565[0m         AsyncResults.get from multiprocessing."""
+[1;32m    566[0m         [0;32mtry[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 567[0;31m             [0;32mreturn[0m [0mfuture[0m[0;34m.[0m[0mresult[0m[0;34m([0m[0mtimeout[0m[0;34m=[0m[0mtimeout[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    568[0m         [0;32mexcept[0m [0mCfTimeoutError[0m [0;32mas[0m [0me[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    569[0m             [0;32mraise[0m [0mTimeoutError[0m [0;32mfrom[0m [0me[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/cecisw/arch/easybuild/2021b/software/Python/3.9.6-GCCcore-11.2.0/lib/python3.9/concurrent/futures/_base.py[0m in [0;36mresult[0;34m(self, timeout)[0m
+[1;32m    438[0m                     [0;32mreturn[0m [0mself[0m[0;34m.[0m[0m__get_result[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    439[0m [0;34m[0m[0m
+[0;32m--> 440[0;31m                 [0mself[0m[0;34m.[0m[0m_condition[0m[0;34m.[0m[0mwait[0m[0;34m([0m[0mtimeout[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    441[0m [0;34m[0m[0m
+[1;32m    442[0m                 [0;32mif[0m [0mself[0m[0;34m.[0m[0m_state[0m [0;32min[0m [0;34m[[0m[0mCANCELLED[0m[0;34m,[0m [0mCANCELLED_AND_NOTIFIED[0m[0;34m][0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/cecisw/arch/easybuild/2021b/software/Python/3.9.6-GCCcore-11.2.0/lib/python3.9/threading.py[0m in [0;36mwait[0;34m(self, timeout)[0m
+[1;32m    310[0m         [0;32mtry[0m[0;34m:[0m    [0;31m# restore state no matter what (e.g., KeyboardInterrupt)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    311[0m             [0;32mif[0m [0mtimeout[0m [0;32mis[0m [0;32mNone[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 312[0;31m                 [0mwaiter[0m[0;34m.[0m[0macquire[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    313[0m                 [0mgotit[0m [0;34m=[0m [0;32mTrue[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    314[0m             [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mKeyboardInterrupt[0m: 

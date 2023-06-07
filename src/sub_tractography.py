@@ -17,13 +17,6 @@ def main():
     if "-p" in sys.argv[1:]:
         parIdx = sys.argv.index("-p") + 1 # the index of the parameter after the option
         pat = sys.argv[parIdx]
-    
-    # check if the user wants to compute the ODF and compute it
-    if "-odf" in sys.argv[1:]:
-        study = elikopy.core.Elikopy(folder_path, cuda=False, slurm=True, slurm_email="michele.cerra@student.uclouvain.be")
-
-        study.odf_msmtcsd()
-        return 0
 
     time = [0, 1]
 
@@ -42,7 +35,7 @@ def main():
     time[1] %= 60
 
     ## Read the list of subjects and for each subject do the tractography
-    dest_success = folder_path + "/subjects/subj_list1.json"
+    dest_success = folder_path + "/subjects/subj_list.json"
     with open(dest_success, 'r') as file:
         patient_list = json.load(file)
 
@@ -57,6 +50,14 @@ def main():
     if "-side" in sys.argv[1:]:
         parIdx = sys.argv.index("-side") + 1 # the index of the parameter after the option
         side = sys.argv[parIdx]
+
+
+    # check if the user wants to compute the ODF and compute it
+    if "-odf" in sys.argv[1:]: 
+        study = elikopy.core.Elikopy(folder_path, cuda=False, slurm=True, slurm_email="michele.cerra@student.uclouvain.be")
+
+        study.odf_msmtcsd(patient_list_m=patient_list)
+        return 0
 
     job_list = []
 
