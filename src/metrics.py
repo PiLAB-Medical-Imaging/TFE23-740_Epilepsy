@@ -35,40 +35,37 @@ def w_mean(v, w, p=1):
     return np.ravel(np.dot(w,v)/V1)[0]
 
 def w_mean_alt(v, w, K = 1000):
-    v = v.ravel()
-    w = w.ravel()
+    v = v[w>0]
+    w = w[w>0]
     w = w/np.sum(w) # normalization
 
     assert np.rint(w.sum()) == 1
 
     ra = np.random.random(v.size*K)
 
-    #r = np.random.random(v.size*K)
-    # si hanno gli stessi risultati ma è velocissimo, ma ovviamente prende troppo memoria e con K elevati si blocca tutto
-    r = ra
-    r = vcol(r)
-    rep_col_r = np.tile(r, (1, w.size))
-
-    cumsum = w.cumsum()
-    cumsum = vrow(cumsum)
-    rep_row_cumsum = np.tile(cumsum, (v.size*K, 1))
-
-    weight_rand_idx = (rep_col_r <= rep_row_cumsum).argmax(axis=1)
-
-    ##################
+    ## #r = np.random.random(v.size*K)
+    ## # si hanno gli stessi risultati ma è velocissimo, ma ovviamente prende troppo memoria e con K elevati si blocca tutto
+    ## r = ra
+    ## r = vcol(r)
+    ## rep_col_r = np.tile(r, (1, w.size))
+## 
+    ## cumsum = w.cumsum()
+    ## cumsum = vrow(cumsum)
+    ## rep_row_cumsum = np.tile(cumsum, (v.size*K, 1))
+## 
+    ## weight_rand_idx = (rep_col_r <= rep_row_cumsum).argmax(axis=1)
+## 
+    ## ##################
 
     #r = np.random.random(v.size*K)
     r = ra
     for i, rv in enumerate(r):
         r[i:i+1] = (rv <= w.cumsum()).argmax()
     r = np.array(r, dtype=int)
-    
 
-    print("\t", np.mean(v[r]))
+    # print("\t", np.mean(v[weight_rand_idx]))
 
-    print("\t", np.mean(v[weight_rand_idx]))
-
-    return 0
+    return np.mean(v[r])
 
 def w_var(v, w):
     v = vcol(v)
@@ -87,8 +84,8 @@ def w_var(v, w):
     return M_2
 
 def w_std_alt(v, w, K = 1000):
-    v = v.ravel()
-    w = w.ravel()
+    v = v[w>0].ravel()
+    w = w[w>0].ravel()
     w = w/np.sum(w) # normalization
 
     assert np.rint(w.sum()) == 1
@@ -129,8 +126,8 @@ def w_skew(v, w):
     return m_3
 
 def w_skew(v, w, K = 1000):
-    v = v.ravel()
-    w = w.ravel()
+    v = v[w>0].ravel()
+    w = w[w>0].ravel()
     w = w/np.sum(w) # normalization
 
     assert np.rint(w.sum()) == 1
@@ -174,8 +171,8 @@ def w_kurt(v, w):
     return M_4
 
 def w_kurt(v, w, K = 1000):
-    v = v.ravel()
-    w = w.ravel()
+    v = v[w>0].ravel()
+    w = w[w>0].ravel()
     w = w/np.sum(w) # normalization
 
     assert np.rint(w.sum()) == 1
@@ -340,12 +337,22 @@ def trilinearInterpROI(subj_path, subj_id, masks : dict):
 """
 Explain of the correction in the thesis
 """
-def correctWeightsTract(weights, nStreamLines):
-    n_fascs, n_voxs = np.unique(weights, return_counts=True)
-    for n_fasc, n_vox in zip(n_fascs, n_voxs):
-        weights[weights == n_fasc] = weights[weights == n_fasc] / n_vox
-    #return weights/nStreamLines
-    return weights/np.sum(weights)
+def correctWeightsTract(weights):
+    # n_fascs, n_voxs = np.unique(weights, return_counts=True) 
+    # # Unique isn't feaseible in this problem because is very likely that each weight is different from the others
+    # bins = n_streamlines / 5 # groups of 5 streamlines
+    # n_vox, n_fascs_interval = np.histogram(weights[weights>=0].ravel(), bins=int(bins))
+# 
+    # print((n_voxs==1).sum(), (weights>0).sum())
+    # for n_fasc, n_vox in zip(n_fascs, n_voxs):
+    #     weights[weights == n_fasc] = weights[weights == n_fasc] / n_vox
+    # #return weights/nStreamLines
+    # return weights/np.sum(weights)
+
+    thres = weights.max()*0.1
+    weights[weights<thres] = 0
+
+    return weights / weights.sum() #normalize
 
 metrics = {
     "dti" : ["FA", "AD", "RD", "MD"],
@@ -431,7 +438,7 @@ def compute_metricsPerROI(p_code, folder_path):
                         trk.to_corner()
 
                         density_map = get_streamline_density(trk)
-                        nib.save(nib.Nifti1Image(density_map, affine_info), "%s/masks/%s_%s_tractNoCorr.nii.gz" % (subject_path, p_code, tract_name))
+                        nib.save(nib.Nifti1Image(density_map / density_map.sum(), affine_info), "%s/masks/%s_%s_tractNoCorr.nii.gz" % (subject_path, p_code, tract_name))
 
                         m[tract_name + "_nTracts"] =  get_streamline_count(trk)
                         density_map = correctWeightsTract(density_map, m[tract_name + "_nTracts"])
