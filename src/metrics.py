@@ -322,7 +322,7 @@ def trilinearInterpROI(subj_path, subj_id, masks : dict):
         nib.save(mask_map, out_path) # we overwrite the old one
 
         # Trilinear interpolation
-        print("Interpolation: %s" % (name))
+        # print("Interpolation: %s" % (name))
         out_trilInterp_path = "%s/masks/%s_%s-TrilInterp_aparc+aseg.nii.gz" % (subj_path, subj_id, name)
         cmd = "mri_vol2vol --reg %s/transf_dMRI_t1.dat --targ %s --mov %s/dMRI/preproc/%s_dmri_preproc.nii.gz --o %s --interp trilin --inv" % (registration_path, out_path, subj_path, subj_id, out_trilInterp_path)
         process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
@@ -349,8 +349,12 @@ def correctWeightsTract(weights):
     # #return weights/nStreamLines
     # return weights/np.sum(weights)
 
-    thres = weights.max()*0.1
-    weights[weights<thres] = 0
+    weights = weights / weights.max() # normalize by maximum of streamlines in a voxel
+    weights[weights<0.1] = 0
+
+    weights = weights / weights.sum() # normalize as proportion this is done to avoid overflow
+    # give more weight to voxels with more weight and less to others
+    weights = weights * np.exp(weights) 
 
     return weights / weights.sum() #normalize
 
@@ -441,7 +445,7 @@ def compute_metricsPerROI(p_code, folder_path):
                         nib.save(nib.Nifti1Image(density_map / density_map.sum(), affine_info), "%s/masks/%s_%s_tractNoCorr.nii.gz" % (subject_path, p_code, tract_name))
 
                         m[tract_name + "_nTracts"] =  get_streamline_count(trk)
-                        density_map = correctWeightsTract(density_map, m[tract_name + "_nTracts"])
+                        density_map = correctWeightsTract(density_map)
                         
                         density_maps[tract_path] = density_map
                         nib.save(nib.Nifti1Image(density_map, affine_info), "%s/masks/%s_%s_tract.nii.gz" % (subject_path, p_code, tract_name))
@@ -462,7 +466,7 @@ def compute_metricsPerROI(p_code, folder_path):
 
                 addMetrics(mask_name.lower(), metric, model, metric_map, density_map)
 
-    print(json.dumps(m,indent=2, sort_keys=True))
+    ## print(json.dumps(m,indent=2, sort_keys=True))
     with open("%s/dMRI/microstructure/%s_metrics.json" % (subject_path, p_code), "w") as outfile:
         json.dump(m, outfile, indent=2, sort_keys=True)
                 
