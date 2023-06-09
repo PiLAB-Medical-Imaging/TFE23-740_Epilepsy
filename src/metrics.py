@@ -26,7 +26,7 @@ def pthPowerWeights(w, p):
     return np.sum(wp)
 
 def w_mean(v, w, p=1):
-    assert v.shape == w.shape
+    assert v.shape == w.shape or v.size == w.size
 
     v = np.power(vcol(v), p)
     w = vrow(w)
@@ -35,7 +35,7 @@ def w_mean(v, w, p=1):
     return np.ravel(np.dot(w,v)/V1)[0]
 
 def w_mean_alt(v, w, K = 1000):
-    assert v.shape == w.shape
+    assert v.shape == w.shape or v.size == w.size
     v = v[w>0]
     w = w[w>0]
     w = w/np.sum(w) # normalization
