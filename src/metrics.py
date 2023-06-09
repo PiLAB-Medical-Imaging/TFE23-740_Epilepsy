@@ -26,7 +26,7 @@ def pthPowerWeights(w, p):
     return np.sum(wp)
 
 def w_mean(v, w, p=1):
-    assert v.size == w.size
+    assert v.shape == w.shape
 
     v = np.power(vcol(v), p)
     w = vrow(w)
@@ -35,6 +35,7 @@ def w_mean(v, w, p=1):
     return np.ravel(np.dot(w,v)/V1)[0]
 
 def w_mean_alt(v, w, K = 1000):
+    assert v.shape == w.shape
     v = v[w>0]
     w = w[w>0]
     w = w/np.sum(w) # normalization
@@ -68,6 +69,7 @@ def w_mean_alt(v, w, K = 1000):
     return np.mean(v[r])
 
 def w_var(v, w):
+    assert v.shape == w.shape
     v = vcol(v)
     w = vrow(w)
 
@@ -84,6 +86,7 @@ def w_var(v, w):
     return M_2
 
 def w_std_alt(v, w, K = 1000):
+    assert v.shape == w.shape
     v = v[w>0].ravel()
     w = w[w>0].ravel()
     w = w/np.sum(w) # normalization
@@ -109,6 +112,7 @@ def w_std_alt(v, w, K = 1000):
 }
 """
 def w_skew(v, w):
+    assert v.shape == w.shape
     v = vcol(v)
     w = vrow(w)
 
@@ -126,6 +130,7 @@ def w_skew(v, w):
     return m_3
 
 def w_skew(v, w, K = 1000):
+    assert v.shape == w.shape
     v = v[w>0].ravel()
     w = w[w>0].ravel()
     w = w/np.sum(w) # normalization
@@ -151,6 +156,7 @@ def w_skew(v, w, K = 1000):
 }
 """
 def w_kurt(v, w):
+    assert v.shape == w.shape
     v = vcol(v)
     w = vrow(w)
 
@@ -171,6 +177,7 @@ def w_kurt(v, w):
     return M_4
 
 def w_kurt(v, w, K = 1000):
+    assert v.shape == w.shape
     v = v[w>0].ravel()
     w = w[w>0].ravel()
     w = w/np.sum(w) # normalization
@@ -318,6 +325,7 @@ def trilinearInterpROI(subj_path, subj_id, masks : dict):
         mask_map : Nifti1Image = nib.load(out_path)
         mask_np = mask_map.get_fdata()
         mask_np[mask_np > 0] = 1 # binarizaton
+        volume = mask_np.sum() # the volume of the roi is compute before the tranformation to not loss voxels after the registration
         mask_map = Nifti1Image(mask_np, mask_map.affine)
         nib.save(mask_map, out_path) # we overwrite the old one
 
@@ -331,7 +339,7 @@ def trilinearInterpROI(subj_path, subj_id, masks : dict):
             print("Error freesurfer mri_vol2vol aseg")
             return 1
         
-        trilInterp_paths.append((name, out_trilInterp_path))
+        trilInterp_paths.append((name, out_trilInterp_path, volume))
     return trilInterp_paths
 
 """
@@ -395,6 +403,8 @@ def compute_metricsPerROI(p_code, folder_path):
         m[attr_name + "_skew"] = w_skew(metric_map, density_map)
         m[attr_name + "_kurt"] = w_kurt(metric_map, density_map)
 
+        print(attr_name, "completed")
+
     # Trilinear interpolation of the segments into dMRI space
     # We consider the interpolated voxels as a weighted mask (density mask)
     trilInterp_paths = trilinearInterpROI(folder_path+"/subjects/"+p_code, p_code, masks_freesurfer)
@@ -455,7 +465,7 @@ def compute_metricsPerROI(p_code, folder_path):
                     addMetrics(tract_name, metric, model, metric_map, density_map)
                         
 
-            for mask_name, mask_path in trilInterp_paths:
+            for mask_name, mask_path, volume in trilInterp_paths:
                 # save in memory the density_map of the mask, in order to not open them every time, and speedup
                 density_map = None
                 if mask_path not in density_maps:
@@ -463,6 +473,8 @@ def compute_metricsPerROI(p_code, folder_path):
                     density_maps[mask_path] = density_map
                 else:
                     density_map = density_maps[mask_path]
+
+                m[mask_name.lower() + "_voxVol"] = volume
 
                 addMetrics(mask_name.lower(), metric, model, metric_map, density_map)
 

@@ -46,38 +46,38 @@ tracts = {
                 "angle" : 25
             },
 
-        # "thalamus-AntCingCtx":
-        #     {
-        #         "seed_images": ["Thalamus-Proper"],
-        #         "include_ordered" : ["plane-cingulum", "plane-cingulate", "frontal-cingulate"],
-        #         "angle" : 30,
-        #         "cutoff" : 0.07,
-        #     },
-        # "thalamus-Insula":
-        #     {
-        #         "seed_images": ["Thalamus-Proper"],
-        #         "include" : ["insula"],
-        #         "masks" : ["thalamus-insula-hull-dilated-15"],
-        #         "exclude" : ["hippocampus"],
-        #         "angle" : 20
-        #     },
-        #     
-        # "sup-longi-fasci":
-        #     { 
-        #         "seed_images" : ["frontal-lobe"],
-        #         "include" : ["parietal-lobe"],
-        #         "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
-        #         "angle" : 15,
-        #         "cutoff" : 0.09
-        #     },
-        # "inf-longi-fasci":
-        #     { 
-        #         "seed_images" : ["occipital-lobe"],
-        #         "include" : ["temporal-lobe"],
-        #         "masks" : ["cerebral-white-matter", "occipital-lobe", "temporal-lobe"],
-        #         "angle" : 15,
-        #         "cutoff" : 0.09
-        #     },
+        "thalamus-AntCingCtx":
+            {
+                "seed_images": ["Thalamus-Proper"],
+                "include_ordered" : ["plane-cingulum", "plane-cingulate", "frontal-cingulate"],
+                "angle" : 30,
+                "cutoff" : 0.07,
+            },
+        "thalamus-Insula":
+            {
+                "seed_images": ["Thalamus-Proper"],
+                "include" : ["insula"],
+                "masks" : ["thalamus-insula-hull-dilated-15"],
+                "exclude" : ["hippocampus"],
+                "angle" : 20
+            },
+            
+        "sup-longi-fasci":
+            { 
+                "seed_images" : ["frontal-lobe"],
+                "include" : ["parietal-lobe"],
+                "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
+                "angle" : 15,
+                "cutoff" : 0.09
+            },
+        "inf-longi-fasci":
+            { 
+                "seed_images" : ["occipital-lobe"],
+                "include" : ["temporal-lobe"],
+                "masks" : ["cerebral-white-matter", "occipital-lobe", "temporal-lobe"],
+                "angle" : 15,
+                "cutoff" : 0.09
+            },
 
         # Non conto l'Inferior front-occipital ma devo scriverlo nella tesi xche non l'ho messo.. la ragione e qualche foto
         # "inf-front-occipital-fasci":
@@ -586,7 +586,6 @@ def compute_tracts(p_code, folder_path, extract_roi, tract, onlySide:str):
                     break
 
                 opts["cutoff"] -= 0.01
-            opts["cutoff"] = original_cutoff
             
             optsReverse = {}
             if len(opts["include_ordered"]) == 0: 

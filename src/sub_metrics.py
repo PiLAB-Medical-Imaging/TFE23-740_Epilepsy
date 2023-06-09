@@ -11,13 +11,13 @@ def main():
     ## Getting folder
     folder_path = get_folder(sys.argv)
 
-    time = [1, 30]
+    time = [3, 30]
 
     time[0] += time[1]//60
     time[1] %= 60
 
     ## Read the list of subjects and for each subject do the tractography
-    dest_success = folder_path + "/subjects/subj_list.json"
+    dest_success = folder_path + "/subjects/subj_list1.json"
     with open(dest_success, 'r') as file:
         patient_list = json.load(file)
 
@@ -29,7 +29,7 @@ def main():
             "job_name" :  p_code,
             "ntasks" : 1,
             "cpus_per_task" : 1,
-            "mem_per_cpu" : 1024,
+            "mem_per_cpu" : 2048,
             "time" : "%s:%s:00" % (str(time[0]), str(time[1])),
             "mail_user" : "michele.cerra@student.uclouvain.be",
             "mail_type" : "FAIL",
