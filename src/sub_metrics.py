@@ -11,13 +11,13 @@ def main():
     ## Getting folder
     folder_path = get_folder(sys.argv)
 
-    time = [3, 30]
+    time = [4, 30]
 
     time[0] += time[1]//60
     time[1] %= 60
 
     ## Read the list of subjects and for each subject do the tractography
-    dest_success = folder_path + "/subjects/subj_list1.json"
+    dest_success = folder_path + "/subjects/subj_list2.json"
     with open(dest_success, 'r') as file:
         patient_list = json.load(file)
 
