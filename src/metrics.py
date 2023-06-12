@@ -68,6 +68,17 @@ def w_mean_alt(v, w, K = 1000):
 
     return np.mean(v[r])
 
+"""
+@article{rimoldini2014weighted,
+  title={Weighted skewness and kurtosis unbiased by sample size and Gaussian uncertainties},
+  author={Rimoldini, Lorenzo},
+  journal={Astronomy and Computing},
+  volume={5},
+  pages={1--8},
+  year={2014},
+  publisher={Elsevier}
+}
+"""
 def w_var(v, w):
     assert v.shape == w.shape
     v = vcol(v)
@@ -251,6 +262,7 @@ def save_DIAMOND_cMap_wMap_divideFract(diamond_fold, subj_id):
     c0_maps = c_maps(t0).get_fdata()
     c1_maps = c_maps(t1).get_fdata()
 
+    # TODO recompute them, something is different from the other computations
     # TODO here can be implemented the angular weighting through the UNRAVEL repo
     for i in range(4): # (FA, MD, AxD, RD)
         weighted_maps[:,:,:,i] = (frac_0*c0_maps[:,:,:,i] + frac_1*c1_maps[:,:,:,i]) / (frac_0+frac_1+frac_csf) # the denominator should be equal to 1 or close to 1 due to rounding (could be removed, but we leave it for clarity)
@@ -342,29 +354,36 @@ def trilinearInterpROI(subj_path, subj_id, masks : dict):
         trilInterp_paths.append((name, out_trilInterp_path, volume))
     return trilInterp_paths
 
+def decresingSigmoid(x, min=0.1, max=0.7, x_max=15):
+    """
+    Every unit of the smothing the funcion si dilated by 5 from a side
+    """
+    def sig(x):
+        return 1/(1+np.exp(-x))
+    
+    flex = x_max/2
+    smooth = flex/5
+    return sig(-(x-flex)/smooth)*(max-min)+min 
+
 """
 Explain of the correction in the thesis
 """
-def correctWeightsTract(weights):
-    # n_fascs, n_voxs = np.unique(weights, return_counts=True) 
-    # # Unique isn't feaseible in this problem because is very likely that each weight is different from the others
-    # bins = n_streamlines / 5 # groups of 5 streamlines
-    # n_vox, n_fascs_interval = np.histogram(weights[weights>=0].ravel(), bins=int(bins))
-# 
-    # print((n_voxs==1).sum(), (weights>0).sum())
-    # for n_fasc, n_vox in zip(n_fascs, n_voxs):
-    #     weights[weights == n_fasc] = weights[weights == n_fasc] / n_vox
-    # #return weights/nStreamLines
-    # return weights/np.sum(weights)
-
-    weights = weights / weights.max() # normalize by maximum of streamlines in a voxel
-    weights[weights<0.1] = 0
-
-    weights = weights / weights.sum() # normalize as proportion this is done to avoid overflow
+def correctWeightsTract(weights, nTracts):
+    # minmax scaler in [0, 1]
+    weights = (weights - weights.min()) / (weights.max() - weights.min())
+    # threshold
+    thresh = decresingSigmoid(nTracts)
+    weights[weights<thresh] = 0
     # give more weight to voxels with more weight and less to others
     weights = weights * np.exp(weights) 
+    return weights
 
-    return weights / weights.sum() #normalize
+def mostImportant(weights):
+    # minmax scaler in [0, 1]
+    weights = (weights - weights.min()) / (weights.max() - weights.min())
+    # threshold
+    weights[weights<0.5] = 0
+    return weights
 
 metrics = {
     "dti" : ["FA", "AD", "RD", "MD"],
@@ -400,8 +419,14 @@ def compute_metricsPerROI(p_code, folder_path):
 
         m[attr_name + "_mean"] = w_mean(metric_map, density_map)
         m[attr_name + "_std"] = np.sqrt(w_var(metric_map, density_map))
-        m[attr_name + "_skew"] = w_skew(metric_map, density_map)
-        m[attr_name + "_kurt"] = w_kurt(metric_map, density_map)
+        #m[attr_name + "_skew"] = w_skew(metric_map, density_map)
+        m[attr_name + "_skew"] = stats.skew(metric_map[mostImportant(density_map)], bias=False)
+        #m[attr_name + "_kurt"] = w_kurt(metric_map, density_map)
+        m[attr_name + "_kurt"] = stats.kurtosis(metric_map[mostImportant(density_map)], fisher=True, bias=False)
+        m[attr_name + "_max"] = metric_map[density_map>0].max()
+        m[attr_name + "_min"] = metric_map[density_map>0].min()
+        
+        assert m[attr_name + "_min"] < m[attr_name + "_mean"] and m[attr_name + "_mean"] < m[attr_name + "_max"]
 
         print(attr_name, "completed")
 
@@ -420,6 +445,8 @@ def compute_metricsPerROI(p_code, folder_path):
 
         if model == "diamond":
             save_DIAMOND_cMap_wMap_divideFract(model_path, p_code) # Compute wFA, wMD, wAxD, wRD and save it in nifti file
+
+        # TODO we have to compute also the wfvf, it is a different thing of fvf_tot
 
         for metric in m_metrics:
             metric_path = None
@@ -455,7 +482,7 @@ def compute_metricsPerROI(p_code, folder_path):
                         nib.save(nib.Nifti1Image(density_map / density_map.sum(), affine_info), "%s/masks/%s_%s_tractNoCorr.nii.gz" % (subject_path, p_code, tract_name))
 
                         m[tract_name + "_nTracts"] =  get_streamline_count(trk)
-                        density_map = correctWeightsTract(density_map)
+                        density_map = correctWeightsTract(density_map, m[tract_name + "_nTracts"])
                         
                         density_maps[tract_path] = density_map
                         nib.save(nib.Nifti1Image(density_map, affine_info), "%s/masks/%s_%s_tract.nii.gz" % (subject_path, p_code, tract_name))

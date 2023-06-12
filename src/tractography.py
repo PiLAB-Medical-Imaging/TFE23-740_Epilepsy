@@ -439,8 +439,8 @@ def find_tract(subj_folder_path, subj_id, seed_images, inclusions, inclusions_or
     print(bashCommand)
     print(" ")
 
-    process = subprocess.Popen(bashCommand, stdout=subprocess.PIPE, shell=True)
-    process.wait()
+    # process = subprocess.Popen(bashCommand, stdout=subprocess.PIPE, shell=True)
+    # process.wait()
 
     return tck_path
 
