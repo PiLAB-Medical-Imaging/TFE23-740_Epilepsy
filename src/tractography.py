@@ -67,6 +67,7 @@ tracts = {
                 "seed_images" : ["frontal-lobe"],
                 "include" : ["parietal-lobe"],
                 "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
+                "exclude" : ["insula-putamen-hull-in"],
                 "angle" : 15,
                 "cutoff" : 0.09
             },
@@ -122,7 +123,12 @@ union_reg = {
 
 # Change thalamus-proper in thalamus depending on the version of freesurfer
 convex_hull = {
-    "thalamus-insula-hull" : ["thalamus-proper", "insula"]
+    "thalamus-insula-hull" : ["thalamus-proper", "insula"],
+    "insula-putamen-hull" : ["insula", "putamen"]
+}
+
+sottractions = {
+    "insula-putamen-hull-in" : ["insula-putamen-hull", "insula", "putamen"]
 }
 
 dilatations = {
@@ -183,39 +189,31 @@ def save_convex_hull(mask_paths, out_path):
     hull_map = Nifti1Image(hull, affine_info)
     nib.save(hull_map, out_path)
 
+def save_sottraction(orig_path : str, sub_paths : list, out_path : str):
+    # the affine information MUST be equal for all the maps
+    assert len(sub_paths) > 0
+
+    # load the origin mask
+    origin_map : Nifti1Image = nib.load(orig_path)
+    origin_np = origin_map.get_fdata()
+    origin_np[origin_np > 1] = 1 # Binarization
+
+    # load the sottraent masks and do the sottraction
+    for sub_path in sub_paths:
+        sub_map : Nifti1Image = nib.load(sub_path)
+        sub_np = sub_map.get_fdata()
+        sub_np[sub_np > 1] = 1 # Binarization
+        # sottraction
+        origin_np = origin_np - sub_np
+
+    origin_np[origin_np > 1] = 1 # Binarization of the output
+    origin_np = origin_np.astype("float64")
+
+    origin_map = Nifti1Image(origin_np, origin_map.affine)
+    nib.save(origin_map, out_path)
+
 def freesurfer_mask_extraction(folder_path, subj_id):
-    ## Registration from T1 to dMRI
     registration_path = folder_path + "/subjects/" + subj_id + "/registration"
-    if not os.path.isdir(registration_path):
-        os.mkdir(registration_path)
-
-    print("Computing matrix transformation between T1 and dMRI")
-    if not os.path.isfile(registration_path + "/transf_dMRI_t1.dat"):
-        # Find the transformation matrix
-        cmd = "bbregister --s %s --mov %s/subjects/%s/dMRI/preproc/%s_dmri_preproc.nii.gz --reg %s/transf_dMRI_t1.dat --dti --init-fsl" % (subj_id, folder_path, subj_id, subj_id, registration_path)
-        process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
-        process.wait()
-        if process.returncode != 0:
-            print("Error freesurfer bbregister")
-            return 1
-    
-    # Apply transformation to T1 to see the result
-    print("Apply transformation: T1 to dMRI")
-    cmd = "mri_vol2vol --reg %s/transf_dMRI_t1.dat --mov %s/subjects/%s/dMRI/preproc/%s_dmri_preproc.nii.gz --fstarg --o %s/%s_T1_brain_reg.nii.gz --interp nearest --no-resample --inv" % (registration_path, folder_path, subj_id, subj_id, registration_path, subj_id)
-    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
-    process.wait()
-    if process.returncode != 0:
-        print("Error freesurfer mri_vol2vol T1")
-        return 1
-
-    # Apply transformation to aseg+aparc
-    print("Apply transformation: aparc+aseg to dMRI")
-    cmd = "mri_vol2vol --reg %s/transf_dMRI_t1.dat --targ %s/subjects/%s/mri/aparc+aseg.mgz --mov %s/subjects/%s/dMRI/preproc/%s_dmri_preproc.nii.gz --o %s/aparc+aseg_reg.mgz --interp nearest --no-resample --inv" % (registration_path, folder_path, subj_id, folder_path, subj_id, subj_id, registration_path)
-    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
-    process.wait()
-    if process.returncode != 0:
-        print("Error freesurfer mri_vol2vol aseg")
-        return 1
 
     # Normal regions
     for num, name in roi_num_name.items():
@@ -255,6 +253,8 @@ def freesurfer_mask_extraction(folder_path, subj_id):
                     return 1
             save_convex_hull(roi_paths, "%s/subjects/%s/masks/%s_%s-%s_aparc+aseg.nii.gz" % (folder_path, subj_id, subj_id, side, roi_hull))
 
+    roi_names = get_mask(folder_path+"/subjects/"+ subj_id +"/masks", subj_id)
+
     # Dilated regions
     masks_path = "%s/subjects/%s/masks" % (folder_path, subj_id)
     file_extracted_names = os.listdir(masks_path)
@@ -276,6 +276,21 @@ def freesurfer_mask_extraction(folder_path, subj_id):
                     process.wait()
                     break
 
+    roi_names = get_mask(folder_path+"/subjects/"+ subj_id +"/masks", subj_id)
+    
+    # Sottracted regions
+    for roi_sottr, rois in sottractions.items():
+        print("Sottraction ROI", roi_sottr)
+        for side in ["left", "right"]:
+            roi_paths = []
+            for roi in rois:
+                if roi in roi_names[side].keys():
+                    roi_paths.append(roi_names[side][roi].path)
+                else:
+                    print("Error convex hull: %s ; %s doesn't found" % (roi_sottr, roi))
+                    return 1
+            save_sottraction(roi_paths[0], roi_paths[1:], "%s/subjects/%s/masks/%s_%s-%s_aparc+aseg.nii.gz" % (folder_path, subj_id, subj_id, side, roi_sottr))
+
 def registration(folder_path, subj_id):
     masks_path = folder_path + "/static_files/atlases/masks"
     # Atlas MNI152
@@ -295,55 +310,88 @@ def registration(folder_path, subj_id):
     nib.save(subj_b0_map, subj_b0_file) # save it 
     subj_b0_map = ants.image_read(subj_b0_file) # load with ants
 
-    # folder to save the registrations
+    ## Registration from T1 to dMRI
     registration_path = folder_path + "/subjects/" + subj_id + "/registration"
     if not os.path.isdir(registration_path):
         os.mkdir(registration_path)
     if not os.path.isdir(registration_path + "/ants"):
         os.mkdir(registration_path + "/ants")
 
+    print("Computing matrix transformation between T1 and dMRI")
+    if not os.path.isfile(registration_path + "/transf_dMRI_t1.dat"):
+        # Find the transformation matrix
+        cmd = "bbregister --s %s --mov %s/subjects/%s/dMRI/preproc/%s_dmri_preproc.nii.gz --reg %s/transf_dMRI_t1.dat --dti --init-fsl" % (subj_id, folder_path, subj_id, subj_id, registration_path)
+        process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+        process.wait()
+        if process.returncode != 0:
+            print("Error freesurfer bbregister")
+            return 1
+    
+    # Apply transformation to T1 to see the result
+    subj_t1_map_reg = registration_path + "/" + subj_id + "_T1_brain_reg.nii.gz"
+    print("Apply transformation: T1 to dMRI")
+    cmd = "mri_vol2vol --reg %s/transf_dMRI_t1.dat --mov %s/subjects/%s/dMRI/preproc/%s_dmri_preproc.nii.gz --fstarg --o %s --interp nearest --no-resample --inv" % (registration_path, folder_path, subj_id, subj_id, subj_t1_map_reg)
+    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+    process.wait()
+    if process.returncode != 0:
+        print("Error freesurfer mri_vol2vol T1")
+        return 1
+    subj_t1_map_reg = ants.image_read(subj_t1_map_reg) # load with ants
+
+    # Apply transformation to aseg+aparc
+    print("Apply transformation: aparc+aseg to dMRI")
+    cmd = "mri_vol2vol --reg %s/transf_dMRI_t1.dat --targ %s/subjects/%s/mri/aparc+aseg.mgz --mov %s/subjects/%s/dMRI/preproc/%s_dmri_preproc.nii.gz --o %s/aparc+aseg_reg.mgz --interp nearest --no-resample --inv" % (registration_path, folder_path, subj_id, folder_path, subj_id, subj_id, registration_path)
+    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+    process.wait()
+    if process.returncode != 0:
+        print("Error freesurfer mri_vol2vol aseg")
+        return 1
+
     cwd = os.getcwd() # save the current working directory
     os.chdir(registration_path + "/ants") # change dir inside /ants
 
-    if not os.path.isfile("./tx_t1_dMRI_1Warp.nii.gz") or not os.path.isfile("./tx_t1_dMRI_0GenericAffine.mat") or not os.path.isfile("./tx_atl_t1_1Warp.nii.gz") or not os.path.isfile("./tx_atl_t1_0GenericAffine.mat"):
+    print("Computing matrix transformation between MNI and T1_reg")
+    # if not os.path.isfile("./tx_t1_dMRI_1Warp.nii.gz") or not os.path.isfile("./tx_t1_dMRI_0GenericAffine.mat") or not os.path.isfile("./tx_atl_t1_1Warp.nii.gz") or not os.path.isfile("./tx_atl_t1_0GenericAffine.mat"):
+    if not os.path.isfile("./tx_atl_t1_1Warp.nii.gz") or not os.path.isfile("./tx_atl_t1_0GenericAffine.mat"):
     
         # Find transformation
 
-        # Transform Atlas -> T1
+        # Transform Atlas -> T1 reg
         tx_atl_t1 = ants.registration(
-            fixed=subj_t1_map, 
+            fixed=subj_t1_map_reg, 
             moving=atlas_map, 
             type_of_transform='SyNAggro',
             reg_iterations = [10000, 1000, 100],
             outprefix="tx_atl_t1_"
             )
         # Transform T1 -> dMRI
-        tx_t1_dmri = ants.registration(
-            fixed=subj_b0_map,
-            moving=subj_t1_map,
-            type_of_transform="SyNBoldAff",
-            reg_iterations = [10000, 1000, 100],
-            outprefix="tx_t1_dMRI_"
-        )
+        #tx_t1_dmri = ants.registration(
+        #    fixed=subj_b0_map,
+        #    moving=subj_t1_map,
+        #    type_of_transform="SyNBoldAff",
+        #    reg_iterations = [10000, 1000, 100],
+        #    outprefix="tx_t1_dMRI_"
+        #)
 
         # Combine the two transformations
-        transform =  tx_t1_dmri["fwdtransforms"] + tx_atl_t1["fwdtransforms"]
+        #transform =  tx_t1_dmri["fwdtransforms"] + tx_atl_t1["fwdtransforms"]
+        transform = tx_atl_t1["fwdtransforms"]
 
     else:
         # Use the transformations already computed
         transform = [
-        "tx_t1_dMRI_1Warp.nii.gz",
-        "tx_t1_dMRI_0GenericAffine.mat",
+        #"tx_t1_dMRI_1Warp.nii.gz",
+        #"tx_t1_dMRI_0GenericAffine.mat",
         "tx_atl_t1_1Warp.nii.gz",
         "tx_atl_t1_0GenericAffine.mat",
         ]
 
     # Apply transformation to MNI152 to see the result
     mask_moved = ants.apply_transforms(
-        fixed=subj_b0_map,
+        fixed=subj_t1_map_reg,
         moving=atlas_map,
         transformlist=transform,
-        interpolator= "nearestNeighbor"
+        interpolator="gaussian"
     )
     
     ants.image_write(mask_moved, cwd + "/" + registration_path + "/MNI152_T1_1mm_brain_reg.nii.gz")
@@ -354,16 +402,30 @@ def registration(folder_path, subj_id):
         mask_file = cwd + "/" + masks_path + "/" + file
         if os.path.isfile(mask_file) and ext == "nii.gz":
 
+            # Use ANT to do the first registration MNI -> T1
+
             mask_map = ants.image_read(mask_file)
 
             print("Applying transformation: " + file.split(".")[0])
             mask_moved = ants.apply_transforms(
-                fixed=subj_b0_map,
+                fixed=subj_t1_map_reg,
                 moving=mask_map,
                 transformlist=transform,
-                interpolator= "nearestNeighbor"
+                interpolator= "gaussian"
             )
-            ants.image_write(mask_moved, cwd + "/" + folder_path + "/subjects/" + subj_id + "/masks/" + subj_id + "_" + file)
+            ants.image_write(mask_moved, "../" + subj_id + "_" + file)
+
+            # # use the freesurfer transformation for the registration T1 -> dMRI
+            # os.chdir(cwd)
+# 
+            # cmd = "mri_vol2vol --reg %s/transf_dMRI_t1.dat --targ %s/%s_%s --mov %s/subjects/%s/dMRI/preproc/%s_dmri_preproc.nii.gz --o %s/subjects/%s/masks/%s_%s --interp nearest --no-resample --inv" % (registration_path, registration_path, subj_id, file, folder_path, subj_id, subj_id, folder_path, subj_id, subj_id, file)
+            # process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+            # process.wait()
+            # if process.returncode != 0:
+            #     print("Error freesurfer mri_vol2vol aseg")
+            #     return 1
+            # 
+            # os.chdir(registration_path + "/ants")
     
     os.chdir(cwd) # return to the cwd
 
@@ -508,6 +570,8 @@ def compute_tracts(p_code, folder_path, extract_roi, tract, onlySide:str):
 
     ############# ROI EXTRACTION ############
     if extract_roi:
+        os.environ["SUBJECTS_DIR"] = seg_path
+
         # extract ROI from atlases
         print("MNI152 roi extraction on %s" % p_code)
         if registration(folder_path, p_code) is not None:
@@ -519,8 +583,6 @@ def compute_tracts(p_code, folder_path, extract_roi, tract, onlySide:str):
         if not os.path.isdir(seg_path + "/" + p_code + "/mri"):
             print("freesurfer segmentation isn't found for patient: %s" % (p_code))
             return 1
-        
-        os.environ["SUBJECTS_DIR"] = seg_path
 
         get_freesurfer_roi_names()
 
