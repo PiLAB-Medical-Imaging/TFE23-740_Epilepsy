@@ -330,7 +330,7 @@ def registration(folder_path, subj_id):
     # Apply transformation to T1 to see the result
     subj_t1_map_reg = registration_path + "/" + subj_id + "_T1_brain_reg.nii.gz"
     print("Apply transformation: T1 to dMRI")
-    cmd = "mri_vol2vol --reg %s/transf_dMRI_t1.dat --mov %s/subjects/%s/dMRI/preproc/%s_dmri_preproc.nii.gz --fstarg --o %s --interp nearest --no-resample --inv" % (registration_path, folder_path, subj_id, subj_id, subj_t1_map_reg)
+    cmd = "mri_vol2vol --reg %s/transf_dMRI_t1.dat --targ %s/subjects/%s/mri/brain.mgz --mov %s/subjects/%s/dMRI/preproc/%s_dmri_preproc.nii.gz --o %s --interp nearest --no-resample --inv" % (registration_path, folder_path, subj_id, folder_path, subj_id, subj_id, subj_t1_map_reg)
     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
     process.wait()
     if process.returncode != 0:
@@ -387,6 +387,7 @@ def registration(folder_path, subj_id):
         ]
 
     # Apply transformation to MNI152 to see the result
+    print("Apply transformation: MNI to T1_reg")
     mask_moved = ants.apply_transforms(
         fixed=subj_t1_map_reg,
         moving=atlas_map,

@@ -23,7 +23,7 @@ def main():
     extract_roi = False
     if "-roi" in sys.argv[1:]:
         extract_roi = True  
-        time[0] += 1
+        time[0] += 5
 
     tract = False
     if "-tract" in sys.argv[1:]:
@@ -35,7 +35,7 @@ def main():
     time[1] %= 60
 
     ## Read the list of subjects and for each subject do the tractography
-    dest_success = folder_path + "/subjects/subj_list1.json"
+    dest_success = folder_path + "/subjects/subj_list.json"
     with open(dest_success, 'r') as file:
         patient_list = json.load(file)
 
