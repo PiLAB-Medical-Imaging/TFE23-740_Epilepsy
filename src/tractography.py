@@ -115,8 +115,8 @@ union_reg = {
     "Right-Frontal-Lobe" : [2028, 2027, 2003, 2018, 2019, 2020, 2012, 2014, 2032], # Without considering the Pre-central and Para-central
     "Left-Temporal-Lobe" : [1030, 1015, 1009, 1001, 1007, 1034, 1006, 1033, 1016],
     "Right-Temporal-Lobe" : [2030, 2015, 2009, 2001, 2007, 2034, 2006, 2033, 2016],
-    "Left-Parietal-Lobe" : [1008, 1029, 1031, 1025], # Without considering the Post-central
-    "Right-Parietal-Lobe" : [2008, 2029, 2031, 2025], # Without considering the Post-central
+    "Left-Parietal-Lobe" : [1008, 1029, 1025], # Without considering the Post-central and Supramarginal
+    "Right-Parietal-Lobe" : [2008, 2029, 2025], # Without considering the Post-central and Supramarginal
     "Left-Occipital-Lobe" : [1011, 1013, 1005, 1021],
     "Right-Occipital-Lobe" : [2011, 2013, 2005, 2021],
 }
@@ -667,6 +667,7 @@ def compute_tracts(p_code, folder_path, extract_roi, tract, onlySide:str):
                 optsReverse["include"] = opts["include"]
 
             # decrement the cutoff to find a solution with more noise
+            opt["cutoff"] += 0.01 
             while opts["cutoff"] > 0:
                 output_path_backward = ""
                 if len(opts["include_ordered"]) > 0 and len(opts["seed_images"]) > 1:
