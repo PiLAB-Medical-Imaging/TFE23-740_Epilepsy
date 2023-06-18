@@ -288,6 +288,31 @@ def save_DIAMOND_cMap_wMap_divideFract(diamond_fold, subj_id):
     nib.save(nib.squeeze_image(fracs.slicer[..., 1]), diamond_fold + "/" + subj_id + "_diamond_frac_c1.nii.gz")
     nib.save(nib.squeeze_image(fracs.slicer[..., 2]), diamond_fold + "/" + subj_id + "_diamond_frac_csf.nii.gz")
 
+def save_mf_wfvf(mf_fold, subj_id):
+    frac_0_path = mf_fold + "/" + subj_id + "_mf_frac_f0.nii.gz"
+    frac_1_path = mf_fold + "/" + subj_id + "_mf_frac_f1.nii.gz"
+    frac_csf_path = mf_fold + "/" + subj_id + "_mf_frac_csf.nii.gz"
+    fvf_f0_path = mf_fold + "/" + subj_id + "_mf_fvf_f0.nii.gz"
+    fvf_f1_path = mf_fold + "/" + subj_id + "_mf_fvf_f1.nii.gz"
+
+    frac_0_map : Nifti1Image = nib.load(frac_0_path)
+    frac_1_map : Nifti1Image = nib.load(frac_1_path)
+    frac_csf_map : Nifti1Image = nib.load(frac_csf_path)
+    fvf_0_map : Nifti1Image = nib.load(fvf_f0_path)
+    fvf_1_map : Nifti1Image = nib.load(fvf_f1_path)
+
+    frac_0 = frac_0_map.get_fdata()
+    frac_1 = frac_1_map.get_fdata()
+    frac_csf = frac_csf_map.get_fdata()
+    fvf_0 = fvf_0_map.get_fdata()
+    fvf_1 = fvf_1_map.get_fdata()
+
+    wfvf = (frac_0*fvf_0 + frac_1*fvf_1)/(frac_0 + frac_1)
+
+    wfvf_map = Nifti1Image(wfvf, fvf_0_map.affine)
+
+    nib.save(wfvf_map, mf_fold + "/" + subj_id + "_mf_wfvf.nii.gz")
+
 def trilinearInterpROI(subj_path, subj_id, masks : dict):
     # must exist the registration done in the tractography step
     registration_path = subj_path + "/registration"
@@ -389,7 +414,7 @@ metrics = {
     "dti" : ["FA", "AD", "RD", "MD"],
     "noddi" : ["icvf", "odi", "fbundle", "fextra", "fintra", "fiso" ],
     "diamond" : ["wFA", "wMD", "wAD", "wRD", "frac_c0", "frac_c1", "frac_csf"],
-    "mf" : ["fvf_f0", "fvf_f1", "fvf_tot", "frac_f0", "frac_f1", "frac_csf"]
+    "mf" : ["fvf_f0", "fvf_f1", "fvf_tot", "wfvf", "frac_f0", "frac_f1", "frac_csf"]
 }
 
 # Freesurfer LUT: https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/AnatomicalROI/FreeSurferColorLUT
@@ -445,6 +470,9 @@ def compute_metricsPerROI(p_code, folder_path):
 
         if model == "diamond":
             save_DIAMOND_cMap_wMap_divideFract(model_path, p_code) # Compute wFA, wMD, wAxD, wRD and save it in nifti file
+
+        if model == "mf":
+            save_mf_wfvf(model_path, p_code) # compute mf_wfvf
 
         # TODO we have to compute also the wfvf, it is a different thing of fvf_tot
 
