@@ -265,7 +265,7 @@ def save_DIAMOND_cMap_wMap_divideFract(diamond_fold, subj_id):
     # TODO recompute them, something is different from the other computations
     # TODO here can be implemented the angular weighting through the UNRAVEL repo
     for i in range(4): # (FA, MD, AxD, RD)
-        weighted_maps[:,:,:,i] = (frac_0*c0_maps[:,:,:,i] + frac_1*c1_maps[:,:,:,i]) / (frac_0+frac_1+frac_csf) # the denominator should be equal to 1 or close to 1 due to rounding (could be removed, but we leave it for clarity)
+        weighted_maps[:,:,:,i] = (frac_0*c0_maps[:,:,:,i] + frac_1*c1_maps[:,:,:,i]) / (frac_0+frac_1)
     weighted_maps = np.nan_to_num(weighted_maps)
 
     c0_img = Nifti1Image(c0_maps, t0.affine)
@@ -275,13 +275,13 @@ def save_DIAMOND_cMap_wMap_divideFract(diamond_fold, subj_id):
     wAxD_img = Nifti1Image(weighted_maps[:,:,:,2], t0.affine)
     wRD_img = Nifti1Image(weighted_maps[:,:,:,3], t0.affine)
 
-    # save the compartments maps in 4D [FA_c, MD_c, AxD_c, RD_c], just to check the results
+    # save the compartments maps in 4D [FA_c, MD_c, AD_c, RD_c], just to check the results
     nib.save(c0_img, diamond_fold + "/" + subj_id + "_diamond_c0_DTI.nii.gz")
     nib.save(c1_img, diamond_fold + "/" + subj_id + "_diamond_c1_DTI.nii.gz")
     # save the weighted images
     nib.save(wFA_img, diamond_fold + "/" + subj_id + "_diamond_wFA.nii.gz")
     nib.save(wMD_img, diamond_fold + "/" + subj_id + "_diamond_wMD.nii.gz")
-    nib.save(wAxD_img, diamond_fold + "/" + subj_id + "_diamond_wAxD.nii.gz")
+    nib.save(wAxD_img, diamond_fold + "/" + subj_id + "_diamond_wAD.nii.gz")
     nib.save(wRD_img, diamond_fold + "/" + subj_id + "_diamond_wRD.nii.gz")
     # save the fraction.nii.gz file, but with fraction separated, one for each nifti image (not anymore in 4D)
     nib.save(nib.squeeze_image(fracs.slicer[..., 0]), diamond_fold + "/" + subj_id + "_diamond_frac_c0.nii.gz")
@@ -388,7 +388,7 @@ def mostImportant(weights):
 metrics = {
     "dti" : ["FA", "AD", "RD", "MD"],
     "noddi" : ["icvf", "odi", "fbundle", "fextra", "fintra", "fiso" ],
-    "diamond" : ["wFA", "wMD", "wAxD", "wRD", "frac_c0", "frac_c1", "frac_csf"],
+    "diamond" : ["wFA", "wMD", "wAD", "wRD", "frac_c0", "frac_c1", "frac_csf"],
     "mf" : ["fvf_f0", "fvf_f1", "fvf_tot", "frac_f0", "frac_f1", "frac_csf"]
 }
 
