@@ -360,8 +360,7 @@ def registration(folder_path, subj_id):
         tx_atl_t1 = ants.registration(
             fixed=subj_t1_map_reg, 
             moving=atlas_map, 
-            type_of_transform='SyN',
-            reg_iterations = [10000, 1000, 100],
+            type_of_transform='ElasticSyN',
             outprefix="tx_atl_t1_"
             )
         # Transform T1 -> dMRI
@@ -412,9 +411,9 @@ def registration(folder_path, subj_id):
                 fixed=subj_t1_map_reg,
                 moving=mask_map,
                 transformlist=transform,
-                interpolator= "gaussian"
+                interpolator= "nearestNeighbor"
             )
-            ants.image_write(mask_moved, "../" + subj_id + "_" + file)
+            ants.image_write(mask_moved, cwd + "/" + folder_path + "/subjects/" + subj_id + "/masks/" + subj_id + "_" + file)
 
             # # use the freesurfer transformation for the registration T1 -> dMRI
             # os.chdir(cwd)
@@ -502,8 +501,8 @@ def find_tract(subj_folder_path, subj_id, seed_images, inclusions, inclusions_or
     print(bashCommand)
     print(" ")
 
-    # process = subprocess.Popen(bashCommand, stdout=subprocess.PIPE, shell=True)
-    # process.wait()
+    process = subprocess.Popen(bashCommand, stdout=subprocess.PIPE, shell=True)
+    process.wait()
 
     return tck_path
 
