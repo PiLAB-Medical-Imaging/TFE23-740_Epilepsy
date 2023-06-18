@@ -473,7 +473,7 @@ def find_tract(subj_folder_path, subj_id, seed_images, inclusions, inclusions_or
     tck_path = subj_folder_path+"/dMRI/tractography/"+output_name+".tck"
     process = None
 
-    bashCommand = "tckgen -nthreads 4 -algorithm iFOD2 -seeds 500k -max_attempts_per_seed 1000 -seed_unidirectional -force"
+    bashCommand = "tckgen -nthreads 4 -algorithm iFOD2 -seeds 10M -max_attempts_per_seed 1000 -seed_unidirectional -force"
 
     if stop:
         bashCommand += " -stop"
@@ -667,7 +667,7 @@ def compute_tracts(p_code, folder_path, extract_roi, tract, onlySide:str):
                 optsReverse["include"] = opts["include"]
 
             # decrement the cutoff to find a solution with more noise
-            opt["cutoff"] += 0.01 
+            opts["cutoff"] += 0.01 
             while opts["cutoff"] > 0:
                 output_path_backward = ""
                 if len(opts["include_ordered"]) > 0 and len(opts["seed_images"]) > 1:
