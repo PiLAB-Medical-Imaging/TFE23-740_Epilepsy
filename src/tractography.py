@@ -360,7 +360,7 @@ def registration(folder_path, subj_id):
         tx_atl_t1 = ants.registration(
             fixed=subj_t1_map_reg, 
             moving=atlas_map, 
-            type_of_transform='SyNAggro',
+            type_of_transform='SyN',
             reg_iterations = [10000, 1000, 100],
             outprefix="tx_atl_t1_"
             )
@@ -474,7 +474,7 @@ def find_tract(subj_folder_path, subj_id, seed_images, inclusions, inclusions_or
     tck_path = subj_folder_path+"/dMRI/tractography/"+output_name+".tck"
     process = None
 
-    bashCommand = "tckgen -nthreads 4 -algorithm iFOD2 -seeds 10M -max_attempts_per_seed 1000 -seed_unidirectional -force"
+    bashCommand = "tckgen -nthreads 4 -algorithm iFOD2 -seeds 500k -max_attempts_per_seed 1000 -seed_unidirectional -force"
 
     if stop:
         bashCommand += " -stop"
