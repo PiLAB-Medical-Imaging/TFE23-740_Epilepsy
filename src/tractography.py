@@ -68,7 +68,7 @@ tracts = {
                 "include" : ["parietal-lobe"],
                 "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
                 "exclude" : ["insula-putamen-hull-in"],
-                "angle" : 15,
+                "angle" : 12.5,
                 "cutoff" : 0.09
             },
         "inf-longi-fasci":
