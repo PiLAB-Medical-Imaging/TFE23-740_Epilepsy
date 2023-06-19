@@ -7,6 +7,8 @@ sns.set_palette("muted")
 
 def calc_f1(p_and_r):
     p, r = p_and_r
+    if p == 0 and r == 0:
+        return 0
     return (2*p*r)/(p+r)
 
 
@@ -17,7 +19,7 @@ def calc_f1(p_and_r):
 def print_model_metrics(y_test, y_test_prob, confusion = False, verbose = True, return_metrics = False):
 
     precision, recall, threshold = precision_recall_curve(y_test, y_test_prob, pos_label = 1)
-    
+
     #Find the threshold value that gives the best F1 Score
     best_f1_index =np.argmax([calc_f1(p_r) for p_r in zip(precision, recall)])
     best_threshold, best_precision, best_recall = threshold[best_f1_index], precision[best_f1_index], recall[best_f1_index]
@@ -53,15 +55,15 @@ def print_model_metrics(y_test, y_test_prob, confusion = False, verbose = True, 
 # Run Simple Log Reg Model and Print metrics
 from sklearn.linear_model import SGDClassifier
 
-# Run log reg 10 times and average the result to reduce predction variance
+# Run log reg 10 times and average the result to reduce prediction variance
 def run_log_reg(train_features, test_features, y_train, y_test,  alpha = 1e-4, confusion = False, return_f1 = False, verbose = True):
     metrics = np.zeros(5)
-    for _ in range(10):
-        log_reg = SGDClassifier(loss = 'log', alpha = alpha, n_jobs = -1, penalty = 'l2')
+    for _ in range(100):
+        log_reg = SGDClassifier(loss = 'log_loss', alpha = alpha, n_jobs = -1, penalty = 'l2')
         log_reg.fit(train_features, y_train)
         y_test_prob = log_reg.predict_proba(test_features)[:,1]
         metrics += print_model_metrics(y_test, y_test_prob, confusion = confusion, verbose = False, return_metrics = True)
-    metrics /=10
+    metrics /=100
     if verbose:
         print('F1: {:.3f} | Pr: {:.3f} | Re: {:.3f} | AUC: {:.3f} | Accuracy: {:.3f} \n'.format(*metrics))
     if return_f1:

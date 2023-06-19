@@ -12,6 +12,7 @@ from unravel.core import *
 from nibabel import Nifti1Image
 from numpy import linalg as LA
 from scipy import stats
+from statsmodels.stats.weightstats import DescrStatsW
 
 from params import *
 
@@ -212,7 +213,7 @@ def FA(eigvals):
     centred = eigvals - md_expanded
     num = np.sum(centred**2, axis=3)
     den = np.sum(eigvals**2, axis=3)
-    res = np.sqrt(3/2 * np.divide(num, den))
+    res = np.sqrt(3/2 * np.divide(num, den, out=np.zeros_like(num), where=den!=0))
 
     return np.nan_to_num(res)
 
@@ -262,10 +263,11 @@ def save_DIAMOND_cMap_wMap_divideFract(diamond_fold, subj_id):
     c0_maps = c_maps(t0).get_fdata()
     c1_maps = c_maps(t1).get_fdata()
 
-    # TODO recompute them, something is different from the other computations
     # TODO here can be implemented the angular weighting through the UNRAVEL repo
+    den = frac_0+frac_1
     for i in range(4): # (FA, MD, AxD, RD)
-        weighted_maps[:,:,:,i] = (frac_0*c0_maps[:,:,:,i] + frac_1*c1_maps[:,:,:,i]) / (frac_0+frac_1)
+        num = (frac_0*c0_maps[:,:,:,i] + frac_1*c1_maps[:,:,:,i])
+        weighted_maps[:,:,:,i] = np.divide(num, den, out=np.zeros_like(num), where=den!=0)
     weighted_maps = np.nan_to_num(weighted_maps)
 
     c0_img = Nifti1Image(c0_maps, t0.affine)
@@ -274,6 +276,7 @@ def save_DIAMOND_cMap_wMap_divideFract(diamond_fold, subj_id):
     wMD_img = Nifti1Image(weighted_maps[:,:,:,1], t0.affine)
     wAxD_img = Nifti1Image(weighted_maps[:,:,:,2], t0.affine)
     wRD_img = Nifti1Image(weighted_maps[:,:,:,3], t0.affine)
+    frac_ftot_img = Nifti1Image(den, t0.affine)
 
     # save the compartments maps in 4D [FA_c, MD_c, AD_c, RD_c], just to check the results
     nib.save(c0_img, diamond_fold + "/" + subj_id + "_diamond_c0_DTI.nii.gz")
@@ -287,6 +290,7 @@ def save_DIAMOND_cMap_wMap_divideFract(diamond_fold, subj_id):
     nib.save(nib.squeeze_image(fracs.slicer[..., 0]), diamond_fold + "/" + subj_id + "_diamond_frac_c0.nii.gz")
     nib.save(nib.squeeze_image(fracs.slicer[..., 1]), diamond_fold + "/" + subj_id + "_diamond_frac_c1.nii.gz")
     nib.save(nib.squeeze_image(fracs.slicer[..., 2]), diamond_fold + "/" + subj_id + "_diamond_frac_csf.nii.gz")
+    nib.save(frac_ftot_img, diamond_fold + "/" + subj_id + "_diamond_frac_ctot.nii.gz")
 
 def save_mf_wfvf(mf_fold, subj_id):
     frac_0_path = mf_fold + "/" + subj_id + "_mf_frac_f0.nii.gz"
@@ -307,11 +311,15 @@ def save_mf_wfvf(mf_fold, subj_id):
     fvf_0 = fvf_0_map.get_fdata()
     fvf_1 = fvf_1_map.get_fdata()
 
-    wfvf = (frac_0*fvf_0 + frac_1*fvf_1)/(frac_0 + frac_1)
+    num = (frac_0*fvf_0 + frac_1*fvf_1)
+    den = (frac_0 + frac_1)
+    wfvf = np.divide(num, den, out=np.zeros_like(num), where=den!=0)
 
     wfvf_map = Nifti1Image(wfvf, fvf_0_map.affine)
+    frac_ftot_map = Nifti1Image(den, fvf_0_map.affine)
 
     nib.save(wfvf_map, mf_fold + "/" + subj_id + "_mf_wfvf.nii.gz")
+    nib.save(frac_ftot_map, mf_fold + "/" + subj_id + "_mf_frac_ftot.nii.gz")
 
 def trilinearInterpROI(subj_path, subj_id, masks : dict):
     # must exist the registration done in the tractography step
@@ -400,21 +408,22 @@ def correctWeightsTract(weights, nTracts):
     thresh = decresingSigmoid(nTracts)
     weights[weights<thresh] = 0
     # give more weight to voxels with more weight and less to others
-    weights = weights * np.exp(weights) 
+    # weights = weights * np.exp(weights) 
+    
     return weights
 
-def mostImportant(weights):
-    # minmax scaler in [0, 1]
-    weights = (weights - weights.min()) / (weights.max() - weights.min())
-    # threshold
-    weights[weights<0.5] = 0
-    return weights
+# def mostImportant(weights):
+#     # minmax scaler in [0, 1]
+#     weights = (weights - weights.min()) / (weights.max() - weights.min())
+#     # threshold
+#     weights[weights<0.5] = 0
+#     return weights
 
 metrics = {
     "dti" : ["FA", "AD", "RD", "MD"],
     "noddi" : ["icvf", "odi", "fbundle", "fextra", "fintra", "fiso" ],
-    "diamond" : ["wFA", "wMD", "wAD", "wRD", "frac_c0", "frac_c1", "frac_csf"],
-    "mf" : ["fvf_f0", "fvf_f1", "fvf_tot", "wfvf", "frac_f0", "frac_f1", "frac_csf"]
+    "diamond" : ["wFA", "wMD", "wAD", "wRD", "frac_c0", "frac_c1", "frac_csf", "frac_ctot"],
+    "mf" : ["fvf_f0", "fvf_f1", "wfvf", "frac_f0", "frac_f1", "frac_csf", "frac_ftot"]
 }
 
 # Freesurfer LUT: https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/AnatomicalROI/FreeSurferColorLUT
@@ -434,7 +443,7 @@ def compute_metricsPerROI(p_code, folder_path):
     m["ID"] = p_code
     density_maps = {}
 
-    def addMetrics(roi_name, metric, model, metric_map, density_map):
+    def addMetrics(roi_name, metric, model, metric_map, density_map, nTracts):
         attr_name = "%s_%s" % (roi_name, metric)
         if "frac_csf" == metric:
             if "diamond" == model:
@@ -442,16 +451,29 @@ def compute_metricsPerROI(p_code, folder_path):
             elif "mf" == model:
                 attr_name += "_mf"
 
-        m[attr_name + "_mean"] = w_mean(metric_map, density_map)
-        m[attr_name + "_std"] = np.sqrt(w_var(metric_map, density_map))
+        assert metric_map.shape == density_map.shape
+
+        v = metric_map.ravel()
+        w = density_map.ravel()
+
+        assert v.size == w.size
+
+        dstat = DescrStatsW(v, w)
+
+        w_scal = (w-w.min())/(w.max()-w.min())*(nTracts-0)+0
+        w_scal = np.round(w_scal).astype(int)
+        repeat = np.repeat(v, w_scal)
+
+        m[attr_name + "_mean"] = np.average(v, w)
+        m[attr_name + "_std"] = dstat.std
         #m[attr_name + "_skew"] = w_skew(metric_map, density_map)
-        m[attr_name + "_skew"] = stats.skew(metric_map[mostImportant(density_map)], bias=False)
+        m[attr_name + "_skew"] = stats.skew(repeat, bias=False)
         #m[attr_name + "_kurt"] = w_kurt(metric_map, density_map)
-        m[attr_name + "_kurt"] = stats.kurtosis(metric_map[mostImportant(density_map)], fisher=True, bias=False)
-        m[attr_name + "_max"] = metric_map[density_map>0].max()
-        m[attr_name + "_min"] = metric_map[density_map>0].min()
+        m[attr_name + "_kurt"] = stats.kurtosis(repeat, fisher=True, bias=False)
+        # m[attr_name + "_max"] = metric_map[density_map>0].max()
+        # m[attr_name + "_min"] = metric_map[density_map>0].min()
         
-        assert m[attr_name + "_min"] < m[attr_name + "_mean"] and m[attr_name + "_mean"] < m[attr_name + "_max"]
+        # assert m[attr_name + "_min"] < m[attr_name + "_mean"] and m[attr_name + "_mean"] < m[attr_name + "_max"]
 
         print(attr_name, "completed")
 
@@ -473,8 +495,6 @@ def compute_metricsPerROI(p_code, folder_path):
 
         if model == "mf":
             save_mf_wfvf(model_path, p_code) # compute mf_wfvf
-
-        # TODO we have to compute also the wfvf, it is a different thing of fvf_tot
 
         for metric in m_metrics:
             metric_path = None
@@ -517,7 +537,7 @@ def compute_metricsPerROI(p_code, folder_path):
                     else:
                         density_map = density_maps[tract_path]
 
-                    addMetrics(tract_name, metric, model, metric_map, density_map)
+                    addMetrics(tract_name, metric, model, metric_map, density_map, m[tract_name + "_nTracts"])
                         
 
             for mask_name, mask_path, volume in trilInterp_paths:

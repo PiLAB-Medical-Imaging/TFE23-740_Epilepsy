@@ -527,8 +527,8 @@ def removeOutliers(tck_path):
     bundle  = nib.streamlines.load(tck_path).streamlines
     lengths = list(length(bundle))
     if len(lengths) > 0:
-        q1 = np.quantile(lengths, 0.20)
-        q3 = np.quantile(lengths, 0.80)
+        q1 = np.quantile(lengths, 0.25)
+        q3 = np.quantile(lengths, 0.75)
     else:
         q1 = 0
         q3 = 0
@@ -667,7 +667,6 @@ def compute_tracts(p_code, folder_path, extract_roi, tract, onlySide:str):
                 optsReverse["include"] = opts["include"]
 
             # decrement the cutoff to find a solution with more noise
-            opts["cutoff"] += 0.01 
             while opts["cutoff"] > 0:
                 output_path_backward = ""
                 if len(opts["include_ordered"]) > 0 and len(opts["seed_images"]) > 1:
@@ -707,7 +706,6 @@ def compute_tracts(p_code, folder_path, extract_roi, tract, onlySide:str):
                     break
 
                 opts["cutoff"] -= 0.01
-            opts["cutoff"] = original_cutoff
 
             # select both tracks 
             if os.path.isfile(output_path_forward) and os.path.isfile(output_path_backward):
