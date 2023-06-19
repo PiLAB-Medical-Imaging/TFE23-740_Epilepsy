@@ -464,7 +464,7 @@ def compute_metricsPerROI(p_code, folder_path):
         w_scal = np.round(w_scal).astype(int)
         repeat = np.repeat(v, w_scal)
 
-        m[attr_name + "_mean"] = np.average(v, w)
+        m[attr_name + "_mean"] = np.average(v, weights=w)
         m[attr_name + "_std"] = dstat.std
         #m[attr_name + "_skew"] = w_skew(metric_map, density_map)
         m[attr_name + "_skew"] = stats.skew(repeat, bias=False)
@@ -537,7 +537,7 @@ def compute_metricsPerROI(p_code, folder_path):
                     else:
                         density_map = density_maps[tract_path]
 
-                    addMetrics(tract_name, metric, model, metric_map, density_map, m[tract_name + "_nTracts"])
+                    addMetrics(tract_name, metric, model, metric_map, density_map, m[tract_name + "_nTracts"]*np.sqrt(3))
                         
 
             for mask_name, mask_path, volume in trilInterp_paths:
@@ -551,7 +551,7 @@ def compute_metricsPerROI(p_code, folder_path):
 
                 m[mask_name.lower() + "_voxVol"] = volume
 
-                addMetrics(mask_name.lower(), metric, model, metric_map, density_map)
+                addMetrics(mask_name.lower(), metric, model, metric_map, density_map, 1000)
 
     ## print(json.dumps(m,indent=2, sort_keys=True))
     with open("%s/dMRI/microstructure/%s_metrics.json" % (subject_path, p_code), "w") as outfile:
