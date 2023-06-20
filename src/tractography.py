@@ -43,14 +43,14 @@ tracts = {
                 # Change Thalamus-Proper to Thalamus depending on the version of freesurfer
                 "exclude" : ["Thalamus-Proper", "Caudate", "Putamen", "Pallidum"],
                 "cutoff" : 0.07,
-                "angle" : 25
+                "angle" : 20
             },
 
         "thalamus-AntCingCtx":
             {
                 "seed_images": ["Thalamus-Proper"],
                 "include_ordered" : ["plane-cingulum", "plane-cingulate", "frontal-cingulate"],
-                "angle" : 30,
+                "angle" : 20,
                 "cutoff" : 0.07,
             },
         "thalamus-Insula":
@@ -68,7 +68,7 @@ tracts = {
                 "include" : ["parietal-lobe"],
                 "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
                 "exclude" : ["insula-putamen-hull-in"],
-                "angle" : 12.5,
+                "angle" : 10,
                 "cutoff" : 0.09
             },
         "inf-longi-fasci":
@@ -76,7 +76,7 @@ tracts = {
                 "seed_images" : ["occipital-lobe"],
                 "include" : ["temporal-lobe"],
                 "masks" : ["cerebral-white-matter", "occipital-lobe", "temporal-lobe"],
-                "angle" : 15,
+                "angle" : 10,
                 "cutoff" : 0.09
             },
 
@@ -648,6 +648,10 @@ def compute_tracts(p_code, folder_path, extract_roi, tract, onlySide:str):
                     break
 
                 opts["cutoff"] -= 0.01
+
+            if opts["cutoff"] == 0:
+                print("None tract find: %s %s" % (zone, side))
+                return 1
             
             optsReverse = {}
             if len(opts["include_ordered"]) == 0: 
@@ -706,6 +710,10 @@ def compute_tracts(p_code, folder_path, extract_roi, tract, onlySide:str):
                     break
 
                 opts["cutoff"] -= 0.01
+
+            if opts["cutoff"] == 0:
+                print("None tract find: %s %s" % (zone, side))
+                return 1
 
             # select both tracks 
             if os.path.isfile(output_path_forward) and os.path.isfile(output_path_backward):

@@ -55,7 +55,7 @@ def print_model_metrics(y_test, y_test_prob, confusion = False, verbose = True, 
 # Run Simple Log Reg Model and Print metrics
 from sklearn.linear_model import SGDClassifier
 
-# Run log reg 10 times and average the result to reduce prediction variance
+# Run log reg 100 times and average the result to reduce prediction variance
 def run_log_reg(train_features, test_features, y_train, y_test,  alpha = 1e-4, confusion = False, return_f1 = False, verbose = True):
     metrics = np.zeros(5)
     for _ in range(100):
@@ -69,3 +69,7 @@ def run_log_reg(train_features, test_features, y_train, y_test,  alpha = 1e-4, c
     if return_f1:
         return metrics[0]
     return log_reg
+
+def run_logRegCV(train_features, test_features, y_train, y_test, confuson=False, return_f1=False, verbose=True):
+    metrics = np.zeros(5)
+    
