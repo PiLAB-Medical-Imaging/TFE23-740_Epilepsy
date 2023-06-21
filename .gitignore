@@ -2,6 +2,7 @@ study/*
 !study/static_files/
 study/static_files/mf_dic
 !study/stats/
+!study/confTracula.txt
 .vscode/
 prova/
 *.tar.gz

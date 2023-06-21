@@ -396,6 +396,9 @@ def decresingSigmoid(x, min=0.1, max=0.7, x_max=15):
     
     flex = x_max/2
     smooth = flex/5
+
+    if x > x_max:
+        return max
     return sig(-(x-flex)/smooth)*(max-min)+min 
 
 """
@@ -423,7 +426,7 @@ metrics = {
     "dti" : ["FA", "AD", "RD", "MD"],
     "noddi" : ["icvf", "odi", "fbundle", "fextra", "fintra", "fiso" ],
     "diamond" : ["wFA", "wMD", "wAD", "wRD", "frac_c0", "frac_c1", "frac_csf", "frac_ctot"],
-    "mf" : ["fvf_f0", "fvf_f1", "wfvf", "frac_f0", "frac_f1", "frac_csf", "frac_ftot"]
+    "mf" : ["fvf_f0", "fvf_f1", "wfvf", "fvf_tot", "frac_f0", "frac_f1", "frac_csf", "frac_ftot"]
 }
 
 # Freesurfer LUT: https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/AnatomicalROI/FreeSurferColorLUT
@@ -470,8 +473,8 @@ def compute_metricsPerROI(p_code, folder_path):
         m[attr_name + "_skew"] = stats.skew(repeat, bias=False)
         #m[attr_name + "_kurt"] = w_kurt(metric_map, density_map)
         m[attr_name + "_kurt"] = stats.kurtosis(repeat, fisher=True, bias=False)
-        # m[attr_name + "_max"] = metric_map[density_map>0].max()
-        # m[attr_name + "_min"] = metric_map[density_map>0].min()
+        m[attr_name + "_max"] = metric_map[density_map>0].max()
+        m[attr_name + "_min"] = metric_map[density_map>0].min()
         
         # assert m[attr_name + "_min"] < m[attr_name + "_mean"] and m[attr_name + "_mean"] < m[attr_name + "_max"]
 

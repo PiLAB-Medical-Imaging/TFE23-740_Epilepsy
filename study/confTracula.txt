@@ -1,0 +1,23 @@
+setenv SUBJECTS_DIR ./study/subjects
+
+set dtroot = ./study/trc
+
+set subjlist = (VNSLC_02)
+
+set dcmlist = (./study/subjects/VNSLC_02/dMRI/preproc/VNSLC_02_dmri_preproc.nii.gz)
+
+set bveclist = (./study/subjects/VNSLC_02/dMRI/preproc/VNSLC_02_dmri_preproc.bvec)
+
+set bvallist = (./study/subjects/VNSLC_02/dMRI/preproc/VNSLC_02_dmri_preproc.bval)
+
+# We disable all the corrections because the DW-MRI was already correctd
+
+# method for compensating for B0 inhomogeneity distortions
+set dob0 = 0
+
+set doeddy = 0
+
+# Registration: 3 = bbregister
+set intrareg = 3
+
+set interreg = 5
