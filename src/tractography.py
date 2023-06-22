@@ -402,7 +402,7 @@ def registration(folder_path, subj_id):
         mask_file = cwd + "/" + masks_path + "/" + file
         if os.path.isfile(mask_file) and ext == "nii.gz":
 
-            # Use ANT to do the first registration MNI -> T1
+            # Use ANT to do the registration MNI -> T1
 
             mask_map = ants.image_read(mask_file)
 

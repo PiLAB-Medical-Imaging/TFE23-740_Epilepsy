@@ -406,10 +406,10 @@ Explain of the correction in the thesis
 """
 def correctWeightsTract(weights, nTracts):
     # minmax scaler in [0, 1]
-    weights = (weights - weights.min()) / (weights.max() - weights.min())
+    weights_scaled = (weights - weights.min()) / (weights.max() - weights.min())
     # threshold
     thresh = decresingSigmoid(nTracts)
-    weights[weights<thresh] = 0
+    weights[weights_scaled<thresh] = 0
     # give more weight to voxels with more weight and less to others
     # weights = weights * np.exp(weights) 
     
@@ -446,7 +446,7 @@ def compute_metricsPerROI(p_code, folder_path):
     m["ID"] = p_code
     density_maps = {}
 
-    def addMetrics(roi_name, metric, model, metric_map, density_map, nTracts):
+    def addMetrics(roi_name, metric, model, metric_map, density_map):
         attr_name = "%s_%s" % (roi_name, metric)
         if "frac_csf" == metric:
             if "diamond" == model:
@@ -463,9 +463,8 @@ def compute_metricsPerROI(p_code, folder_path):
 
         dstat = DescrStatsW(v, w)
 
-        w_scal = (w-w.min())/(w.max()-w.min())*(nTracts-0)+0
-        w_scal = np.round(w_scal).astype(int)
-        repeat = np.repeat(v, w_scal)
+        w_discrete = np.round(w).astype(int)
+        repeat = np.repeat(v, w_discrete)
 
         m[attr_name + "_mean"] = np.average(v, weights=w)
         m[attr_name + "_std"] = dstat.std
@@ -476,7 +475,7 @@ def compute_metricsPerROI(p_code, folder_path):
         m[attr_name + "_max"] = metric_map[density_map>0].max()
         m[attr_name + "_min"] = metric_map[density_map>0].min()
         
-        # assert m[attr_name + "_min"] < m[attr_name + "_mean"] and m[attr_name + "_mean"] < m[attr_name + "_max"]
+        assert m[attr_name + "_min"] < m[attr_name + "_mean"] and m[attr_name + "_mean"] < m[attr_name + "_max"]
 
         print(attr_name, "completed")
 
@@ -530,7 +529,7 @@ def compute_metricsPerROI(p_code, folder_path):
                         trk.to_corner()
 
                         density_map = get_streamline_density(trk)
-                        nib.save(nib.Nifti1Image(density_map / density_map.sum(), affine_info), "%s/masks/%s_%s_tractNoCorr.nii.gz" % (subject_path, p_code, tract_name))
+                        nib.save(nib.Nifti1Image(density_map, affine_info), "%s/masks/%s_%s_tractNoCorr.nii.gz" % (subject_path, p_code, tract_name))
 
                         m[tract_name + "_nTracts"] =  get_streamline_count(trk)
                         density_map = correctWeightsTract(density_map, m[tract_name + "_nTracts"])
