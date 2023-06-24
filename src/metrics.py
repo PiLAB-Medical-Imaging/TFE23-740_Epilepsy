@@ -387,7 +387,7 @@ def trilinearInterpROI(subj_path, subj_id, masks : dict):
         trilInterp_paths.append((name, out_trilInterp_path, volume))
     return trilInterp_paths
 
-def decresingSigmoid(x, min=0.1, max=0.7, x_max=15):
+def decresingSigmoid(x, min=0.1, max=0.5, x_max=20):
     """
     Every unit of the smothing the funcion si dilated by 5 from a side
     """
@@ -398,7 +398,7 @@ def decresingSigmoid(x, min=0.1, max=0.7, x_max=15):
     smooth = flex/5
 
     if x > x_max:
-        return max
+        return min
     return sig(-(x-flex)/smooth)*(max-min)+min 
 
 """
@@ -414,6 +414,28 @@ def correctWeightsTract(weights, nTracts):
     # weights = weights * np.exp(weights) 
     
     return weights
+
+def correctWeightsTract(weights, frac_fasci_mask, thresh=0.45):
+    from scipy import signal
+    kernel = [[[1/2, 1/2, 1/2],
+               [1/2, 1/2, 1/2],
+               [1/2, 1/2, 1/2]],
+              [[1/2, 1/2, 1/2],
+               [1/2, 1  , 1/2],
+               [1/2, 1/2, 1/2]],
+              [[1/2, 1/2, 1/2],
+               [1/2, 1/2, 1/2],
+               [1/2, 1/2, 1/2]]]
+    kernel = np.array(kernel)
+
+    c = signal.convolve(weights, kernel, mode="same", method="direct")
+    c_scal = (c - c.min())/(c.max() - c.min())
+    c[c_scal<thresh] = 0
+    if frac_fasci_mask is not None:
+        c = c*frac_fasci_mask # in mf and diamond remove the voxels where the fibers are 0
+    c[weights == 0] = 0 # because during the convolution are chosen also voxels that are not from the bundle, so we keep only the streamlines of the tract
+
+    return c
 
 # def mostImportant(weights):
 #     # minmax scaler in [0, 1]
@@ -475,7 +497,7 @@ def compute_metricsPerROI(p_code, folder_path):
         m[attr_name + "_max"] = metric_map[density_map>0].max()
         m[attr_name + "_min"] = metric_map[density_map>0].min()
         
-        assert m[attr_name + "_min"] < m[attr_name + "_mean"] and m[attr_name + "_mean"] < m[attr_name + "_max"]
+        assert m[attr_name + "_min"] <= m[attr_name + "_mean"] and m[attr_name + "_mean"] <= m[attr_name + "_max"]
 
         print(attr_name, "completed")
 
@@ -492,11 +514,20 @@ def compute_metricsPerROI(p_code, folder_path):
             print("Model metrics don't exist")
             continue
 
+        frac_fasci_path = None
+        frac_fasci_mask = None
+
         if model == "diamond":
             save_DIAMOND_cMap_wMap_divideFract(model_path, p_code) # Compute wFA, wMD, wAxD, wRD and save it in nifti file
+            frac_fasci_path = "%s/%s_%s_frac_ctot.nii.gz" % (model_path, p_code, model)
 
         if model == "mf":
             save_mf_wfvf(model_path, p_code) # compute mf_wfvf
+            frac_fasci_path = "%s/%s_%s_frac_ftot.nii.gz" % (model_path, p_code, model)
+
+        if model in ["diamond", "mf"]:
+            frac_fasci_mask = nib.load(frac_fasci_path).get_fdata()
+            frac_fasci_mask[frac_fasci_mask > 0] = 1
 
         for metric in m_metrics:
             metric_path = None
@@ -523,23 +554,39 @@ def compute_metricsPerROI(p_code, folder_path):
 
                     # save in memory the density_map of the tract, in order to not open them every time, and speedup
                     density_map = None
-                    if tract_path not in density_maps:
+                    if tract_path+"_"+model not in density_maps:
                         trk = load_tractogram(tract_path, "same")
                         trk.to_vox()
                         trk.to_corner()
 
-                        density_map = get_streamline_density(trk)
-                        nib.save(nib.Nifti1Image(density_map, affine_info), "%s/masks/%s_%s_tractNoCorr.nii.gz" % (subject_path, p_code, tract_name))
-
+                        if not os.path.isfile("%s/masks/%s_%s_tractNoCorr.nii.gz" % (subject_path, p_code, tract_name)):
+                            # get the density
+                            density_map = get_streamline_density(trk)
+                            # save the density
+                            bin_density_map = density_map.copy()
+                            bin_density_map[bin_density_map > 0] = 1 # for visualization reasons
+                            nib.save(nib.Nifti1Image(density_map, affine_info), "%s/masks/%s_%s_tractNoCorr.nii.gz" % (subject_path, p_code, tract_name))
+                            nib.save(nib.Nifti1Image(bin_density_map, affine_info), "%s/masks/%s_%s_tractNoCorrBin.nii.gz" % (subject_path, p_code, tract_name))
+                        else :
+                            # load the density
+                            density_map = nib.load("%s/masks/%s_%s_tractNoCorr.nii.gz" % (subject_path, p_code, tract_name)).get_fdata()
+                        # add as feaure the number of tracts of the tract
                         m[tract_name + "_nTracts"] =  get_streamline_count(trk)
-                        density_map = correctWeightsTract(density_map, m[tract_name + "_nTracts"])
-                        
-                        density_maps[tract_path] = density_map
-                        nib.save(nib.Nifti1Image(density_map, affine_info), "%s/masks/%s_%s_tract.nii.gz" % (subject_path, p_code, tract_name))
-                    else:
-                        density_map = density_maps[tract_path]
 
-                    addMetrics(tract_name, metric, model, metric_map, density_map, m[tract_name + "_nTracts"]*np.sqrt(3))
+                        density_map = correctWeightsTract(density_map, frac_fasci_mask)
+                        
+                        # save in memory to be faster
+                        density_maps[tract_path+"_"+model] = density_map
+                        # save the corrected density
+                        bin_density_map = density_map.copy()
+                        bin_density_map[bin_density_map > 0] = 1 # for visualization reasons
+                        nib.save(nib.Nifti1Image(density_map, affine_info), "%s/masks/%s_%s_%s_tract.nii.gz" % (subject_path, p_code, tract_name, model))
+                        nib.save(nib.Nifti1Image(bin_density_map, affine_info), "%s/masks/%s_%s_%s_tractBin.nii.gz" % (subject_path, p_code, tract_name, model))
+                    else:
+                        # load the corrected density map
+                        density_map = density_maps[tract_path+"_"+model]
+
+                    addMetrics(tract_name, metric, model, metric_map, density_map)
                         
 
             for mask_name, mask_path, volume in trilInterp_paths:
@@ -553,7 +600,7 @@ def compute_metricsPerROI(p_code, folder_path):
 
                 m[mask_name.lower() + "_voxVol"] = volume
 
-                addMetrics(mask_name.lower(), metric, model, metric_map, density_map, 1000)
+                addMetrics(mask_name.lower(), metric, model, metric_map, density_map)
 
     ## print(json.dumps(m,indent=2, sort_keys=True))
     with open("%s/dMRI/microstructure/%s_metrics.json" % (subject_path, p_code), "w") as outfile:

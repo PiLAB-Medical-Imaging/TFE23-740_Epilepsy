@@ -26,40 +26,30 @@ class ROI:
         return self.path
 
 tracts = {
-        # Non conto lo Stria-Terminalis ma devo scriverlo nella tesi che non l'ho messo.. la ragione e qualche foto
-        # Il livello di definizione delle immaggini non permette la tractografia della ST
-        # "stria_terminalis":
-        #     {
-        #         "seed_images": ["amygdala"],
-        #         "include_ordered" : ["fornixST", "fornix", "BNST"],
-        #         "exclude" : ["hippocampus", "Thalamus-Proper", "Caudate", "Putamen", "Pallidum"]
-        #     }
+        "fornix":
+            {
+                "seed_images": ["hippocampus", "amygdala"],
+                "include_ordered" : ["plane-fornix", "plane-ort-fornix", "plane-mammillary-body", "plane1-mammillary-body"], 
+                # Change Thalamus-Proper to Thalamus depending on the version of freesurfer
+                "exclude" : ["Thalamus-Proper", "Caudate", "Putamen", "Pallidum", "Lateral-Ventricle-eroded-1"],
+                "cutoff" : 0.07,
+                "angle" : 15
+            },
 
-        # "fornix":
-        #     {
-        #         "seed_images": ["hippocampus", "amygdala"],
-        #         "include" : ["mammillary-body"],
-        #         "include_ordered" : ["plane-fornix", "plane-ort-fornix", "plane-mammillary-body", "plane1-mammillary-body"], 
-        #         # Change Thalamus-Proper to Thalamus depending on the version of freesurfer
-        #         "exclude" : ["Thalamus-Proper", "Caudate", "Putamen", "Pallidum"],
-        #         "cutoff" : 0.07,
-        #         "angle" : 20
-        #     },
-# 
-        # "thalamus-AntCingCtx":
-        #     {
-        #         "seed_images": ["Thalamus-Proper"],
-        #         "include_ordered" : ["plane-cingulum", "plane-cingulate", "frontal-cingulate"],
-        #         "angle" : 20,
-        #         "cutoff" : 0.07,
-        #     },
+        "thalamus-AntCingCtx":
+            {
+                "seed_images": ["Thalamus-Proper"],
+                "include_ordered" : ["plane-cingulum", "plane-cingulate", "frontal-cingulate"],
+                "angle" : 15,
+                "cutoff" : 0.07,
+            },
         "thalamus-Insula":
             {
                 "seed_images": ["Thalamus-Proper"],
                 "include" : ["insula"],
                 "masks" : ["thalamus-insula-hull-dilated-15"],
                 "exclude" : ["hippocampus"],
-                "angle" : 20
+                "angle" : 15
             },
             
         "sup-longi-fasci":
@@ -78,17 +68,7 @@ tracts = {
                 "masks" : ["cerebral-white-matter", "occipital-lobe", "temporal-lobe"],
                 "angle" : 10,
                 "cutoff" : 0.09
-            },
-
-        # Non conto l'Inferior front-occipital ma devo scriverlo nella tesi xche non l'ho messo.. la ragione e qualche foto
-        # "inf-front-occipital-fasci":
-        #     { 
-        #         "seed_images" : ["frontal-lobe"],
-        #         "include" : ["occipital-lobe"],
-        #         "masks" : ["cerebral-white-matter", "frontal-lobe", "occipital-lobe"],
-        #         "angle" : 15,
-        #         "cutoff" : 0.09
-        #     },
+            }
           }
 
 # Freesurfer LUT: https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/AnatomicalROI/FreeSurferColorLUT
@@ -102,6 +82,7 @@ roi_freesurfer = {
     "accumbens" : [26, 58],
     "insula" : [1035, 2035],
     "wm" : [2, 41],
+    "ventricle" : [4, 43],
 }
 roi_num_name = {}
 
@@ -128,11 +109,15 @@ convex_hull = {
 }
 
 sottractions = {
-    "insula-putamen-hull-in" : ["insula-putamen-hull", "insula", "putamen"]
+    "insula-putamen-hull-in" : ["insula-putamen-hull", "insula", "putamen"],
 }
 
 dilatations = {
     "thalamus-insula-hull" : 15
+}
+
+erosions = {
+    "Lateral-Ventricle" : 1
 }
 
 def expand_roi():
@@ -272,6 +257,27 @@ def freesurfer_mask_extraction(folder_path, subj_id):
                     output_path = "%s/subjects/%s/masks/%s_%s_aparc+aseg.nii.gz" % (folder_path, subj_id, subj_id, dilated_roi_name)
 
                     cmd = "maskfilter -force -npass %d %s dilate %s" % (dilatation_cicle, file_path, output_path)
+                    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+                    process.wait()
+                    break
+
+    # Erosion regions
+    masks_path = "%s/subjects/%s/masks" % (folder_path, subj_id)
+    file_extracted_names = os.listdir(masks_path)
+    for file_name in file_extracted_names:
+        file_path = masks_path + "/" + file_name
+        ext = "."+".".join(file_name.split(".")[-2:])
+        if os.path.isfile(file_path) and ext == ".nii.gz":
+            roi_name = "-".join(file_name.split(subj_id + "_")[1].split("_")[0].split("-")[1:]).lower()
+
+            for roi_ero in erosions.keys():
+                if roi_ero.lower() == roi_name.lower():
+                    print("Erosion ROI: %s" % roi_ero)
+                    erosion_cicle = erosions[roi_ero]
+                    eroded_roi_name = file_name.split(subj_id + "_")[1].split("_")[0] + "-eroded-" + str(erosion_cicle)
+                    output_path = "%s/subjects/%s/masks/%s_%s_aparc+aseg.nii.gz" % (folder_path, subj_id, subj_id, eroded_roi_name)
+
+                    cmd = "maskfilter -force -npass %d %s erode %s" % (erosion_cicle, file_path, output_path)
                     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
                     process.wait()
                     break

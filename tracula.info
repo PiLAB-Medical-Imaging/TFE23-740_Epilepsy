@@ -1,0 +1,65 @@
+-corr
+
+Job ID: 71759378
+Cluster: lemaitre3
+User/Group: mcerra/mcerra
+State: COMPLETED (exit code 0)
+Cores: 1
+CPU Utilized: 00:30:15
+CPU Efficiency: 96.13% of 00:31:28 core-walltime
+Job Wall-clock time: 00:31:28
+Memory Utilized: 552.91 MB
+Memory Efficiency: 6.75% of 8.00 GB
+
+-qa
+
+Job ID: 71759382
+Cluster: lemaitre3
+User/Group: mcerra/mcerra
+State: COMPLETED (exit code 0)
+Cores: 1
+CPU Utilized: 00:00:15
+CPU Efficiency: 83.33% of 00:00:18 core-walltime
+Job Wall-clock time: 00:00:18
+Memory Utilized: 1.69 MB
+Memory Efficiency: 0.02% of 8.00 GB
+
+-intra
+
+Job ID: 71759390
+Cluster: lemaitre3
+User/Group: mcerra/mcerra
+State: COMPLETED (exit code 0)
+Cores: 1
+CPU Utilized: 00:02:21
+CPU Efficiency: 93.38% of 00:02:31 core-walltime
+Job Wall-clock time: 00:02:31
+Memory Utilized: 709.82 MB
+Memory Efficiency: 8.66% of 8.00 GB
+
+-tensor
+
+Job ID: 71759402
+Cluster: lemaitre3
+User/Group: mcerra/mcerra
+State: COMPLETED (exit code 0)
+Cores: 1
+CPU Utilized: 00:00:18
+CPU Efficiency: 78.26% of 00:00:23 core-walltime
+Job Wall-clock time: 00:00:23
+Memory Utilized: 1.69 MB
+Memory Efficiency: 0.02% of 8.00 GB
+
+-inter
+
+Job ID: 71759415
+Cluster: lemaitre3
+User/Group: mcerra/mcerra
+State: COMPLETED (exit code 0)
+Cores: 1
+CPU Utilized: 00:06:45
+CPU Efficiency: 99.02% of 00:06:49 core-walltime
+Job Wall-clock time: 00:06:49
+Memory Utilized: 237.52 MB
+Memory Efficiency: 2.90% of 8.00 GB
+

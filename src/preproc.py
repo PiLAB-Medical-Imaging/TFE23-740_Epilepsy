@@ -16,10 +16,6 @@ def preprocess(folder_path):
     ## Preprocessing
     study.preproc(
 
-        # Reslicing
-        reslice=False,
-        reslice_addSlice=False, # Because we don't perform slice-to-volume corrections
-
         # Brain Extraction (Default Values)
 
         ## MPPCA denoising
@@ -38,10 +34,13 @@ def preprocess(folder_path):
         cuda_name="eddy_cuda10.2", # Depends on the version that you have installed
 
         ## BIAS FIELD correction
-        biasfield=True, 
+        biasfield=True,
 
-        # Registration
-        qc_reg=False,
+        ## Registration
+        qc_reg=True,
+
+        # CPUs
+        cpus=4
     )
     return 0
 
@@ -52,10 +51,10 @@ def main():
 
     job = {
             "wrap" : "export MKL_NUM_THREADS=4 ; export OMP_NUM_THREADS=4 ; python -c 'from preproc import preprocess; preprocess(\"%s\")'" % (folder_path),
-            "job_name" : "PREPROCM",
+            "job_name" : "PREPROC",
             "ntasks" : 1,
             "cpus_per_task" : 4,
-            "mem_per_cpu" : 2048,
+            "mem_per_cpu" : 1024,
             "time" : "20:00:00",
             "mail_user" : "michele.cerra@student.uclouvain.be",
             "mail_type" : "FAIL",
