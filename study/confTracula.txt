@@ -14,3 +14,6 @@ set bvallist = ($HOME/Epilepsy-dMRI-VNS/study/data_1/VNSLC_02.bval)
 set intrareg = 3
 
 set interreg = 5
+
+set dob0 = 0
+set doeddy = 0

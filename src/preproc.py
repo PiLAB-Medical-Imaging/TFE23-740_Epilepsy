@@ -31,7 +31,6 @@ def preprocess(folder_path):
 
         ## EDDY and MOTION correction
         eddy=True,
-        cuda_name="eddy_cuda10.2", # Depends on the version that you have installed
 
         ## BIAS FIELD correction
         biasfield=True,
@@ -55,9 +54,11 @@ def main():
             "ntasks" : 1,
             "cpus_per_task" : 4,
             "mem_per_cpu" : 1024,
-            "time" : "20:00:00",
+            "time" : "24:00:00",
             "mail_user" : "michele.cerra@student.uclouvain.be",
             "mail_type" : "FAIL",
+            "output" : folder_path + "/subjects/slurm-%j.out",
+            "error" : folder_path + "/subjects/slurm-%j.err",
         }
     job_id = {}
     job_id["id"] = submit_job(job)
