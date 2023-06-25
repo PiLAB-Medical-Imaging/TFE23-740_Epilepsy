@@ -580,7 +580,7 @@ def compute_metricsPerROI(p_code, folder_path):
                         nib.save(nib.Nifti1Image(density_map, affine_info), "%s/masks/%s_%s_%s_tract.nii.gz" % (subject_path, p_code, tract_name, model))
                         nib.save(nib.Nifti1Image(bin_density_map, affine_info), "%s/masks/%s_%s_%s_tractBin.nii.gz" % (subject_path, p_code, tract_name, model))
                     else:
-                        # load the corrected density map
+                        # Use the density map saved in memory
                         density_map = density_maps[tract_path+"_"+model]
 
                     addMetrics(tract_name, metric, model, metric_map, density_map)
