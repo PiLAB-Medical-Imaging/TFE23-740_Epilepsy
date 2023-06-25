@@ -35,7 +35,7 @@ tracts = {
                 "cutoff" : 0.07,
                 "angle" : 15
             },
-
+            
         "thalamus-AntCingCtx":
             {
                 "seed_images": ["Thalamus-Proper"],
