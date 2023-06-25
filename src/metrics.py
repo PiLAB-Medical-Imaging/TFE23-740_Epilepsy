@@ -325,7 +325,7 @@ def trilinearInterpROI(subj_path, subj_id, masks : dict):
     # must exist the registration done in the tractography step
     registration_path = subj_path + "/registration"
     if not os.path.isdir(registration_path):
-        return 1
+        raise Exception
     
     # get the ids of the regions
     rois = []
@@ -364,7 +364,7 @@ def trilinearInterpROI(subj_path, subj_id, masks : dict):
         process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
         process.wait()
         if process.returncode != 0:
-            return 1
+            raise Exception
 
         # binarize the roi, because the freesurfer roi are not {0, 1}, but with a label
         mask_map : Nifti1Image = nib.load(out_path)
@@ -382,7 +382,7 @@ def trilinearInterpROI(subj_path, subj_id, masks : dict):
         process.wait()
         if process.returncode != 0:
             print("Error freesurfer mri_vol2vol aseg")
-            return 1
+            raise Exception
         
         trilInterp_paths.append((name, out_trilInterp_path, volume))
     return trilInterp_paths
@@ -504,9 +504,6 @@ def compute_metricsPerROI(p_code, folder_path):
     # Trilinear interpolation of the segments into dMRI space
     # We consider the interpolated voxels as a weighted mask (density mask)
     trilInterp_paths = trilinearInterpROI(folder_path+"/subjects/"+p_code, p_code, masks_freesurfer)
-    if(trilInterp_paths == 1):
-        print("Error during te trilinear interpolation")
-        return 1
 
     for model, m_metrics in metrics.items():
         model_path = "%s/dMRI/microstructure/%s/" % (subject_path, model)
