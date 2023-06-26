@@ -31,7 +31,7 @@ tracts = {
                 "seed_images": ["hippocampus", "amygdala"],
                 "include_ordered" : ["plane-fornix", "plane-ort-fornix", "plane-mammillary-body", "plane1-mammillary-body"], 
                 # Change Thalamus-Proper to Thalamus depending on the version of freesurfer
-                "exclude" : ["Thalamus-Proper", "Caudate", "Putamen", "Pallidum", "Lateral-Ventricle-eroded-1"],
+                "exclude" : ["Thalamus-Proper-eroded-1", "Lateral-Ventricle-eroded-1"],
                 "cutoff" : 0.07,
                 "angle" : 15
             },
@@ -117,7 +117,8 @@ dilatations = {
 }
 
 erosions = {
-    "Lateral-Ventricle" : 1
+    "Lateral-Ventricle" : 1,
+    "Thalamus-Proper" : 1
 }
 
 def expand_roi():
@@ -479,7 +480,7 @@ def find_tract(subj_folder_path, subj_id, seed_images, inclusions, inclusions_or
     tck_path = subj_folder_path+"/dMRI/tractography/"+output_name+".tck"
     process = None
 
-    bashCommand = "tckgen -nthreads 4 -algorithm iFOD2 -seeds 10M -max_attempts_per_seed 1000 -seed_unidirectional -force"
+    bashCommand = "tckgen -nthreads 4 -algorithm iFOD2 -seeds 10M -select 10k -max_attempts_per_seed 1000 -seed_unidirectional -force"
 
     if stop:
         bashCommand += " -stop"
