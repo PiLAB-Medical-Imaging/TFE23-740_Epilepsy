@@ -1,9 +1,7 @@
 import sys
-import os
 import elikopy
 
 from elikopy.core import Elikopy
-from elikopy.utils import submit_job
 
 from params import *
 
@@ -36,13 +34,21 @@ def preprocess(folder_path, slurm=True):
         ## BIAS FIELD correction
         biasfield=True,
 
-        ## Registration
-        qc_reg=True,
+        ## Waulity check registration
+        qc_reg=False,
     )
 
     study.white_mask(
         maskType="wm_mask_FSL_T1",
     )
+
+    dictionary_path = "/home/users/n/d/ndelinte/fixed_rad_dist_wide.mat" # taken from the code of Alexandre
+
+    study.odf_msmtcsd(folder_path)
+    study.dti()
+    study.noddi()
+    study.diamond()
+    study.fingerprinting(dictionary_path=dictionary_path)
 
     return 0
 

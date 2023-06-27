@@ -14,16 +14,20 @@ def main():
     with open(dest_success, 'r') as file:
         patient_list = json.load(file)
 
+    #patient_list =  ["VNSLC_19"]
+
     job_list = []
 
     for p_name in patient_list:
         p_job = {
             "wrap" : "recon-all -all -sd %s/freesurfer/ -s %s -i %s/T1/%s_T1.nii.gz -T2 %s/T1/%s_T2.nii.gz -T2pial -qcache" % (study_fold, p_name, study_fold, p_name, study_fold, p_name),
+            #"wrap" : "recon-all -all -sd %s/freesurfer/ -s %s -T2 %s/T1/%s_T2.nii.gz -T2pial -qcache" % (study_fold, p_name, study_fold, p_name),
+
             "job_name" : "Seg_" + p_name,
             "ntasks" : 1,
             "cpus_per_task" : 1,
             "mem_per_cpu" : 4096,
-            "time" : "20:00:00",
+            "time" : "12:00:00",
             "mail_user" : "michele.cerra@student.uclouvain.be",
             "mail_type" : "FAIL",
             "output" : study_fold + "/freesurfer/slurm-%j.out",

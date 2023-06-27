@@ -31,17 +31,13 @@ tracts = {
                 "seed_images": ["hippocampus", "amygdala"],
                 "include_ordered" : ["plane-fornix", "plane-ort-fornix", "plane-mammillary-body", "plane1-mammillary-body"], 
                 # Change Thalamus-Proper to Thalamus depending on the version of freesurfer
-                "exclude" : ["Thalamus-Proper-eroded-1", "Lateral-Ventricle-eroded-1"],
-                "cutoff" : 0.07,
-                "angle" : 15
+                #"exclude" : ["Thalamus-Proper-eroded-1", "Lateral-Ventricle-eroded-1"],
             },
             
         "thalamus-AntCingCtx":
             {
                 "seed_images": ["Thalamus-Proper"],
                 "include_ordered" : ["plane-cingulum", "plane-cingulate", "frontal-cingulate"],
-                "angle" : 15,
-                "cutoff" : 0.07,
             },
         "thalamus-Insula":
             {
@@ -49,7 +45,6 @@ tracts = {
                 "include" : ["insula"],
                 "masks" : ["thalamus-insula-hull-dilated-15"],
                 "exclude" : ["hippocampus"],
-                "angle" : 15
             },
             
         "sup-longi-fasci":
@@ -59,7 +54,6 @@ tracts = {
                 "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
                 "exclude" : ["insula-putamen-hull-in"],
                 "angle" : 10,
-                "cutoff" : 0.09
             },
         "inf-longi-fasci":
             { 
@@ -67,7 +61,6 @@ tracts = {
                 "include" : ["temporal-lobe"],
                 "masks" : ["cerebral-white-matter", "occipital-lobe", "temporal-lobe"],
                 "angle" : 10,
-                "cutoff" : 0.09
             }
           }
 
@@ -568,7 +561,7 @@ def compute_tracts(p_code, folder_path, extract_roi, tract, onlySide:str):
     # check if the ODF exist for the subject, otherwise skip subject
     if not os.path.isdir(subj_folder_path + "/dMRI/ODF/MSMT-CSD/") :
         print("multi-tissue orientation distribution function is not found for patient: %s" % (p_code))
-        return 1
+        raise Exception
 
     if not os.path.isdir(subj_folder_path + "/dMRI/tractography/"):
         os.mkdir(subj_folder_path + "/dMRI/tractography/")
@@ -582,21 +575,21 @@ def compute_tracts(p_code, folder_path, extract_roi, tract, onlySide:str):
         # extract ROI from atlases
         print("MNI152 roi extraction on %s" % p_code)
         if registration(folder_path, p_code) is not None:
-            return 1
+            raise Exception
 
         # Extract ROI from freesurfer segmentation
         # check if the freesurfer segmentation exist, otherwise skip subject
         # Here we are assuming that the segmentation is already done
         if not os.path.isdir(seg_path + "/" + p_code + "/mri"):
             print("freesurfer segmentation isn't found for patient: %s" % (p_code))
-            return 1
+            raise Exception
 
         get_freesurfer_roi_names()
 
         print("Freesurfer roi extraction on %s" % p_code)
         if freesurfer_mask_extraction(folder_path, p_code) is not None:
             print("Error freesurfer extraction or registration")
-            return 1
+            raise Exception
 
     roi_names = get_mask(subj_folder_path+"/masks", p_code)
 
@@ -616,7 +609,7 @@ def compute_tracts(p_code, folder_path, extract_roi, tract, onlySide:str):
             opts["include_ordered"] = []
             opts["exclude"] = []
             opts["masks"] = []
-            opts["angle"] = 45
+            opts["angle"] = 15
             opts["cutoff"] = 0.1
             opts["stop"] = True
             opts["act"] = False
@@ -658,7 +651,7 @@ def compute_tracts(p_code, folder_path, extract_roi, tract, onlySide:str):
 
             if opts["cutoff"] == 0:
                 print("None tract find: %s %s" % (zone, side))
-                return 1
+                raise Exception
             
             optsReverse = {}
             if len(opts["include_ordered"]) == 0: 
@@ -720,7 +713,7 @@ def compute_tracts(p_code, folder_path, extract_roi, tract, onlySide:str):
 
             if opts["cutoff"] == 0:
                 print("None tract find: %s %s" % (zone, side))
-                return 1
+                raise Exception
 
             # select both tracks 
             if os.path.isfile(output_path_forward) and os.path.isfile(output_path_backward):
