@@ -2,7 +2,6 @@ study/*
 !study/static_files/
 study/static_files/mf_dic
 !study/stats/
-!study/freesurfer/confTrac
 .vscode/
 prova/
 *.tar.gz
