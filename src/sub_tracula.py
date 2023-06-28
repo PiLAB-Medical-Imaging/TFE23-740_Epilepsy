@@ -10,10 +10,12 @@ def main():
     step = ""
     if "-prep" in sys.argv[1:]:
         step = "prep"
+        time = 1
     if "-prior" in sys.argv[1:]:
         step = "prior"
     elif "-bedp" in sys.argv[1:]:
         step = "bedp"
+        time = 24
     elif "-path" in sys.argv[1:]:
         step = "path"
     elif "-stat" in sys.argv[1:]:
@@ -45,7 +47,7 @@ def main():
             "ntasks" : 1,
             "cpus_per_task" : 1,
             "mem_per_cpu" : 5120,
-            "time" : "1:00:00",
+            "time" : "%d:00:00" % time,
             "mail_user" : "michele.cerra@student.uclouvain.be",
             "mail_type" : "FAIL",
             "output" : study_fold + "/freesurfer/slurm-%j.out",

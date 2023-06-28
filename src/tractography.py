@@ -466,14 +466,14 @@ def get_mask(mask_path, subj_id):
 
     return roi_names
 
-def find_tract(subj_folder_path, subj_id, seed_images, inclusions, inclusions_ordered, exclusions, masks, angle, cutoff, stop, act, output_name):
+def find_tract(subj_folder_path, subj_id, seeds:str, seed_images, inclusions, inclusions_ordered, exclusions, masks, angle, cutoff, stop, act, output_name):
     """
     It's a function that build the bashCommands for the tckgen of mrtrix3 and generate the tracts
     """
     tck_path = subj_folder_path+"/dMRI/tractography/"+output_name+".tck"
     process = None
 
-    bashCommand = "tckgen -nthreads 4 -algorithm iFOD2 -seeds 10M -select 10k -max_attempts_per_seed 1000 -seed_unidirectional -force"
+    bashCommand = "tckgen -nthreads 4 -algorithm iFOD2 -seeds %s -select 10k -max_attempts_per_seed 1000 -seed_unidirectional -force" % seeds
 
     if stop:
         bashCommand += " -stop"
@@ -638,20 +638,16 @@ def compute_tracts(p_code, folder_path, extract_roi, tract, onlySide:str):
             print(json.dumps(opts, indent=2))
 
             # decrement the cutoff to find a solution with more noise
-            original_cutoff = opts["cutoff"]
             while opts["cutoff"] > 0:
-                output_path_forward = find_tract(subj_folder_path, p_code, opts["seed_images"], opts["include"], opts["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_to")
-
-                trk = load_tractogram(output_path_forward, subj_folder_path + "/dMRI/ODF/MSMT-CSD/"+p_code+"_MSMT-CSD_WM_ODF.nii.gz")
+                output_path_cutoff = find_tract(subj_folder_path, p_code, "1M", opts["seed_images"], opts["include"], opts["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_findCut")
+                trk = load_tractogram(output_path_cutoff, subj_folder_path + "/dMRI/ODF/MSMT-CSD/"+p_code+"_MSMT-CSD_WM_ODF.nii.gz")
                 nTracts = get_streamline_count(trk)
                 if nTracts > 0:
                     break
-
                 opts["cutoff"] -= 0.01
+            os.remove(output_path_cutoff)
 
-            if opts["cutoff"] == 0:
-                print("None tract find: %s %s" % (zone, side))
-                raise Exception
+            output_path_forward = find_tract(subj_folder_path, p_code, "10M", opts["seed_images"], opts["include"], opts["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_to")
             
             optsReverse = {}
             if len(opts["include_ordered"]) == 0: 
@@ -671,49 +667,36 @@ def compute_tracts(p_code, folder_path, extract_roi, tract, onlySide:str):
                 optsReverse["include"] = opts["include"]
 
             # decrement the cutoff to find a solution with more noise
-            while opts["cutoff"] > 0:
-                output_path_backward = ""
-                if len(opts["include_ordered"]) > 0 and len(opts["seed_images"]) > 1:
-                    output_path_backward = subj_folder_path+"/dMRI/tractography/"+output_name+"_from"
-                    cmd = "tckedit -force" # command to do the union of all the tracts
-        
-                    # The reverse of more seed regions
-                    for i, seed_path in enumerate(opts["seed_images"]):
-                        optsReverse["include_ordered"].append(seed_path)
-                        cmd = cmd + " " + output_path_backward + str(i) + ".tck"
-                        # # #   
+            output_path_backward = ""
+            if len(opts["include_ordered"]) > 0 and len(opts["seed_images"]) > 1:
+                output_path_backward = subj_folder_path+"/dMRI/tractography/"+output_name+"_from"
+                cmd = "tckedit -force" # command to do the union of all the tracts
+    
+                # The reverse of more seed regions
+                for i, seed_path in enumerate(opts["seed_images"]):
+                    optsReverse["include_ordered"].append(seed_path)
+                    cmd = cmd + " " + output_path_backward + str(i) + ".tck"
+                    # # #   
 
-                        find_tract(subj_folder_path, p_code, optsReverse["seed_images"], optsReverse["include"], optsReverse["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_from" + str(i))
+                    find_tract(subj_folder_path, p_code, "10M", optsReverse["seed_images"], optsReverse["include"], optsReverse["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_from" + str(i))
 
-                        # # #
-                        optsReverse["include_ordered"].pop()
+                    # # #
+                    optsReverse["include_ordered"].pop()
 
-                    # Union of the tracts
-                    cmd = cmd + " " + output_path_backward + ".tck"
-                    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
-                    process.wait()
+                # Union of the tracts
+                cmd = cmd + " " + output_path_backward + ".tck"
+                process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+                process.wait()
 
-                    # remove the temp file
-                    for i, seed_path in enumerate(opts["seed_images"]):
-                        os.remove(output_path_backward + str(i) + ".tck")
+                # remove the temp file
+                for i, seed_path in enumerate(opts["seed_images"]):
+                    os.remove(output_path_backward + str(i) + ".tck")
 
-                    output_path_backward = output_path_backward + ".tck"
+                output_path_backward = output_path_backward + ".tck"
 
-                else:
-                    # The reverse of one seed region
-                    output_path_backward = find_tract(subj_folder_path, p_code, optsReverse["seed_images"], optsReverse["include"], optsReverse["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_from")
-
-                # check that there is at least some tract, for 3 times
-                trk = load_tractogram(output_path_backward, subj_folder_path + "/dMRI/ODF/MSMT-CSD/"+p_code+"_MSMT-CSD_WM_ODF.nii.gz")
-                nTracts = get_streamline_count(trk)
-                if nTracts > 0:
-                    break
-
-                opts["cutoff"] -= 0.01
-
-            if opts["cutoff"] == 0:
-                print("None tract find: %s %s" % (zone, side))
-                raise Exception
+            else:
+                # The reverse of one seed region
+                output_path_backward = find_tract(subj_folder_path, p_code, "10M", optsReverse["seed_images"], optsReverse["include"], optsReverse["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_from")
 
             # select both tracks 
             if os.path.isfile(output_path_forward) and os.path.isfile(output_path_backward):

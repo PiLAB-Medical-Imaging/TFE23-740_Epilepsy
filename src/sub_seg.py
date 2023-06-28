@@ -1,7 +1,6 @@
 import sys
 import json
 import elikopy
-import os
 
 from params import get_fold
 from elikopy.utils import submit_job
@@ -27,7 +26,7 @@ def main():
             "ntasks" : 1,
             "cpus_per_task" : 1,
             "mem_per_cpu" : 4096,
-            "time" : "12:00:00",
+            "time" : "18:00:00",
             "mail_user" : "michele.cerra@student.uclouvain.be",
             "mail_type" : "FAIL",
             "output" : study_fold + "/freesurfer/slurm-%j.out",
