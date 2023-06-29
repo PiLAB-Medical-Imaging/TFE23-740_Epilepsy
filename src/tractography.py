@@ -578,7 +578,7 @@ def compute_tracts(p_code, folder_path, compute_5tt, extract_roi, tract, onlySid
 
     ############# 5TT COMPUTATION ##########
     if compute_5tt:
-        if not os.path.isfile("%s/5tt/%s_5tt.nii.gz" % subj_folder_path, p_code):
+        if not os.path.isfile("%s/5tt/%s_5tt.nii.gz" % (subj_folder_path, p_code)):
             cmd = "5ttgen fsl %s/mri/orig.mgz %s/5tt/%s_5tt.nii.gz -t2 %s/mri/T2.mgz -nocrop -force && mrconvert %s/5tt/%s_5tt.nii.gz %s/5tt/%s_5tt.nii.gz -strides %s/mri/brain.mgz -force" % (subj_folder_path, subj_folder_path, p_code, subj_folder_path, subj_folder_path, p_code, subj_folder_path, p_code, subj_folder_path)
             process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
             process.wait()
