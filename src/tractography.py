@@ -480,7 +480,7 @@ def find_tract(subj_folder_path, subj_id, seeds:str, seed_images, select:str, in
     tck_path = subj_folder_path+"/dMRI/tractography/"+output_name+".tck"
     process = None
 
-    bashCommand = "tckgen -nthreads 4 -algorithm iFOD2 -seeds %s -select %s -max_attempts_per_seed 1000 -force" % (seeds, select)
+    bashCommand = "tckgen -nthreads 4 -algorithm iFOD2 -seeds %s -select %s -max_attempts_per_seed 1000 -seed_unidirectional -force" % (seeds, select)
 
     if stop:
         bashCommand += " -stop"
