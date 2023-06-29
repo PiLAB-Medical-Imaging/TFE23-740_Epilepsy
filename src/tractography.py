@@ -629,8 +629,8 @@ def compute_tracts(p_code, folder_path, compute_5tt, extract_roi, tract, onlySid
             opts["masks"] = []
             opts["angle"] = 15
             opts["cutoff"] = 0.1
-            opts["stop"] = False
-            opts["act"] = True
+            opts["stop"] = True
+            opts["act"] = not opts["stop"]
 
             areAllROIs = True
 
