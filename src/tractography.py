@@ -301,7 +301,7 @@ def registration(folder_path, subj_id):
     subj_dmri_file = dmri_path + "/" + subj_id + "_dmri_preproc.nii.gz"
     subj_b0_file = dmri_path + "/" + subj_id + "_b0_preproc.nii.gz"
     # Here I use MRtrix3 to extract the mean of the b0 maps
-    cmd = "dwiextract %s -fslgrad %s/%s_dmri_preproc.bvec %s/%s_dmri_preproc.bval - -bzero | mrmath - mean %s -axis 3" % (subj_dmri_file, dmri_path, subj_id, dmri_path, subj_id, subj_b0_file)
+    cmd = "dwiextract %s -fslgrad %s/%s_dmri_preproc.bvec %s/%s_dmri_preproc.bval - -bzero | mrmath - mean %s -axis 3 -force" % (subj_dmri_file, dmri_path, subj_id, dmri_path, subj_id, subj_b0_file)
     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
     process.wait()
     if process.returncode != 0:

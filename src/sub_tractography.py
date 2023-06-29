@@ -64,8 +64,6 @@ def main():
         study.odf_msmtcsd(patient_list_m=patient_list)
         return 0
     
-    # patient_list = ["VNSLC_12", "VNSLC_06", "VNSLC_03", "VNSLC_22", "VNSLC_16", "VNSLC_17", "VNSLC_19"]
-
     job_list = []
 
     for p_code in patient_list:
