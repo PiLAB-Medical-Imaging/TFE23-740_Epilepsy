@@ -10,21 +10,25 @@ def main():
     step = ""
     if "-prep" in sys.argv[1:]:
         step = "prep"
-        time = 1
+        time = 5
     if "-prior" in sys.argv[1:]:
         step = "prior"
     elif "-bedp" in sys.argv[1:]:
         step = "bedp"
-        time = 24
+        time = 48
     elif "-path" in sys.argv[1:]:
         step = "path"
+        time = 48
     elif "-stat" in sys.argv[1:]:
         step = "stat"
+        time = 48
 
     ## Read the list of subjects and for each subject do the tractography
     dest_success = study_fold + "/freesurfer/subj_list.json"
     with open(dest_success, 'r') as file:
         patient_list = json.load(file)
+
+    # patient_list = ["VNSLC_09", "VNSLC_23"]
 
     job_list = []
     
@@ -34,8 +38,7 @@ def main():
         confFile.write("setenv SUBJECTS_DIR %s/freesurfer/\n" % study_fold)
         confFile.write("set dtroot = %s/freesurfer/\n" % study_fold)
         confFile.write("set subjlist = (%s)\n" % p)
-        confFile.write("set dcmroot = %s/subjects/%s/dMRI/preproc/\n" % (study_fold, p))
-        confFile.write("set dcmlist = (%s_dmri_preproc.nii.gz)\n" % p)
+        confFile.write("set dcmlist = (%s/subjects/%s/dMRI/preproc/%s_dmri_preproc.nii.gz)\n" % (study_fold, p, p))
         confFile.write("set bveclist = (%s/subjects/%s/dMRI/preproc/%s_dmri_preproc.bvec)\n" % (study_fold, p, p))
         confFile.write("set bvallist = (%s/subjects/%s/dMRI/preproc/%s_dmri_preproc.bval)\n" % (study_fold, p, p))
         confFile.write("set doeddy = 0\n")

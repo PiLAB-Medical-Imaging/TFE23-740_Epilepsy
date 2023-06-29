@@ -19,14 +19,15 @@ def main():
 
     for p_name in patient_list:
         p_job = {
-            "wrap" : "recon-all -all -sd %s/freesurfer/ -s %s -i %s/T1/%s_T1.nii.gz -T2 %s/T1/%s_T2.nii.gz -T2pial -qcache" % (study_fold, p_name, study_fold, p_name, study_fold, p_name),
+            #"wrap" : "recon-all -all -sd %s/freesurfer/ -s %s -i %s/T1/%s_T1.nii.gz -T2 %s/T1/%s_T2.nii.gz -T2pial -qcache && segmentThalamicNuclei.sh  %s  %s/freesurfer/ " % (study_fold, p_name, study_fold, p_name, study_fold, p_name, p_name, study_fold),
             #"wrap" : "recon-all -all -sd %s/freesurfer/ -s %s -T2 %s/T1/%s_T2.nii.gz -T2pial -qcache" % (study_fold, p_name, study_fold, p_name),
+            "wrap" : "segmentThalamicNuclei.sh  %s  %s/freesurfer/ " % (p_name, study_fold),
 
             "job_name" : "Seg_" + p_name,
             "ntasks" : 1,
             "cpus_per_task" : 1,
             "mem_per_cpu" : 4096,
-            "time" : "18:00:00",
+            "time" : "5:00:00",
             "mail_user" : "michele.cerra@student.uclouvain.be",
             "mail_type" : "FAIL",
             "output" : study_fold + "/freesurfer/slurm-%j.out",

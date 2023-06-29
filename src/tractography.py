@@ -293,22 +293,20 @@ def freesurfer_mask_extraction(folder_path, subj_id):
 
 def registration(folder_path, subj_id):
     masks_path = folder_path + "/static_files/atlases/masks"
+    dmri_path = folder_path + "/subjects/" + subj_id + "/dMRI/preproc"
     # Atlas MNI152
     atlas_file = folder_path + "/static_files/atlases/MNI152_T1_1mm_brain.nii.gz"
     atlas_map = ants.image_read(atlas_file)
-    # Subject T1 only brain
-    subj_t1_file = folder_path + "/subjects/" + subj_id + "/mri/brain.mgz"
-    subj_t1_map = ants.image_read(subj_t1_file)
     # Subject dMRI extraction of b0
-    subj_dmri_file = folder_path + "/subjects/" + subj_id + "/dMRI/preproc/" + subj_id + "_dmri_preproc.nii.gz"
-    subj_b0_file = folder_path + "/subjects/" + subj_id + "/dMRI/preproc/" + subj_id + "_b0_preproc.nii.gz"
-    # Here I use nibabel to extract the b0 map
-    subj_dmri_map : Nifti1Image = nib.load(subj_dmri_file)
-    subj_dmri_numpy = subj_dmri_map.get_fdata() # get the numpy array
-    subj_b0_numpy = subj_dmri_numpy[:,:,:,0] # get only the first volume (b0)
-    subj_b0_map = Nifti1Image(subj_b0_numpy, subj_dmri_map.affine) # convert to nii.gz image with same affine information of the full dmri map
-    nib.save(subj_b0_map, subj_b0_file) # save it 
-    subj_b0_map = ants.image_read(subj_b0_file) # load with ants
+    subj_dmri_file = dmri_path + "/" + subj_id + "_dmri_preproc.nii.gz"
+    subj_b0_file = dmri_path + "/" + subj_id + "_b0_preproc.nii.gz"
+    # Here I use MRtrix3 to extract the mean of the b0 maps
+    cmd = "dwiextract %s -fslgrad %s/%s_dmri_preproc.bvec %s/%s_dmri_preproc.bval - -bzero | mrmath - mean %s -axis 3" % (subj_dmri_file, dmri_path, subj_id, dmri_path, subj_id, subj_b0_file)
+    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+    process.wait()
+    if process.returncode != 0:
+        print("Error mean of b0")
+        return 1
 
     ## Registration from T1 to dMRI
     registration_path = folder_path + "/subjects/" + subj_id + "/registration"
@@ -320,17 +318,17 @@ def registration(folder_path, subj_id):
     print("Computing matrix transformation between T1 and dMRI")
     if not os.path.isfile(registration_path + "/transf_dMRI_t1.dat"):
         # Find the transformation matrix
-        cmd = "bbregister --s %s --mov %s/subjects/%s/dMRI/preproc/%s_dmri_preproc.nii.gz --reg %s/transf_dMRI_t1.dat --dti --init-fsl" % (subj_id, folder_path, subj_id, subj_id, registration_path)
+        cmd = "bbregister --s %s --mov %s --reg %s/transf_dMRI_t1.dat --dti --init-fsl" % (subj_id, subj_b0_file, registration_path)
         process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
         process.wait()
         if process.returncode != 0:
             print("Error freesurfer bbregister")
             return 1
     
-    # Apply transformation to T1 to see the result
+    # Apply transformation to T1
     subj_t1_map_reg = registration_path + "/" + subj_id + "_T1_brain_reg.nii.gz"
     print("Apply transformation: T1 to dMRI")
-    cmd = "mri_vol2vol --reg %s/transf_dMRI_t1.dat --targ %s/subjects/%s/mri/brain.mgz --mov %s/subjects/%s/dMRI/preproc/%s_dmri_preproc.nii.gz --o %s --interp nearest --no-resample --inv" % (registration_path, folder_path, subj_id, folder_path, subj_id, subj_id, subj_t1_map_reg)
+    cmd = "mri_vol2vol --reg %s/transf_dMRI_t1.dat --targ %s/subjects/%s/mri/brain.mgz --mov %s --o %s --interp nearest --no-resample --inv" % (registration_path, folder_path, subj_id, subj_b0_file, subj_t1_map_reg)
     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
     process.wait()
     if process.returncode != 0:
@@ -340,13 +338,22 @@ def registration(folder_path, subj_id):
 
     # Apply transformation to aseg+aparc
     print("Apply transformation: aparc+aseg to dMRI")
-    cmd = "mri_vol2vol --reg %s/transf_dMRI_t1.dat --targ %s/subjects/%s/mri/aparc+aseg.mgz --mov %s/subjects/%s/dMRI/preproc/%s_dmri_preproc.nii.gz --o %s/aparc+aseg_reg.mgz --interp nearest --no-resample --inv" % (registration_path, folder_path, subj_id, folder_path, subj_id, subj_id, registration_path)
+    cmd = "mri_vol2vol --reg %s/transf_dMRI_t1.dat --targ %s/subjects/%s/mri/aparc+aseg.mgz --mov %s --o %s/aparc+aseg_reg.mgz --interp nearest --no-resample --inv" % (registration_path, folder_path, subj_id, subj_b0_file, registration_path)
     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
     process.wait()
     if process.returncode != 0:
         print("Error freesurfer mri_vol2vol aseg")
         return 1
 
+    # Apply transformation to 5tt
+    print("Apply transformation: 5tt to dMRI")
+    cmd = "mri_vol2vol --reg %s/transf_dMRI_t1.dat --targ %s/subjects/%s/5tt/%s_5tt.nii.gz --mov %s --o %s/5tt_reg.nii.gz --interp nearest --no-resample --inv" % (registration_path, folder_path, subj_id, subj_id, subj_b0_file, registration_path)
+    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+    process.wait()
+    if process.returncode != 0:
+        print("Error freesurfer mri_vol2vol 5tt")
+        return 1
+    
     cwd = os.getcwd() # save the current working directory
     os.chdir(registration_path + "/ants") # change dir inside /ants
 
@@ -466,19 +473,19 @@ def get_mask(mask_path, subj_id):
 
     return roi_names
 
-def find_tract(subj_folder_path, subj_id, seeds:str, seed_images, inclusions, inclusions_ordered, exclusions, masks, angle, cutoff, stop, act, output_name):
+def find_tract(subj_folder_path, subj_id, seeds:str, seed_images, select:str, inclusions, inclusions_ordered, exclusions, masks, angle, cutoff, stop, act, output_name):
     """
     It's a function that build the bashCommands for the tckgen of mrtrix3 and generate the tracts
     """
     tck_path = subj_folder_path+"/dMRI/tractography/"+output_name+".tck"
     process = None
 
-    bashCommand = "tckgen -nthreads 4 -algorithm iFOD2 -seeds %s -select 10k -max_attempts_per_seed 1000 -seed_unidirectional -force" % seeds
+    bashCommand = "tckgen -nthreads 4 -algorithm iFOD2 -seeds %s -select %s -max_attempts_per_seed 1000 -force" % (seeds, select)
 
     if stop:
         bashCommand += " -stop"
     if act:
-        bashCommand += " -act " + subj_folder_path + "/dMRI/5tt/subj00_5tt.nii.gz"
+        bashCommand += " -act " + subj_folder_path + "/registration/5tt_reg.nii.gz -backtrack"
 
     bashCommand += " -angle " + str(angle)
     bashCommand += " -cutoff " + str(cutoff)
@@ -551,8 +558,7 @@ def removeOutliers(tck_path):
     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
     process.wait()
     
-
-def compute_tracts(p_code, folder_path, extract_roi, tract, onlySide:str):
+def compute_tracts(p_code, folder_path, compute_5tt, extract_roi, tract, onlySide:str):
     print("Working on %s" % p_code)
 
     subj_folder_path = folder_path + '/subjects/' + p_code
@@ -567,6 +573,17 @@ def compute_tracts(p_code, folder_path, extract_roi, tract, onlySide:str):
         os.mkdir(subj_folder_path + "/dMRI/tractography/")
     if not os.path.isdir(subj_folder_path + "/masks/"):
         os.mkdir(subj_folder_path + "/masks/")
+    if not os.path.isdir(subj_folder_path + "/5tt/"):
+        os.mkdir(subj_folder_path + "/5tt/")
+
+    ############# 5TT COMPUTATION ##########
+    if compute_5tt:
+        cmd = "5ttgen fsl %s/mri/orig.mgz %s/5tt/%s_5tt.nii.gz -t2 %s/mri/T2.mgz -nocrop && mrconvert %s/5tt/%s_5tt.nii.gz %s/5tt/%s_5tt.nii.gz -strides %s/mri/brain.mgz" % (subj_folder_path, subj_folder_path, p_code, subj_folder_path, subj_folder_path, p_code, subj_folder_path, p_code, subj_folder_path)
+        process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+        process.wait()
+        if process.returncode != 0:
+            print("Error 5tt computation")
+            raise Exception
 
     ############# ROI EXTRACTION ############
     if extract_roi:
@@ -611,8 +628,8 @@ def compute_tracts(p_code, folder_path, extract_roi, tract, onlySide:str):
             opts["masks"] = []
             opts["angle"] = 15
             opts["cutoff"] = 0.1
-            opts["stop"] = True
-            opts["act"] = False
+            opts["stop"] = False
+            opts["act"] = True
 
             areAllROIs = True
 
@@ -639,7 +656,7 @@ def compute_tracts(p_code, folder_path, extract_roi, tract, onlySide:str):
 
             # decrement the cutoff to find a solution with more noise
             while opts["cutoff"] > 0:
-                output_path_cutoff = find_tract(subj_folder_path, p_code, "1M", opts["seed_images"], opts["include"], opts["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_findCut")
+                output_path_cutoff = find_tract(subj_folder_path, p_code, "1M", opts["seed_images"], "1", opts["include"], opts["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_findCut")
                 trk = load_tractogram(output_path_cutoff, subj_folder_path + "/dMRI/ODF/MSMT-CSD/"+p_code+"_MSMT-CSD_WM_ODF.nii.gz")
                 nTracts = get_streamline_count(trk)
                 if nTracts > 0:
@@ -647,7 +664,7 @@ def compute_tracts(p_code, folder_path, extract_roi, tract, onlySide:str):
                 opts["cutoff"] -= 0.01
             os.remove(output_path_cutoff)
 
-            output_path_forward = find_tract(subj_folder_path, p_code, "10M", opts["seed_images"], opts["include"], opts["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_to")
+            output_path_forward = find_tract(subj_folder_path, p_code, "10M", opts["seed_images"], "10k", opts["include"], opts["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_to")
             
             optsReverse = {}
             if len(opts["include_ordered"]) == 0: 
@@ -678,7 +695,7 @@ def compute_tracts(p_code, folder_path, extract_roi, tract, onlySide:str):
                     cmd = cmd + " " + output_path_backward + str(i) + ".tck"
                     # # #   
 
-                    find_tract(subj_folder_path, p_code, "10M", optsReverse["seed_images"], optsReverse["include"], optsReverse["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_from" + str(i))
+                    find_tract(subj_folder_path, p_code, "10M", optsReverse["seed_images"], "10k", optsReverse["include"], optsReverse["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_from" + str(i))
 
                     # # #
                     optsReverse["include_ordered"].pop()
@@ -696,7 +713,7 @@ def compute_tracts(p_code, folder_path, extract_roi, tract, onlySide:str):
 
             else:
                 # The reverse of one seed region
-                output_path_backward = find_tract(subj_folder_path, p_code, "10M", optsReverse["seed_images"], optsReverse["include"], optsReverse["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_from")
+                output_path_backward = find_tract(subj_folder_path, p_code, "10M", optsReverse["seed_images"], "10k", optsReverse["include"], optsReverse["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_from")
 
             # select both tracks 
             if os.path.isfile(output_path_forward) and os.path.isfile(output_path_backward):
@@ -735,6 +752,10 @@ def main():
 
         study.odf_msmtcsd()
 
+    compute_5tt = False
+    if "-5tt" in sys.argv[1:]:
+        compute_5tt = True
+
     extract_roi = False
     if "-roi" in sys.argv[1:]:
         extract_roi = True  
@@ -748,7 +769,7 @@ def main():
         parIdx = sys.argv.index("-side") + 1 # the index of the parameter after the option
         side = sys.argv[parIdx]
 
-    compute_tracts(p, folder_path, extract_roi, tract, side)
+    compute_tracts(p, folder_path, compute_5tt, extract_roi, tract, side)
 
 if __name__ == "__main__":
     exit(main())

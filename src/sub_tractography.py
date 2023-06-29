@@ -20,6 +20,11 @@ def main():
 
     time = [0, 1]
 
+    compute_5tt = False
+    if "-5tt" in sys.argv[1:]:
+        compute_5tt = True
+        time[1] += 30
+
     extract_roi = False
     if "-roi" in sys.argv[1:]:
         extract_roi = True  
@@ -58,6 +63,8 @@ def main():
 
         study.odf_msmtcsd(patient_list_m=patient_list)
         return 0
+    
+    # patient_list = ["VNSLC_12", "VNSLC_06", "VNSLC_03", "VNSLC_22", "VNSLC_16", "VNSLC_17", "VNSLC_19"]
 
     job_list = []
 
@@ -66,11 +73,11 @@ def main():
             os.mkdir(folder_path + '/subjects/' + p_code + "/dMRI/tractography/")
 
         p_job = {
-            "wrap" : "export MKL_NUM_THREADS=4 ; export OMP_NUM_THREADS=4 ; python -c 'from tractography import compute_tracts; compute_tracts(\"%s\", \"%s\", %s, %s, \"%s\")'" % (p_code, folder_path, str(extract_roi), str(tract), side),
+            "wrap" : "export MKL_NUM_THREADS=4 ; export OMP_NUM_THREADS=4 ; python -c 'from tractography import compute_tracts; compute_tracts(\"%s\", \"%s\", %s, %s, %s, \"%s\")'" % (p_code, folder_path, str(compute_5tt), str(extract_roi), str(tract), side),
             "job_name" :  p_code,
             "ntasks" : 1,
             "cpus_per_task" : 4,
-            "mem_per_cpu" : 512,
+            "mem_per_cpu" : 768,
             "time" : "%s:%s:00" % (str(time[0]), str(time[1])),
             "mail_user" : "michele.cerra@student.uclouvain.be",
             "mail_type" : "FAIL",
