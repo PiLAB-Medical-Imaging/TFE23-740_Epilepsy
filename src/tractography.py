@@ -26,42 +26,92 @@ class ROI:
         return self.path
 
 tracts = {
-        "fornix":
+        # "antThalRadiation": 
+        #     {
+        #         "seed_images": ["AV"],
+        #         "include_ordered" : ["AntLimbIntCapsule", "frontal-lobe"],
+        #         "stop" : False,
+        #         "act" : True,
+        #     },
+        "postThalRadiation-parital": 
             {
-                "seed_images": ["hippocampus", "amygdala"],
-                "include_ordered" : ["plane-fornix", "plane-ort-fornix", "plane-mammillary-body", "plane1-mammillary-body"], 
-                # Change Thalamus-Proper to Thalamus depending on the version of freesurfer
-                #"exclude" : ["Thalamus-Proper-eroded-1", "Lateral-Ventricle-eroded-1"],
+                "seed_images": ["ventral-lateral"],
+                "include_ordered" : ["PostLimbIntCapsule", "parietal-lobe"],
+                "angle" : 10,
+                "stop" : False,
+                "act" : True,
             },
-            
-        "thalamus-AntCingCtx":
+        "postThalRadiation-occipital": 
+            {
+                "seed_images": ["ventral-lateral"],
+                "include_ordered" : ["PostLimbIntCapsule", "occipital-lobe"],
+                "stop" : False,
+                "act" : True,
+            },
+        "supThalRadiation": 
+            {
+                "seed_images": ["ventral-nuclei"],
+                "include_ordered" : ["PostLimbIntCapsule", "gyrus-central"],
+                "stop" : False,
+                "act" : True,
+            },
+        "infThalRadiation-insula": 
+            {
+                "seed_images": ["ventral-nuclei"],
+                "include_ordered" : ["RetroLenticularIntCapsule", "insula"],
+                "stop" : False,
+                "act" : True,
+            },
+        "infThalRadiation-temporal": 
             {
                 "seed_images": ["Thalamus-Proper"],
-                "include_ordered" : ["plane-cingulum", "plane-cingulate", "frontal-cingulate"],
+                "include_ordered" : ["RetroLenticularIntCapsule", "temporal-lobe"],
+                "stop" : False,
+                "act" : True,
             },
-        "thalamus-Insula":
-            {
-                "seed_images": ["Thalamus-Proper"],
-                "include" : ["insula"],
-                "masks" : ["thalamus-insula-hull-dilated-15"],
-                "exclude" : ["hippocampus"],
-            },
-            
-        "sup-longi-fasci":
-            { 
-                "seed_images" : ["frontal-lobe"],
-                "include" : ["parietal-lobe"],
-                "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
-                "exclude" : ["insula-putamen-hull-in"],
-                "angle" : 10,
-            },
-        "inf-longi-fasci":
-            { 
-                "seed_images" : ["occipital-lobe"],
-                "include" : ["temporal-lobe"],
-                "masks" : ["cerebral-white-matter", "occipital-lobe", "temporal-lobe"],
-                "angle" : 10,
-            }
+
+        # "fornix":
+        #     {
+        #         "seed_images": ["hippocampus", "amygdala"],
+        #         "include_ordered" : ["plane-fornix", "plane-ort-fornix", "plane-mammillary-body", "plane1-mammillary-body"], 
+        #         # Change Thalamus-Proper to Thalamus depending on the version of freesurfer
+        #         #"exclude" : ["Thalamus-Proper-eroded-1", "Lateral-Ventricle-eroded-1"],
+        #     },
+        #     
+        # "thalamus-AntCingCtx":
+        #     {
+        #         "seed_images": ["Thalamus-Proper"],
+        #         "include_ordered" : ["plane-cingulum", "plane-cingulate", "frontal-cingulate"],
+        #     },
+        # "thalamus-Insula":
+        #     {
+        #         "seed_images": ["Thalamus-Proper"],
+        #         "include" : ["insula"],
+        #         "masks" : ["thalamus-insula-hull-dilated-15"],
+        #         "exclude" : ["hippocampus"],
+        #         "stop" : False,
+        #         "act" : True
+        #     },
+        #     
+        # "sup-longi-fasci":
+        #     { 
+        #         "seed_images" : ["frontal-lobe"],
+        #         "include" : ["parietal-lobe"],
+        #         "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
+        #         "exclude" : ["insula-putamen-hull-in"],
+        #         "angle" : 10,
+        #         "stop" : False,
+        #         "act" : True
+        #     },
+        # "inf-longi-fasci":
+        #     { 
+        #         "seed_images" : ["occipital-lobe"],
+        #         "include" : ["temporal-lobe"],
+        #         "masks" : ["cerebral-white-matter", "occipital-lobe", "temporal-lobe"],
+        #         "angle" : 10,
+        #         "stop" : False,
+        #         "act" : True
+        #     }
           }
 
 # Freesurfer LUT: https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/AnatomicalROI/FreeSurferColorLUT
@@ -76,6 +126,7 @@ roi_freesurfer = {
     "insula" : [1035, 2035],
     "wm" : [2, 41],
     "ventricle" : [4, 43],
+    "anteroventral" : [8103, 8203],
 }
 roi_num_name = {}
 
@@ -93,25 +144,36 @@ union_reg = {
     "Right-Parietal-Lobe" : [2008, 2029, 2025], # Without considering the Post-central and Supramarginal
     "Left-Occipital-Lobe" : [1011, 1013, 1005, 1021],
     "Right-Occipital-Lobe" : [2011, 2013, 2005, 2021],
-}
+    # Other for thalamic radiations
+    # Thalamocortical connections: https://www.ncbi.nlm.nih.gov/books/NBK546699/#
+    "Left-Gyrus-Central" : [1022, 1024], # Without considering the Para-Central
+    "Left-Gyrus-Central" : [2022, 2024], # Without considering the Para-Central
+    # Thalamus nuclei
+    # Ventral lateral
+    "Left-ventral-lateral" : [8128, 8129, 8133],
+    "Right-ventral-lateral" : [8228, 8229, 8233],
+    # Ventral
+    "Left-ventral-nuclei" : [8126, 8127, 8128, 8129, 8130, 8133],
+    "Right-ventral-nuclei" : [8226, 8227, 8228, 8229, 8230, 8233],
+}   
 
 # Change thalamus-proper in thalamus depending on the version of freesurfer
 convex_hull = {
-    "thalamus-insula-hull" : ["thalamus-proper", "insula"],
-    "insula-putamen-hull" : ["insula", "putamen"]
+    #"thalamus-insula-hull" : ["thalamus-proper", "insula"],
+    #"insula-putamen-hull" : ["insula", "putamen"]
 }
 
 sottractions = {
-    "insula-putamen-hull-in" : ["insula-putamen-hull", "insula", "putamen"],
+    #"insula-putamen-hull-in" : ["insula-putamen-hull", "insula", "putamen"],
 }
 
 dilatations = {
-    "thalamus-insula-hull" : 15
+    #"thalamus-insula-hull" : 15
 }
 
 erosions = {
-    "Lateral-Ventricle" : 1,
-    "Thalamus-Proper" : 1
+    # "Lateral-Ventricle" : 1,
+    # "Thalamus-Proper" : 1
 }
 
 def expand_roi():
@@ -197,9 +259,14 @@ def freesurfer_mask_extraction(folder_path, subj_id):
     # Normal regions
     for num, name in roi_num_name.items():
         print("Extraction ROI: %s" % name)
-        out_path = "%s/subjects/%s/masks/%s_%s_aparc+aseg.nii.gz" % (folder_path, subj_id, subj_id, name)
+        if num > 8000:
+            out_path = "%s/subjects/%s/masks/%s_%s_ThalamicNuclei.nii.gz" % (folder_path, subj_id, subj_id, name)
 
-        cmd = "mri_extract_label -exit_none_found %s/aparc+aseg_reg.mgz %d %s" % (registration_path, num, out_path)
+            cmd = "mri_extract_label -exit_none_found %s/ThalamicNuclei_reg.nii.gz %d %s" % (registration_path, num, out_path)
+        else:
+            out_path = "%s/subjects/%s/masks/%s_%s_aparc+aseg.nii.gz" % (folder_path, subj_id, subj_id, name)
+
+            cmd = "mri_extract_label -exit_none_found %s/aparc+aseg_reg.mgz %d %s" % (registration_path, num, out_path)
 
         process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
         process.wait()
@@ -210,8 +277,20 @@ def freesurfer_mask_extraction(folder_path, subj_id):
     for name, roi_numbers in union_reg.items():
         print("Union ROI: %s" % name)
         roi_numbers_string = " ".join(str(i) for i in roi_numbers)
-        out_path = "%s/subjects/%s/masks/%s_%s_aparc+aseg.nii.gz" % (folder_path, subj_id, subj_id, name)
-        cmd = "mri_extract_label -exit_none_found %s/aparc+aseg_reg.mgz %s %s" % (registration_path, roi_numbers_string, out_path)
+        seg = -1
+        for num in roi_numbers:
+            if seg == -1:
+                seg = 2 if num >= 8000 else 1
+                continue
+            if (seg == 1 and num >= 8000) or (seg == 2 and num < 8000):
+                print("The numeber of regions inserted are from different segmentation file")
+                return 1
+        if seg == 1:
+            out_path = "%s/subjects/%s/masks/%s_%s_aparc+aseg.nii.gz" % (folder_path, subj_id, subj_id, name)
+            cmd = "mri_extract_label -exit_none_found %s/aparc+aseg_reg.mgz %s %s" % (registration_path, roi_numbers_string, out_path)
+        elif seg == 2:
+            out_path = "%s/subjects/%s/masks/%s_%s_ThalamicNuclei.nii.gz" % (folder_path, subj_id, subj_id, name)
+            cmd = "mri_extract_label -exit_none_found %s/ThalamicNuclei_reg.nii.gz %s %s" % (registration_path, roi_numbers_string, out_path)
         process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
         process.wait()
         if process.returncode != 0:
@@ -348,6 +427,15 @@ def registration(folder_path, subj_id):
     # Apply transformation to 5tt
     print("Apply transformation: 5tt to dMRI")
     cmd = "mri_vol2vol --reg %s/transf_dMRI_t1.dat --targ %s/subjects/%s/5tt/%s_5tt.nii.gz --mov %s --o %s/5tt_reg.nii.gz --interp nearest --no-resample --inv" % (registration_path, folder_path, subj_id, subj_id, subj_b0_file, registration_path)
+    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+    process.wait()
+    if process.returncode != 0:
+        print("Error freesurfer mri_vol2vol 5tt")
+        return 1
+    
+    # Apply transformation to Thalamus segmentation
+    print("Apply transformation: ThalamicNuclei to dMRI")
+    cmd = "mri_vol2vol --reg %s/transf_dMRI_t1.dat --targ %s/subjects/%s/mri/ThalamicNuclei.v12.T1.FSvoxelSpace.mgz --mov %s --o %s/ThalamicNuclei_reg.nii.gz --interp nearest --no-resample --inv" % (registration_path, folder_path, subj_id, subj_b0_file, registration_path)
     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
     process.wait()
     if process.returncode != 0:
@@ -631,6 +719,7 @@ def compute_tracts(p_code, folder_path, compute_5tt, extract_roi, tract, onlySid
             opts["cutoff"] = 0.1
             opts["stop"] = True
             opts["act"] = not opts["stop"]
+            opts["select"] = "10k"
 
             areAllROIs = True
 
@@ -644,7 +733,7 @@ def compute_tracts(p_code, folder_path, compute_5tt, extract_roi, tract, onlySid
                             areAllROIs = False
                             continue
                         opts[opt].append(roi_names[side][roi.lower()].path)
-                elif type(rois) is int or type(rois) is float or type(rois) is bool:
+                elif type(rois) is int or type(rois) is float or type(rois) is bool or type(rois) is str:
                     opts[opt] = rois
             
             if not areAllROIs: # All the mask must be present
@@ -657,7 +746,7 @@ def compute_tracts(p_code, folder_path, compute_5tt, extract_roi, tract, onlySid
 
             # decrement the cutoff to find a solution with more noise
             while opts["cutoff"] > 0:
-                output_path_cutoff = find_tract(subj_folder_path, p_code, "1M", opts["seed_images"], "1", opts["include"], opts["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_findCut")
+                output_path_cutoff = find_tract(subj_folder_path, p_code, "500k", opts["seed_images"], "1", opts["include"], opts["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_findCut")
                 trk = load_tractogram(output_path_cutoff, subj_folder_path + "/dMRI/ODF/MSMT-CSD/"+p_code+"_MSMT-CSD_WM_ODF.nii.gz")
                 nTracts = get_streamline_count(trk)
                 if nTracts > 0:
@@ -665,7 +754,7 @@ def compute_tracts(p_code, folder_path, compute_5tt, extract_roi, tract, onlySid
                 opts["cutoff"] -= 0.01
             os.remove(output_path_cutoff)
 
-            output_path_forward = find_tract(subj_folder_path, p_code, "10M", opts["seed_images"], "10k", opts["include"], opts["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_to")
+            output_path_forward = find_tract(subj_folder_path, p_code, "10M", opts["seed_images"], opts["select"], opts["include"], opts["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_to")
             
             optsReverse = {}
             if len(opts["include_ordered"]) == 0: 
@@ -686,35 +775,36 @@ def compute_tracts(p_code, folder_path, compute_5tt, extract_roi, tract, onlySid
 
             # decrement the cutoff to find a solution with more noise
             output_path_backward = ""
-            if len(opts["include_ordered"]) > 0 and len(opts["seed_images"]) > 1:
-                output_path_backward = subj_folder_path+"/dMRI/tractography/"+output_name+"_from"
-                cmd = "tckedit -force" # command to do the union of all the tracts
-    
-                # The reverse of more seed regions
-                for i, seed_path in enumerate(opts["seed_images"]):
-                    optsReverse["include_ordered"].append(seed_path)
-                    cmd = cmd + " " + output_path_backward + str(i) + ".tck"
-                    # # #   
+            if len(opts["include"]) + len(opts["include_ordered"]) > 0 : # at leat one region must be included otherwise is a single verse tractography
+                if len(opts["include_ordered"]) > 0 and len(opts["seed_images"]) > 1:
+                    output_path_backward = subj_folder_path+"/dMRI/tractography/"+output_name+"_from"
+                    cmd = "tckedit -force" # command to do the union of all the tracts
 
-                    find_tract(subj_folder_path, p_code, "10M", optsReverse["seed_images"], "10k", optsReverse["include"], optsReverse["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_from" + str(i))
+                    # The reverse of more seed regions
+                    for i, seed_path in enumerate(opts["seed_images"]):
+                        optsReverse["include_ordered"].append(seed_path)
+                        cmd = cmd + " " + output_path_backward + str(i) + ".tck"
+                        # # #   
 
-                    # # #
-                    optsReverse["include_ordered"].pop()
+                        find_tract(subj_folder_path, p_code, "10M", optsReverse["seed_images"], opts["select"], optsReverse["include"], optsReverse["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_from" + str(i))
 
-                # Union of the tracts
-                cmd = cmd + " " + output_path_backward + ".tck"
-                process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
-                process.wait()
+                        # # #
+                        optsReverse["include_ordered"].pop()
 
-                # remove the temp file
-                for i, seed_path in enumerate(opts["seed_images"]):
-                    os.remove(output_path_backward + str(i) + ".tck")
+                    # Union of the tracts
+                    cmd = cmd + " " + output_path_backward + ".tck"
+                    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+                    process.wait()
 
-                output_path_backward = output_path_backward + ".tck"
+                    # remove the temp file
+                    for i, seed_path in enumerate(opts["seed_images"]):
+                        os.remove(output_path_backward + str(i) + ".tck")
 
-            else:
-                # The reverse of one seed region
-                output_path_backward = find_tract(subj_folder_path, p_code, "10M", optsReverse["seed_images"], "10k", optsReverse["include"], optsReverse["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_from")
+                    output_path_backward = output_path_backward + ".tck"
+
+                else:
+                    # The reverse of one seed region
+                    output_path_backward = find_tract(subj_folder_path, p_code, "10M", optsReverse["seed_images"], opts["select"], optsReverse["include"], optsReverse["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_from")
 
             # select both tracks 
             if os.path.isfile(output_path_forward) and os.path.isfile(output_path_backward):
@@ -726,7 +816,7 @@ def compute_tracts(p_code, folder_path, compute_5tt, extract_roi, tract, onlySid
                 process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
                 process.wait()
 
-                os.remove(output_path_forward[:-4] + "_rmvd.tck"); 
+                os.remove(output_path_forward[:-4] + "_rmvd.tck")
                 os.remove(output_path_backward[:-4] + "_rmvd.tck")
 
                 convertTck2Trk(subj_folder_path, p_code, output_path[:-4] + "_rmvd.tck")
@@ -738,6 +828,25 @@ def compute_tracts(p_code, folder_path, compute_5tt, extract_roi, tract, onlySid
                 os.remove(output_path_forward); os.remove(output_path_backward)
 
                 convertTck2Trk(subj_folder_path, p_code, output_path)
+            elif os.path.isfile(output_path_forward):
+                removeOutliers(output_path_forward)
+
+                cmd = "tckedit -force %s %s" % (output_path_forward[:-4] + "_rmvd.tck", output_path[:-4] + "_rmvd.tck")
+                process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+                process.wait()
+
+                os.remove(output_path_forward[:-4] + "_rmvd.tck")
+
+                convertTck2Trk(subj_folder_path, p_code, output_path[:-4] + "_rmvd.tck")
+
+                cmd = "tckedit -force %s %s" % (output_path_forward, output_path)
+                process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+                process.wait()
+                os.remove(output_path_forward)
+
+                convertTck2Trk(subj_folder_path, p_code, output_path)
+
+                
 
 def main():
     
