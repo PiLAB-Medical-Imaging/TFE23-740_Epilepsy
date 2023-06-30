@@ -38,17 +38,17 @@ def preprocess(folder_path, slurm=True):
     #     qc_reg=False,
     # )
 
-    study.white_mask(
-        maskType="wm_mask_FSL_T1",
-    )
+    # study.white_mask(
+    #     maskType="wm_mask_FSL_T1",
+    # )
 
-    # dictionary_path = "/home/users/n/d/ndelinte/fixed_rad_dist_wide.mat" # taken from the code of Alexandre
-    # 
+    dictionary_path = "/home/users/n/d/ndelinte/fixed_rad_dist_wide.mat" # taken from the code of Alexandre
+    
     # study.odf_msmtcsd(folder_path)
     # study.dti()
     # study.noddi()
     # study.diamond()
-    # study.fingerprinting(dictionary_path=dictionary_path)
+    study.fingerprinting(dictionary_path=dictionary_path, patient_list_m=["VNSLC_01", "VNSLC_04", "VNSLC_12", "VNSLC_10", "VNSLC_17", "VNSLC_11"])
 
     return 0
 
@@ -57,7 +57,7 @@ def main():
     ## Getting Folder
     folder_path = get_folder(sys.argv)
     
-    preprocess(folder_path, slurm=False)
+    preprocess(folder_path, slurm=True)
 
 
 if __name__ == "__main__":

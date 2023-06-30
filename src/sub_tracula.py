@@ -28,8 +28,6 @@ def main():
     with open(dest_success, 'r') as file:
         patient_list = json.load(file)
 
-    # patient_list = ["VNSLC_09", "VNSLC_23"]
-
     job_list = []
     
     for p in patient_list:
@@ -42,10 +40,11 @@ def main():
         confFile.write("set bveclist = (%s/subjects/%s/dMRI/preproc/%s_dmri_preproc.bvec)\n" % (study_fold, p, p))
         confFile.write("set bvallist = (%s/subjects/%s/dMRI/preproc/%s_dmri_preproc.bval)\n" % (study_fold, p, p))
         confFile.write("set doeddy = 0\n")
+        confFile.write("set usethalnuc = 1\n")
         confFile.close()
 
         p_job = {
-            "wrap" : "trac-all -c %s/freesurfer/confTrac/%s_tracula.conf -%s" % (study_fold, p, step),
+            "wrap" : "rm %s/freesurfer/%s/scripts/IsRunning.trac ; trac-all -c %s/freesurfer/confTrac/%s_tracula.conf -%s" % (study_fold, p, study_fold, p, step),
             "job_name" : "Tracu_" + p,
             "ntasks" : 1,
             "cpus_per_task" : 1,
