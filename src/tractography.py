@@ -32,6 +32,7 @@ tracts = {
                 "include_ordered" : ["AntLimbIntCapsule", "frontal-lobe"],
                 "stop" : False,
                 "act" : True,
+                "select" : "1k"
             },
         "postThalRadiation-parital": 
             {
@@ -40,6 +41,7 @@ tracts = {
                 "angle" : 10,
                 "stop" : False,
                 "act" : True,
+                "select" : "1k"
             },
         "postThalRadiation-occipital": 
             {
@@ -47,6 +49,7 @@ tracts = {
                 "include_ordered" : ["PostLimbIntCapsule", "occipital-lobe"],
                 "stop" : False,
                 "act" : True,
+                "select" : "1k"
             },
         "supThalRadiation": 
             {
@@ -54,6 +57,7 @@ tracts = {
                 "include_ordered" : ["PostLimbIntCapsule", "gyrus-central"],
                 "stop" : False,
                 "act" : True,
+                "select" : "1k"
             },
         "infThalRadiation-insula": 
             {
@@ -61,57 +65,64 @@ tracts = {
                 "include_ordered" : ["RetroLenticularIntCapsule", "insula"],
                 "stop" : False,
                 "act" : True,
+                "select" : "1k"
             },
         "infThalRadiation-temporal": 
             {
-                "seed_images": [""],
+                "seed_images": ["posterior-nuclei"],
                 "include_ordered" : ["RetroLenticularIntCapsule", "temporal-lobe"],
                 "stop" : False,
                 "act" : True,
+                "select" : "1k"
             },
 
-        # "fornix":
-        #     {
-        #         "seed_images": ["hippocampus", "amygdala"],
-        #         "include_ordered" : ["plane-fornix", "plane-ort-fornix", "plane-mammillary-body", "plane1-mammillary-body"], 
-        #         # Change Thalamus-Proper to Thalamus depending on the version of freesurfer
-        #         #"exclude" : ["Thalamus-Proper-eroded-1", "Lateral-Ventricle-eroded-1"],
-        #     },
-        #     
-        # "thalamus-AntCingCtx":
-        #     {
-        #         "seed_images": ["Thalamus-Proper"],
-        #         "include_ordered" : ["plane-cingulum", "plane-cingulate", "frontal-cingulate"],
-        #     },
-        "thalamus-Insula":
+        "fornix":
             {
-                "seed_images": ["Thalamus-Proper"],
-                "include" : ["insula"],
-                "masks" : ["thalamus-insula-hull-dilated-15"],
-                "exclude" : ["hippocampus"],
-                "stop" : False,
-                "act" : True
+                "seed_images": ["hippocampus", "amygdala"],
+                "include_ordered" : ["plane-fornix", "plane-ort-fornix", "plane-mammillary-body", "plane1-mammillary-body"], 
+                # Change Thalamus-Proper to Thalamus depending on the version of freesurfer
+                #"exclude" : ["Thalamus-Proper-eroded-1", "Lateral-Ventricle-eroded-1"],
+                "select" : "1k"
             },
             
-        # "sup-longi-fasci":
-        #     { 
-        #         "seed_images" : ["frontal-lobe"],
-        #         "include" : ["parietal-lobe"],
-        #         "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
-        #         "exclude" : ["insula-putamen-hull-in"],
-        #         "angle" : 10,
-        #         "stop" : False,
-        #         "act" : True
+        # "thalamus-AntCingCtx":
+        #     {
+        #         "seed_images": ["Thalamus"],
+        #         "include_ordered" : ["plane-cingulum", "plane-cingulate", "frontal-cingulate"],
+        #         "select" : "1k"
         #     },
-        # "inf-longi-fasci":
-        #     { 
-        #         "seed_images" : ["occipital-lobe"],
-        #         "include" : ["temporal-lobe"],
-        #         "masks" : ["cerebral-white-matter", "occipital-lobe", "temporal-lobe"],
-        #         "angle" : 10,
+        # "thalamus-Insula":
+        #     {
+        #         "seed_images": ["Thalamus"],
+        #         "include" : ["insula"],
+        #         "masks" : ["thalamus-insula-hull-dilated-15"],
+        #         "exclude" : ["hippocampus"],
         #         "stop" : False,
-        #         "act" : True
-        #     }
+        #         "act" : True,
+        #         "select" : "1k"
+        #     },
+            
+        "sup-longi-fasci":
+            { 
+                "seed_images" : ["frontal-lobe"],
+                "include" : ["parietal-lobe"],
+                "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
+                "exclude" : ["insula-putamen-hull-in"],
+                "angle" : 10,
+                "stop" : False,
+                "act" : True, 
+                "select" : "1k"
+            },
+        "inf-longi-fasci":
+            { 
+                "seed_images" : ["occipital-lobe"],
+                "include" : ["temporal-lobe"],
+                "masks" : ["cerebral-white-matter", "occipital-lobe", "temporal-lobe"],
+                "angle" : 10,
+                "stop" : False,
+                "act" : True,
+                "select" : "1k"
+            }
           }
 
 # Freesurfer LUT: https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/AnatomicalROI/FreeSurferColorLUT
@@ -125,7 +136,7 @@ roi_freesurfer = {
     "accumbens" : [26, 58],
     "insula" : [1035, 2035],
     "wm" : [2, 41],
-    "ventricle" : [4, 43],
+    #"ventricle" : [4, 43],
 }
 roi_num_name = {}
 
@@ -164,16 +175,16 @@ union_reg = {
 
 # Change thalamus-proper in thalamus depending on the version of freesurfer
 convex_hull = {
-    #"thalamus-insula-hull" : ["thalamus-proper", "insula"],
-    #"insula-putamen-hull" : ["insula", "putamen"]
+    # "thalamus-insula-hull" : ["thalamus", "insula"],
+    "insula-putamen-hull" : ["insula", "putamen"]
 }
 
 sottractions = {
-    #"insula-putamen-hull-in" : ["insula-putamen-hull", "insula", "putamen"],
+    "insula-putamen-hull-in" : ["insula-putamen-hull", "insula", "putamen"],
 }
 
 dilatations = {
-    #"thalamus-insula-hull" : 15
+    # "thalamus-insula-hull" : 15
 }
 
 erosions = {
