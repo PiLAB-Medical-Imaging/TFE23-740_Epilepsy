@@ -26,13 +26,13 @@ class ROI:
         return self.path
 
 tracts = {
-        # "antThalRadiation": 
-        #     {
-        #         "seed_images": ["AV"],
-        #         "include_ordered" : ["AntLimbIntCapsule", "frontal-lobe"],
-        #         "stop" : False,
-        #         "act" : True,
-        #     },
+        "antThalRadiation": 
+            {
+                "seed_images": ["anterior-thalamus"],
+                "include_ordered" : ["AntLimbIntCapsule", "frontal-lobe"],
+                "stop" : False,
+                "act" : True,
+            },
         "postThalRadiation-parital": 
             {
                 "seed_images": ["ventral-lateral"],
@@ -64,7 +64,7 @@ tracts = {
             },
         "infThalRadiation-temporal": 
             {
-                "seed_images": ["Thalamus-Proper"],
+                "seed_images": [""],
                 "include_ordered" : ["RetroLenticularIntCapsule", "temporal-lobe"],
                 "stop" : False,
                 "act" : True,
@@ -83,16 +83,16 @@ tracts = {
         #         "seed_images": ["Thalamus-Proper"],
         #         "include_ordered" : ["plane-cingulum", "plane-cingulate", "frontal-cingulate"],
         #     },
-        # "thalamus-Insula":
-        #     {
-        #         "seed_images": ["Thalamus-Proper"],
-        #         "include" : ["insula"],
-        #         "masks" : ["thalamus-insula-hull-dilated-15"],
-        #         "exclude" : ["hippocampus"],
-        #         "stop" : False,
-        #         "act" : True
-        #     },
-        #     
+        "thalamus-Insula":
+            {
+                "seed_images": ["Thalamus-Proper"],
+                "include" : ["insula"],
+                "masks" : ["thalamus-insula-hull-dilated-15"],
+                "exclude" : ["hippocampus"],
+                "stop" : False,
+                "act" : True
+            },
+            
         # "sup-longi-fasci":
         #     { 
         #         "seed_images" : ["frontal-lobe"],
@@ -126,7 +126,6 @@ roi_freesurfer = {
     "insula" : [1035, 2035],
     "wm" : [2, 41],
     "ventricle" : [4, 43],
-    "anteroventral" : [8103, 8203],
 }
 roi_num_name = {}
 
@@ -149,12 +148,18 @@ union_reg = {
     "Left-Gyrus-Central" : [1022, 1024], # Without considering the Para-Central
     "Left-Gyrus-Central" : [2022, 2024], # Without considering the Para-Central
     # Thalamus nuclei
+    # Anterior 
+    "Left-anterior-thalamus" : [8103, 8112, 8113, 8116],
+    "right-anterior-thalamus" : [8203, 8212, 8213, 8216],
     # Ventral lateral
     "Left-ventral-lateral" : [8128, 8129, 8133],
     "Right-ventral-lateral" : [8228, 8229, 8233],
-    # Ventral
+    # Ventral nuclei
     "Left-ventral-nuclei" : [8126, 8127, 8128, 8129, 8130, 8133],
     "Right-ventral-nuclei" : [8226, 8227, 8228, 8229, 8230, 8233],
+    # Posterior nuclei
+    "Left-posterior-nuclei" : [8109, 8111, 8115, 8120, 8121, 8122, 8123],
+    "Right-posterior-nuclei" : [8209, 8211, 8215, 8220, 8221, 8222, 8223]
 }   
 
 # Change thalamus-proper in thalamus depending on the version of freesurfer
@@ -622,8 +627,8 @@ def removeOutliers(tck_path):
     bundle  = nib.streamlines.load(tck_path).streamlines
     lengths = list(length(bundle))
     if len(lengths) > 0:
-        q1 = np.quantile(lengths, 0.25)
-        q3 = np.quantile(lengths, 0.75)
+        q1 = np.quantile(lengths, 0.30)
+        q3 = np.quantile(lengths, 0.70)
     else:
         q1 = 0
         q3 = 0

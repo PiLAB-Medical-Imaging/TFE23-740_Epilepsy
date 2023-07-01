@@ -75,7 +75,7 @@ def main():
             "job_name" :  p_code,
             "ntasks" : 1,
             "cpus_per_task" : 4,
-            "mem_per_cpu" : 768,
+            "mem_per_cpu" : 1024,
             "time" : "%s:%s:00" % (str(time[0]), str(time[1])),
             "mail_user" : "michele.cerra@student.uclouvain.be",
             "mail_type" : "FAIL",
