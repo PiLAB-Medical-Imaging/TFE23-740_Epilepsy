@@ -762,7 +762,7 @@ def compute_tracts(p_code, folder_path, compute_5tt, extract_roi, tract, force, 
             print(json.dumps(opts, indent=2))
 
             # decrement the cutoff to find a solution with more noise
-            while opts["cutoff"] > 0:
+            while opts["cutoff"] >= 0.1:
                 output_path_cutoff = find_tract(subj_folder_path, p_code, "500k", opts["seed_images"], "1", opts["include"], opts["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_findCut")
                 trk = load_tractogram(output_path_cutoff, subj_folder_path + "/dMRI/ODF/MSMT-CSD/"+p_code+"_MSMT-CSD_WM_ODF.nii.gz")
                 nTracts = get_streamline_count(trk)
@@ -770,6 +770,10 @@ def compute_tracts(p_code, folder_path, compute_5tt, extract_roi, tract, force, 
                     break
                 opts["cutoff"] -= 0.01
             os.remove(output_path_cutoff)
+
+            if opt["cutoff"] < 0.1:
+                os.remove(output_path_cutoff)
+                continue
 
             output_path_forward = find_tract(subj_folder_path, p_code, "10M", opts["seed_images"], opts["select"], opts["include"], opts["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_to")
             
