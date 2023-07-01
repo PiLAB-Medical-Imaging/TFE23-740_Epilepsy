@@ -35,6 +35,10 @@ def main():
         tract = True
         time[0] += 24
         time[1] += 0
+    
+    force = False
+    if "-force" in sys.argv[1:]:
+        force = True
 
     time[0] += time[1]//60
     time[1] %= 60
@@ -71,7 +75,7 @@ def main():
             os.mkdir(folder_path + '/subjects/' + p_code + "/dMRI/tractography/")
 
         p_job = {
-            "wrap" : "export MKL_NUM_THREADS=4 ; export OMP_NUM_THREADS=4 ; python -c 'from tractography import compute_tracts; compute_tracts(\"%s\", \"%s\", %s, %s, %s, \"%s\")'" % (p_code, folder_path, str(compute_5tt), str(extract_roi), str(tract), side),
+            "wrap" : "export MKL_NUM_THREADS=4 ; export OMP_NUM_THREADS=4 ; python -c 'from tractography import compute_tracts; compute_tracts(\"%s\", \"%s\", %s, %s, %s, %s, \"%s\")'" % (p_code, folder_path, str(compute_5tt), str(extract_roi), str(tract), str(force), side),
             "job_name" :  p_code,
             "ntasks" : 1,
             "cpus_per_task" : 4,

@@ -375,7 +375,7 @@ def freesurfer_mask_extraction(folder_path, subj_id):
                     return 1
             save_sottraction(roi_paths[0], roi_paths[1:], "%s/subjects/%s/masks/%s_%s-%s_aparc+aseg.nii.gz" % (folder_path, subj_id, subj_id, side, roi_sottr))
 
-def registration(folder_path, subj_id):
+def registration(folder_path, subj_id, force):
     masks_path = folder_path + "/static_files/atlases/masks"
     dmri_path = folder_path + "/subjects/" + subj_id + "/dMRI/preproc"
     # Atlas MNI152
@@ -400,7 +400,7 @@ def registration(folder_path, subj_id):
         os.mkdir(registration_path + "/ants")
 
     print("Computing matrix transformation between T1 and dMRI")
-    if not os.path.isfile(registration_path + "/transf_dMRI_t1.dat"):
+    if force or not os.path.isfile(registration_path + "/transf_dMRI_t1.dat"):
         # Find the transformation matrix
         cmd = "bbregister --s %s --mov %s --reg %s/transf_dMRI_t1.dat --dti --init-fsl" % (subj_id, subj_b0_file, registration_path)
         process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
@@ -412,7 +412,7 @@ def registration(folder_path, subj_id):
     # Apply transformation to T1
     subj_t1_map_reg = registration_path + "/" + subj_id + "_T1_brain_reg.nii.gz"
     print("Apply transformation: T1 to dMRI")
-    cmd = "mri_vol2vol --reg %s/transf_dMRI_t1.dat --targ %s/subjects/%s/mri/brain.mgz --mov %s --o %s --interp nearest --no-resample --inv" % (registration_path, folder_path, subj_id, subj_b0_file, subj_t1_map_reg)
+    cmd = "mri_vol2vol --reg %s/transf_dMRI_t1.dat --targ %s/freesurfer/%s/mri/brain.mgz --mov %s --o %s --interp nearest --no-resample --inv" % (registration_path, folder_path, subj_id, subj_b0_file, subj_t1_map_reg)
     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
     process.wait()
     if process.returncode != 0:
@@ -422,7 +422,7 @@ def registration(folder_path, subj_id):
 
     # Apply transformation to aseg+aparc
     print("Apply transformation: aparc+aseg to dMRI")
-    cmd = "mri_vol2vol --reg %s/transf_dMRI_t1.dat --targ %s/subjects/%s/mri/aparc+aseg.mgz --mov %s --o %s/aparc+aseg_reg.mgz --interp nearest --no-resample --inv" % (registration_path, folder_path, subj_id, subj_b0_file, registration_path)
+    cmd = "mri_vol2vol --reg %s/transf_dMRI_t1.dat --targ %s/freesurfer/%s/mri/aparc+aseg.mgz --mov %s --o %s/aparc+aseg_reg.mgz --interp nearest --no-resample --inv" % (registration_path, folder_path, subj_id, subj_b0_file, registration_path)
     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
     process.wait()
     if process.returncode != 0:
@@ -440,7 +440,7 @@ def registration(folder_path, subj_id):
     
     # Apply transformation to Thalamus segmentation
     print("Apply transformation: ThalamicNuclei to dMRI")
-    cmd = "mri_vol2vol --reg %s/transf_dMRI_t1.dat --targ %s/subjects/%s/mri/ThalamicNuclei.v12.T1.FSvoxelSpace.mgz --mov %s --o %s/ThalamicNuclei_reg.nii.gz --interp nearest --no-resample --inv" % (registration_path, folder_path, subj_id, subj_b0_file, registration_path)
+    cmd = "mri_vol2vol --reg %s/transf_dMRI_t1.dat --targ %s/freesurfer/%s/mri/ThalamicNuclei.v12.T1.FSvoxelSpace.mgz --mov %s --o %s/ThalamicNuclei_reg.nii.gz --interp nearest --no-resample --inv" % (registration_path, folder_path, subj_id, subj_b0_file, registration_path)
     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
     process.wait()
     if process.returncode != 0:
@@ -452,7 +452,7 @@ def registration(folder_path, subj_id):
 
     print("Computing matrix transformation between MNI and T1_reg")
     # if not os.path.isfile("./tx_t1_dMRI_1Warp.nii.gz") or not os.path.isfile("./tx_t1_dMRI_0GenericAffine.mat") or not os.path.isfile("./tx_atl_t1_1Warp.nii.gz") or not os.path.isfile("./tx_atl_t1_0GenericAffine.mat"):
-    if not os.path.isfile("./tx_atl_t1_1Warp.nii.gz") or not os.path.isfile("./tx_atl_t1_0GenericAffine.mat"):
+    if force or not os.path.isfile("./tx_atl_t1_1Warp.nii.gz") or not os.path.isfile("./tx_atl_t1_0GenericAffine.mat"):
     
         # Find transformation
 
@@ -651,11 +651,12 @@ def removeOutliers(tck_path):
     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
     process.wait()
     
-def compute_tracts(p_code, folder_path, compute_5tt, extract_roi, tract, onlySide:str):
+def compute_tracts(p_code, folder_path, compute_5tt, extract_roi, tract, force, onlySide:str):
     print("Working on %s" % p_code)
 
     subj_folder_path = folder_path + '/subjects/' + p_code
-    seg_path = folder_path + "/subjects"
+    freesurfer_subj_folder_path = folder_path + '/freesurfer/' + p_code
+    freesurfer_path = folder_path + "/freesurfer"
         
     # check if the ODF exist for the subject, otherwise skip subject
     if not os.path.isdir(subj_folder_path + "/dMRI/ODF/MSMT-CSD/") :
@@ -671,8 +672,8 @@ def compute_tracts(p_code, folder_path, compute_5tt, extract_roi, tract, onlySid
 
     ############# 5TT COMPUTATION ##########
     if compute_5tt:
-        if not os.path.isfile("%s/5tt/%s_5tt.nii.gz" % (subj_folder_path, p_code)):
-            cmd = "5ttgen fsl %s/mri/orig.mgz %s/5tt/%s_5tt.nii.gz -t2 %s/mri/T2.mgz -nocrop -force && mrconvert %s/5tt/%s_5tt.nii.gz %s/5tt/%s_5tt.nii.gz -strides %s/mri/brain.mgz -force" % (subj_folder_path, subj_folder_path, p_code, subj_folder_path, subj_folder_path, p_code, subj_folder_path, p_code, subj_folder_path)
+        if force or not os.path.isfile("%s/5tt/%s_5tt.nii.gz" % (subj_folder_path, p_code)):
+            cmd = "5ttgen fsl %s/mri/orig.mgz %s/5tt/%s_5tt.nii.gz -t2 %s/mri/T2.mgz -nocrop -force && mrconvert %s/5tt/%s_5tt.nii.gz %s/5tt/%s_5tt.nii.gz -strides %s/mri/brain.mgz -force" % (freesurfer_subj_folder_path, subj_folder_path, p_code, freesurfer_subj_folder_path, subj_folder_path, p_code, subj_folder_path, p_code, freesurfer_subj_folder_path)
             process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
             process.wait()
             if process.returncode != 0:
@@ -681,17 +682,17 @@ def compute_tracts(p_code, folder_path, compute_5tt, extract_roi, tract, onlySid
 
     ############# ROI EXTRACTION ############
     if extract_roi:
-        os.environ["SUBJECTS_DIR"] = seg_path
+        os.environ["SUBJECTS_DIR"] = freesurfer_path
 
         # extract ROI from atlases
         print("MNI152 roi extraction on %s" % p_code)
-        if registration(folder_path, p_code) is not None:
+        if registration(folder_path, p_code, force) is not None:
             raise Exception
 
         # Extract ROI from freesurfer segmentation
         # check if the freesurfer segmentation exist, otherwise skip subject
         # Here we are assuming that the segmentation is already done
-        if not os.path.isdir(seg_path + "/" + p_code + "/mri"):
+        if not os.path.isdir(freesurfer_path + "/" + p_code + "/mri"):
             print("freesurfer segmentation isn't found for patient: %s" % (p_code))
             raise Exception
 
@@ -851,8 +852,6 @@ def compute_tracts(p_code, folder_path, compute_5tt, extract_roi, tract, onlySid
 
                 convertTck2Trk(subj_folder_path, p_code, output_path)
 
-                
-
 def main():
     
     ## Getting folder
@@ -879,12 +878,16 @@ def main():
     if "-tract" in sys.argv[1:]:
         tract = True
 
+    force = False
+    if "-force" in sys.argv[1:]:
+        force = True
+
     side = ""
     if "-side" in sys.argv[1:]:
         parIdx = sys.argv.index("-side") + 1 # the index of the parameter after the option
         side = sys.argv[parIdx]
 
-    compute_tracts(p, folder_path, compute_5tt, extract_roi, tract, side)
+    compute_tracts(p, folder_path, compute_5tt, extract_roi, tract, force, side)
 
 if __name__ == "__main__":
     exit(main())
