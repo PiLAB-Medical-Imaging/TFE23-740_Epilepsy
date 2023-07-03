@@ -28,7 +28,7 @@ class ROI:
 tracts = {
         "antThalRadiation": 
             {
-                "seed_images": ["anterior-thalamus"],
+                "seed_images": ["thalamus"],
                 "include_ordered" : ["AntLimbIntCapsule", "frontal-lobe"],
                 "stop" : False,
                 "act" : True,
@@ -36,24 +36,27 @@ tracts = {
             },
         "postThalRadiation-parital": 
             {
-                "seed_images": ["ventral-lateral"],
+                "seed_images": ["thalamus"],
                 "include_ordered" : ["PostLimbIntCapsule", "parietal-lobe"],
-                "angle" : 10,
+                "exclude" : ["VLa", "VLp"], # they connect to the SLF, it's a false tract
                 "stop" : False,
                 "act" : True,
+                "angle" : 10,
                 "select" : "1k"
             },
         "postThalRadiation-occipital": 
             {
-                "seed_images": ["ventral-lateral"],
+                "seed_images": ["thalamus"],
                 "include_ordered" : ["PostLimbIntCapsule", "occipital-lobe"],
+                "exclude" : ["VLa", "VLp"], # they connect to the SLF, it's a false tract
                 "stop" : False,
                 "act" : True,
+                "angle" : 10,
                 "select" : "1k"
             },
         "supThalRadiation": 
             {
-                "seed_images": ["ventral-nuclei"],
+                "seed_images": ["thalamus"],
                 "include_ordered" : ["PostLimbIntCapsule", "gyrus-central"],
                 "stop" : False,
                 "act" : True,
@@ -61,7 +64,7 @@ tracts = {
             },
         "infThalRadiation-insula": 
             {
-                "seed_images": ["ventral-nuclei"],
+                "seed_images": ["thalamus"],
                 "include_ordered" : ["RetroLenticularIntCapsule", "insula"],
                 "stop" : False,
                 "act" : True,
@@ -69,7 +72,7 @@ tracts = {
             },
         "infThalRadiation-temporal": 
             {
-                "seed_images": ["posterior-nuclei"],
+                "seed_images": ["thalamus"],
                 "include_ordered" : ["RetroLenticularIntCapsule", "temporal-lobe"],
                 "stop" : False,
                 "act" : True,
@@ -85,29 +88,47 @@ tracts = {
                 "select" : "1k"
             },
             
-        # "thalamus-AntCingCtx":
-        #     {
-        #         "seed_images": ["Thalamus"],
-        #         "include_ordered" : ["plane-cingulum", "plane-cingulate", "frontal-cingulate"],
-        #         "select" : "1k"
-        #     },
-        # "thalamus-Insula":
-        #     {
-        #         "seed_images": ["Thalamus"],
-        #         "include" : ["insula"],
-        #         "masks" : ["thalamus-insula-hull-dilated-15"],
-        #         "exclude" : ["hippocampus"],
-        #         "stop" : False,
-        #         "act" : True,
-        #         "select" : "1k"
-        #     },
+        "thalamus-AntCingCtx":
+            {
+                "seed_images": ["Thalamus"],
+                "include_ordered" : ["plane-cingulum", "plane-cingulate", "frontal-cingulate"],
+                "select" : "1k"
+            },
+        "thalamus-Insula":
+            {
+                "seed_images": ["Thalamus"],
+                "include" : ["insula"],
+                "masks" : ["thalamus-insula-hull-dilated-15"],
+                "stop" : False,
+                "act" : True,
+                "select" : "1k"
+            },
             
-        "sup-longi-fasci":
+        "sup-longi-fasci-1":
             { 
                 "seed_images" : ["frontal-lobe"],
-                "include" : ["parietal-lobe"],
+                "include_ordered" : ["plane-SLF1", "parietal-lobe"],
                 "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
-                "exclude" : ["insula-putamen-hull-in"],
+                "angle" : 10,
+                "stop" : False,
+                "act" : True, 
+                "select" : "1k"
+            },
+        "sup-longi-fasci-2":
+            { 
+                "seed_images" : ["frontal-lobe"],
+                "include_ordered" : ["plane-SLF2", "parietal-lobe"],
+                "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
+                "angle" : 10,
+                "stop" : False,
+                "act" : True, 
+                "select" : "1k"
+            },
+        "sup-longi-fasci-3":
+            { 
+                "seed_images" : ["frontal-lobe"],
+                "include_ordered" : ["plane-SLF3", "parietal-lobe"],
+                "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
                 "angle" : 10,
                 "stop" : False,
                 "act" : True, 
@@ -136,7 +157,8 @@ roi_freesurfer = {
     "accumbens" : [26, 58],
     "insula" : [1035, 2035],
     "wm" : [2, 41],
-    #"ventricle" : [4, 43],
+    "VLa" : [8128, 8228],
+    "VLp" : [8129, 8229]
 }
 roi_num_name = {}
 
@@ -148,8 +170,8 @@ union_reg = {
     # Wikipedia: https://en.wikipedia.org/wiki/Association_fiber
     "Left-Frontal-Lobe" : [1028, 1027, 1003, 1018, 1019, 1020, 1012, 1014, 1032], # Without considering the Pre-central and Para-central
     "Right-Frontal-Lobe" : [2028, 2027, 2003, 2018, 2019, 2020, 2012, 2014, 2032], # Without considering the Pre-central and Para-central
-    "Left-Temporal-Lobe" : [1030, 1015, 1009, 1001, 1007, 1034, 1006, 1033, 1016],
-    "Right-Temporal-Lobe" : [2030, 2015, 2009, 2001, 2007, 2034, 2006, 2033, 2016],
+    "Left-Temporal-Lobe" : [1030, 1015, 1009, 1001, 1007, 1034, 1006, 1033], # Without considering parahippocampal
+    "Right-Temporal-Lobe" : [2030, 2015, 2009, 2001, 2007, 2034, 2006, 2033], # Without considering parahippocampal
     "Left-Parietal-Lobe" : [1008, 1029, 1025], # Without considering the Post-central and Supramarginal
     "Right-Parietal-Lobe" : [2008, 2029, 2025], # Without considering the Post-central and Supramarginal
     "Left-Occipital-Lobe" : [1011, 1013, 1005, 1021],
@@ -157,11 +179,11 @@ union_reg = {
     # Other for thalamic radiations
     # Thalamocortical connections: https://www.ncbi.nlm.nih.gov/books/NBK546699/#
     "Left-Gyrus-Central" : [1022, 1024], # Without considering the Para-Central
-    "Left-Gyrus-Central" : [2022, 2024], # Without considering the Para-Central
+    "Right-Gyrus-Central" : [2022, 2024], # Without considering the Para-Central
     # Thalamus nuclei
     # Anterior 
     "Left-anterior-thalamus" : [8103, 8112, 8113, 8116],
-    "right-anterior-thalamus" : [8203, 8212, 8213, 8216],
+    "Right-anterior-thalamus" : [8203, 8212, 8213, 8216],
     # Ventral lateral
     "Left-ventral-lateral" : [8128, 8129, 8133],
     "Right-ventral-lateral" : [8228, 8229, 8233],
@@ -175,16 +197,16 @@ union_reg = {
 
 # Change thalamus-proper in thalamus depending on the version of freesurfer
 convex_hull = {
-    # "thalamus-insula-hull" : ["thalamus", "insula"],
-    "insula-putamen-hull" : ["insula", "putamen"]
+    "thalamus-insula-hull" : ["thalamus", "insula"],
+    # "insula-putamen-hull" : ["insula", "putamen"]
 }
 
 sottractions = {
-    "insula-putamen-hull-in" : ["insula-putamen-hull", "insula", "putamen"],
+    #"insula-putamen-hull-in" : ["insula-putamen-hull", "insula", "putamen"],
 }
 
 dilatations = {
-    # "thalamus-insula-hull" : 15
+    "thalamus-insula-hull" : 15
 }
 
 erosions = {
@@ -589,7 +611,7 @@ def find_tract(subj_folder_path, subj_id, seeds:str, seed_images, select:str, in
     if stop:
         bashCommand += " -stop"
     if act:
-        bashCommand += " -act " + subj_folder_path + "/registration/5tt_reg.nii.gz -backtrack"
+        bashCommand += " -act " + subj_folder_path + "/registration/5tt_reg.nii.gz -backtrack -crop_at_gmwmi"
 
     bashCommand += " -angle " + str(angle)
     bashCommand += " -cutoff " + str(cutoff)
@@ -771,7 +793,7 @@ def compute_tracts(p_code, folder_path, compute_5tt, extract_roi, tract, force, 
                 opts["cutoff"] -= 0.01
             os.remove(output_path_cutoff)
 
-            if opt["cutoff"] < 0.1:
+            if opts["cutoff"] < 0.1:
                 os.remove(output_path_cutoff)
                 continue
 
