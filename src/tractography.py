@@ -48,7 +48,7 @@ tracts = {
             {
                 "seed_images": ["thalamus"],
                 "include_ordered" : ["PostLimbIntCapsule", "occipital-lobe"],
-                "exclude" : ["VLa", "VLp"], # they connect to the SLF, it's a false tract
+                "exclude" : ["VLa", "VLp", "plane1-SLF1"], # they connect to the SLF, it's a false tract
                 "stop" : False,
                 "act" : True,
                 "angle" : 10,
@@ -66,6 +66,7 @@ tracts = {
             {
                 "seed_images": ["thalamus"],
                 "include_ordered" : ["RetroLenticularIntCapsule", "insula"],
+                "exclude" : ["VPL", "VLa", "MGN", "temporal-lobe-dilated-1", "parietal-lobe-dilated-1", "gyrus-central-dilated-1"],
                 "stop" : False,
                 "act" : True,
                 "select" : "1k"
@@ -78,31 +79,37 @@ tracts = {
                 "act" : True,
                 "select" : "1k"
             },
-
+        
         "fornix":
             {
                 "seed_images": ["hippocampus", "amygdala"],
                 "include_ordered" : ["plane-fornix", "plane-ort-fornix", "plane-mammillary-body", "plane1-mammillary-body"], 
-                # Change Thalamus-Proper to Thalamus depending on the version of freesurfer
-                #"exclude" : ["Thalamus-Proper-eroded-1", "Lateral-Ventricle-eroded-1"],
+                "exclude" : ["Thalamus-eroded-1", "Lateral-Ventricle-eroded-1"],
+                "stop" : True,
                 "select" : "1k"
             },
-            
-        "thalamus-AntCingCtx":
-            {
-                "seed_images": ["Thalamus"],
-                "include_ordered" : ["plane-cingulum", "plane-cingulate", "frontal-cingulate"],
-                "select" : "1k"
-            },
-        "thalamus-Insula":
-            {
-                "seed_images": ["Thalamus"],
-                "include" : ["insula"],
-                "masks" : ["thalamus-insula-hull-dilated-15"],
-                "stop" : False,
-                "act" : True,
-                "select" : "1k"
-            },
+
+        # This Tract doesn't exist, it connects to the cingulate, that not start from the thalamus    
+        # "thalamus-AntCingCtx":
+        #     {
+        #         "seed_images": ["Thalamus"],
+        #         # "include_ordered" : ["plane-cingulum", "plane-cingulate", "frontal-cingulate"],
+        #         "include" : ["frontal-cingulate"],
+        #         "stop" : False, 
+        #         "act" : True,
+        #         "select" : "1k"
+        #     },
+
+        # DEPRECATED
+        # "thalamus-Insula":
+        #     {
+        #         "seed_images": ["Thalamus"],
+        #         "include" : ["insula"],
+        #         "masks" : ["thalamus-insula-hull-dilated-15"],
+        #         "stop" : False,
+        #         "act" : True,
+        #         "select" : "1k"
+        #     },
             
         "sup-longi-fasci-1":
             { 
@@ -150,15 +157,14 @@ tracts = {
 roi_freesurfer = {
     "hippocampus" : [17, 53],
     "amygdala" : [18, 54],
-    "thalamus" : [10, 49],
-    "caudate" : [11, 50],
-    "putamen" : [12, 51],
-    "pallidum" : [13, 52],
-    "accumbens" : [26, 58],
+    "lateral-ventricle" : [4, 43],
     "insula" : [1035, 2035],
     "wm" : [2, 41],
     "VLa" : [8128, 8228],
-    "VLp" : [8129, 8229]
+    "VLp" : [8129, 8229],
+    "VPL" : [8133, 8233],
+    "MGN" : [8115, 8215],
+    #"supramarginal" : [1031, 2031],
 }
 roi_num_name = {}
 
@@ -181,23 +187,26 @@ union_reg = {
     "Left-Gyrus-Central" : [1022, 1024], # Without considering the Para-Central
     "Right-Gyrus-Central" : [2022, 2024], # Without considering the Para-Central
     # Thalamus nuclei
+    # Full thalamus 
+    "Left-Thalamus" : [8103, 8104, 8105, 8106, 8108, 8109, 8110, 8111, 8112, 8113, 8115, 8116, 8117, 8118, 8119, 8120, 8121, 8122, 8123, 8125, 8126, 8127, 8128, 8129, 8130, 8133, 8134],
+    "Right-Thalamus" : [8203, 8204, 8205, 8206, 8208, 8209, 8210, 8211, 8212, 8213, 8215, 8216, 8217, 8218, 8219, 8220, 8221, 8222, 8223, 8225, 8226, 8227, 8228, 8229, 8230, 8233, 8234],
     # Anterior 
-    "Left-anterior-thalamus" : [8103, 8112, 8113, 8116],
-    "Right-anterior-thalamus" : [8203, 8212, 8213, 8216],
+    # "Left-Anterior-Thalamus" : [8103, 8112, 8113, 8116],
+    # "Right-Anterior-Thalamus" : [8203, 8212, 8213, 8216],
     # Ventral lateral
-    "Left-ventral-lateral" : [8128, 8129, 8133],
-    "Right-ventral-lateral" : [8228, 8229, 8233],
+    # "Left-Ventral-Lateral" : [8128, 8129, 8133],
+    # "Right-Ventral-Lateral" : [8228, 8229, 8233],
     # Ventral nuclei
-    "Left-ventral-nuclei" : [8126, 8127, 8128, 8129, 8130, 8133],
-    "Right-ventral-nuclei" : [8226, 8227, 8228, 8229, 8230, 8233],
+    # "Left-Ventral-Nuclei" : [8126, 8127, 8128, 8129, 8130, 8133],
+    # "Right-Ventral-Nuclei" : [8226, 8227, 8228, 8229, 8230, 8233],
     # Posterior nuclei
-    "Left-posterior-nuclei" : [8109, 8111, 8115, 8120, 8121, 8122, 8123],
-    "Right-posterior-nuclei" : [8209, 8211, 8215, 8220, 8221, 8222, 8223]
+    # "Left-Posterior-Nuclei" : [8109, 8111, 8115, 8120, 8121, 8122, 8123],
+    # "Right-Posterior-Nuclei" : [8209, 8211, 8215, 8220, 8221, 8222, 8223]
 }   
 
 # Change thalamus-proper in thalamus depending on the version of freesurfer
 convex_hull = {
-    "thalamus-insula-hull" : ["thalamus", "insula"],
+    # "thalamus-insula-hull" : ["thalamus", "insula"],
     # "insula-putamen-hull" : ["insula", "putamen"]
 }
 
@@ -206,12 +215,15 @@ sottractions = {
 }
 
 dilatations = {
-    "thalamus-insula-hull" : 15
+    #"thalamus-insula-hull" : 15
+    "temporal-lobe" : 1,
+    "parietal-lobe" : 1,
+    "gyrus-central": 1,
 }
 
 erosions = {
-    # "Lateral-Ventricle" : 1,
-    # "Thalamus-Proper" : 1
+    "Lateral-Ventricle" : 1,
+    "Thalamus" : 1
 }
 
 def expand_roi():
@@ -784,7 +796,7 @@ def compute_tracts(p_code, folder_path, compute_5tt, extract_roi, tract, force, 
             print(json.dumps(opts, indent=2))
 
             # decrement the cutoff to find a solution with more noise
-            while opts["cutoff"] >= 0.1:
+            while opts["cutoff"] >= 0.01:
                 output_path_cutoff = find_tract(subj_folder_path, p_code, "500k", opts["seed_images"], "1", opts["include"], opts["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_findCut")
                 trk = load_tractogram(output_path_cutoff, subj_folder_path + "/dMRI/ODF/MSMT-CSD/"+p_code+"_MSMT-CSD_WM_ODF.nii.gz")
                 nTracts = get_streamline_count(trk)
@@ -793,8 +805,7 @@ def compute_tracts(p_code, folder_path, compute_5tt, extract_roi, tract, force, 
                 opts["cutoff"] -= 0.01
             os.remove(output_path_cutoff)
 
-            if opts["cutoff"] < 0.1:
-                os.remove(output_path_cutoff)
+            if opts["cutoff"] < 0.01:
                 continue
 
             output_path_forward = find_tract(subj_folder_path, p_code, "10M", opts["seed_images"], opts["select"], opts["include"], opts["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_to")
