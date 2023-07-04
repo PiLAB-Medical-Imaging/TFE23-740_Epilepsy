@@ -13,15 +13,16 @@ def main():
         time = 5
     if "-prior" in sys.argv[1:]:
         step = "prior"
+        time = 5
     elif "-bedp" in sys.argv[1:]:
         step = "bedp"
         time = 48
     elif "-path" in sys.argv[1:]:
         step = "path"
-        time = 48
+        time = 24
     elif "-stat" in sys.argv[1:]:
         step = "stat"
-        time = 48
+        time = 24
 
     ## Read the list of subjects and for each subject do the tractography
     dest_success = study_fold + "/freesurfer/subj_list.json"
@@ -52,8 +53,8 @@ def main():
             "time" : "%d:00:00" % time,
             "mail_user" : "michele.cerra@student.uclouvain.be",
             "mail_type" : "FAIL",
-            "output" : study_fold + "/freesurfer/slurm-%j.out",
-            "error" : study_fold + "/freesurfer/slurm-%j.err",
+            "output" : study_fold + f"/freesurfer/slurm-%j.out",
+            "error" : study_fold + f"/freesurfer/slurm-%j.err",
         }
         p_job_id = {}
         p_job_id["id"] = submit_job(p_job)
