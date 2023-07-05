@@ -66,7 +66,7 @@ tracts = {
             {
                 "seed_images": ["thalamus"],
                 "include_ordered" : ["RetroLenticularIntCapsule", "insula"],
-                "exclude" : ["VPL", "VLa", "MGN", "temporal-lobe-dilated-1", "parietal-lobe-dilated-1", "gyrus-central-dilated-1"],
+                "exclude" : ["MGN", "temporal-lobe-dilated-1", "parietal-lobe-dilated-1", "gyrus-central-dilated-1", "frontal-lobe-dilated-1", "supramarginal-dilated-1"],
                 "stop" : False,
                 "act" : True,
                 "select" : "10k"
@@ -77,15 +77,6 @@ tracts = {
                 "include_ordered" : ["RetroLenticularIntCapsule", "temporal-lobe"],
                 "stop" : False,
                 "act" : True,
-                "select" : "10k"
-            },
-        
-        "fornix":
-            {
-                "seed_images": ["hippocampus", "amygdala"],
-                "include_ordered" : ["plane-fornix", "plane-ort-fornix", "plane-mammillary-body", "plane1-mammillary-body"], 
-                "exclude" : ["Thalamus-eroded-1", "Lateral-Ventricle-eroded-1"],
-                "stop" : True,
                 "select" : "10k"
             },
 
@@ -150,7 +141,16 @@ tracts = {
                 "stop" : False,
                 "act" : True,
                 "select" : "10k"
-            }
+            },
+        
+        "fornix":
+            {
+                "seed_images" : ["plane-mammillary-body"],
+                "include_ordered" : ["plane-ort-fornix", "plane-fornix", "hippocampus"],
+                "exclude" : ["Thalamus-eroded-1", "Lateral-Ventricle-eroded-1"],
+                "stop" : True,
+                "select" : "1k"
+            },
           }
 
 # Freesurfer LUT: https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/AnatomicalROI/FreeSurferColorLUT
@@ -162,9 +162,7 @@ roi_freesurfer = {
     "wm" : [2, 41],
     "VLa" : [8128, 8228],
     "VLp" : [8129, 8229],
-    "VPL" : [8133, 8233],
     "MGN" : [8115, 8215],
-    #"supramarginal" : [1031, 2031],
 }
 roi_num_name = {}
 
@@ -182,6 +180,8 @@ union_reg = {
     "Right-Parietal-Lobe" : [2008, 2029, 2025], # Without considering the Post-central and Supramarginal
     "Left-Occipital-Lobe" : [1011, 1013, 1005, 1021],
     "Right-Occipital-Lobe" : [2011, 2013, 2005, 2021],
+    "Left-Supramarginal" : [1031],
+    "Right-Supramarginal" : [2031],
     # Other for thalamic radiations
     # Thalamocortical connections: https://www.ncbi.nlm.nih.gov/books/NBK546699/#
     "Left-Gyrus-Central" : [1022, 1024], # Without considering the Para-Central
@@ -218,7 +218,9 @@ dilatations = {
     #"thalamus-insula-hull" : 15
     "temporal-lobe" : 1,
     "parietal-lobe" : 1,
-    "gyrus-central": 1,
+    "gyrus-central" : 1,
+    "frontal-lobe" : 1,
+    "supramarginal" : 1
 }
 
 erosions = {

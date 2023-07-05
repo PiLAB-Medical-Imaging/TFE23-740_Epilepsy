@@ -463,6 +463,7 @@ masks_freesurfer = {
 
 def compute_metricsPerROI(p_code, folder_path):
     subject_path = "%s/subjects/%s" % (folder_path, p_code)
+    freesurfer_path = "%s/freesurfer/%s" % (folder_path, p_code)
     tracts_path = "%s/dMRI/tractography" % subject_path
     m = {}
     m["ID"] = p_code
@@ -537,67 +538,82 @@ def compute_metricsPerROI(p_code, folder_path):
             affine_info = metric_map.affine
             metric_map = metric_map.get_fdata()
 
-            for tract_filename in os.listdir(tracts_path):
-                tract_name_ext = tract_filename.split(".")
-                if len(tract_name_ext) != 2:
-                    continue
-                tract_name, ext = tract_name_ext
-
-                if "rmvd" in tract_name:
-                    continue
-
-                if ext == "trk":
-                    tract_path = os.path.join(tracts_path, tract_filename)
-
-                    # save in memory the density_map of the tract, in order to not open them every time, and speedup
-                    density_map = None
-                    if tract_path+"_"+model not in density_maps:
-                        trk = load_tractogram(tract_path, "same")
-                        trk.to_vox()
-                        trk.to_corner()
-
-                        if not os.path.isfile("%s/masks/%s_%s_tractNoCorr.nii.gz" % (subject_path, p_code, tract_name)):
-                            # get the density
-                            density_map = get_streamline_density(trk)
-                            # save the density
-                            bin_density_map = density_map.copy()
-                            bin_density_map[bin_density_map > 0] = 1 # for visualization reasons
-                            nib.save(nib.Nifti1Image(density_map, affine_info), "%s/masks/%s_%s_tractNoCorr.nii.gz" % (subject_path, p_code, tract_name))
-                            nib.save(nib.Nifti1Image(bin_density_map, affine_info), "%s/masks/%s_%s_tractNoCorrBin.nii.gz" % (subject_path, p_code, tract_name))
-                        else :
-                            # load the density
-                            density_map = nib.load("%s/masks/%s_%s_tractNoCorr.nii.gz" % (subject_path, p_code, tract_name)).get_fdata()
-                        # add as feaure the number of tracts of the tract
-                        m[tract_name + "_nTracts"] =  get_streamline_count(trk)
-
-                        density_map = correctWeightsTract(density_map, frac_fasci_mask)
+            # for tract_filename in os.listdir(tracts_path):
+            #     tract_name_ext = tract_filename.split(".")
+            #     if len(tract_name_ext) != 2:
+            #         continue
+            #     tract_name, ext = tract_name_ext
+            # 
+            #     if "rmvd" in tract_name:
+            #         continue
+            # 
+            #     if ext == "trk":
+            #         tract_path = os.path.join(tracts_path, tract_filename)
+            # 
+            #         # save in memory the density_map of the tract, in order to not open them every time, and speedup
+            #         density_map = None
+            #         if tract_path+"_"+model not in density_maps:
+            #             trk = load_tractogram(tract_path, "same")
+            #             trk.to_vox()  
+            #             trk.to_corner()
+            # 
+            #             if not os.path.isfile("%s/masks/%s_%s_tractNoCorr.nii.gz" % (subject_path, p_code, tract_name)):
+            #                 # get the density
+            #                 density_map = get_streamline_density(trk)
+            #                 # save the density
+            #                 bin_density_map = density_map.copy()
+            #                 bin_density_map[bin_density_map > 0] = 1 # for visualization reasons
+            #                 nib.save(nib.Nifti1Image(density_map, affine_info), "%s/masks/%s_%s_tractNoCorr.nii.gz" % (subject_path, p_code, tract_name))
+            #                 nib.save(nib.Nifti1Image(bin_density_map, affine_info), "%s/masks/%s_%s_tractNoCorrBin.nii.gz" % (subject_path, p_code, tract_name))
+            #             else :
+            #                 # load the density
+            #                 density_map = nib.load("%s/masks/%s_%s_tractNoCorr.nii.gz" % (subject_path, p_code, tract_name)).get_fdata()
+            #             # add as feaure the number of tracts of the tract
+            #             m[tract_name + "_nTracts"] =  get_streamline_count(trk)
+            # 
+            #             density_map = correctWeightsTract(density_map, frac_fasci_mask)
+            #             
+            #             # save in memory to be faster
+            #             density_maps[tract_path+"_"+model] = density_map
+            #             # save the corrected density
+            #             bin_density_map = density_map.copy()
+            #             bin_density_map[bin_density_map > 0] = 1 # for visualization reasons
+            #             nib.save(nib.Nifti1Image(density_map, affine_info), "%s/masks/%s_%s_%s_tract.nii.gz" % (subject_path, p_code, tract_name, model))
+            #             nib.save(nib.Nifti1Image(bin_density_map, affine_info), "%s/masks/%s_%s_%s_tractBin.nii.gz" % (subject_path, p_code, tract_name, model))
+            #         else:
+            #             # Use the density map saved in memory
+            #             density_map = density_maps[tract_path+"_"+model]
+            # 
+            #         addMetrics(tract_name, metric, model, metric_map, density_map)
                         
-                        # save in memory to be faster
-                        density_maps[tract_path+"_"+model] = density_map
-                        # save the corrected density
-                        bin_density_map = density_map.copy()
-                        bin_density_map[bin_density_map > 0] = 1 # for visualization reasons
-                        nib.save(nib.Nifti1Image(density_map, affine_info), "%s/masks/%s_%s_%s_tract.nii.gz" % (subject_path, p_code, tract_name, model))
-                        nib.save(nib.Nifti1Image(bin_density_map, affine_info), "%s/masks/%s_%s_%s_tractBin.nii.gz" % (subject_path, p_code, tract_name, model))
-                    else:
-                        # Use the density map saved in memory
-                        density_map = density_maps[tract_path+"_"+model]
 
-                    addMetrics(tract_name, metric, model, metric_map, density_map)
+            # for mask_name, mask_path, volume in trilInterp_paths:
+            #     # save in memory the density_map of the mask, in order to not open them every time, and speedup
+            #     density_map = None
+            #     if mask_path not in density_maps:
+            #         density_map = nib.load(mask_path).get_fdata()
+            #         density_maps[mask_path] = density_map
+            #     else:
+            #         density_map = density_maps[mask_path]
+            # 
+            #     m[mask_name.lower() + "_voxVol"] = volume
+            # 
+            #     addMetrics(mask_name.lower(), metric, model, metric_map, density_map)
+
+            for (dir_path, _, file_names) in os.walk(f"{freesurfer_path}/dpath"):
+                for file_name in file_names:
+                    if file_name.endswith(".map.nii.gz"):
+                        mask_path = os.path.join(dir_path,file_name)
+                        mask_name = dir_path.split("/")[-1].split("_")[0]
                         
-
-            for mask_name, mask_path, volume in trilInterp_paths:
-                # save in memory the density_map of the mask, in order to not open them every time, and speedup
-                density_map = None
-                if mask_path not in density_maps:
-                    density_map = nib.load(mask_path).get_fdata()
-                    density_maps[mask_path] = density_map
-                else:
-                    density_map = density_maps[mask_path]
-
-                m[mask_name.lower() + "_voxVol"] = volume
-
-                addMetrics(mask_name.lower(), metric, model, metric_map, density_map)
+                        density_map = None
+                        if mask_path not in density_maps:
+                            density_map = nib.load(mask_path).get_fdata()
+                            density_maps[mask_path] = density_map
+                        else:
+                            density_map = density_maps[mask_path]
+                        
+                        addMetrics(mask_name.lower(), metric, model, metric_map, density_map)
 
     ## print(json.dumps(m,indent=2, sort_keys=True))
     with open("%s/dMRI/microstructure/%s_metrics.json" % (subject_path, p_code), "w") as outfile:
