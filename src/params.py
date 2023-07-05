@@ -2,9 +2,6 @@ import os
 
 def get_folder(argv):
     ## Defining Parameters
-    onSlurm = False
-    slurmEmail = None
-    cuda = False
     folder_path = None
         
     if "-f" in argv[1:]:
@@ -23,38 +20,25 @@ def get_folder(argv):
 
     return folder_path
 
-def get_segmentation(argv):
-    seg_fold = None
-
-    if "-s" in argv[1:]:
-        parIdx = argv.index("-s") + 1 # the index of the parameter after the option
+def get_inputTract(argv):
+    ## Defining Parameters
+    input_path = None
+        
+    if "-i" in argv[1:]:
+        parIdx = argv.index("-i") + 1 # the index of the parameter after the option
         par = argv[parIdx]
-        if os.path.isdir(par) and os.access(par,os.W_OK|os.R_OK):
+        if os.path.isfile(par) and os.access(par, os.R_OK) and par.endswith(".json"):
             if par[-1] == "/":
                 par = par[:-1]
-            seg_fold = par
+            input_path = par
         else:
             print("The inserted path doesn't exist or you don't have the access")
             exit(1)
     else:
-        print("The folder path for segmentation isn't defined")
-        exit(1)
-    
-    return seg_fold
-
-models = ["all", "dti", "noddi", "diamond", "mf"]
-def get_model(argv):
-    model = None
-    if "-m" in argv[1:]:
-        parIdx = argv.index("-m") + 1 # the index of the parameter after the option
-        par = argv[parIdx]
-        assert par in models, 'invalid model!'
-        model = par
-    else:
-        print("no model selected!")
+        print("The input path isn't defined")
         exit(1)
 
-    return model
+    return input_path
 
 def get_patient(argv):
     patient = None

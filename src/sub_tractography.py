@@ -3,13 +3,16 @@ import os
 import elikopy
 import json
 
-from params import get_folder
+from params import *
 from elikopy.utils import submit_job
 
 absolute_path = os.path.dirname(__file__) # return the abs path of the folder of this file, wherever it is
 
 
 def main():
+
+    ## Getting input tracts
+    input_path = get_inputTract(sys.argv)
 
     ## Getting folder
     folder_path = get_folder(sys.argv)
@@ -75,7 +78,7 @@ def main():
             os.mkdir(folder_path + '/subjects/' + p_code + "/dMRI/tractography/")
 
         p_job = {
-            "wrap" : "export MKL_NUM_THREADS=4 ; export OMP_NUM_THREADS=4 ; python -c 'from tractography import compute_tracts; compute_tracts(\"%s\", \"%s\", %s, %s, %s, %s, \"%s\")'" % (p_code, folder_path, str(compute_5tt), str(extract_roi), str(tract), str(force), side),
+            "wrap" : "export MKL_NUM_THREADS=4 ; export OMP_NUM_THREADS=4 ; python -c 'from tractography import compute_tracts; compute_tracts(\"%s\", \"%s\", \"%s\", %s, %s, %s, %s, \"%s\")'" % (input_path, p_code, folder_path, str(compute_5tt), str(extract_roi), str(tract), str(force), side),
             "job_name" :  p_code,
             "ntasks" : 1,
             "cpus_per_task" : 4,

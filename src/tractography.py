@@ -25,134 +25,6 @@ class ROI:
     def __str__(self) -> str:
         return self.path
 
-tracts = {
-        "antThalRadiation": 
-            {
-                "seed_images": ["thalamus"],
-                "include_ordered" : ["AntLimbIntCapsule", "frontal-lobe"],
-                "stop" : False,
-                "act" : True,
-                "select" : "1k"
-            },
-        "postThalRadiation-parital": 
-            {
-                "seed_images": ["thalamus"],
-                "include_ordered" : ["PostLimbIntCapsule", "parietal-lobe"],
-                "exclude" : ["VLa", "VLp"], # they connect to the SLF, it's a false tract
-                "stop" : False,
-                "act" : True,
-                "angle" : 10,
-                "select" : "1k"
-            },
-        "postThalRadiation-occipital": 
-            {
-                "seed_images": ["thalamus"],
-                "include_ordered" : ["PostLimbIntCapsule", "occipital-lobe"],
-                "exclude" : ["VLa", "VLp", "plane1-SLF1"], # they connect to the SLF, it's a false tract
-                "stop" : False,
-                "act" : True,
-                "angle" : 10,
-                "select" : "1k"
-            },
-        "supThalRadiation": 
-            {
-                "seed_images": ["thalamus"],
-                "include_ordered" : ["PostLimbIntCapsule", "gyrus-central"],
-                "stop" : False,
-                "act" : True,
-                "select" : "1k"
-            },
-        "infThalRadiation-insula": 
-            {
-                "seed_images": ["thalamus"],
-                "include_ordered" : ["RetroLenticularIntCapsule", "insula"],
-                "exclude" : ["MGN", "temporal-lobe-dilated-1", "parietal-lobe-dilated-1", "gyrus-central-dilated-1", "frontal-lobe-dilated-1", "supramarginal-dilated-1"],
-                "stop" : False,
-                "act" : True,
-                "select" : "1k"
-            },
-        "infThalRadiation-temporal": 
-            {
-                "seed_images": ["thalamus"],
-                "include_ordered" : ["RetroLenticularIntCapsule", "temporal-lobe"],
-                "stop" : False,
-                "act" : True,
-                "select" : "1k"
-            },
-
-        # This Tract doesn't exist, it connects to the cingulate, that not start from the thalamus    
-        # "thalamus-AntCingCtx":
-        #     {
-        #         "seed_images": ["Thalamus"],
-        #         # "include_ordered" : ["plane-cingulum", "plane-cingulate", "frontal-cingulate"],
-        #         "include" : ["frontal-cingulate"],
-        #         "stop" : False, 
-        #         "act" : True,
-        #         "select" : "1k"
-        #     },
-
-        # DEPRECATED
-        # "thalamus-Insula":
-        #     {
-        #         "seed_images": ["Thalamus"],
-        #         "include" : ["insula"],
-        #         "masks" : ["thalamus-insula-hull-dilated-15"],
-        #         "stop" : False,
-        #         "act" : True,
-        #         "select" : "1k"
-        #     },
-            
-        "sup-longi-fasci-1":
-            { 
-                "seed_images" : ["frontal-lobe"],
-                "include_ordered" : ["plane-SLF1", "parietal-lobe"],
-                "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
-                "angle" : 10,
-                "stop" : False,
-                "act" : True, 
-                "select" : "1k"
-            },
-        "sup-longi-fasci-2":
-            { 
-                "seed_images" : ["frontal-lobe"],
-                "include_ordered" : ["plane-SLF2", "parietal-lobe"],
-                "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
-                "angle" : 10,
-                "stop" : False,
-                "act" : True, 
-                "select" : "1k"
-            },
-        "sup-longi-fasci-3":
-            { 
-                "seed_images" : ["frontal-lobe"],
-                "include_ordered" : ["plane-SLF3", "parietal-lobe"],
-                "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
-                "angle" : 10,
-                "stop" : False,
-                "act" : True, 
-                "select" : "1k"
-            },
-        "inf-longi-fasci":
-            { 
-                "seed_images" : ["occipital-lobe"],
-                "include" : ["temporal-lobe"],
-                "masks" : ["cerebral-white-matter", "occipital-lobe", "temporal-lobe"],
-                "angle" : 10,
-                "stop" : False,
-                "act" : True,
-                "select" : "1k"
-            },
-        
-        "fornix":
-            {
-                "seed_images" : ["plane-mammillary-body"],
-                "include_ordered" : ["plane-ort-fornix", "plane-fornix", "hippocampus"],
-                "exclude" : ["Thalamus-eroded-1", "Lateral-Ventricle-eroded-1"],
-                "stop" : True,
-                "select" : "1k"
-            },
-          }
-
 # Freesurfer LUT: https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/AnatomicalROI/FreeSurferColorLUT
 roi_freesurfer = {
     "hippocampus" : [17, 53],
@@ -698,8 +570,15 @@ def removeOutliers(tck_path):
     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
     process.wait()
     
-def compute_tracts(p_code, folder_path, compute_5tt, extract_roi, tract, force, onlySide:str):
+def compute_tracts(tract_json, p_code, folder_path, compute_5tt, extract_roi, tract, force, onlySide:str):
     print("Working on %s" % p_code)
+
+    tracts = None
+    with open(tract_json) as json_file:
+        tracts = json.load(json_file)
+    if tracts is None:
+        raise Exception
+    print(tracts)
 
     subj_folder_path = folder_path + '/subjects/' + p_code
     freesurfer_subj_folder_path = folder_path + '/freesurfer/' + p_code
@@ -903,6 +782,9 @@ def compute_tracts(p_code, folder_path, compute_5tt, extract_roi, tract, force, 
                 convertTck2Trk(subj_folder_path, p_code, output_path)
 
 def main():
+
+    ## Getting input tracts
+    input_path = get_inputTract(sys.argv)
     
     ## Getting folder
     folder_path = get_folder(sys.argv)
@@ -937,7 +819,7 @@ def main():
         parIdx = sys.argv.index("-side") + 1 # the index of the parameter after the option
         side = sys.argv[parIdx]
 
-    compute_tracts(p, folder_path, compute_5tt, extract_roi, tract, force, side)
+    compute_tracts(input_path, p, folder_path, compute_5tt, extract_roi, tract, force, side)
 
 if __name__ == "__main__":
     exit(main())
