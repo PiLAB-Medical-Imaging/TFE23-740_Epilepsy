@@ -4,8 +4,7 @@
             "seed_images": ["thalamus"],
             "include_ordered" : ["AntLimbIntCapsule", "frontal-lobe"],
             "stop" : false,
-            "act" : true,
-            "select" : "1k"
+            "act" : true
         },
     "postThalRadiation-parital": 
         {
@@ -14,8 +13,7 @@
             "exclude" : ["VLa", "VLp"],
             "stop" : false,
             "act" : true,
-            "angle" : 10,
-            "select" : "1k"
+            "angle" : 10
         },
     "postThalRadiation-occipital": 
         {
@@ -24,16 +22,14 @@
             "exclude" : ["VLa", "VLp", "plane1-SLF1"],
             "stop" : false,
             "act" : true,
-            "angle" : 10,
-            "select" : "1k"
+            "angle" : 10
         },
     "supThalRadiation": 
         {
             "seed_images": ["thalamus"],
             "include_ordered" : ["PostLimbIntCapsule", "gyrus-central"],
             "stop" : false,
-            "act" : true,
-            "select" : "1k"
+            "act" : true
         },
     "infThalRadiation-insula": 
         {
@@ -41,16 +37,14 @@
             "include_ordered" : ["RetroLenticularIntCapsule", "insula"],
             "exclude" : ["MGN", "temporal-lobe-dilated-1", "parietal-lobe-dilated-1", "gyrus-central-dilated-1", "frontal-lobe-dilated-1", "supramarginal-dilated-1"],
             "stop" : false,
-            "act" : true,
-            "select" : "1k"
+            "act" : true
         },
     "infThalRadiation-temporal": 
         {
             "seed_images": ["thalamus"],
             "include_ordered" : ["RetroLenticularIntCapsule", "temporal-lobe"],
             "stop" : false,
-            "act" : true,
-            "select" : "1k"
+            "act" : true
         },
         
     "sup-longi-fasci-1":
@@ -60,8 +54,7 @@
             "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
             "angle" : 10,
             "stop" : false,
-            "act" : true, 
-            "select" : "1k"
+            "act" : true
         },
     "sup-longi-fasci-2":
         { 
@@ -70,8 +63,7 @@
             "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
             "angle" : 10,
             "stop" : false,
-            "act" : true, 
-            "select" : "1k"
+            "act" : true
         },
     "sup-longi-fasci-3":
         { 
@@ -80,8 +72,7 @@
             "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
             "angle" : 10,
             "stop" : false,
-            "act" : true, 
-            "select" : "1k"
+            "act" : true
         },
     "inf-longi-fasci":
         { 
@@ -90,16 +81,13 @@
             "masks" : ["cerebral-white-matter", "occipital-lobe", "temporal-lobe"],
             "angle" : 10,
             "stop" : false,
-            "act" : true,
-            "select" : "1k"
+            "act" : true
         },
     
     "fornix":
         {
             "seed_images" : ["plane-mammillary-body"],
             "include_ordered" : ["plane-ort-fornix", "plane-fornix", "hippocampus"],
-            "exclude" : ["Thalamus-eroded-1", "Lateral-Ventricle-eroded-1"],
-            "stop" : true,
-            "select" : "1k"
+            "exclude" : ["Thalamus-eroded-1", "Lateral-Ventricle-eroded-1"]
         }
 }

@@ -31,7 +31,7 @@ def main():
     extract_roi = False
     if "-roi" in sys.argv[1:]:
         extract_roi = True  
-        time[1] += 45
+        time[1] += 30
 
     tract = False
     if "-tract" in sys.argv[1:]:    
