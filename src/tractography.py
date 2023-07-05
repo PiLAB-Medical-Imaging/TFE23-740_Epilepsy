@@ -149,7 +149,7 @@ tracts = {
                 "include_ordered" : ["plane-ort-fornix", "plane-fornix", "hippocampus"],
                 "exclude" : ["Thalamus-eroded-1", "Lateral-Ventricle-eroded-1"],
                 "stop" : True,
-                "select" : "1k"
+                "select" : "10k"
             },
           }
 
