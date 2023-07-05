@@ -1,0 +1,105 @@
+{
+    "antThalRadiation": 
+        {
+            "seed_images": ["thalamus"],
+            "include_ordered" : ["AntLimbIntCapsule", "frontal-lobe"],
+            "stop" : false,
+            "act" : true,
+            "select" : "1k"
+        },
+    "postThalRadiation-parital": 
+        {
+            "seed_images": ["thalamus"],
+            "include_ordered" : ["PostLimbIntCapsule", "parietal-lobe"],
+            "exclude" : ["VLa", "VLp"],
+            "stop" : false,
+            "act" : true,
+            "angle" : 10,
+            "select" : "1k"
+        },
+    "postThalRadiation-occipital": 
+        {
+            "seed_images": ["thalamus"],
+            "include_ordered" : ["PostLimbIntCapsule", "occipital-lobe"],
+            "exclude" : ["VLa", "VLp", "plane1-SLF1"],
+            "stop" : false,
+            "act" : true,
+            "angle" : 10,
+            "select" : "1k"
+        },
+    "supThalRadiation": 
+        {
+            "seed_images": ["thalamus"],
+            "include_ordered" : ["PostLimbIntCapsule", "gyrus-central"],
+            "stop" : false,
+            "act" : true,
+            "select" : "1k"
+        },
+    "infThalRadiation-insula": 
+        {
+            "seed_images": ["thalamus"],
+            "include_ordered" : ["RetroLenticularIntCapsule", "insula"],
+            "exclude" : ["MGN", "temporal-lobe-dilated-1", "parietal-lobe-dilated-1", "gyrus-central-dilated-1", "frontal-lobe-dilated-1", "supramarginal-dilated-1"],
+            "stop" : false,
+            "act" : true,
+            "select" : "1k"
+        },
+    "infThalRadiation-temporal": 
+        {
+            "seed_images": ["thalamus"],
+            "include_ordered" : ["RetroLenticularIntCapsule", "temporal-lobe"],
+            "stop" : false,
+            "act" : true,
+            "select" : "1k"
+        },
+        
+    "sup-longi-fasci-1":
+        { 
+            "seed_images" : ["frontal-lobe"],
+            "include_ordered" : ["plane-SLF1", "parietal-lobe"],
+            "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
+            "angle" : 10,
+            "stop" : false,
+            "act" : true, 
+            "select" : "1k"
+        },
+    "sup-longi-fasci-2":
+        { 
+            "seed_images" : ["frontal-lobe"],
+            "include_ordered" : ["plane-SLF2", "parietal-lobe"],
+            "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
+            "angle" : 10,
+            "stop" : false,
+            "act" : true, 
+            "select" : "1k"
+        },
+    "sup-longi-fasci-3":
+        { 
+            "seed_images" : ["frontal-lobe"],
+            "include_ordered" : ["plane-SLF3", "parietal-lobe"],
+            "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
+            "angle" : 10,
+            "stop" : false,
+            "act" : true, 
+            "select" : "1k"
+        },
+    "inf-longi-fasci":
+        { 
+            "seed_images" : ["occipital-lobe"],
+            "include" : ["temporal-lobe"],
+            "masks" : ["cerebral-white-matter", "occipital-lobe", "temporal-lobe"],
+            "angle" : 10,
+            "stop" : false,
+            "act" : true,
+            "select" : "1k"
+        },
+    
+    "fornix":
+        {
+            "seed_images" : ["plane-mammillary-body"],
+            "include_ordered" : ["plane-ort-fornix", "plane-fornix", "hippocampus"],
+            "exclude" : ["Thalamus-eroded-1", "Lateral-Ventricle-eroded-1"],
+            "stop" : true,
+            "select" : "1k"
+        }
+}
