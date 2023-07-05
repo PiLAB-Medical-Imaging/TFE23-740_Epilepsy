@@ -32,7 +32,7 @@ tracts = {
                 "include_ordered" : ["AntLimbIntCapsule", "frontal-lobe"],
                 "stop" : False,
                 "act" : True,
-                "select" : "1k"
+                "select" : "10k"
             },
         "postThalRadiation-parital": 
             {
@@ -42,7 +42,7 @@ tracts = {
                 "stop" : False,
                 "act" : True,
                 "angle" : 10,
-                "select" : "1k"
+                "select" : "10k"
             },
         "postThalRadiation-occipital": 
             {
@@ -52,7 +52,7 @@ tracts = {
                 "stop" : False,
                 "act" : True,
                 "angle" : 10,
-                "select" : "1k"
+                "select" : "10k"
             },
         "supThalRadiation": 
             {
@@ -60,7 +60,7 @@ tracts = {
                 "include_ordered" : ["PostLimbIntCapsule", "gyrus-central"],
                 "stop" : False,
                 "act" : True,
-                "select" : "1k"
+                "select" : "10k"
             },
         "infThalRadiation-insula": 
             {
@@ -69,7 +69,7 @@ tracts = {
                 "exclude" : ["VPL", "VLa", "MGN", "temporal-lobe-dilated-1", "parietal-lobe-dilated-1", "gyrus-central-dilated-1"],
                 "stop" : False,
                 "act" : True,
-                "select" : "1k"
+                "select" : "10k"
             },
         "infThalRadiation-temporal": 
             {
@@ -77,7 +77,7 @@ tracts = {
                 "include_ordered" : ["RetroLenticularIntCapsule", "temporal-lobe"],
                 "stop" : False,
                 "act" : True,
-                "select" : "1k"
+                "select" : "10k"
             },
         
         "fornix":
@@ -86,7 +86,7 @@ tracts = {
                 "include_ordered" : ["plane-fornix", "plane-ort-fornix", "plane-mammillary-body", "plane1-mammillary-body"], 
                 "exclude" : ["Thalamus-eroded-1", "Lateral-Ventricle-eroded-1"],
                 "stop" : True,
-                "select" : "1k"
+                "select" : "10k"
             },
 
         # This Tract doesn't exist, it connects to the cingulate, that not start from the thalamus    
@@ -97,7 +97,7 @@ tracts = {
         #         "include" : ["frontal-cingulate"],
         #         "stop" : False, 
         #         "act" : True,
-        #         "select" : "1k"
+        #         "select" : "10k"
         #     },
 
         # DEPRECATED
@@ -108,7 +108,7 @@ tracts = {
         #         "masks" : ["thalamus-insula-hull-dilated-15"],
         #         "stop" : False,
         #         "act" : True,
-        #         "select" : "1k"
+        #         "select" : "10k"
         #     },
             
         "sup-longi-fasci-1":
@@ -119,7 +119,7 @@ tracts = {
                 "angle" : 10,
                 "stop" : False,
                 "act" : True, 
-                "select" : "1k"
+                "select" : "10k"
             },
         "sup-longi-fasci-2":
             { 
@@ -129,7 +129,7 @@ tracts = {
                 "angle" : 10,
                 "stop" : False,
                 "act" : True, 
-                "select" : "1k"
+                "select" : "10k"
             },
         "sup-longi-fasci-3":
             { 
@@ -139,7 +139,7 @@ tracts = {
                 "angle" : 10,
                 "stop" : False,
                 "act" : True, 
-                "select" : "1k"
+                "select" : "10k"
             },
         "inf-longi-fasci":
             { 
@@ -149,7 +149,7 @@ tracts = {
                 "angle" : 10,
                 "stop" : False,
                 "act" : True,
-                "select" : "1k"
+                "select" : "10k"
             }
           }
 
