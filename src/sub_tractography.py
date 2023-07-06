@@ -36,7 +36,7 @@ def main():
     tract = False
     if "-tract" in sys.argv[1:]:    
         tract = True
-        time[0] += 24
+        time[0] += 5
         time[1] += 0
     
     force = False
