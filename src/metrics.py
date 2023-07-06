@@ -418,7 +418,7 @@ Explain of the correction in the thesis
 #     
 #     return weights
 
-def correctWeightsTract(weights, thresh=0.40):
+def correctWeightsTract(weights, thresh=0.45):
     from scipy import signal
     kernel = [[[1/2, 1/2, 1/2],
                [1/2, 1/2, 1/2],
@@ -513,16 +513,16 @@ def compute_metricsPerROI(p_code, folder_path):
             print("Model metrics don't exist")
             continue
 
-        # frac_fasci_path = None
+        frac_fasci_path = None
         # frac_fasci_mask = None
 
         if model == "diamond":
             save_DIAMOND_cMap_wMap_divideFract(model_path, p_code) # Compute wFA, wMD, wAxD, wRD and save it in nifti file
-            # frac_fasci_path = "%s/%s_%s_frac_ctot.nii.gz" % (model_path, p_code, model)
+            frac_fasci_path = "%s/%s_%s_frac_ctot.nii.gz" % (model_path, p_code, model)
 
         if model == "mf":
             save_mf_wfvf(model_path, p_code) # compute mf_wfvf
-            # frac_fasci_path = "%s/%s_%s_frac_ftot.nii.gz" % (model_path, p_code, model)
+            frac_fasci_path = "%s/%s_%s_frac_ftot.nii.gz" % (model_path, p_code, model)
 
         # if model in ["diamond", "mf"]:
         #     frac_fasci_mask = nib.load(frac_fasci_path).get_fdata()
@@ -579,8 +579,8 @@ def compute_metricsPerROI(p_code, folder_path):
                         # save the corrected density
                         bin_density_map = density_map.copy()
                         bin_density_map[bin_density_map > 0] = 1 # for visualization reasons
-                        nib.save(nib.Nifti1Image(density_map, affine_info), "%s/masks/%s_%s_tract.nii.gz" % (subject_path, p_code, tract_name))
-                        nib.save(nib.Nifti1Image(bin_density_map, affine_info), "%s/masks/%s_%s_tractBin.nii.gz" % (subject_path, p_code, tract_name))
+                        nib.save(nib.Nifti1Image(density_map, affine_info), "%s/masks/%s_%s_%s_tract.nii.gz" % (subject_path, p_code, tract_name, model))
+                        nib.save(nib.Nifti1Image(bin_density_map, affine_info), "%s/masks/%s_%s_%s_tractBin.nii.gz" % (subject_path, p_code, tract_name, model))
                     else:
                         # Use the density map saved in memory
                         density_map = density_maps[tract_path]
