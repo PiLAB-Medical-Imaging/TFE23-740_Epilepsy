@@ -3,7 +3,4 @@ study/*
 study/static_files/mf_dic
 !study/stats/
 .vscode/
-prova/
 *.tar.gz
-env/
-.venv/
