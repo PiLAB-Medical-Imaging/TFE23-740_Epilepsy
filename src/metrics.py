@@ -485,6 +485,10 @@ def compute_metricsPerROI(p_code, folder_path):
 
         assert v.size == w.size
 
+        if w.sum() == 0:
+            print(attr_name, "completed")
+            return
+
         dstat = DescrStatsW(v, w)
 
         w_discrete = np.round(w).astype(int)
