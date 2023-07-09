@@ -1,0 +1,12 @@
+{
+    "inf-longi-fasci":
+        { 
+            "seed_images" : ["occipital-lobe"],
+            "include" : ["temporal-lobe"],
+            "masks" : ["cerebral-white-matter", "occipital-lobe", "temporal-lobe"],
+            "exclude" : ["frontal-lobe-dilated-1", "parietal-lobe-dilated-1", "gyrus-central-dilated-1"],
+            "angle" : 10,
+            "stop" : false,
+            "act" : true
+        }
+}
