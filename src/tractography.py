@@ -39,6 +39,7 @@ roi_freesurfer = {
 roi_num_name = {}
 
 union_reg = {
+    "Both-brainStem" : [16],
     "Left-Frontal-Cingulate" : [1026, 1002],
     "Right-Frontal-Cingulate" : [2026, 2002],
     # Lobe information taken from:

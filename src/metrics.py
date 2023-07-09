@@ -418,7 +418,7 @@ Explain of the correction in the thesis
 #     
 #     return weights
 
-def correctWeightsTract(weights, thresh=0.40):
+def correctWeightsTract(weights, thresh=0.30):
     from scipy import signal
     kernel = [[[1/2, 1/2, 1/2],
                [1/2, 1/2, 1/2],

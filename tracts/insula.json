@@ -3,7 +3,7 @@
         {
             "seed_images": ["thalamus"],
             "include_ordered" : ["RetroLenticularIntCapsule", "insula"],
-            "exclude" : ["MGN", "temporal-lobe-dilated-1", "parietal-lobe-dilated-1", "gyrus-central-dilated-1", "frontal-lobe-dilated-1", "supramarginal-dilated-1"],
+            "exclude" : ["MGN", "temporal-lobe-dilated-1", "parietal-lobe-dilated-1", "gyrus-central-dilated-1", "frontal-lobe-dilated-1", "supramarginal-dilated-1", "brainStem"],
             "stop" : false,
             "act" : true
         }
