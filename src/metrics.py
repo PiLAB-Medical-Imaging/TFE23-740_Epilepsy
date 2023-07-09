@@ -418,7 +418,7 @@ Explain of the correction in the thesis
 #     
 #     return weights
 
-def correctWeightsTract(weights, thresh=0.45):
+def correctWeightsTract(weights, thresh=0.40):
     from scipy import signal
     kernel = [[[1/2, 1/2, 1/2],
                [1/2, 1/2, 1/2],
@@ -583,7 +583,7 @@ def compute_metricsPerROI(p_code, folder_path):
                         # save the corrected density
                         bin_density_map = density_map.copy()
                         bin_density_map[bin_density_map > 0] = 1 # for visualization reasons
-                        nib.save(nib.Nifti1Image(density_map, affine_info), "%s/masks/%s_%s_%tract.nii.gz" % (subject_path, p_code, tract_name))
+                        nib.save(nib.Nifti1Image(density_map, affine_info), "%s/masks/%s_%s_tract.nii.gz" % (subject_path, p_code, tract_name))
                         nib.save(nib.Nifti1Image(bin_density_map, affine_info), "%s/masks/%s_%s_tractBin.nii.gz" % (subject_path, p_code, tract_name))
                     else:
                         # Use the density map saved in memory
