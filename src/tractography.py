@@ -80,11 +80,11 @@ union_reg = {
 # Change thalamus-proper in thalamus depending on the version of freesurfer
 convex_hull = {
     # "thalamus-insula-hull" : ["thalamus", "insula"],
-    # "insula-putamen-hull" : ["insula", "putamen"]
+    "insula-putamen-hull" : ["insula", "putamen"]
 }
 
 sottractions = {
-    #"insula-putamen-hull-in" : ["insula-putamen-hull", "insula", "putamen"],
+    "insula-putamen-hull-in" : ["insula-putamen-hull", "insula", "putamen"],
 }
 
 dilatations = {
@@ -93,7 +93,8 @@ dilatations = {
     "parietal-lobe" : 1,
     "gyrus-central" : 1,
     "frontal-lobe" : 1,
-    "supramarginal" : 1
+    "supramarginal" : 1,
+    "occipital-lobe" : 1
 }
 
 erosions = {

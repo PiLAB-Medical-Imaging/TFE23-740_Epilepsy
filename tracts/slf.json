@@ -4,9 +4,9 @@
             "seed_images" : ["frontal-lobe"],
             "include_ordered" : ["parietal-lobe"],
             "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
+            "exclude" : ["occipital-lobe-dilated-1", "temporal-lobe-dilated-1", "gyrus-central-dilated-1", "insula-putamen-hull-in"],
             "angle" : 10,
             "stop" : false,
-            "act" : true,
-            "select" : "1k"
+            "act" : true
         }
 }

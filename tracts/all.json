@@ -34,7 +34,7 @@
     "infThalRadiation-insula": 
         {
             "seed_images": ["thalamus"],
-            "include_ordered" : ["RetroLenticularIntCapsule", "insula"],
+            "include_ordered" : ["RetroLenticularIntCapsule", "plane-insula", "insula"],
             "exclude" : ["MGN", "temporal-lobe-dilated-1", "parietal-lobe-dilated-1", "gyrus-central-dilated-1", "frontal-lobe-dilated-1", "supramarginal-dilated-1", "brainStem"],
             "stop" : false,
             "act" : true
@@ -52,6 +52,7 @@
             "seed_images" : ["frontal-lobe"],
             "include_ordered" : ["parietal-lobe"],
             "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
+            "exclude" : ["occipital-lobe-dilated-1", "temporal-lobe-dilated-1", "gyrus-central-dilated-1", "insula-putamen-hull-in"],
             "angle" : 10,
             "stop" : false,
             "act" : true
