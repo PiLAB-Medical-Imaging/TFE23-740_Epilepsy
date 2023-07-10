@@ -1,28 +1,8 @@
 {
-    "sup-longi-fasci-1":
+    "sup-longi-fasci":
         { 
             "seed_images" : ["frontal-lobe"],
-            "include_ordered" : ["plane-SLF1", "parietal-lobe"],
-            "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
-            "angle" : 10,
-            "stop" : false,
-            "act" : true,
-            "select" : "1k"
-        },
-    "sup-longi-fasci-2":
-        { 
-            "seed_images" : ["frontal-lobe"],
-            "include_ordered" : ["plane-SLF2", "parietal-lobe"],
-            "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
-            "angle" : 10,
-            "stop" : false,
-            "act" : true,
-            "select" : "1k"
-        },
-    "sup-longi-fasci-3":
-        { 
-            "seed_images" : ["frontal-lobe"],
-            "include_ordered" : ["plane-SLF3", "parietal-lobe"],
+            "include_ordered" : ["parietal-lobe"],
             "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
             "angle" : 10,
             "stop" : false,
