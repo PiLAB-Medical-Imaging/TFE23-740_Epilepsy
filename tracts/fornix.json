@@ -1,8 +1,0 @@
-{
-    "fornix":
-        {
-            "seed_images" : ["plane-mammillary-body"],
-            "include_ordered" : ["plane-ort-fornix", "plane-fornix", "hippocampus"],
-            "exclude" : ["Thalamus-eroded-1", "Lateral-Ventricle-eroded-1"]
-        }
-}

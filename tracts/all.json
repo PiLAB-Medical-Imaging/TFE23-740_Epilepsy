@@ -39,20 +39,13 @@
             "stop" : false,
             "act" : true
         },
-    "infThalRadiation-temporal": 
-        {
-            "seed_images": ["thalamus"],
-            "include_ordered" : ["RetroLenticularIntCapsule", "temporal-lobe"],
-            "stop" : false,
-            "act" : true
-        },
         
     "sup-longi-fasci":
         { 
             "seed_images" : ["frontal-lobe"],
             "include_ordered" : ["parietal-lobe"],
             "masks" : ["cerebral-white-matter", "frontal-lobe", "parietal-lobe"],
-            "exclude" : ["occipital-lobe-dilated-1", "temporal-lobe-dilated-1", "gyrus-central-dilated-1", "insula-putamen-hull-in"],
+            "exclude" : ["occipital-lobe-dilated-1", "temporal-lobe-dilated-1", "gyrus-central-dilated-1", "plane-insula"],
             "angle" : 10,
             "stop" : false,
             "act" : true
