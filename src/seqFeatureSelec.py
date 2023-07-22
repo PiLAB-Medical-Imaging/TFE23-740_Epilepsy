@@ -40,7 +40,7 @@ def scaleDF(df):
     
     return df_standardized
 
-def seqFeatureSelec(stats_path):
+def seqFeatureSelecFunc(stats_path):
     df = readingDF(stats_path)
     df = scaleDF(df)
 
@@ -78,22 +78,23 @@ def main():
     folder_path = get_folder(sys.argv)
     stats_path = folder_path + "/stats"
 
-    seqFeatureSelec(stats_path)
+    # seqFeatureSelec(stats_path)
 
-    # p_job = {
-    #     "wrap" : f"export MKL_NUM_THREADS=24 ; export OMP_NUM_THREADS=24 ; python -c 'from seqFeatureSelec import seqFeatureSelec; seqFeatureSelec(\"{stats_path}\")",
-    #     "job_name" : "SFS",
-    #     "ntasks" : 1,
-    #     "cpus_per_task" : 24,
-    #     "mem_per_cpu" : 1024,
-    #     "time" : "8:00:00",
-    #     "mail_user" : "michele.cerra@student.uclouvain.be",
-    #     "mail_type" : "FAIL",
-    #     "output" : stats_path + f"/slurm-%j.out",
-    #     "error" : stats_path + f"/slurm-%j.err",
-    # }
-    # submit_job(p_job)
+    p_job = {
+        "wrap" : "export MKL_NUM_THREADS=24 ; export OMP_NUM_THREADS=24 ; python -c 'from seqFeatureSelec import seqFeatureSelecFunc; seqFeatureSelecFunc(\"%s\")'" % stats_path,
+        "job_name" : "SFS",
+        "ntasks" : 1,
+        "cpus_per_task" : 24,
+        "mem_per_cpu" : 1024,
+        "time" : "08:00:00",
+        "mail_user" : "michele.cerra@student.uclouvain.be",
+        "mail_type" : "FAIL",
+        "output" : stats_path + f"/slurm-%j.out",
+        "error" : stats_path + f"/slurm-%j.err",
+    }
+    submit_job(p_job)
 
 
 if __name__=="__main__":
     exit(main())
+
