@@ -9,6 +9,7 @@ from sklearn.linear_model import SGDClassifier
 from sklearn.model_selection import StratifiedShuffleSplit
 from mlxtend.feature_selection import SequentialFeatureSelector as SFS
 from mlxtend.plotting import plot_sequential_feature_selection as plot_sfs
+from sklearn.pipeline import make_pipeline
 
 def readingDF(stats_path):
     # Reading the whole dataset
@@ -30,27 +31,24 @@ def readingDF(stats_path):
 
     return df
 
-def scaleDF(df):
-    X_scaled = df.filter(regex=r'mean|std|skew|voxVol|age|duration') # Take only the contineus value
-    index, columns = X_scaled.index, X_scaled.columns
-    scaler = StandardScaler()
-    X_scaled = scaler.fit_transform(X_scaled)
-    X = pd.DataFrame(X_scaled, index=index, columns=columns)
-    df_standardized = pd.concat([df["resp"], df["respPart"], X], axis=1)
-    
-    return df_standardized
-
 def seqFeatureSelec(stats_path):
     df = readingDF(stats_path)
-    df = scaleDF(df)
 
     X = df.drop(["resp", "respPart"], axis=1)
     y = df["resp"]
 
-    log_reg = SGDClassifier(loss = 'log_loss', n_jobs = -1, penalty = 'l2', max_iter=10000)
+    pipe = make_pipeline(
+        StandardScaler(),
+        SGDClassifier(loss = 'log_loss',
+                             n_jobs = -1, 
+                             penalty = 'l2', 
+                             alpha=50,
+                             max_iter=10000
+        )
+    )
 
     selector = SFS(
-        log_reg,
+        pipe,
         k_features=(2, 20),
         forward=True,
         floating=False, # da capire che significa
@@ -78,21 +76,21 @@ def main():
     folder_path = get_folder(sys.argv)
     stats_path = folder_path + "/stats"
 
-    seqFeatureSelec(stats_path)
+    # seqFeatureSelec(stats_path)
 
-    # p_job = {
-    #     "wrap" : f"export MKL_NUM_THREADS=24 ; export OMP_NUM_THREADS=24 ; python -c 'from seqFeatureSelec import seqFeatureSelec; seqFeatureSelec(\"{stats_path}\")",
-    #     "job_name" : "SFS",
-    #     "ntasks" : 1,
-    #     "cpus_per_task" : 24,
-    #     "mem_per_cpu" : 1024,
-    #     "time" : "8:00:00",
-    #     "mail_user" : "michele.cerra@student.uclouvain.be",
-    #     "mail_type" : "FAIL",
-    #     "output" : stats_path + f"/slurm-%j.out",
-    #     "error" : stats_path + f"/slurm-%j.err",
-    # }
-    # submit_job(p_job)
+    p_job = {
+        "wrap" : f"export MKL_NUM_THREADS=24 ; export OMP_NUM_THREADS=24 ; python -c 'from seqFeatureSelec import seqFeatureSelec; seqFeatureSelec(\"{stats_path}\")'",
+        "job_name" : "SFS",
+        "ntasks" : 1,
+        "cpus_per_task" : 24,
+        "mem_per_cpu" : 1024,
+        "time" : "8:00:00",
+        "mail_user" : "michele.cerra@student.uclouvain.be",
+        "mail_type" : "FAIL",
+        "output" : stats_path + f"/slurm-%j.out",
+        "error" : stats_path + f"/slurm-%j.err",
+    }
+    submit_job(p_job)
 
 
 if __name__=="__main__":
