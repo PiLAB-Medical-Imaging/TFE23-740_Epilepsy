@@ -22,187 +22,6 @@ def vcol(v):
 def vrow(v):
     return v.reshape(1, v.size)
 
-def pthPowerWeights(w, p):
-    wp = np.power(w, p)
-    return np.sum(wp)
-
-def w_mean(v, w, p=1):
-    assert v.shape == w.shape or v.size == w.size
-
-    v = np.power(vcol(v), p)
-    w = vrow(w)
-
-    V1 = pthPowerWeights(w, 1)
-    return np.ravel(np.dot(w,v)/V1)[0]
-
-def w_mean_alt(v, w, K = 1000):
-    assert v.shape == w.shape or v.size == w.size
-    v = v[w>0]
-    w = w[w>0]
-    w = w/np.sum(w) # normalization
-
-    assert np.rint(w.sum()) == 1
-
-    ra = np.random.random(v.size*K)
-
-    ## #r = np.random.random(v.size*K)
-    ## # si hanno gli stessi risultati ma è velocissimo, ma ovviamente prende troppo memoria e con K elevati si blocca tutto
-    ## r = ra
-    ## r = vcol(r)
-    ## rep_col_r = np.tile(r, (1, w.size))
-## 
-    ## cumsum = w.cumsum()
-    ## cumsum = vrow(cumsum)
-    ## rep_row_cumsum = np.tile(cumsum, (v.size*K, 1))
-## 
-    ## weight_rand_idx = (rep_col_r <= rep_row_cumsum).argmax(axis=1)
-## 
-    ## ##################
-
-    #r = np.random.random(v.size*K)
-    r = ra
-    for i, rv in enumerate(r):
-        r[i:i+1] = (rv <= w.cumsum()).argmax()
-    r = np.array(r, dtype=int)
-
-    # print("\t", np.mean(v[weight_rand_idx]))
-
-    return np.mean(v[r])
-
-"""
-@article{rimoldini2014weighted,
-  title={Weighted skewness and kurtosis unbiased by sample size and Gaussian uncertainties},
-  author={Rimoldini, Lorenzo},
-  journal={Astronomy and Computing},
-  volume={5},
-  pages={1--8},
-  year={2014},
-  publisher={Elsevier}
-}
-"""
-def w_var(v, w):
-    assert v.shape == w.shape
-    v = vcol(v)
-    w = vrow(w)
-
-    v_centr = v - w_mean(v, w) # centerinig the values
-
-    V_1 = pthPowerWeights(w, 1)
-    V_2 = pthPowerWeights(w, 2)
-
-    m_2 = w_mean(v_centr, w, p=2) 
-
-    with np.errstate(divide='ignore', invalid='ignore'):
-        M_2 = V_1**2/(V_1**2-V_2) * m_2 
-
-    return M_2
-
-def w_std_alt(v, w, K = 1000):
-    assert v.shape == w.shape
-    v = v[w>0].ravel()
-    w = w[w>0].ravel()
-    w = w/np.sum(w) # normalization
-
-    assert np.rint(w.sum()) == 1
-
-    r = np.random.random(v.size*K)
-    for i, rv in enumerate(r):
-        r[i:i+1] = (rv <= w.cumsum()).argmax()
-    r = np.array(r, dtype=int)
-
-    return stats.tstd(v[r])
-
-"""
-@article{rimoldini2014weighted,
-  title={Weighted skewness and kurtosis unbiased by sample size and Gaussian uncertainties},
-  author={Rimoldini, Lorenzo},
-  journal={Astronomy and Computing},
-  volume={5},
-  pages={1--8},
-  year={2014},
-  publisher={Elsevier}
-}
-"""
-def w_skew(v, w):
-    assert v.shape == w.shape
-    v = vcol(v)
-    w = vrow(w)
-
-    v_centr = v - w_mean(v, w) # centerinig the values
-
-    V_1 = pthPowerWeights(w, 1)
-    V_2 = pthPowerWeights(w, 2)
-    V_3 = pthPowerWeights(w, 3)
-
-    m_3 = w_mean(v_centr, w, p=3)
-
-    with np.errstate(divide='ignore', invalid='ignore'):
-        M_3 = (V_1**3)/(V_1**3 - 3*V_1*V_2 + 2*V_3) * m_3 
-
-    return m_3
-
-def w_skew(v, w, K = 1000):
-    assert v.shape == w.shape
-    v = v[w>0].ravel()
-    w = w[w>0].ravel()
-    w = w/np.sum(w) # normalization
-
-    assert np.rint(w.sum()) == 1
-
-    r = np.random.random(v.size*K)
-    for i, rv in enumerate(r):
-        r[i:i+1] = (rv <= w.cumsum()).argmax()
-    r = np.array(r, dtype=int)
-
-    return stats.skew(v[r], bias=False)
-
-"""
-@article{rimoldini2014weighted,
-  title={Weighted skewness and kurtosis unbiased by sample size and Gaussian uncertainties},
-  author={Rimoldini, Lorenzo},
-  journal={Astronomy and Computing},
-  volume={5},
-  pages={1--8},
-  year={2014},
-  publisher={Elsevier}
-}
-"""
-def w_kurt(v, w):
-    assert v.shape == w.shape
-    v = vcol(v)
-    w = vrow(w)
-
-    v_centr = v - w_mean(v, w) # centerinig the values
-
-    V_1 = pthPowerWeights(w, 1)
-    V_2 = pthPowerWeights(w, 2)
-    V_3 = pthPowerWeights(w, 3)
-    V_4 = pthPowerWeights(w, 4)
-
-    m_2 = w_mean(v_centr, w, p=2)
-    m_4 = w_mean(v_centr, w, p=4)
-
-    denominator = (V_1**2 - V_2)*(V_1**4 - 6*V_1**2*V_2 + 8*V_1*V_3 + 3*V_2**2 - 6*V_4)
-    with np.errstate(divide='ignore', invalid='ignore'):
-        M_4 = V_1**2*(V_1**4 - 4*V_1*V_3 + 3*V_2**2)/denominator * m_4 - 3*V_1**2*(V_1**4 - 2*V_1**2*V_2 + 4*V_1*V_3 - 3*V_2**2)/denominator * m_2**2
-
-    return M_4
-
-def w_kurt(v, w, K = 1000):
-    assert v.shape == w.shape
-    v = v[w>0].ravel()
-    w = w[w>0].ravel()
-    w = w/np.sum(w) # normalization
-
-    assert np.rint(w.sum()) == 1
-
-    r = np.random.random(v.size*K)
-    for i, rv in enumerate(r):
-        r[i:i+1] = (rv <= w.cumsum()).argmax()
-    r = np.array(r, dtype=int)
-
-    return stats.kurtosis(v[r], fisher=True, bias=False)
-
 def MD(eigvals):
     return np.mean(eigvals, axis=3)
 
@@ -418,7 +237,7 @@ Explain of the correction in the thesis
 #     
 #     return weights
 
-def correctWeightsTract(weights, thresh=0.30):
+def correctWeightsTract(weights, thresh=0.10):
     from scipy import signal
     kernel = [[[1/2, 1/2, 1/2],
                [1/2, 1/2, 1/2],
@@ -438,12 +257,65 @@ def correctWeightsTract(weights, thresh=0.30):
 
     return c
 
-# def mostImportant(weights):
-#     # minmax scaler in [0, 1]
-#     weights = (weights - weights.min()) / (weights.max() - weights.min())
-#     # threshold
-#     weights[weights<0.5] = 0
-#     return weights
+def highestProbTracts(trk):
+    '''
+    This function is a modified version of get_streamline_density() from the library RAVEL by Delinte Nicolas.
+    The function is also a semplified version, it doesn't take the paramiters for the resolution_increase and the color.
+    
+    Paramiters
+    ----------
+    trk : tractogram
+        Content of a .trk file
+
+    Returns
+    -------
+
+    '''
+    from TIME.core import tract_to_streamlines, compute_subsegments
+    from tqdm import tqdm
+
+    density = np.zeros(trk._dimensions, dtype=np.float32)
+    sList = tract_to_streamlines(trk)
+    totDensityTract = np.zeros(len(sList))
+
+    # find the tot density per trat
+    for j, streamline in enumerate(tqdm(sList)):
+        prev_point = streamline[0, :]
+
+        for i in range(1, streamline.shape[0]):
+            point = streamline[i, :]
+            voxList = compute_subsegments(prev_point, point)
+            vs = (point-prev_point)
+
+            for x, y, z in voxList:
+                x, y, z = (int(x), int(y), int(z))
+                
+                totDensityTract[j] += voxList[(x, y, z)]
+
+            prev_point = point
+
+    # select only the best 10 tract
+    bestTracts_idx = np.argsort(totDensityTract)[:10]
+
+    # Recopute the density for those selected tract
+    for j in bestTracts_idx:
+        streamline = sList[j]
+        prev_point = streamline[0, :]
+
+        for i in range(1, streamline.shape[0]):
+            point = streamline[i, :]
+            voxList = compute_subsegments(prev_point, point)
+            vs = (point-prev_point)
+
+            for x, y, z in voxList:
+                x, y, z = (int(x), int(y), int(z))
+                
+                density[x, y, z] += voxList[(x, y, z)]
+
+            prev_point = point
+
+    return density
+
 
 metrics = {
     "dti" : ["FA", "AD", "RD", "MD"],
@@ -564,7 +436,7 @@ def compute_metricsPerROI(p_code, folder_path):
             
                         if not os.path.isfile("%s/masks/%s_%s_tractNoCorr.nii.gz" % (subject_path, p_code, tract_name)):
                             # get the density
-                            density_map = get_streamline_density(trk)
+                            density_map = highestProbTracts(trk)
                             # save the density
                             bin_density_map = density_map.copy()
                             bin_density_map[bin_density_map > 0] = 1 # for visualization reasons

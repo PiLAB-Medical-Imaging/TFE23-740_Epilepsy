@@ -70,6 +70,30 @@ def run_log_reg(train_features, test_features, y_train, y_test,  alpha = 1e-4, c
         return metrics[0]
     return log_reg
 
-def run_logRegCV(train_features, test_features, y_train, y_test, confuson=False, return_f1=False, verbose=True):
+from pandas import DataFrame
+
+def run_log_reg_cv(features: DataFrame, y: DataFrame, cv, pipeline=None, alpha = 1e-4, confusion = False, return_f1 = False, verbose = True):
     metrics = np.zeros(5)
-    
+    features = features.to_numpy()
+    y = y.to_numpy()
+    for train, test in cv.split(features, y):
+        train_features, test_features = features[train, :], features[test, :]
+        y_train, y_test = y[train], y[test]
+
+        if pipeline is not None:
+            pipeline.fit(train_features)
+            train_features = pipeline.transform(train_features)
+            test_features = pipeline.transform(test_features)
+
+        log_reg = SGDClassifier(loss = 'log_loss', alpha = alpha, n_jobs = -1, penalty = 'l2')
+        log_reg.fit(train_features, y_train)
+
+        y_test_prob = log_reg.predict_proba(test_features)[:,1]
+        metrics += print_model_metrics(y_test, y_test_prob, confusion = confusion, verbose = False, return_metrics = True)
+
+    metrics /=cv.get_n_splits()
+    if verbose:
+        print('F1: {:.3f} | Pr: {:.3f} | Re: {:.3f} | AUC: {:.3f} | Accuracy: {:.3f} \n'.format(*metrics))
+    if return_f1:
+        return metrics[0]
+    return log_reg
