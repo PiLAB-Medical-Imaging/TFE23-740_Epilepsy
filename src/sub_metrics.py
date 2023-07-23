@@ -15,7 +15,7 @@ def main():
         parIdx = sys.argv.index("-p") + 1 # the index of the parameter after the option
         pat = sys.argv[parIdx]
 
-    time = [2, 0]
+    time = [1, 0]
 
     time[0] += time[1]//60
     time[1] %= 60

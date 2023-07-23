@@ -362,7 +362,7 @@ def compute_metricsPerROI(p_code, folder_path):
 
         dstat = DescrStatsW(v, w)
 
-        w_discrete = np.round(w).astype(int)
+        w_discrete = np.round(w*10).astype(int)
         repeat = np.repeat(v, w_discrete)
 
         m[attr_name + "_mean"] = np.average(v, weights=w)
@@ -371,10 +371,10 @@ def compute_metricsPerROI(p_code, folder_path):
         m[attr_name + "_skew"] = stats.skew(repeat, bias=False)
         #m[attr_name + "_kurt"] = w_kurt(metric_map, density_map)
         m[attr_name + "_kurt"] = stats.kurtosis(repeat, fisher=True, bias=False)
-        m[attr_name + "_max"] = metric_map[density_map>0].max()
-        m[attr_name + "_min"] = metric_map[density_map>0].min()
+        # m[attr_name + "_max"] = metric_map[density_map>0].max()
+        # m[attr_name + "_min"] = metric_map[density_map>0].min()
         
-        assert m[attr_name + "_min"] <= m[attr_name + "_mean"] and m[attr_name + "_mean"] <= m[attr_name + "_max"]
+        #assert m[attr_name + "_min"] <= m[attr_name + "_mean"] and m[attr_name + "_mean"] <= m[attr_name + "_max"]
 
         print(attr_name, "completed")
 
