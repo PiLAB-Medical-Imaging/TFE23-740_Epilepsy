@@ -49,9 +49,9 @@ def seqFeatureSelecFunc(stats_path):
 
     selector = SFS(
         pipe,
-        k_features=(2, 20),
+        k_features=(2, 10),
         forward=True,
-        floating=False, # da capire che significa
+        floating=True,
         scoring="f1",
         cv=StratifiedShuffleSplit(n_splits=1000, test_size=1/3, random_state=7),
         n_jobs=-1,
@@ -69,7 +69,7 @@ def seqFeatureSelecFunc(stats_path):
     plt.ylim([0.8, 1])
     plt.title('Sequential Forward Selection (w. StdDev)')
     plt.grid()
-    plt.savefig(stats_path+"/SFS_forward.png")
+    plt.savefig(stats_path+"/SFS_forward3.png")
 
 def main():
     ## Getting folder
