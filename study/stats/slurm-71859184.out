@@ -1,0 +1,5 @@
+(19, 11272)
+(18, 5560)
+Best accuracy score: 0.53
+Best subset (indices): (443, 573, 1808, 3213, 4254, 4255, 5212)
+Best subset (corresponding names): ('cc.bodyt_frac_ftot_mean', 'cc.rostrum_fintra_skew', 'left-thalamus_AD_skew', 'rh.af_AD_skew', 'rh.slf3_frac_c1_skew', 'rh.slf3_frac_c1_std', 'right-postThalRadiation-parital_frac_ftot_skew')
