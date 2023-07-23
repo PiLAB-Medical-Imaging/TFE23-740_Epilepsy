@@ -28,8 +28,12 @@ def print_model_metrics(y_test, y_test_prob, confusion = False, verbose = True, 
     y_test_pred = np.where(y_test_prob > best_threshold, 1, 0)
     
     # Calculate all metrics
-    f1 = f1_score(y_test, y_test_pred, pos_label = 1, average = 'binary')
-    roc_auc = roc_auc_score(y_test, y_test_prob)
+    if np.unique(y_test).size > 2:
+        averageF1 = "weighted"
+    else:
+        averageF1 = "binary"
+    f1 = f1_score(y_test, y_test_pred, pos_label = 1, average = averageF1)
+    roc_auc = roc_auc_score(y_test, y_test_prob, multi_class="ovo")
     acc = accuracy_score(y_test, y_test_pred)
     
     

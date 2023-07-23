@@ -237,17 +237,17 @@ Explain of the correction in the thesis
 #     
 #     return weights
 
-def correctWeightsTract(weights, thresh=0.10):
+def correctWeightsTract(weights, thresh=0.2):
     from scipy import signal
-    kernel = [[[1/2, 1/2, 1/2],
-               [1/2, 1/2, 1/2],
-               [1/2, 1/2, 1/2]],
-              [[1/2, 1/2, 1/2],
-               [1/2, 1  , 1/2],
-               [1/2, 1/2, 1/2]],
-              [[1/2, 1/2, 1/2],
-               [1/2, 1/2, 1/2],
-               [1/2, 1/2, 1/2]]]
+    kernel = [[[1/4, 1/4, 1/4],
+               [1/4, 1/4, 1/4],
+               [1/4, 1/4, 1/4]],
+              [[1/4, 1/4, 1/4],
+               [1/4, 1 ,  1/4],
+               [1/4, 1/4, 1/4]],
+              [[1/4, 1/4, 1/4],
+               [1/4, 1/4, 1/4],
+               [1/4, 1/4, 1/4]]]
     kernel = np.array(kernel)
 
     c = signal.convolve(weights, kernel, mode="same", method="direct")
@@ -274,7 +274,6 @@ def highestProbTracts(trk):
     from TIME.core import tract_to_streamlines, compute_subsegments
     from tqdm import tqdm
 
-    density = np.zeros(trk._dimensions, dtype=np.float32)
     sList = tract_to_streamlines(trk)
     totDensityTract = np.zeros(len(sList))
 
@@ -285,7 +284,6 @@ def highestProbTracts(trk):
         for i in range(1, streamline.shape[0]):
             point = streamline[i, :]
             voxList = compute_subsegments(prev_point, point)
-            vs = (point-prev_point)
 
             for x, y, z in voxList:
                 x, y, z = (int(x), int(y), int(z))
@@ -297,6 +295,8 @@ def highestProbTracts(trk):
     # select only the best 10 tract
     bestTracts_idx = np.argsort(totDensityTract)[:10]
 
+    density = np.zeros(trk._dimensions, dtype=np.float32)
+
     # Recopute the density for those selected tract
     for j in bestTracts_idx:
         streamline = sList[j]
@@ -305,7 +305,6 @@ def highestProbTracts(trk):
         for i in range(1, streamline.shape[0]):
             point = streamline[i, :]
             voxList = compute_subsegments(prev_point, point)
-            vs = (point-prev_point)
 
             for x, y, z in voxList:
                 x, y, z = (int(x), int(y), int(z))
