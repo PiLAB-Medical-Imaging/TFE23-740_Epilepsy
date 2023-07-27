@@ -1,5 +1,0 @@
-(19, 11272)
-(18, 5560)
-Best accuracy score: 0.51
-Best subset (indices): (1104, 1174, 4711, 5442)
-Best subset (corresponding names): ('left-inf-longi-fasci_AD_skew', 'left-inf-longi-fasci_wMD_std', 'right-hippocampus_fextra_mean', 'right-supThalRadiation_frac_f0_std')
