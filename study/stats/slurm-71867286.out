@@ -1,0 +1,34 @@
+(19, 7528)
+(18, 1442)
+Best accuracy score: 1.00
+Best subset (indices): (1081, 1199)
+Best subset (corresponding names): ('rh.slf2_fiso_mean', 'right-fornix_RD_mean')
+
+Best accuracy score: 1.00
+Best subset (indices): (676, 1078, 1199)
+Best subset (corresponding names): ('lh.ilf_MD_mean', 'rh.slf2_fbundle_mean', 'right-fornix_RD_mean')
+
+Best accuracy score: 0.51
+Best subset (indices): (605, 710)
+Best subset (corresponding names): ('lh.cst_frac_ftot_mean', 'lh.mlf_wFA_mean')
+
+Best accuracy score: 0.51
+Best subset (indices): (478, 636, 1364)
+Best subset (corresponding names): ('left-thalamus_fextra_mean', 'lh.fat_MD_mean', 'right-putamen_fintra_mean')
+
+Best accuracy score: 0.50
+Best subset (indices): (0, 1)
+Best subset (corresponding names): ('age', 'therapy_duration')
+
+Best accuracy score: 0.50
+Best subset (indices): (0, 1, 2)
+Best subset (corresponding names): ('age', 'therapy_duration', 'sex')
+
+Best accuracy score: 0.55
+Best subset (indices): (267, 713)
+Best subset (corresponding names): ('left-fornix_wMD_mean', 'lh.mlf_wfvf_mean')
+
+Best accuracy score: 0.54
+Best subset (indices): (456, 622, 835)
+Best subset (corresponding names): ('left-supThalRadiation_RD_mean', 'lh.emc_frac_csf_d_mean', 'rh.af_FA_mean')
+
