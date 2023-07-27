@@ -1,5 +1,0 @@
-(19, 11272)
-(18, 5560)
-Best accuracy score: 1.00
-Best subset (indices): (335, 2832)
-Best subset (corresponding names): ('cc.bodypm_fextra_mean', 'lh.slf1_RD_skew')

@@ -237,7 +237,7 @@ Explain of the correction in the thesis
 #     
 #     return weights
 
-def correctWeightsTract(weights, thresh=0.2):
+def correctWeightsTract(weights, thresh=0.1):
     from scipy import signal
     kernel = [[[1/4, 1/4, 1/4],
                [1/4, 1/4, 1/4],
@@ -362,7 +362,7 @@ def compute_metricsPerROI(p_code, folder_path):
 
         dstat = DescrStatsW(v, w)
 
-        w_discrete = np.round(w*10).astype(int)
+        w_discrete = np.round(w).astype(int)
         repeat = np.repeat(v, w_discrete)
 
         m[attr_name + "_mean"] = np.average(v, weights=w)
@@ -435,7 +435,8 @@ def compute_metricsPerROI(p_code, folder_path):
             
                         if not os.path.isfile("%s/masks/%s_%s_tractNoCorr.nii.gz" % (subject_path, p_code, tract_name)):
                             # get the density
-                            density_map = highestProbTracts(trk)
+                            #density_map = highestProbTracts(trk)
+                            density_map = get_streamline_density(trk)
                             # save the density
                             bin_density_map = density_map.copy()
                             bin_density_map[bin_density_map > 0] = 1 # for visualization reasons
