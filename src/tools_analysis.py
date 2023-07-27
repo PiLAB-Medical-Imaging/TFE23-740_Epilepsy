@@ -57,26 +57,11 @@ def print_model_metrics(y_test, y_test_prob, confusion = False, verbose = True, 
     
 
 # Run Simple Log Reg Model and Print metrics
-from sklearn.linear_model import SGDClassifier
-
-# Run log reg 100 times and average the result to reduce prediction variance
-def run_log_reg(train_features, test_features, y_train, y_test,  alpha = 1e-4, confusion = False, return_f1 = False, verbose = True):
-    metrics = np.zeros(5)
-    for _ in range(100):
-        log_reg = SGDClassifier(loss = 'log_loss', alpha = alpha, n_jobs = -1, penalty = 'l2')
-        log_reg.fit(train_features, y_train)
-        y_test_prob = log_reg.predict_proba(test_features)[:,1]
-        metrics += print_model_metrics(y_test, y_test_prob, confusion = confusion, verbose = False, return_metrics = True)
-    metrics /=100
-    if verbose:
-        print('F1: {:.3f} | Pr: {:.3f} | Re: {:.3f} | AUC: {:.3f} | Accuracy: {:.3f} \n'.format(*metrics))
-    if return_f1:
-        return metrics[0]
-    return log_reg
+from sklearn.linear_model import SGDClassifier, LogisticRegression
 
 from pandas import DataFrame
 
-def run_log_reg_cv(features: DataFrame, y: DataFrame, cv, pipeline=None, alpha = 1e-4, penalty="l2", confusion = False, return_f1 = False, verbose = True):
+def run_log_reg_cv(features: DataFrame, y: DataFrame, cv, pipeline=None, C = 1, penalty="l2", confusion = False, return_f1 = False, verbose = True):
     metrics = np.zeros(5)
     features = features.to_numpy()
     y = y.to_numpy()
@@ -89,7 +74,15 @@ def run_log_reg_cv(features: DataFrame, y: DataFrame, cv, pipeline=None, alpha =
             train_features = pipeline.transform(train_features)
             test_features = pipeline.transform(test_features)
 
-        log_reg = SGDClassifier(loss = 'log_loss', alpha = alpha, n_jobs = -1, penalty = penalty)
+        log_reg = LogisticRegression(
+            penalty=penalty,
+            dual=True,
+            C = C,
+            class_weight="balanced",
+            random_state=7,
+            solver="liblinear",
+            max_iter=100000,
+        )
         log_reg.fit(train_features, y_train)
 
         y_test_prob = log_reg.predict_proba(test_features)[:,1]
@@ -102,7 +95,9 @@ def run_log_reg_cv(features: DataFrame, y: DataFrame, cv, pipeline=None, alpha =
         return metrics[0]
     return log_reg
 
-def run_svm_cv(features: DataFrame, y: DataFrame, cv, pipeline=None, alpha = 1e-4, penalty="l2", confusion = False, return_f1 = False, verbose = True):
+from sklearn.svm import LinearSVC
+
+def run_svm_cv(features: DataFrame, y: DataFrame, cv, pipeline=None, C = 1, penalty="l2", confusion = False, return_f1 = False, verbose = True):
     metrics = np.zeros(5)
     features = features.to_numpy()
     y = y.to_numpy()
@@ -115,10 +110,46 @@ def run_svm_cv(features: DataFrame, y: DataFrame, cv, pipeline=None, alpha = 1e-
             train_features = pipeline.transform(train_features)
             test_features = pipeline.transform(test_features)
 
-        log_reg = SGDClassifier(loss = 'log_loss', alpha = alpha, n_jobs = -1, penalty = penalty)
-        log_reg.fit(train_features, y_train)
+        svm = LinearSVC(
+            penalty=penalty,
+            loss="hinge",
+            dual=True,
+            C = C,
+            class_weight="balanced",
+            random_state=7,
+            max_iter=100000,
+        )
+        svm.fit(train_features, y_train)
 
-        y_test_prob = log_reg.predict_proba(test_features)[:,1]
+        y_test_scores = svm.decision_function(test_features)
+        metrics += print_model_metrics(y_test, y_test_scores, confusion = confusion, verbose = False, return_metrics = True)
+
+    metrics /=cv.get_n_splits()
+    if verbose:
+        print('F1: {:.3f} | Pr: {:.3f} | Re: {:.3f} | AUC: {:.3f} | Accuracy: {:.3f} \n'.format(*metrics))
+    if return_f1:
+        return metrics[0]
+    return svm
+
+from sklearn.naive_bayes import GaussianNB
+
+def run_gaussian_cv(features: DataFrame, y: DataFrame, cv, pipeline=None, confusion = False, return_f1 = False, verbose = True):
+    metrics = np.zeros(5)
+    features = features.to_numpy()
+    y = y.to_numpy()
+    for train, test in cv.split(features, y):
+        train_features, test_features = features[train, :], features[test, :]
+        y_train, y_test = y[train], y[test]
+
+        if pipeline is not None:
+            pipeline.fit(train_features)
+            train_features = pipeline.transform(train_features)
+            test_features = pipeline.transform(test_features)
+
+        gaussian = GaussianNB()
+        gaussian.fit(train_features, y_train)
+
+        y_test_prob = gaussian.predict_proba(test_features)
         metrics += print_model_metrics(y_test, y_test_prob, confusion = confusion, verbose = False, return_metrics = True)
 
     metrics /=cv.get_n_splits()
@@ -126,4 +157,4 @@ def run_svm_cv(features: DataFrame, y: DataFrame, cv, pipeline=None, alpha = 1e-
         print('F1: {:.3f} | Pr: {:.3f} | Re: {:.3f} | AUC: {:.3f} | Accuracy: {:.3f} \n'.format(*metrics))
     if return_f1:
         return metrics[0]
-    return log_reg
+    return gaussian
