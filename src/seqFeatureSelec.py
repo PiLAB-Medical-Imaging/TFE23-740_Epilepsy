@@ -1,15 +1,19 @@
 import sys
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 
 from params import *
 from elikopy.utils import submit_job
 from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import SGDClassifier
+from sklearn.linear_model import SGDClassifier, LogisticRegression
+from sklearn.svm import LinearSVC
 from sklearn.model_selection import StratifiedShuffleSplit
 from mlxtend.feature_selection import SequentialFeatureSelector as SFS
 from mlxtend.plotting import plot_sequential_feature_selection as plot_sfs
 from sklearn.pipeline import make_pipeline
+
+from tools_analysis import auc_and_f1
 
 def readingDF(stats_path):
     # Reading the whole dataset
@@ -31,13 +35,14 @@ def readingDF(stats_path):
 
     return df
 
-def runSelection(X, y, stats_path, pipe, nFeatures, scoreFunc):
+from sklearn.metrics import make_scorer
+def runSelection(X, y, stats_path, pipe, nFeatures, scoreFunc, model_name):
     selector = SFS(
         pipe,
         k_features=nFeatures,
         forward=True,
         floating=False,
-        scoring=scoreFunc,
+        scoring=make_scorer(auc_and_f1, needs_proba=True, needs_threshold=True),
         cv=StratifiedShuffleSplit(n_splits=1000, test_size=1/3, random_state=7),
         n_jobs=-1,
         verbose=2,   
@@ -54,7 +59,7 @@ def runSelection(X, y, stats_path, pipe, nFeatures, scoreFunc):
     plt.ylim([0.8, 1])
     plt.title('Sequential Forward Selection (w. StdDev)')
     plt.grid()
-    plt.savefig(stats_path+f"/SFS_forward_{str(nFeatures)}_{scoreFunc}.png")
+    plt.savefig(stats_path+f"/SFS_forward_{model_name}_{scoreFunc}_{str(nFeatures)}.png")
 
     print()
 
@@ -66,22 +71,35 @@ def seqFeatureSelecFunc(stats_path):
 
     pipe = make_pipeline(
         StandardScaler(),
-        SGDClassifier(loss = 'log_loss',
-                             n_jobs = -1, 
-                             penalty = 'l2', 
-                             alpha=100,
-                             max_iter=10000
+        LogisticRegression(
+            penalty="l2",
+            dual=True,
+            class_weight="balanced",
+            C=,
+            random_state=7,
+            solver="liblinear",
+            max_iter=100000,
         )
     )
+    model_name = "log_reg"
+    runSelection(X, y, stats_path, pipe, 2, "roc_auc", model_name)
+    runSelection(X, y, stats_path, pipe, 3, "roc_auc", model_name)
 
-    runSelection(X, y, stats_path, pipe, 2, "roc_auc")
-    runSelection(X, y, stats_path, pipe, 3, "roc_auc")
-    runSelection(X, y, stats_path, pipe, 2, "f1")
-    runSelection(X, y, stats_path, pipe, 3, "f1")
-    runSelection(X, y, stats_path, pipe, 2, "balanced_accuracy")
-    runSelection(X, y, stats_path, pipe, 3, "balanced_accuracy")
-    runSelection(X, y, stats_path, pipe, 2, "accuracy")
-    runSelection(X, y, stats_path, pipe, 3, "accuracy")
+    pipe = make_pipeline(
+        StandardScaler(),
+        LinearSVC(
+            penalty="l2",
+            loss="hinge",
+            dual=True,
+            C=5e-3,
+            class_weight="balanced",
+            random_state=7,
+            max_iter=100000,
+        )
+    )
+    model_name = "svm"
+    runSelection(X, y, stats_path, pipe, 2, "roc_auc", model_name)
+    runSelection(X, y, stats_path, pipe, 3, "roc_auc", model_name)
 
 def main():
     ## Getting folder
@@ -96,7 +114,7 @@ def main():
         "ntasks" : 1,
         "cpus_per_task" : 24,
         "mem_per_cpu" : 1024,
-        "time" : "15:00:00",
+        "time" : "5:00:00",
         "mail_user" : "michele.cerra@student.uclouvain.be",
         "mail_type" : "FAIL",
         "output" : stats_path + f"/slurm-%j.out",

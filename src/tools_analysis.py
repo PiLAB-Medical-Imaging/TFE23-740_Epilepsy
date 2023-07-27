@@ -11,6 +11,23 @@ def calc_f1(p_and_r):
         return 0
     return (2*p*r)/(p+r)
 
+from sklearn.metrics import f1_score, roc_auc_score, precision_recall_curve
+def auc_and_f1(y, y_prob, **kwargs):
+
+    precision, recall, threshold = precision_recall_curve(y, y_prob, pos_label=1)
+
+    #Find the threshold value that gives the best F1 Score
+    best_f1_index = np.argmax([ calc_f1(p_r) for p_r in zip(precision, recall)])
+    best_threshold, best_precision, best_recall = threshold[best_f1_index], precision[best_f1_index], recall[best_f1_index]
+
+    # Calulcate predictions based on the threshold value
+    y_pred = np.where(y_prob > best_threshold, 1, 0)
+
+    # Calculate metrics
+    roc= roc_auc_score(y, y_prob)
+    f1 = f1_score(y, y_pred, pos_label=1)
+    return roc + f1
+
 
 # Print the F1, Precision, Recall, ROC-AUC, and Accuracy Metrics 
 # Since we are optimizing for F1 score - we will first calculate precision and recall and 
