@@ -10,7 +10,7 @@ def main():
     step = ""
     if "-prep" in sys.argv[1:]:
         step = "prep"
-        time = 5
+        time = 10
     if "-prior" in sys.argv[1:]:
         step = "prior"
         time = 5
@@ -29,6 +29,15 @@ def main():
     with open(dest_success, 'r') as file:
         patient_list = json.load(file)
 
+    if "-p" in sys.argv[1:]:
+        parIdx = sys.argv.index("-p") + 1 # the index of the parameter after the option
+        pat = sys.argv[parIdx]
+        if pat in patient_list:
+            patient_list = [pat]
+        else:
+            print("Error: The inserted patient doesn't exist")
+            exit(1)
+
     job_list = []
     
     for p in patient_list:
@@ -37,9 +46,15 @@ def main():
         confFile.write("setenv SUBJECTS_DIR %s/freesurfer/\n" % study_fold)
         confFile.write("set dtroot = %s/freesurfer/\n" % study_fold)
         confFile.write("set subjlist = (%s)\n" % p)
-        confFile.write("set dcmlist = (%s/subjects/%s/dMRI/preproc/%s_dmri_preproc.nii.gz)\n" % (study_fold, p, p))
-        confFile.write("set bveclist = (%s/subjects/%s/dMRI/preproc/%s_dmri_preproc.bvec)\n" % (study_fold, p, p))
-        confFile.write("set bvallist = (%s/subjects/%s/dMRI/preproc/%s_dmri_preproc.bval)\n" % (study_fold, p, p))
+        
+        # confFile.write("set dcmlist = (%s/subjects/%s/dMRI/preproc/%s_dmri_preproc.nii.gz)\n" % (study_fold, p, p))
+        # confFile.write("set bveclist = (%s/subjects/%s/dMRI/preproc/%s_dmri_preproc.bvec)\n" % (study_fold, p, p))
+        # confFile.write("set bvallist = (%s/subjects/%s/dMRI/preproc/%s_dmri_preproc.bval)\n" % (study_fold, p, p))
+        
+        confFile.write("set dcmlist = (%s/data_1/%s.nii.gz)\n" % (study_fold, p))
+        confFile.write("set bveclist = (%s/data_1/%s.bvec)\n" % (study_fold, p))
+        confFile.write("set bvallist = (%s/data_1/%s.bval)\n" % (study_fold, p))
+        
         confFile.write("set doeddy = 0\n")
         confFile.write("set usethalnuc = 1\n")
         confFile.close()

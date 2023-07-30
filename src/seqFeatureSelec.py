@@ -7,6 +7,7 @@ from params import *
 from elikopy.utils import submit_job
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import SGDClassifier, LogisticRegression
+from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import LinearSVC
 from sklearn.model_selection import StratifiedShuffleSplit
 from mlxtend.feature_selection import SequentialFeatureSelector as SFS
@@ -17,7 +18,7 @@ from tools_analysis import auc_and_f1
 
 def readingDF(stats_path):
     # Reading the whole dataset
-    df = pd.read_csv("%s/dataset_thres1.csv" % stats_path, index_col="ID")
+    df = pd.read_csv("%s/dataset_thres1_1.csv" % stats_path, index_col="ID")
     print(df.shape)
     # # Removing the healty subjects
     # df.dropna(axis=0, how="any", inplace=True) 
@@ -36,13 +37,13 @@ def readingDF(stats_path):
     return df
 
 from sklearn.metrics import make_scorer
-def runSelection(X, y, stats_path, pipe, nFeatures, scoreFunc, model_name):
+def runSelection(X, y, stats_path, pipe, nFeatures, model_name):
     selector = SFS(
         pipe,
         k_features=nFeatures,
         forward=True,
-        floating=False,
-        scoring=make_scorer(auc_and_f1, needs_proba=True, needs_threshold=True),
+        floating=True,
+        scoring=make_scorer(auc_and_f1, needs_threshold=True),
         cv=StratifiedShuffleSplit(n_splits=1000, test_size=1/3, random_state=7),
         n_jobs=-1,
         verbose=2,   
@@ -56,10 +57,10 @@ def runSelection(X, y, stats_path, pipe, nFeatures, scoreFunc, model_name):
 
     fig1 = plot_sfs(selector.get_metric_dict(), kind='std_dev')
 
-    plt.ylim([0.8, 1])
+    plt.ylim([0, 2])
     plt.title('Sequential Forward Selection (w. StdDev)')
     plt.grid()
-    plt.savefig(stats_path+f"/SFS_forward_{model_name}_{scoreFunc}_{str(nFeatures)}.png")
+    plt.savefig(stats_path+f"/SFS_forward_{model_name}_{str(nFeatures)}.png")
 
     print()
 
@@ -75,15 +76,16 @@ def seqFeatureSelecFunc(stats_path):
             penalty="l2",
             dual=True,
             class_weight="balanced",
-            C=,
+            # C=1e-6,
             random_state=7,
             solver="liblinear",
             max_iter=100000,
         )
     )
     model_name = "log_reg"
-    runSelection(X, y, stats_path, pipe, 2, "roc_auc", model_name)
-    runSelection(X, y, stats_path, pipe, 3, "roc_auc", model_name)
+    runSelection(X, y, stats_path, pipe, 2, model_name)
+    runSelection(X, y, stats_path, pipe, 3, model_name)
+    runSelection(X, y, stats_path, pipe, 10, model_name)
 
     pipe = make_pipeline(
         StandardScaler(),
@@ -91,15 +93,25 @@ def seqFeatureSelecFunc(stats_path):
             penalty="l2",
             loss="hinge",
             dual=True,
-            C=5e-3,
+            # C=1e-6,
             class_weight="balanced",
             random_state=7,
             max_iter=100000,
         )
     )
     model_name = "svm"
-    runSelection(X, y, stats_path, pipe, 2, "roc_auc", model_name)
-    runSelection(X, y, stats_path, pipe, 3, "roc_auc", model_name)
+    runSelection(X, y, stats_path, pipe, 2, model_name)
+    runSelection(X, y, stats_path, pipe, 3, model_name)
+    runSelection(X, y, stats_path, pipe, 10, model_name)
+
+    pipe = make_pipeline(
+        StandardScaler(),
+        GaussianNB()
+    )
+    model_name = "gaussian"
+    runSelection(X, y, stats_path, pipe, 2, model_name)
+    runSelection(X, y, stats_path, pipe, 3, model_name)
+    runSelection(X, y, stats_path, pipe, 10, model_name)
 
 def main():
     ## Getting folder

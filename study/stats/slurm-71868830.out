@@ -1,0 +1,26 @@
+(19, 7528)
+(18, 1442)
+Best accuracy score: 1.85
+Best subset (indices): (1078, 1199)
+Best subset (corresponding names): ('rh.slf2_fbundle_mean', 'right-fornix_RD_mean')
+
+Best accuracy score: 1.86
+Best subset (indices): (676, 1078, 1199)
+Best subset (corresponding names): ('lh.ilf_MD_mean', 'rh.slf2_fbundle_mean', 'right-fornix_RD_mean')
+
+Best accuracy score: 1.86
+Best subset (indices): (6, 7, 8, 10, 13, 20, 226, 676, 1078, 1199)
+Best subset (corresponding names): ('epilepsy_type', 'epilepsy_duration', 'acomm_AD_mean', 'acomm_MD_mean', 'acomm_fextra_mean', 'acomm_fvf_tot_mean', 'left-amygdala_wFA_mean', 'lh.ilf_MD_mean', 'rh.slf2_fbundle_mean', 'right-fornix_RD_mean')
+
+Best accuracy score: 1.85
+Best subset (indices): (1078, 1199)
+Best subset (corresponding names): ('rh.slf2_fbundle_mean', 'right-fornix_RD_mean')
+
+Best accuracy score: 1.86
+Best subset (indices): (676, 1078, 1199)
+Best subset (corresponding names): ('lh.ilf_MD_mean', 'rh.slf2_fbundle_mean', 'right-fornix_RD_mean')
+
+Best accuracy score: 1.86
+Best subset (indices): (6, 7, 8, 10, 13, 20, 226, 676, 1078, 1199)
+Best subset (corresponding names): ('epilepsy_type', 'epilepsy_duration', 'acomm_AD_mean', 'acomm_MD_mean', 'acomm_fextra_mean', 'acomm_fvf_tot_mean', 'left-amygdala_wFA_mean', 'lh.ilf_MD_mean', 'rh.slf2_fbundle_mean', 'right-fornix_RD_mean')
+
