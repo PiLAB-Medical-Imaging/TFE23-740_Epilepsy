@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-from sklearn.metrics import precision_recall_curve, f1_score, accuracy_score, roc_auc_score, confusion_matrix
+from sklearn.metrics import precision_recall_curve, f1_score, accuracy_score, roc_auc_score, confusion_matrix, precision_score, recall_score
 import seaborn as sns
 import numpy as np
 sns.set_palette("muted")
@@ -33,24 +33,31 @@ def auc_and_f1(y, y_prob, **kwargs):
 # Since we are optimizing for F1 score - we will first calculate precision and recall and 
 # then find the probability threshold value that gives us the best F1 score
 
-def print_model_metrics(y_test, y_test_prob, confusion = False, verbose = True, return_metrics = False):
+def print_model_metrics(y_test, y_test_prob, isBinary, confusion = False, verbose = True, return_metrics = False):
 
-    precision, recall, threshold = precision_recall_curve(y_test, y_test_prob, pos_label = 1)
-
-    #Find the threshold value that gives the best F1 Score
-    best_f1_index =np.argmax([calc_f1(p_r) for p_r in zip(precision, recall)])
-    best_threshold, best_precision, best_recall = threshold[best_f1_index], precision[best_f1_index], recall[best_f1_index]
-    
-    # Calulcate predictions based on the threshold value
-    y_test_pred = np.where(y_test_prob > best_threshold, 1, 0)
-    
     # Calculate all metrics
-    if np.unique(y_test).size > 2:
-        averageF1 = "weighted"
+    if isBinary:
+        average = "binary"
     else:
-        averageF1 = "binary"
-    f1 = f1_score(y_test, y_test_pred, pos_label = 1, average = averageF1)
-    roc_auc = roc_auc_score(y_test, y_test_prob, multi_class="ovo")
+        average = "weighted"
+
+    if isBinary:
+        precision, recall, threshold = precision_recall_curve(y_test, y_test_prob, pos_label = 1)
+
+        #Find the threshold value that gives the best F1 Score
+        best_f1_index =np.argmax([calc_f1(p_r) for p_r in zip(precision, recall)])
+        best_threshold, best_precision, best_recall = threshold[best_f1_index], precision[best_f1_index], recall[best_f1_index]
+
+        # Calulcate predictions based on the threshold value
+        y_test_pred = np.where(y_test_prob > best_threshold, 1, 0)
+    else:
+        y_test_pred = np.argmax(y_test_prob, axis=1)
+
+        best_precision = precision_score(y_test, y_test_pred, average=average, zero_division=0.0)
+        best_recall = recall_score(y_test, y_test_pred, average=average)
+
+    f1 = f1_score(y_test, y_test_pred, pos_label = 1, average = average)
+    roc_auc = roc_auc_score(y_test, y_test_prob, average=average, multi_class="ovo")
     acc = accuracy_score(y_test, y_test_pred)
     
     
@@ -74,7 +81,7 @@ def print_model_metrics(y_test, y_test_prob, confusion = False, verbose = True, 
     
 
 # Run Simple Log Reg Model and Print metrics
-from sklearn.linear_model import SGDClassifier, LogisticRegression
+from sklearn.linear_model import LogisticRegression
 
 from pandas import DataFrame
 
@@ -91,19 +98,38 @@ def run_log_reg_cv(features: DataFrame, y: DataFrame, cv, pipeline=None, C = 1, 
             train_features = pipeline.transform(train_features)
             test_features = pipeline.transform(test_features)
 
-        log_reg = LogisticRegression(
-            penalty=penalty,
-            dual=True,
-            C = C,
-            class_weight="balanced",
-            random_state=7,
-            solver="liblinear",
-            max_iter=100000,
-        )
-        log_reg.fit(train_features, y_train)
+        isBinary = None
+        if np.unique(y).size == 2:
+            # Binary case
+            log_reg = LogisticRegression(
+                penalty=penalty,
+                dual=True,
+                C = C,
+                class_weight="balanced",
+                random_state=7,
+                solver="liblinear",
+                max_iter=100000,
+            )
+            isBinary = True
+        else:
+            # Multiclass case
+            log_reg = LogisticRegression(
+                penalty=penalty,
+                C = C,
+                class_weight="balanced",
+                random_state=7,
+                solver="lbfgs",
+                multi_class="multinomial",
+                max_iter=100000,
+            )
+            isBinary = False
 
-        y_test_prob = log_reg.predict_proba(test_features)[:,1]
-        metrics += print_model_metrics(y_test, y_test_prob, confusion = confusion, verbose = False, return_metrics = True)
+        log_reg.fit(train_features, y_train)
+        if isBinary:
+            y_test_prob = log_reg.predict_proba(test_features)[:,1]
+        else:
+            y_test_prob = log_reg.predict_proba(test_features)
+        metrics += print_model_metrics(y_test, y_test_prob, isBinary, confusion = confusion, verbose = False, return_metrics = True)
 
     metrics /=cv.get_n_splits()
     if verbose:
@@ -113,7 +139,6 @@ def run_log_reg_cv(features: DataFrame, y: DataFrame, cv, pipeline=None, C = 1, 
     return log_reg
 
 from sklearn.svm import LinearSVC
-
 def run_svm_cv(features: DataFrame, y: DataFrame, cv, pipeline=None, C = 1, penalty="l2", confusion = False, return_f1 = False, verbose = True):
     metrics = np.zeros(5)
     features = features.to_numpy()
@@ -129,7 +154,6 @@ def run_svm_cv(features: DataFrame, y: DataFrame, cv, pipeline=None, C = 1, pena
 
         svm = LinearSVC(
             penalty=penalty,
-            loss="hinge",
             dual=True,
             C = C,
             class_weight="balanced",
@@ -148,8 +172,43 @@ def run_svm_cv(features: DataFrame, y: DataFrame, cv, pipeline=None, C = 1, pena
         return metrics[0]
     return svm
 
-from sklearn.naive_bayes import GaussianNB
+from sklearn.svm import SVC
+def run_svm_kernel_cv(features: DataFrame, y: DataFrame, cv, pipeline=None, C = 1, kernel = "rbf", degree = 2, gamma="scale", confusion = False, return_f1 = False, verbose = True):
+    metrics = np.zeros(5)
+    features = features.to_numpy()
+    y = y.to_numpy()
+    for train, test in cv.split(features, y):
+        train_features, test_features = features[train, :], features[test, :]
+        y_train, y_test = y[train], y[test]
 
+        if pipeline is not None:
+            pipeline.fit(train_features)
+            train_features = pipeline.transform(train_features)
+            test_features = pipeline.transform(test_features)
+
+        svm = SVC(
+            C = C,
+            kernel=kernel,
+            degree = degree,
+            gamma = gamma,
+            class_weight="balanced",
+            max_iter=-1,
+            random_state=7
+        )
+        svm.fit(train_features, y_train)
+
+        y_test_scores = svm.decision_function(test_features)
+        metrics += print_model_metrics(y_test, y_test_scores, confusion = confusion, verbose = False, return_metrics = True)
+
+    metrics /=cv.get_n_splits()
+    if verbose:
+        print('F1: {:.3f} | Pr: {:.3f} | Re: {:.3f} | AUC: {:.3f} | Accuracy: {:.3f} \n'.format(*metrics))
+    if return_f1:
+        return metrics[0]
+    return svm
+
+
+from sklearn.naive_bayes import GaussianNB
 def run_gaussian_cv(features: DataFrame, y: DataFrame, cv, pipeline=None, confusion = False, return_f1 = False, verbose = True):
     metrics = np.zeros(5)
     features = features.to_numpy()
@@ -175,3 +234,101 @@ def run_gaussian_cv(features: DataFrame, y: DataFrame, cv, pipeline=None, confus
     if return_f1:
         return metrics[0]
     return gaussian
+
+from sklearn.mixture import GaussianMixture
+def run_mixture_cv(features: DataFrame, y: DataFrame, cv, pipeline=None, nComponents=1, covarianceType = "full", confusion = False, return_f1 = False, verbose = True):
+    metrics = np.zeros(5)
+    features = features.to_numpy()
+    y = y.to_numpy()
+    for train, test in cv.split(features, y):
+        train_features, test_features = features[train, :], features[test, :]
+        y_train, y_test = y[train], y[test]
+
+        if pipeline is not None:
+            pipeline.fit(train_features)
+            train_features = pipeline.transform(train_features)
+            test_features = pipeline.transform(test_features)
+
+        mixture = GaussianMixture(
+            n_components = nComponents,
+            covariance_type = covarianceType,
+            n_init=5,
+            init_params="k-means++",
+            random_state=7,
+        )
+        mixture.fit(train_features, y_train)
+
+        y_test_prob = mixture.predict_proba(test_features)[:,1]
+        metrics += print_model_metrics(y_test, y_test_prob, confusion = confusion, verbose = False, return_metrics = True)
+
+    metrics /=cv.get_n_splits()
+    if verbose:
+        print('F1: {:.3f} | Pr: {:.3f} | Re: {:.3f} | AUC: {:.3f} | Accuracy: {:.3f} \n'.format(*metrics))
+    if return_f1:
+        return metrics[0]
+    return mixture
+
+from sklearn.neighbors import KNeighborsClassifier
+def run_knn_cv(features: DataFrame, y: DataFrame, cv, pipeline=None, confusion = False, return_f1 = False, verbose = True):
+    metrics = np.zeros(5)
+    features = features.to_numpy()
+    y = y.to_numpy()
+    for train, test in cv.split(features, y):
+        train_features, test_features = features[train, :], features[test, :]
+        y_train, y_test = y[train], y[test]
+
+        if pipeline is not None:
+            pipeline.fit(train_features)
+            train_features = pipeline.transform(train_features)
+            test_features = pipeline.transform(test_features)
+
+        knn = KNeighborsClassifier(
+            n_neighbors = 3, # since we have a very small dataset
+            weights="distance",
+            n_jobs=-1
+        )
+        knn.fit(train_features, y_train)
+
+        y_test_prob = knn.predict_proba(test_features)[:,1]
+        metrics += print_model_metrics(y_test, y_test_prob, confusion = confusion, verbose = False, return_metrics = True)
+
+    metrics /=cv.get_n_splits()
+    if verbose:
+        print('F1: {:.3f} | Pr: {:.3f} | Re: {:.3f} | AUC: {:.3f} | Accuracy: {:.3f} \n'.format(*metrics))
+    if return_f1:
+        return metrics[0]
+    return knn
+
+from sklearn.tree import DecisionTreeClassifier
+def run_tree_cv(features: DataFrame, y: DataFrame, cv, pipeline=None, max_depth=3, confusion = False, return_f1 = False, verbose = True):
+    metrics = np.zeros(5)
+    features = features.to_numpy()
+    y = y.to_numpy()
+    for train, test in cv.split(features, y):
+        train_features, test_features = features[train, :], features[test, :]
+        y_train, y_test = y[train], y[test]
+
+        if pipeline is not None:
+            pipeline.fit(train_features)
+            train_features = pipeline.transform(train_features)
+            test_features = pipeline.transform(test_features)
+
+        tree = DecisionTreeClassifier(
+            criterion="gini",
+            splitter="best",
+            max_depth=max_depth,
+            max_features=None,
+            random_state=7,
+            class_weight="balanced",
+        )
+        tree.fit(train_features, y_train)
+
+        y_test_prob = tree.predict_proba(test_features)[:,1]
+        metrics += print_model_metrics(y_test, y_test_prob, confusion = confusion, verbose = False, return_metrics = True)
+
+    metrics /=cv.get_n_splits()
+    if verbose:
+        print('F1: {:.3f} | Pr: {:.3f} | Re: {:.3f} | AUC: {:.3f} | Accuracy: {:.3f} \n'.format(*metrics))
+    if return_f1:
+        return metrics[0]
+    return tree
