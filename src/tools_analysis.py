@@ -166,7 +166,7 @@ def run_gaussian_cv(features: DataFrame, y: DataFrame, cv, pipeline=None, confus
         gaussian = GaussianNB()
         gaussian.fit(train_features, y_train)
 
-        y_test_prob = gaussian.predict_proba(test_features)
+        y_test_prob = gaussian.predict_proba(test_features)[:,1]
         metrics += print_model_metrics(y_test, y_test_prob, confusion = confusion, verbose = False, return_metrics = True)
 
     metrics /=cv.get_n_splits()
