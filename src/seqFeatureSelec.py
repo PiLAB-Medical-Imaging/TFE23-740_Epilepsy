@@ -184,13 +184,15 @@ def main():
     folder_path = get_folder(sys.argv)
     stats_path = folder_path + "/stats"
 
+    # SFSlogreg(stats_path)
+
     p_job = {
-        "wrap" : f"export MKL_NUM_THREADS=1 ; export OMP_NUM_THREADS=1 ; python -c 'from seqFeatureSelec import SFSlogreg; SFSlogreg(\"{stats_path}\")'",
+        "wrap" : f"export MKL_NUM_THREADS=8 ; export OMP_NUM_THREADS=8 ; python -c 'from seqFeatureSelec import SFSlogreg; SFSlogreg(\"{stats_path}\")'",
         "job_name" : "logreg",
         "ntasks" : 1,
-        "cpus_per_task" : 1,
+        "cpus_per_task" : 8,
         "mem_per_cpu" : 1024,
-        "time" : "2:00:00",
+        "time" : "4:00:00",
         "mail_user" : "michele.cerra@student.uclouvain.be",
         "mail_type" : "FAIL",
         "output" : stats_path + f"/logreg.out",
@@ -198,103 +200,114 @@ def main():
     }
     submit_job(p_job)
 
-    # p_job = {
-    #     "wrap" : f"export MKL_NUM_THREADS=1 ; export OMP_NUM_THREADS=1 ; python -c 'from # seqFeatureSelec import SFSlinearSVM; SFSlinearSVM(\"{stats_path}\")'",
-    #     "job_name" : "svmlinear",# 
-    #     "ntasks" : 1,# 
-    #     "cpus_per_task" : 1,# 
-    #     "mem_per_cpu" : 1024,# 
-    #     "time" : "2:00:00",# 
-    #     "mail_user" : "michele.cerra@student.uclouvain.be",# 
-    #     "mail_type" : "FAIL",# 
-    #     "output" : stats_path + f"/linearSVM.out",# 
-    #     "error" : stats_path + f"/linearSVM.err",# 
-    # }# 
-    # submit_job(p_job)# 
-    # 
-    # p_job = {
-    #     "wrap" : f"export MKL_NUM_THREADS=1 ; export OMP_NUM_THREADS=1 ; python -c 'from # seqFeatureSelec import SFSSVM; SFSSVM(\"{stats_path}\", \"poly\", 2)'",
-    #     "job_name" : "svmpoly2",# 
-    #     "ntasks" : 1,# 
-    #     "cpus_per_task" : 1,# 
-    #     "mem_per_cpu" : 1024,# 
-    #     "time" : "2:00:00",# 
-    #     "mail_user" : "michele.cerra@student.uclouvain.be",# 
-    #     "mail_type" : "FAIL",# 
-    #     "output" : stats_path + f"/SVMpoly2.out",# 
-    #     "error" : stats_path + f"/SVMpoly2.err",# 
-    # }# 
-    # submit_job(p_job)# 
-    # 
-    # p_job = {
-    #     "wrap" : f"export MKL_NUM_THREADS=1 ; export OMP_NUM_THREADS=1 ; python -c 'from # seqFeatureSelec import SFSSVM; SFSSVM(\"{stats_path}\", \"poly\", 3)'",
-    #     "job_name" : "svmpoly3",# 
-    #     "ntasks" : 1,# 
-    #     "cpus_per_task" : 1,# 
-    #     "mem_per_cpu" : 1024,# 
-    #     "time" : "2:00:00",# 
-    #     "mail_user" : "michele.cerra@student.uclouvain.be",# 
-    #     "mail_type" : "FAIL",# 
-    #     "output" : stats_path + f"/SVMpoly3.out",# 
-    #     "error" : stats_path + f"/SVMpoly3.err",# 
-    # }# 
-    # submit_job(p_job)# 
-    # 
-    # p_job = {
-    #     "wrap" : f"export MKL_NUM_THREADS=1 ; export OMP_NUM_THREADS=1 ; python -c 'from seqFeatureSelec import SFSSVM; SFSSVM(\"{stats_path}\", \"rbf\", 0)'",
-    #     "job_name" : "svmrbf",
-    #     "ntasks" : 1,
-    #     "cpus_per_task" : 1,
-    #     "mem_per_cpu" : 1024,
-    #     "time" : "2:00:00",
-    #     "mail_user" : "michele.cerra@student.uclouvain.be",
-    #     "mail_type" : "FAIL",
-    #     "output" : stats_path + f"/SVMrbf.out",
-    #     "error" : stats_path + f"/SVMrbf.err",
-    # }
-    # submit_job(p_job)
-    # 
-    # p_job = {
-    #     "wrap" : f"export MKL_NUM_THREADS=1 ; export OMP_NUM_THREADS=1 ; python -c 'from seqFeatureSelec import SFSgaussian; SFSgaussian(\"{stats_path}\")'",
-    #     "job_name" : "naive",
-    #     "ntasks" : 1,
-    #     "cpus_per_task" : 1,
-    #     "mem_per_cpu" : 1024,
-    #     "time" : "2:00:00",
-    #     "mail_user" : "michele.cerra@student.uclouvain.be",
-    #     "mail_type" : "FAIL",
-    #     "output" : stats_path + f"/gaussian.out",
-    #     "error" : stats_path + f"/gaussian.err",
-    # }
-    # submit_job(p_job)
-    # 
-    # p_job = {
-    #     "wrap" : f"export MKL_NUM_THREADS=8 ; export OMP_NUM_THREADS=8 ; python -c 'from seqFeatureSelec import SFSKNN; SFSKNN(\"{stats_path}\")'",
-    #     "job_name" : "knn",
-    #     "ntasks" : 1,
-    #     "cpus_per_task" : 8,
-    #     "mem_per_cpu" : 1024,
-    #     "time" : "2:00:00",
-    #     "mail_user" : "michele.cerra@student.uclouvain.be",
-    #     "mail_type" : "FAIL",
-    #     "output" : stats_path + f"/KNN.out",
-    #     "error" : stats_path + f"/KNN.err",
-    # }
-    # submit_job(p_job)
-    # 
-    # p_job = {
-    #     "wrap" : f"export MKL_NUM_THREADS=1 ; export OMP_NUM_THREADS=1 ; python -c 'from seqFeatureSelec import SFStree; SFStree(\"{stats_path}\")'",
-    #     "job_name" : "tree",
-    #     "ntasks" : 1,
-    #     "cpus_per_task" : 1,
-    #     "mem_per_cpu" : 1024,
-    #     "time" : "2:00:00",
-    #     "mail_user" : "michele.cerra@student.uclouvain.be",
-    #     "mail_type" : "FAIL",
-    #     "output" : stats_path + f"/decisionTree.out",
-    #     "error" : stats_path + f"/decisionTree.err",
-    # }
-    # submit_job(p_job)
+    # SFSlinearSVM(stats_path)
+
+    p_job = {
+        "wrap" : f"export MKL_NUM_THREADS=8 ; export OMP_NUM_THREADS=8 ; python -c 'from seqFeatureSelec import SFSlinearSVM; SFSlinearSVM(\"{stats_path}\")'",
+        "job_name" : "svmlinear",
+        "ntasks" : 1,
+        "cpus_per_task" : 8,
+        "mem_per_cpu" : 1024,
+        "time" : "4:00:00",
+        "mail_user" : "michele.cerra@student.uclouvain.be",
+        "mail_type" : "FAIL",
+        "output" : stats_path + f"/linearSVM.out",
+        "error" : stats_path + f"/linearSVM.err",
+    }# 
+    submit_job(p_job)# 
+    
+
+    # SFSSVM(stats_path, "poly", 2)
+
+    p_job = {
+        "wrap" : f"export MKL_NUM_THREADS=8 ; export OMP_NUM_THREADS=8 ; python -c 'from seqFeatureSelec import SFSSVM; SFSSVM(\"{stats_path}\", \"poly\", 2)'",
+        "job_name" : "svmpoly2",
+        "ntasks" : 1,
+        "cpus_per_task" : 8,
+        "mem_per_cpu" : 1024,
+        "time" : "4:00:00",
+        "mail_user" : "michele.cerra@student.uclouvain.be",
+        "mail_type" : "FAIL",
+        "output" : stats_path + f"/SVMpoly2.out", 
+        "error" : stats_path + f"/SVMpoly2.err",
+    }# 
+    submit_job(p_job)# 
+    
+    p_job = {
+        "wrap" : f"export MKL_NUM_THREADS=8 ; export OMP_NUM_THREADS=8 ; python -c 'from seqFeatureSelec import SFSSVM; SFSSVM(\"{stats_path}\", \"poly\", 3)'",
+        "job_name" : "svmpoly3",
+        "ntasks" : 1,
+        "cpus_per_task" : 8,
+        "mem_per_cpu" : 1024,
+        "time" : "4:00:00",
+        "mail_user" : "michele.cerra@student.uclouvain.be",
+        "mail_type" : "FAIL",
+        "output" : stats_path + f"/SVMpoly3.out",
+        "error" : stats_path + f"/SVMpoly3.err",
+    }# 
+    submit_job(p_job)# 
+    
+    p_job = {
+        "wrap" : f"export MKL_NUM_THREADS=1 ; export OMP_NUM_THREADS=1 ; python -c 'from seqFeatureSelec import SFSSVM; SFSSVM(\"{stats_path}\", \"rbf\", 0)'",
+        "job_name" : "svmrbf",
+        "ntasks" : 1,
+        "cpus_per_task" : 8,
+        "mem_per_cpu" : 1024,
+        "time" : "4:00:00",
+        "mail_user" : "michele.cerra@student.uclouvain.be",
+        "mail_type" : "FAIL",
+        "output" : stats_path + f"/SVMrbf.out",
+        "error" : stats_path + f"/SVMrbf.err",
+    }
+    submit_job(p_job)
+
+    # SFSgaussian(stats_path)
+
+    p_job = {
+        "wrap" : f"export MKL_NUM_THREADS=8 ; export OMP_NUM_THREADS=8 ; python -c 'from seqFeatureSelec import SFSgaussian; SFSgaussian(\"{stats_path}\")'",
+        "job_name" : "naive",
+        "ntasks" : 1,
+        "cpus_per_task" : 8,
+        "mem_per_cpu" : 1024,
+        "time" : "4:00:00",
+        "mail_user" : "michele.cerra@student.uclouvain.be",
+        "mail_type" : "FAIL",
+        "output" : stats_path + f"/gaussian.out",
+        "error" : stats_path + f"/gaussian.err",
+    }
+    submit_job(p_job)
+    
+    # SFSKNN(stats_path)
+
+    p_job = {
+        "wrap" : f"export MKL_NUM_THREADS=8 ; export OMP_NUM_THREADS=8 ; python -c 'from seqFeatureSelec import SFSKNN; SFSKNN(\"{stats_path}\")'",
+        "job_name" : "knn",
+        "ntasks" : 1,
+        "cpus_per_task" : 8,
+        "mem_per_cpu" : 1024,
+        "time" : "4:00:00",
+        "mail_user" : "michele.cerra@student.uclouvain.be",
+        "mail_type" : "FAIL",
+        "output" : stats_path + f"/KNN.out",
+        "error" : stats_path + f"/KNN.err",
+    }
+    submit_job(p_job)
+
+    # SFStree(stats_path)
+     
+    p_job = {
+        "wrap" : f"export MKL_NUM_THREADS=8 ; export OMP_NUM_THREADS=8 ; python -c 'from seqFeatureSelec import SFStree; SFStree(\"{stats_path}\")'",
+        "job_name" : "tree",
+        "ntasks" : 1,
+        "cpus_per_task" : 8,
+        "mem_per_cpu" : 1024,
+        "time" : "4:00:00",
+        "mail_user" : "michele.cerra@student.uclouvain.be",
+        "mail_type" : "FAIL",
+        "output" : stats_path + f"/decisionTree.out",
+        "error" : stats_path + f"/decisionTree.err",
+    }
+    submit_job(p_job)
 
 
 if __name__=="__main__":
