@@ -1,2 +1,9 @@
 (19, 7528)
-(18, 1442)
+(18, 4838)
+Best accuracy score: 1.77
+Best subset (indices): (998, 1077)
+Best subset (corresponding names): ('right-antThalRadiation_frac_ctot_mean', 'right-infThalRadiation-temporal_FA_mean')
+
+Best accuracy score: 1.78
+Best subset (indices): (146, 998, 1077)
+Best subset (corresponding names): ('cc.splenium_fextra_mean', 'right-antThalRadiation_frac_ctot_mean', 'right-infThalRadiation-temporal_FA_mean')

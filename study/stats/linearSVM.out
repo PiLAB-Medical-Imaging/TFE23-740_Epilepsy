@@ -1,0 +1,14 @@
+(19, 7528)
+(18, 4838)
+Best accuracy score: 1.86
+Best subset (indices): (97, 1011)
+Best subset (corresponding names): ('cc.bodyt_frac_ctot_mean', 'right-fornix_RD_mean')
+
+Best accuracy score: 1.86
+Best subset (indices): (76, 97, 1011)
+Best subset (corresponding names): ('cc.bodypm_RD_mean', 'cc.bodyt_frac_ctot_mean', 'right-fornix_RD_mean')
+
+Best accuracy score: 1.86
+Best subset (indices): (8, 25, 74, 76, 97, 154, 226, 232, 356, 1011)
+Best subset (corresponding names): ('acomm_RD_mean', 'cc.bodyc_RD_mean', 'cc.bodypm_FA_mean', 'cc.bodypm_RD_mean', 'cc.bodyt_frac_ctot_mean', 'cc.splenium_wFA_mean', 'left-hippocampus_AD_mean', 'left-hippocampus_fintra_mean', 'left-putamen_odi_mean', 'right-fornix_RD_mean')
+
