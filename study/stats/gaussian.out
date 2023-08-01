@@ -1,0 +1,9 @@
+(19, 7528)
+(18, 4838)
+Best accuracy score: 1.84
+Best subset (indices): (236, 931)
+Best subset (corresponding names): ('left-hippocampus_icvf_mean', 'rh.slf3_frac_ftot_mean')
+
+Best accuracy score: 1.84
+Best subset (indices): (236, 433, 931)
+Best subset (corresponding names): ('left-hippocampus_icvf_mean', 'lh.ar_RD_mean', 'rh.slf3_frac_ftot_mean')

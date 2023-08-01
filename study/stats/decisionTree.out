@@ -1,0 +1,9 @@
+(19, 7528)
+(18, 4838)
+Best accuracy score: 1.12
+Best subset (indices): (473, 1032)
+Best subset (corresponding names): ('lh.cbd_fvf_tot_mean', 'right-hippocampus_frac_ctot_mean')
+
+Best accuracy score: 1.12
+Best subset (indices): (423, 473, 1032)
+Best subset (corresponding names): ('lh.af_icvf_mean', 'lh.cbd_fvf_tot_mean', 'right-hippocampus_frac_ctot_mean')
