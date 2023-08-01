@@ -244,8 +244,8 @@ def main():
         "mail_type" : "FAIL",
         "output" : stats_path + f"/SVMpoly3.out",
         "error" : stats_path + f"/SVMpoly3.err",
-    }# 
-    submit_job(p_job)# 
+    }
+    submit_job(p_job)
     
     p_job = {
         "wrap" : f"export MKL_NUM_THREADS=1 ; export OMP_NUM_THREADS=1 ; python -c 'from seqFeatureSelec import SFSSVM; SFSSVM(\"{stats_path}\", \"rbf\", 0)'",
