@@ -1,0 +1,14 @@
+(19, 7528)
+(18, 4838)
+Best accuracy score: 1.66
+Best subset (indices): (212, 855)
+Best subset (corresponding names): ('left-fornix_RD_mean', 'rh.mlf_AD_mean')
+
+Best accuracy score: 1.77
+Best subset (indices): (212, 742, 855)
+Best subset (corresponding names): ('left-fornix_RD_mean', 'rh.atr_fintra_mean', 'rh.mlf_AD_mean')
+
+Best accuracy score: 1.92
+Best subset (indices): (46, 51, 178, 212, 265, 321, 430, 742, 1011, 1186)
+Best subset (corresponding names): ('cc.bodyp_frac_ctot_mean', 'cc.bodyp_wAD_mean', 'left-amygdala_RD_mean', 'left-fornix_RD_mean', 'left-infThalRadiation-insula_fextra_mean', 'left-postThalRadiation-occipital_icvf_mean', 'lh.ar_AD_mean', 'rh.atr_fintra_mean', 'right-fornix_RD_mean', 'right-supThalRadiation_frac_ftot_mean')
+

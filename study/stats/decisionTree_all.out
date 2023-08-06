@@ -1,0 +1,9 @@
+(19, 7528)
+(18, 4838)
+Best accuracy score: 1.15
+Best subset (indices): (1878, 4775)
+Best subset (corresponding names): ('lh.cbd_fvf_tot_mean', 'right-thalamus_MD_skew')
+
+Best accuracy score: 1.15
+Best subset (indices): (1878, 2981, 4775)
+Best subset (corresponding names): ('lh.cbd_fvf_tot_mean', 'rh.atr_wFA_kurt', 'right-thalamus_MD_skew')

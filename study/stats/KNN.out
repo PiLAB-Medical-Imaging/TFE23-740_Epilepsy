@@ -7,3 +7,8 @@ Best subset (corresponding names): ('right-antThalRadiation_frac_ctot_mean', 'ri
 Best accuracy score: 1.78
 Best subset (indices): (146, 998, 1077)
 Best subset (corresponding names): ('cc.splenium_fextra_mean', 'right-antThalRadiation_frac_ctot_mean', 'right-infThalRadiation-temporal_FA_mean')
+
+Best accuracy score: 1.86
+Best subset (indices): (146, 226, 228, 254, 464, 642, 824, 826, 998, 1094)
+Best subset (corresponding names): ('cc.splenium_fextra_mean', 'left-hippocampus_AD_mean', 'left-hippocampus_MD_mean', 'left-inf-longi-fasci_odi_mean', 'lh.cbd_AD_mean', 'lh.slf2_frac_ftot_mean', 'rh.fx_RD_mean', 'rh.fx_fextra_mean', 'right-antThalRadiation_frac_ctot_mean', 'right-pallidum_FA_mean')
+

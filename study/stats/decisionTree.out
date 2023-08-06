@@ -7,3 +7,8 @@ Best subset (corresponding names): ('lh.cbd_fvf_tot_mean', 'right-hippocampus_fr
 Best accuracy score: 1.12
 Best subset (indices): (423, 473, 1032)
 Best subset (corresponding names): ('lh.af_icvf_mean', 'lh.cbd_fvf_tot_mean', 'right-hippocampus_frac_ctot_mean')
+
+Best accuracy score: 1.21
+Best subset (indices): (49, 234, 423, 473, 641, 669, 761, 1032, 1106, 1199)
+Best subset (corresponding names): ('cc.bodyp_icvf_mean', 'left-hippocampus_frac_ftot_mean', 'lh.af_icvf_mean', 'lh.cbd_fvf_tot_mean', 'lh.slf2_frac_ctot_mean', 'lh.uf_FA_mean', 'rh.cbd_frac_ftot_mean', 'right-hippocampus_frac_ctot_mean', 'right-pallidum_wFA_mean', 'right-thalamus_fbundle_mean')
+

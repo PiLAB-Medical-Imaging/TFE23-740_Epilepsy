@@ -1,0 +1,14 @@
+(19, 7528)
+(18, 4838)
+Best accuracy score: 1.65
+Best subset (indices): (46, 931)
+Best subset (corresponding names): ('cc.bodyp_frac_ctot_mean', 'rh.slf3_frac_ftot_mean')
+
+Best accuracy score: 1.74
+Best subset (indices): (46, 262, 931)
+Best subset (corresponding names): ('cc.bodyp_frac_ctot_mean', 'left-infThalRadiation-insula_MD_mean', 'rh.slf3_frac_ftot_mean')
+
+Best accuracy score: 1.96
+Best subset (indices): (46, 161, 188, 430, 549, 558, 680, 931, 944, 1011)
+Best subset (corresponding names): ('cc.bodyp_frac_ctot_mean', 'left-accumbens-area_RD_mean', 'left-amygdala_wFA_mean', 'lh.ar_AD_mean', 'lh.fx_AD_mean', 'lh.fx_fvf_tot_mean', 'lh.uf_wAD_mean', 'rh.slf3_frac_ftot_mean', 'rh.uf_fbundle_mean', 'right-fornix_RD_mean')
+

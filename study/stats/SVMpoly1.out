@@ -1,0 +1,14 @@
+(19, 7528)
+(18, 4838)
+Best accuracy score: 1.85
+Best subset (indices): (1011, 1096)
+Best subset (corresponding names): ('right-fornix_RD_mean', 'right-pallidum_RD_mean')
+
+Best accuracy score: 1.86
+Best subset (indices): (891, 1011, 1096)
+Best subset (corresponding names): ('rh.slf1_MD_mean', 'right-fornix_RD_mean', 'right-pallidum_RD_mean')
+
+Best accuracy score: 1.86
+Best subset (indices): (36, 75, 175, 190, 224, 246, 773, 891, 1011, 1096)
+Best subset (corresponding names): ('cc.bodyc_wMD_mean', 'cc.bodypm_MD_mean', 'left-amygdala_AD_mean', 'left-amygdala_wRD_mean', 'left-fornix_wRD_mean', 'left-inf-longi-fasci_RD_mean', 'rh.cst_RD_mean', 'rh.slf1_MD_mean', 'right-fornix_RD_mean', 'right-pallidum_RD_mean')
+

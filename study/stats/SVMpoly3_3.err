@@ -1,0 +1,6 @@
+[Parallel(n_jobs=-1)]: Using backend LokyBackend with 12 concurrent workers.
+[Parallel(n_jobs=-1)]: Done  17 tasks      | elapsed:   30.9s
+[Parallel(n_jobs=-1)]: Done 138 tasks      | elapsed: 37.6min
+[Parallel(n_jobs=-1)]: Done 341 tasks      | elapsed: 119.0min
+[Parallel(n_jobs=-1)]: Done 624 tasks      | elapsed: 415.3min
+slurmstepd: error: *** JOB 72044018 ON lm3-w044 CANCELLED AT 2023-08-03T03:51:51 DUE TO TIME LIMIT ***

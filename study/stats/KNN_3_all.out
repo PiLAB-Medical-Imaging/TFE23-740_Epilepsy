@@ -1,0 +1,5 @@
+(19, 7528)
+(18, 4838)
+Best accuracy score: 1.71
+Best subset (indices): (1184, 2523)
+Best subset (corresponding names): ('left-pallidum_fextra_std', 'lh.slf2_AD_skew')
