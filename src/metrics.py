@@ -239,15 +239,15 @@ Explain of the correction in the thesis
 
 def correctWeightsTract(weights, thresh=0.1):
     from scipy import signal
-    kernel = [[[1/4, 1/4, 1/4],
-               [1/4, 1/4, 1/4],
-               [1/4, 1/4, 1/4]],
-              [[1/4, 1/4, 1/4],
-               [1/4, 1 ,  1/4],
-               [1/4, 1/4, 1/4]],
-              [[1/4, 1/4, 1/4],
-               [1/4, 1/4, 1/4],
-               [1/4, 1/4, 1/4]]]
+    kernel = [[[1/4, 1/2, 1/4],
+               [1/2, 1, 1/2],
+               [1/4, 1/2, 1/4]],
+              [[1/2, 1, 1/2],
+               [1,   4, 1],
+               [1/2, 1, 1/2]],
+              [[1/4, 1/2, 1/4],
+               [1/2, 1, 1/2],
+               [1/4, 1/2, 1/4]]]
     kernel = np.array(kernel)
 
     c = signal.convolve(weights, kernel, mode="same", method="direct")
