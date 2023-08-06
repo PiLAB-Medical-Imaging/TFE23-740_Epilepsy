@@ -1,0 +1,14 @@
+(19, 7528)
+(18, 4838)
+Best accuracy score: 1.60
+Best subset (indices): (231, 1047)
+Best subset (corresponding names): ('left-hippocampus_fextra_mean', 'right-inf-longi-fasci_fextra_mean')
+
+Best accuracy score: 1.63
+Best subset (indices): (3, 231, 1047)
+Best subset (corresponding names): ('epilepsy_onset_age', 'left-hippocampus_fextra_mean', 'right-inf-longi-fasci_fextra_mean')
+
+Best accuracy score: 1.79
+Best subset (indices): (24, 50, 72, 99, 106, 177, 236, 301, 600, 719)
+Best subset (corresponding names): ('cc.bodyc_MD_mean', 'cc.bodyp_odi_mean', 'cc.bodypf_wfvf_mean', 'cc.bodyt_fvf_tot_mean', 'cc.bodyt_wfvf_mean', 'left-amygdala_MD_mean', 'left-hippocampus_icvf_mean', 'left-pallidum_frac_ctot_mean', 'lh.or_AD_mean', 'rh.ar_AD_mean')
+

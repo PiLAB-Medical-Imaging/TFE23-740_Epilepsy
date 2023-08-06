@@ -1,0 +1,9 @@
+(19, 7528)
+(18, 4838)
+Best accuracy score: 1.66
+Best subset (indices): (187, 910)
+Best subset (corresponding names): ('cc.bodyp_odi_skew', 'left-hippocampus_fextra_mean')
+
+Best accuracy score: 1.75
+Best subset (indices): (187, 910, 3024)
+Best subset (corresponding names): ('cc.bodyp_odi_skew', 'left-hippocampus_fextra_mean', 'rh.cbd_fintra_std')

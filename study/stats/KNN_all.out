@@ -1,0 +1,5 @@
+(19, 7528)
+(18, 4838)
+Best accuracy score: 1.85
+Best subset (indices): (384, 1400)
+Best subset (corresponding names): ('cc.bodyt_fvf_tot_std', 'left-putamen_frac_ftot_std')
