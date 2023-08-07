@@ -548,8 +548,8 @@ def removeOutliers(tck_path):
     bundle  = nib.streamlines.load(tck_path).streamlines
     lengths = list(length(bundle))
     if len(lengths) > 0:
-        q1 = np.quantile(lengths, 0.30)
-        q3 = np.quantile(lengths, 0.70)
+        q1 = np.percentile(lengths, 25)
+        q3 = np.percentile(lengths, 75)
     else:
         q1 = 0
         q3 = 0
