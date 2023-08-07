@@ -479,7 +479,7 @@ def compute_metricsPerROI(p_code, folder_path):
 
             for (dir_path, _, file_names) in os.walk(f"{freesurfer_path}/dpath"):
                 for file_name in file_names:
-                    if file_name.endswith(".pd.nii.gz"):
+                    if file_name.endswith("path.pd.nii.gz"):
                         mask_path = os.path.join(dir_path,file_name)
                         mask_name = dir_path.split("/")[-1].split("_")[0]
 
@@ -487,6 +487,12 @@ def compute_metricsPerROI(p_code, folder_path):
                         if mask_path not in density_maps:
                             density_map = nib.load(mask_path).get_fdata()
                             density_maps[mask_path] = correctWeightsTract(density_map)
+
+                            # save the corrected density
+                            bin_density_map = density_map.copy()
+                            bin_density_map[bin_density_map > 0] = 1 # for visualization reasons
+                            nib.save(nib.Nifti1Image(density_map, affine_info), "%s/masks/%s_%s_tract.nii.gz" % (subject_path, p_code, mask_name.lower()))
+                            nib.save(nib.Nifti1Image(bin_density_map, affine_info), "%s/masks/%s_%s_tractBin.nii.gz" % (subject_path, p_code, mask_name.lower()))
                         else:
                             density_map = density_maps[mask_path]
                         
