@@ -486,7 +486,10 @@ def compute_metricsPerROI(p_code, folder_path):
                         density_map = None
                         if mask_path not in density_maps:
                             density_map = nib.load(mask_path).get_fdata()
-                            density_maps[mask_path] = correctWeightsTract(density_map)
+                            density_map = correctWeightsTract(density_map)
+
+                            # save in memory to be faster
+                            density_maps[tract_path] = density_map
 
                             # save the corrected density
                             bin_density_map = density_map.copy()
