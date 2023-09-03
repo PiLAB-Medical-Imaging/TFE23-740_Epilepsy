@@ -1,14 +1,14 @@
 (19, 7528)
 (18, 4838)
-Best accuracy score: 0.93
-Best subset (indices): (591, 809)
-Best subset (corresponding names): ('lh.mlf_frac_ftot_mean', 'rh.fat_fextra_mean')
+Best accuracy score: 0.92
+Best subset (indices): (250, 502)
+Best subset (corresponding names): ('left-inf-longi-fasci_frac_ctot_mean', 'lh.cst_fbundle_mean')
 
-Best accuracy score: 0.99
-Best subset (indices): (571, 591, 809)
-Best subset (corresponding names): ('lh.ilf_fextra_mean', 'lh.mlf_frac_ftot_mean', 'rh.fat_fextra_mean')
+Best accuracy score: 0.98
+Best subset (indices): (250, 373, 502)
+Best subset (corresponding names): ('left-inf-longi-fasci_frac_ctot_mean', 'left-sup-longi-fasci_odi_mean', 'lh.cst_fbundle_mean')
 
-Best accuracy score: 1.14
-Best subset (indices): (81, 284, 421, 571, 591, 711, 724, 809, 1041, 1104)
-Best subset (corresponding names): ('cc.bodypm_frac_ftot_mean', 'left-infThalRadiation-temporal_frac_ctot_mean', 'lh.af_frac_ftot_mean', 'lh.ilf_fextra_mean', 'lh.mlf_frac_ftot_mean', 'rh.af_fvf_tot_mean', 'rh.ar_fextra_mean', 'rh.fat_fextra_mean', 'right-hippocampus_wfvf_mean', 'right-pallidum_odi_mean')
+Best accuracy score: 1.13
+Best subset (indices): (77, 237, 250, 373, 397, 502, 764, 985, 1034, 1157)
+Best subset (corresponding names): ('cc.bodypm_fbundle_mean', 'left-hippocampus_odi_mean', 'left-inf-longi-fasci_frac_ctot_mean', 'left-sup-longi-fasci_odi_mean', 'left-thalamus_FA_mean', 'lh.cst_fbundle_mean', 'rh.cbd_odi_mean', 'right-amygdala_odi_mean', 'right-hippocampus_fvf_tot_mean', 'right-putamen_wFA_mean')
 

@@ -1,14 +1,14 @@
 (19, 7528)
 (18, 4838)
-Best accuracy score: 1.86
-Best subset (indices): (97, 1011)
-Best subset (corresponding names): ('cc.bodyt_frac_ctot_mean', 'right-fornix_RD_mean')
+Best accuracy score: 1.85
+Best subset (indices): (692, 1011)
+Best subset (corresponding names): ('mcp_frac_ctot_mean', 'right-fornix_RD_mean')
 
 Best accuracy score: 1.86
-Best subset (indices): (76, 97, 1011)
-Best subset (corresponding names): ('cc.bodypm_RD_mean', 'cc.bodyt_frac_ctot_mean', 'right-fornix_RD_mean')
+Best subset (indices): (10, 692, 1011)
+Best subset (corresponding names): ('acomm_fextra_mean', 'mcp_frac_ctot_mean', 'right-fornix_RD_mean')
 
 Best accuracy score: 1.86
-Best subset (indices): (8, 25, 74, 76, 97, 154, 226, 232, 356, 1011)
-Best subset (corresponding names): ('acomm_RD_mean', 'cc.bodyc_RD_mean', 'cc.bodypm_FA_mean', 'cc.bodypm_RD_mean', 'cc.bodyt_frac_ctot_mean', 'cc.splenium_wFA_mean', 'left-hippocampus_AD_mean', 'left-hippocampus_fintra_mean', 'left-putamen_odi_mean', 'right-fornix_RD_mean')
+Best subset (indices): (5, 7, 10, 11, 13, 15, 76, 128, 692, 1011)
+Best subset (corresponding names): ('acomm_AD_mean', 'acomm_MD_mean', 'acomm_fextra_mean', 'acomm_fintra_mean', 'acomm_frac_ftot_mean', 'acomm_icvf_mean', 'cc.bodypm_RD_mean', 'cc.rostrum_fbundle_mean', 'mcp_frac_ctot_mean', 'right-fornix_RD_mean')
 

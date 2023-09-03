@@ -1,9 +1,9 @@
 (19, 7528)
 (18, 4838)
-Best accuracy score: 1.84
-Best subset (indices): (930, 2357)
-Best subset (corresponding names): ('left-hippocampus_icvf_mean', 'lh.mlf_icvf_kurt')
+Best accuracy score: 1.86
+Best subset (indices): (721, 2873)
+Best subset (corresponding names): ('left-amygdala_fvf_tot_kurt', 'rh.ar_RD_kurt')
 
-Best accuracy score: 1.84
-Best subset (indices): (930, 2357, 3712)
-Best subset (corresponding names): ('left-hippocampus_icvf_mean', 'lh.mlf_icvf_kurt', 'rh.slf3_frac_ftot_std')
+Best accuracy score: 1.86
+Best subset (indices): (207, 721, 2873)
+Best subset (corresponding names): ('cc.bodyp_wfvf_skew', 'left-amygdala_fvf_tot_kurt', 'rh.ar_RD_kurt')
