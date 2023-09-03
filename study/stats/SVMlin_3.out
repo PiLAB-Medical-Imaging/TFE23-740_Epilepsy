@@ -1,14 +1,14 @@
 (19, 7528)
 (18, 4838)
-Best accuracy score: 0.93
-Best subset (indices): (591, 809)
-Best subset (corresponding names): ('lh.mlf_frac_ftot_mean', 'rh.fat_fextra_mean')
+Best accuracy score: 0.94
+Best subset (indices): (284, 635)
+Best subset (corresponding names): ('left-infThalRadiation-temporal_frac_ctot_mean', 'lh.slf2_FA_mean')
 
 Best accuracy score: 0.99
-Best subset (indices): (591, 724, 809)
-Best subset (corresponding names): ('lh.mlf_frac_ftot_mean', 'rh.ar_fextra_mean', 'rh.fat_fextra_mean')
+Best subset (indices): (284, 635, 1072)
+Best subset (corresponding names): ('left-infThalRadiation-temporal_frac_ctot_mean', 'lh.slf2_FA_mean', 'right-infThalRadiation-insula_wFA_mean')
 
-Best accuracy score: 1.13
-Best subset (indices): (81, 284, 421, 571, 591, 711, 724, 809, 1041, 1104)
-Best subset (corresponding names): ('cc.bodypm_frac_ftot_mean', 'left-infThalRadiation-temporal_frac_ctot_mean', 'lh.af_frac_ftot_mean', 'lh.ilf_fextra_mean', 'lh.mlf_frac_ftot_mean', 'rh.af_fvf_tot_mean', 'rh.ar_fextra_mean', 'rh.fat_fextra_mean', 'right-hippocampus_wfvf_mean', 'right-pallidum_odi_mean')
+Best accuracy score: 1.11
+Best subset (indices): (77, 284, 635, 695, 760, 774, 970, 1034, 1072, 1104)
+Best subset (corresponding names): ('cc.bodypm_fbundle_mean', 'left-infThalRadiation-temporal_frac_ctot_mean', 'lh.slf2_FA_mean', 'mcp_icvf_mean', 'rh.cbd_frac_ctot_mean', 'rh.cst_fbundle_mean', 'right-accumbens-area_wFA_mean', 'right-hippocampus_fvf_tot_mean', 'right-infThalRadiation-insula_wFA_mean', 'right-pallidum_odi_mean')
 

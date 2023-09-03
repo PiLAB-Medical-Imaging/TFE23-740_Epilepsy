@@ -1,9 +1,9 @@
 (19, 7528)
 (18, 4838)
 Best accuracy score: 1.86
-Best subset (indices): (672, 1004)
-Best subset (corresponding names): ('left-accumbens-area_wFA_std', 'left-inf-longi-fasci_odi_std')
+Best subset (indices): (7, 1004)
+Best subset (corresponding names): ('acomm_AD_skew', 'left-inf-longi-fasci_odi_std')
 
 Best accuracy score: 1.86
-Best subset (indices): (33, 672, 1004)
-Best subset (corresponding names): ('acomm_frac_ctot_kurt', 'left-accumbens-area_wFA_std', 'left-inf-longi-fasci_odi_std')
+Best subset (indices): (7, 14, 1004)
+Best subset (corresponding names): ('acomm_AD_skew', 'acomm_MD_mean', 'left-inf-longi-fasci_odi_std')

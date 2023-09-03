@@ -1,9 +1,9 @@
 (19, 7528)
 (18, 4838)
-Best accuracy score: 1.77
-Best subset (indices): (579, 4200)
-Best subset (corresponding names): ('cc.splenium_frac_ctot_skew', 'right-inf-longi-fasci_odi_std')
+Best accuracy score: 1.78
+Best subset (indices): (2147, 4200)
+Best subset (corresponding names): ('lh.fat_frac_ftot_skew', 'right-inf-longi-fasci_odi_std')
 
-Best accuracy score: 1.89
-Best subset (indices): (579, 707, 4200)
-Best subset (corresponding names): ('cc.splenium_frac_ctot_skew', 'left-amygdala_fextra_skew', 'right-inf-longi-fasci_odi_std')
+Best accuracy score: 1.92
+Best subset (indices): (2147, 2611, 4200)
+Best subset (corresponding names): ('lh.fat_frac_ftot_skew', 'lh.slf3_fextra_skew', 'right-inf-longi-fasci_odi_std')

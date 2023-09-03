@@ -20,7 +20,7 @@ from tools_analysis import auc_and_f1
 
 def readingDF(stats_path):
     # Reading the whole dataset
-    df = pd.read_csv("%s/dataset_thres1_1.csv" % stats_path, index_col="ID")
+    df = pd.read_csv("%s/dataset_thres1_1corr.csv" % stats_path, index_col="ID")
     print(df.shape, flush=True)
     # # Removing the healty subjects
     # df.dropna(axis=0, how="any", inplace=True) 
@@ -37,6 +37,7 @@ def readingDF(stats_path):
     print(df.shape, flush=True)
 
     X = df.drop(["resp", "respPart"], axis=1)
+    # X = X.filter(regex=r'(mean|age|duration|sex)')
     X = X.filter(regex=r'(mean|std|skew|kurt|age|duration|sex)')
     y = df["respPart"]
 

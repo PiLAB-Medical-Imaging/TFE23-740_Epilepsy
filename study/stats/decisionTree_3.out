@@ -1,14 +1,14 @@
 (19, 7528)
 (18, 4838)
+Best accuracy score: 1.51
+Best subset (indices): (741, 1112)
+Best subset (corresponding names): ('rh.atr_fextra_mean', 'right-postThalRadiation-occipital_MD_mean')
+
 Best accuracy score: 1.53
-Best subset (indices): (855, 1078)
-Best subset (corresponding names): ('rh.mlf_AD_mean', 'right-infThalRadiation-temporal_MD_mean')
+Best subset (indices): (741, 950, 1112)
+Best subset (corresponding names): ('rh.atr_fextra_mean', 'rh.uf_icvf_mean', 'right-postThalRadiation-occipital_MD_mean')
 
-Best accuracy score: 1.61
-Best subset (indices): (670, 855, 1078)
-Best subset (corresponding names): ('lh.uf_MD_mean', 'rh.mlf_AD_mean', 'right-infThalRadiation-temporal_MD_mean')
-
-Best accuracy score: 1.76
-Best subset (indices): (150, 157, 284, 319, 386, 509, 521, 574, 1078, 1097)
-Best subset (corresponding names): ('cc.splenium_fvf_tot_mean', 'cc.splenium_wfvf_mean', 'left-infThalRadiation-temporal_frac_ctot_mean', 'left-postThalRadiation-occipital_frac_ftot_mean', 'left-supThalRadiation_frac_ctot_mean', 'lh.cst_odi_mean', 'lh.emc_fintra_mean', 'lh.ilf_frac_ftot_mean', 'right-infThalRadiation-temporal_MD_mean', 'right-pallidum_fbundle_mean')
+Best accuracy score: 1.60
+Best subset (indices): (95, 741, 945, 950, 985, 1078, 1079, 1105, 1107, 1148)
+Best subset (corresponding names): ('cc.bodyt_fextra_mean', 'rh.atr_fextra_mean', 'rh.uf_fextra_mean', 'rh.uf_icvf_mean', 'right-amygdala_odi_mean', 'right-infThalRadiation-temporal_MD_mean', 'right-infThalRadiation-temporal_RD_mean', 'right-pallidum_wAD_mean', 'right-pallidum_wMD_mean', 'right-putamen_fbundle_mean')
 
