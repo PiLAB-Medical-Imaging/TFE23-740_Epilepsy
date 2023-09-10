@@ -8,6 +8,7 @@ import ants
 import nibabel as nib
 
 from dipy.io.streamline import load_tractogram, save_trk
+from unravel.stream import extract_nodes, remove_outlier_streamlines
 from dipy.tracking.utils import length
 from unravel.utils import *
 from nibabel import Nifti1Image
@@ -531,7 +532,7 @@ def convertTck2Trk(subj_folder_path, subj_id, tck_path):
     if not os.path.isfile(tck_path): # only if there was an error during the tractography, to not block everything
         return
     print("Converting %s" % tck_path)
-    tract = load_tractogram(tck_path, subj_folder_path+"/dMRI/preproc/"+subj_id+"_dmri_preproc.nii.gz")
+    tract = load_tractogram(tck_path, subj_folder_path+"/dMRI/preproc/"+subj_id+"_b0_preproc.nii.gz")
     save_trk(tract, tck_path[:-3]+'trk')
 
 def removeOutliers(tck_path):
@@ -710,9 +711,8 @@ def compute_tracts(tract_json, p_code, folder_path, compute_5tt, extract_roi, tr
                 optsReverse["include_ordered"] = opts["include_ordered"][::-1][1:]
                 optsReverse["include"] = opts["include"]
 
-            # decrement the cutoff to find a solution with more noise
             output_path_backward = ""
-            if len(opts["include"]) + len(opts["include_ordered"]) > 0 : # at leat one region must be included otherwise is a single verse tractography
+            if len(opts["include"]) + len(opts["include_ordered"]) > 0 : # at least one region must be included otherwise is a single verse tractography
                 if len(opts["include_ordered"]) > 0 and len(opts["seed_images"]) > 1:
                     output_path_backward = subj_folder_path+"/dMRI/tractography/"+output_name+"_from"
                     cmd = "tckedit -force" # command to do the union of all the tracts
@@ -743,45 +743,35 @@ def compute_tracts(tract_json, p_code, folder_path, compute_5tt, extract_roi, tr
                     # The reverse of one seed region
                     output_path_backward = find_tract(subj_folder_path, p_code, "10M", optsReverse["seed_images"], opts["select"], optsReverse["include"], optsReverse["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_from")
 
-            # select both tracks 
-            if os.path.isfile(output_path_forward) and os.path.isfile(output_path_backward):
-                removeOutliers(output_path_forward)
-                removeOutliers(output_path_backward)
+            # Remove streamlines outliers
+            if os.path.isfile(output_path_forward) or os.path.isfile(output_path_backward):
+                outlier_radio = 3
+                cmd = "tckedit -force "
 
-                # Union of the removed tracts in forward and backward
-                cmd = "tckedit -force %s %s %s" % (output_path_forward[:-4] + "_rmvd.tck", output_path_backward[:-4] + "_rmvd.tck", output_path[:-4] + "_rmvd.tck")
-                process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
-                process.wait()
+                # Remotion sigularly
+                if os.path.isfile(output_path_forward):
+                    convertTck2Trk(subj_folder_path, p_code, output_path_forward)
+                    output_path_forward = output_path_forward[:-3] + 'trk' # rename to the trk
+                    forward_point_array = extract_nodes(output_path_forward)
+                    remove_outlier_streamlines(output_path_forward, forward_point_array, output_path_forward, outlier_radio)
+                    cmd = cmd + output_path_forward + " "
 
-                os.remove(output_path_forward[:-4] + "_rmvd.tck")
-                os.remove(output_path_backward[:-4] + "_rmvd.tck")
-
-                convertTck2Trk(subj_folder_path, p_code, output_path[:-4] + "_rmvd.tck")
+                if os.path.isfile(output_path_backward):
+                    convertTck2Trk(subj_folder_path, p_code, output_path_backward)
+                    output_path_backward = output_path_backward[:-3] + 'trk' # rename to the trk
+                    backward_point_array = extract_nodes(output_path_backward)
+                    remove_outlier_streamlines(output_path_backward, backward_point_array, output_path_backward, outlier_radio)
+                    cmd = cmd + output_path_backward + " "
 
                 # Union of the track in forward and backward
-                cmd = "tckedit -force %s %s %s" % (output_path_forward, output_path_backward, output_path)
+                cmd = cmd + output_path
                 process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
                 process.wait()
                 os.remove(output_path_forward); os.remove(output_path_backward)
 
-                convertTck2Trk(subj_folder_path, p_code, output_path)
-            elif os.path.isfile(output_path_forward):
-                removeOutliers(output_path_forward)
-
-                cmd = "tckedit -force %s %s" % (output_path_forward[:-4] + "_rmvd.tck", output_path[:-4] + "_rmvd.tck")
-                process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
-                process.wait()
-
-                os.remove(output_path_forward[:-4] + "_rmvd.tck")
-
-                convertTck2Trk(subj_folder_path, p_code, output_path[:-4] + "_rmvd.tck")
-
-                cmd = "tckedit -force %s %s" % (output_path_forward, output_path)
-                process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
-                process.wait()
-                os.remove(output_path_forward)
-
-                convertTck2Trk(subj_folder_path, p_code, output_path)
+                # Remotion outlier in both forward and backward
+                point_array = extract_nodes(output_path)
+                remove_outlier_streamlines(output_path, point_array, output_path, outlier_radio)
 
 def main():
 

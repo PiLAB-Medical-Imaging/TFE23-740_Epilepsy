@@ -1,0 +1,10 @@
+# Parameters file for radiomics feature extraction
+
+setting:
+  # Resampling
+  interpolator: 'sitkNearestNeighbor'
+  # Mask validation
+  minimumROIDimensions: 3
+  # Texture matrix weightinh for GLCM and GLRLM
+  weightingNorm: 'euclidean'
+
