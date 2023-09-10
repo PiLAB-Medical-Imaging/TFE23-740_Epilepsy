@@ -534,44 +534,6 @@ def convertTck2Trk(subj_folder_path, subj_id, tck_path):
     print("Converting %s" % tck_path)
     tract = load_tractogram(tck_path, subj_folder_path+"/dMRI/preproc/"+subj_id+"_b0_preproc.nii.gz")
     save_trk(tract, tck_path[:-3]+'trk')
-
-def removeOutliers(tck_path):
-    """
-    Remotion of outliers streamlines with the IQR rule
-    """
-    if not os.path.isfile(tck_path): # only if there was an error during the tractography, to not block everything
-        return
-    
-    trk_path_noExt = tck_path[:-4]
-    removed_path = trk_path_noExt+"_rmvd.tck"
-
-
-    bundle  = nib.streamlines.load(tck_path).streamlines
-    lengths = list(length(bundle))
-    if len(lengths) > 0:
-        q1 = np.percentile(lengths, 25)
-        q3 = np.percentile(lengths, 75)
-    else:
-        q1 = 0
-        q3 = 0
-    iqr = q3 - q1
-    upper = q3 + 1.5*iqr
-    lower = q1 - 1.5*iqr
-
-    if upper < 0: upper = 0
-    if lower < 0: lower = 0
-    print(lower, upper)
-
-    # Save the difference tracts (The ones that have been removed)
-    cmd = "tckedit -maxlength %f -force %s %s_lower.tck && tckedit -minlength %f -force %s %s_upper.tck && tckedit -force %s_lower.tck %s_upper.tck %s" % (lower, tck_path, trk_path_noExt, upper, tck_path, trk_path_noExt, trk_path_noExt, trk_path_noExt, removed_path)
-    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
-    process.wait()
-    os.remove(trk_path_noExt+"_lower.tck"); os.remove(trk_path_noExt+"_upper.tck")
-
-    # Remove the outliers
-    cmd = "tckedit -minlength %f -maxlength %f -force %s %s" % (lower, upper, tck_path, tck_path)
-    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
-    process.wait()
     
 def compute_tracts(tract_json, p_code, folder_path, compute_5tt, extract_roi, tract, force, onlySide:str):
     print("Working on %s" % p_code)
