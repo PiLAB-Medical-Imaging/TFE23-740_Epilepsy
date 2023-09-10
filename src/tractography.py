@@ -7,7 +7,7 @@ import elikopy.utils
 import ants
 import nibabel as nib
 
-from dipy.io.streamline import load_tractogram, save_trk
+from dipy.io.streamline import load_tractogram, save_trk, save_tck
 from unravel.stream import extract_nodes, remove_outlier_streamlines
 from dipy.tracking.utils import length
 from unravel.utils import *
@@ -534,6 +534,13 @@ def convertTck2Trk(subj_folder_path, subj_id, tck_path):
     print("Converting %s" % tck_path)
     tract = load_tractogram(tck_path, subj_folder_path+"/dMRI/preproc/"+subj_id+"_b0_preproc.nii.gz")
     save_trk(tract, tck_path[:-3]+'trk')
+
+def convertTrk2Tck(trk_path):
+    if not os.path.isfile(trk_path): # only if there was an error during the tractography, to not block everything
+        return
+    print("Converting %s" % trk_path)
+    tract = load_tractogram(trk_path, "same")
+    save_tck(tract, trk_path[:-3]+'tck')
     
 def compute_tracts(tract_json, p_code, folder_path, compute_5tt, extract_roi, tract, force, onlySide:str):
     print("Working on %s" % p_code)
@@ -707,7 +714,7 @@ def compute_tracts(tract_json, p_code, folder_path, compute_5tt, extract_roi, tr
 
             # Remove streamlines outliers
             if os.path.isfile(output_path_forward) or os.path.isfile(output_path_backward):
-                outlier_radio = 3
+                outlier_radio = 5
                 cmd = "tckedit -force "
 
                 # Remotion sigularly
@@ -716,26 +723,29 @@ def compute_tracts(tract_json, p_code, folder_path, compute_5tt, extract_roi, tr
                     output_path_forward = output_path_forward[:-3] + 'trk' # rename to the trk
                     forward_point_array = extract_nodes(output_path_forward)
                     remove_outlier_streamlines(output_path_forward, forward_point_array, output_path_forward, outlier_radio)
+                    convertTrk2Tck(output_path_forward)
+                    output_path_forward = output_path_forward[:-3] + 'tck' # rename to the tck
                     cmd = cmd + output_path_forward + " "
-                    # convert to tck
 
                 if os.path.isfile(output_path_backward):
                     convertTck2Trk(subj_folder_path, p_code, output_path_backward)
                     output_path_backward = output_path_backward[:-3] + 'trk' # rename to the trk
                     backward_point_array = extract_nodes(output_path_backward)
                     remove_outlier_streamlines(output_path_backward, backward_point_array, output_path_backward, outlier_radio)
+                    convertTrk2Tck(output_path_backward)
+                    output_path_backward = output_path_backward[:-3] + 'tck' # rename to the tck
                     cmd = cmd + output_path_backward + " "
-                    # convert to tck
 
                 # Union of the track in forward and backward
                 cmd = cmd + output_path
                 process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
                 process.wait()
-                # os.remove(output_path_forward); os.remove(output_path_backward)
-                # eliminare anche entrambi i tck e trk
+                os.remove(output_path_forward); os.remove(output_path_backward)
+                os.remove(output_path_forward[:-3] + 'trk'); os.remove(output_path_backward[:-3] + 'trk')
 
                 # Remotion outlier in both forward and backward
-                # convert to trk
+                convertTck2Trk(subj_folder_path, p_code, output_path)
+                output_path = output_path[:-3] + "trk"
                 point_array = extract_nodes(output_path)
                 remove_outlier_streamlines(output_path, point_array, output_path, outlier_radio)
 
