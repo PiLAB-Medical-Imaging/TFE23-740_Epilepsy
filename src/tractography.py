@@ -755,6 +755,7 @@ def compute_tracts(tract_json, p_code, folder_path, compute_5tt, extract_roi, tr
                     forward_point_array = extract_nodes(output_path_forward)
                     remove_outlier_streamlines(output_path_forward, forward_point_array, output_path_forward, outlier_radio)
                     cmd = cmd + output_path_forward + " "
+                    # convert to tck
 
                 if os.path.isfile(output_path_backward):
                     convertTck2Trk(subj_folder_path, p_code, output_path_backward)
@@ -762,14 +763,17 @@ def compute_tracts(tract_json, p_code, folder_path, compute_5tt, extract_roi, tr
                     backward_point_array = extract_nodes(output_path_backward)
                     remove_outlier_streamlines(output_path_backward, backward_point_array, output_path_backward, outlier_radio)
                     cmd = cmd + output_path_backward + " "
+                    # convert to tck
 
                 # Union of the track in forward and backward
                 cmd = cmd + output_path
                 process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
                 process.wait()
-                os.remove(output_path_forward); os.remove(output_path_backward)
+                # os.remove(output_path_forward); os.remove(output_path_backward)
+                # eliminare anche entrambi i tck e trk
 
                 # Remotion outlier in both forward and backward
+                # convert to trk
                 point_array = extract_nodes(output_path)
                 remove_outlier_streamlines(output_path, point_array, output_path, outlier_radio)
 
