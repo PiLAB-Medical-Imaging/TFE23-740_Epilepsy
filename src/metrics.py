@@ -5,14 +5,19 @@ import numpy as np
 import nibabel as nib
 import subprocess
 import json
+import SimpleITK as sitk
 
 from dipy.io.streamline import load_tractogram
+from dipy.io.stateful_tractogram import Space, StatefulTractogram, Origin
 from unravel.utils import *
 from unravel.core import *
+from unravel.stream import smooth_streamlines
 from nibabel import Nifti1Image
 from numpy import linalg as LA
 from scipy import stats
 from statsmodels.stats.weightstats import DescrStatsW
+from radiomics import featureextractor
+from tqdm import tqdm
 
 from params import *
 
@@ -66,6 +71,18 @@ def c_maps(t_img : Nifti1Image):
     return Nifti1Image(comp_maps, t_img.affine)
 
 def save_DIAMOND_cMap_wMap_divideFract(diamond_fold, subj_id):
+    if (os.path.isfile(diamond_fold + "/" + subj_id + "_diamond_c0_DTI.nii.gz") and
+        os.path.isfile(diamond_fold + "/" + subj_id + "_diamond_c1_DTI.nii.gz") and
+        os.path.isfile(diamond_fold + "/" + subj_id + "_diamond_wFA.nii.gz") and
+        os.path.isfile(diamond_fold + "/" + subj_id + "_diamond_wMD.nii.gz") and
+        os.path.isfile(diamond_fold + "/" + subj_id + "_diamond_wRD.nii.gz") and
+        os.path.isfile(diamond_fold + "/" + subj_id + "_diamond_wAD.nii.gz") and
+        os.path.isfile(diamond_fold + "/" + subj_id + "_diamond_frac_c0.nii.gz") and
+        os.path.isfile(diamond_fold + "/" + subj_id + "_diamond_frac_c1.nii.gz") and
+        os.path.isfile(diamond_fold + "/" + subj_id + "_diamond_frac_csf.nii.gz") and
+        os.path.isfile(diamond_fold + "/" + subj_id + "_diamond_frac_ctot.nii.gz")):
+        return
+
     t0_path = diamond_fold + "/" + subj_id + "_diamond_t0.nii.gz"
     t1_path = diamond_fold + "/" + subj_id + "_diamond_t1.nii.gz"
     fracs_path =  diamond_fold + "/" + subj_id + "_diamond_fractions.nii.gz"
@@ -112,6 +129,10 @@ def save_DIAMOND_cMap_wMap_divideFract(diamond_fold, subj_id):
     nib.save(frac_ftot_img, diamond_fold + "/" + subj_id + "_diamond_frac_ctot.nii.gz")
 
 def save_mf_wfvf(mf_fold, subj_id):
+    if (os.path.isfile(mf_fold + "/" + subj_id + "_mf_wfvf.nii.gz") and
+        os.path.isfile(mf_fold + "/" + subj_id + "_mf_frac_ftot.nii.gz")):
+        return
+
     frac_0_path = mf_fold + "/" + subj_id + "_mf_frac_f0.nii.gz"
     frac_1_path = mf_fold + "/" + subj_id + "_mf_frac_f1.nii.gz"
     frac_csf_path = mf_fold + "/" + subj_id + "_mf_frac_csf.nii.gz"
@@ -140,104 +161,21 @@ def save_mf_wfvf(mf_fold, subj_id):
     nib.save(wfvf_map, mf_fold + "/" + subj_id + "_mf_wfvf.nii.gz")
     nib.save(frac_ftot_map, mf_fold + "/" + subj_id + "_mf_frac_ftot.nii.gz")
 
-def trilinearInterpROI(folder_path, subj_id, masks : dict):
-    # must exist the registration done in the tractography step
-    subj_path = "%s/subjects/%s" % (folder_path, subj_id)
-    freesurfer_path = "%s/freesurfer/%s" % (folder_path, subj_id)
-
-    registration_path = subj_path + "/registration"
-    if not os.path.isdir(registration_path):
-        raise Exception
-    
-    # get the ids of the regions
-    rois = []
-    for nums in masks.values():
-        for num in nums:
-            rois.append(num)
-    
-    # get the names of the regions
-    # TODO Basically this is the same code as tractography.py, all can be organized in a different way to not have code duplication
-    rois.sort()
-    k = 0
-    roi_num_name = {}
-    colorLUT_path = os.getenv('FREESURFER_HOME') + "/FreeSurferColorLUT.txt"
-    with open(colorLUT_path, "r") as f:
-        for line in f.readlines():
-            elems = line.split()
-            if len(elems) == 0 or not elems[0].isdigit() :
-                continue
-            curr_num = int(elems[0])
-            curr_name = elems[1]
-            if curr_num == rois[k]:
-                roi_num_name[curr_num] = curr_name
-                k += 1
-            if k == len(rois):
-                break
-
-    # extraction of the ROI NOT registered, then binarize them, and register them with a Trilinear Interpolation
-    masksNotReg_path = "%s/masks/notReg" % subj_path
-    if not os.path.isdir(masksNotReg_path):
-        os.mkdir(masksNotReg_path)
-    trilInterp_paths = []
-    for num, name in roi_num_name.items():
-        out_path = "%s/%s_%s_aparc+aseg-NoReg.nii.gz" % (masksNotReg_path, subj_id, name)
-        cmd = "mri_extract_label -exit_none_found %s/mri/aparc+aseg.mgz %d %s" % (freesurfer_path, num, out_path)
-
-        process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
-        process.wait()
-        if process.returncode != 0:
-            raise Exception
-
-        # binarize the roi, because the freesurfer roi are not {0, 1}, but with a label
-        mask_map : Nifti1Image = nib.load(out_path)
-        mask_np = mask_map.get_fdata()
-        mask_np[mask_np > 0] = 1 # binarizaton
-        volume = mask_np.sum() # the volume of the roi is compute before the tranformation to not loss voxels after the registration
-        mask_map = Nifti1Image(mask_np, mask_map.affine)
-        nib.save(mask_map, out_path) # we overwrite the old one
-
-        # Trilinear interpolation
-        # print("Interpolation: %s" % (name))
-        out_trilInterp_path = "%s/masks/%s_%s-TrilInterp_aparc+aseg.nii.gz" % (subj_path, subj_id, name)
-        cmd = "mri_vol2vol --reg %s/transf_dMRI_t1.dat --targ %s --mov %s/dMRI/preproc/%s_dmri_preproc.nii.gz --o %s --interp trilin --inv" % (registration_path, out_path, subj_path, subj_id, out_trilInterp_path)
-        process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
-        process.wait()
-        if process.returncode != 0:
-            print("Error freesurfer mri_vol2vol aseg")
-            raise Exception
-        
-        trilInterp_paths.append((name, out_trilInterp_path, volume))
-    return trilInterp_paths
-
-def decresingSigmoid(x, min=0.1, max=0.5, x_max=20):
-    """
-    Every unit of the smothing the funcion si dilated by 5 from a side
-    """
-    def sig(x):
-        return 1/(1+np.exp(-x))
-    
-    flex = x_max/2
-    smooth = flex/5
-
-    if x > x_max:
-        return min
-    return sig(-(x-flex)/smooth)*(max-min)+min 
-
-"""
-Explain of the correction in the thesis
-"""
-# def correctWeightsTract(weights, nTracts):
-#     # minmax scaler in [0, 1]
-#     weights_scaled = (weights - weights.min()) / (weights.max() - weights.min())
-#     # threshold
-#     thresh = decresingSigmoid(nTracts)
-#     weights[weights_scaled<thresh] = 0
-#     # give more weight to voxels with more weight and less to others
-#     # weights = weights * np.exp(weights) 
-#     
-#     return weights
-
 def correctWeightsTract(weights, thresh=0.1):
+    def resize_and_fix_origin(kernel, size):
+        """Pads a kernel to reach shape `size`, and shift it in order to cancel phase.
+        This is based on the assumption that the kernel is centered in image space.
+        A note about this is provided in section 1.4. 
+        """
+        # Very specific routine... You don't have to understand it
+        pad0, pad1, pad2 = size[0]-kernel.shape[0], size[1]-kernel.shape[1], size[2]-kernel.shape[2]
+        # shift less if kernel is even, to start with 2 central items
+        shift0, shift1, shift2 = (kernel.shape[0]-1)//2, (kernel.shape[1]-1)//2, (kernel.shape[2]-1)//2
+
+        kernel = np.pad(kernel, ((0,pad0), (0,pad1), (0,pad2)), mode='constant')
+        kernel = np.roll(kernel, (-shift0, -shift1, -shift2), axis=(0,1,2))
+        return kernel
+
     from scipy import signal
     kernel = [[[1/4, 1/2, 1/4],
                [1/2, 1, 1/2],
@@ -250,14 +188,18 @@ def correctWeightsTract(weights, thresh=0.1):
                [1/4, 1/2, 1/4]]]
     kernel = np.array(kernel)
 
-    c = signal.convolve(weights, kernel, mode="same", method="direct")
+    ftImage = np.fft.fftn(weights)
+    ftKernel = np.fft.fftn(resize_and_fix_origin(kernel, weights.shape))
+    c = np.real(np.fft.ifftn(ftImage * ftKernel))
+    # c = signal.convolve(weights, kernel, mode="same", method="direct")
+
     c_scal = (c - c.min())/(c.max() - c.min())
     c[c_scal<thresh] = 0
     c[weights == 0] = 0 # because during the convolution are chosen also voxels that are not from the bundle, so we keep only the streamlines of the tract
 
     return c
 
-def highestProbTracts(trk):
+def highestProbTractsDensity(trk, wm: None):
     '''
     This function is a modified version of get_streamline_density() from the library RAVEL by Delinte Nicolas.
     The function is also a semplified version, it doesn't take the paramiters for the resolution_increase and the color.
@@ -271,61 +213,65 @@ def highestProbTracts(trk):
     -------
 
     '''
-    from TIME.core import tract_to_streamlines, compute_subsegments
-    from tqdm import tqdm
+    density = get_streamline_density(trk, subsegment=1) # The density
+    isWM = wm > 0 
+    notWM = wm == 0
 
+    # Find the density for each streamline
     sList = tract_to_streamlines(trk)
     totDensityTract = np.zeros(len(sList))
 
-    # find the tot density per trat
-    for j, streamline in enumerate(tqdm(sList)):
-        prev_point = streamline[0, :]
+    for j, streamline in enumerate(sList):
+        # Create a new tract with a single streamline
+        temp_trk = StatefulTractogram.from_sft([streamline], trk)
+        # Get the ROI of the streamline
+        roi = get_streamline_density(temp_trk, subsegment=1)
 
-        for i in range(1, streamline.shape[0]):
-            point = streamline[i, :]
-            voxList = compute_subsegments(prev_point, point)
+        # Se WM mask esiste => Solo i tratti che hanno una probabilità maggiore nella wm vengono considerati
 
-            for x, y, z in voxList:
-                x, y, z = (int(x), int(y), int(z))
-                
-                totDensityTract[j] += voxList[(x, y, z)]
+        if wm is None:
+            temp_lenght = np.sum(roi) # Normalizzo per la lunghezza del tratto, sennò i tratti più lunghi sarebbero avvantaggiati rispetto a quelli corti.
+        else:
+            temp_lenght = np.sum(roi[isWM]) # Correggo la lunghezza escludendo i voxel che vengono esclusi dalla regione, perche non appartenenti alla WM
+            roi[notWM] = 0 # rimuovo voxels non appartenenti alla wm
 
-            prev_point = point
+        # Compute the density of the streamline
+        totDensityTract[j] = np.sum(density[roi>0])/temp_lenght
 
-    # select only the best 10 tract
-    bestTracts_idx = np.argsort(totDensityTract)[:10]
+    bestTracts_idx = np.argsort(totDensityTract)[::-1][0:int(0.01*get_streamline_count(trk))]
 
-    density = np.zeros(trk._dimensions, dtype=np.float32)
+    streamlines = []
+    for i in bestTracts_idx:
+        streamlines.append(sList[i])
 
-    # Recopute the density for those selected tract
-    for j in bestTracts_idx:
-        streamline = sList[j]
-        prev_point = streamline[0, :]
-
-        for i in range(1, streamline.shape[0]):
-            point = streamline[i, :]
-            voxList = compute_subsegments(prev_point, point)
-
-            for x, y, z in voxList:
-                x, y, z = (int(x), int(y), int(z))
-                
-                density[x, y, z] += voxList[(x, y, z)]
-
-            prev_point = point
+    temp_trk = StatefulTractogram.from_sft(streamlines, trk)
+    roi = get_streamline_density(temp_trk, subsegment=1)
+    density[roi==0] = 0
+    if wm is not None:
+        density[notWM] = 0
 
     return density
 
+def getDictionaryFromLUT(lut_path):
+    d = {}
+    with open(lut_path, 'r') as file:
+        for line in file.readlines():
+            fields = line.split()
+            if len(fields) == 0 or fields[0].startswith("#"):
+                continue
+            d[int(fields[0])] = fields[1]
+    return d
 
 metrics = {
-    "dti" : ["FA", "AD", "RD", "MD"],
-    "noddi" : ["icvf", "odi", "fbundle", "fextra", "fintra", "fiso" ],
-    "diamond" : ["wFA", "wMD", "wAD", "wRD", "frac_c0", "frac_c1", "frac_csf", "frac_ctot"],
-    "mf" : ["fvf_f0", "fvf_f1", "wfvf", "fvf_tot", "frac_f0", "frac_f1", "frac_csf", "frac_ftot"]
+    "dti" : ["FA" , "AD", "RD", "MD"],
+    "noddi" : ["icvf", "odi", "fextra", "fiso"],
+    "diamond" : ["wFA", "wMD", "wAD", "wRD", "frac_csf"],
+    "mf" : ["wfvf", "fvf_tot", "frac_csf"]
 }
 
 # Freesurfer LUT: https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/AnatomicalROI/FreeSurferColorLUT
 masks_freesurfer = {
-    "thalamus" : [10, 49],
+    # "thalamus" : [10, 49], # non funziona perche bisogna fare l'unione di più regions
     "hippocampus" : [17, 53],
     "amygdala" : [18, 54],
     "accumbens" : [26, 58],
@@ -334,14 +280,112 @@ masks_freesurfer = {
 }
 
 def compute_metricsPerROI(p_code, folder_path):
+    # Folder paths
     subject_path = "%s/subjects/%s" % (folder_path, p_code)
     freesurfer_path = "%s/freesurfer/%s" % (folder_path, p_code)
-    tracts_path = "%s/dMRI/tractography" % subject_path
+    params = folder_path + "/static_files/radiomics_params.yaml"
+
+    # metrics dictionary
     m = {}
     m["ID"] = p_code
-    density_maps = {}
 
-    def addMetrics(roi_name, metric, model, metric_map, density_map):
+    # Segmented brain
+    seg_path = f"{freesurfer_path}/dlabel/diff/aparc+aseg+thalnuc.bbr.nii.gz"
+    seg_map = nib.load(seg_path)
+    seg = seg_map.get_fdata()
+
+    # White Matter mask for tracts
+    wm = nib.load(f"{freesurfer_path}/dlabel/diff/White-Matter++.bbr.nii.gz").get_fdata()
+    wm[(seg>=251) & (seg<=255)] = 1 # We are including the Corpus Callosum in the WM
+
+    # density maps saved in memory to save time
+    idx_ROIpaths = []
+    densities = []
+
+    # create folder for tracts if it doesn't exist
+    tract_fold = os.path.join(subject_path,"masks","tract")
+    if not os.path.exists(tract_fold):
+        os.mkdir(os.path.join(subject_path,"masks","tract"))
+
+    # get dictionary from the LUT
+    colorLUT = os.getenv('FREESURFER_HOME') + "/FreeSurferColorLUT.txt"
+    dict_idx_ROI = getDictionaryFromLUT(colorLUT)
+
+    dpath = f"{freesurfer_path}/dpath"
+    # for entry in tqdm(os.listdir(dpath)):
+    #     entry_path = os.path.join(dpath, entry)
+    #     if os.path.isdir(entry_path):
+    #         trk_name = entry.split("_")[0]
+    #         trk_path = os.path.join(entry_path, "path.pd.trk")
+# 
+    #         # # DEBUG
+    #         # if "acomm" not in trk_name:
+    #         #     continue
+    #         
+    #         density_out_path = os.path.join(subject_path,"masks","tract",f"{p_code}_{trk_name}_tract.nii.gz")
+# 
+    #         trk = load_tractogram(trk_path, "same")
+    #         trk.to_vox()
+    #         trk.to_corner()
+# 
+    #         # TODO
+    #         # for _ in range(2):
+    #         #     smooth_streamlines(out_path, out_path)
+# 
+    #         # Get the density filtered by the higest prob streamlines
+    #         idx_ROIpaths.append(density_out_path)
+    #         density = correctWeightsTract(highestProbTractsDensity(trk, wm))
+    #         density = np.where(density>0, 1, 0).astype("int32")
+    #         densities.append(density)
+# 
+    #         nib.save(nib.Nifti1Image(density, trk.affine), density_out_path)
+
+    tract_path = f"{subject_path}/dMRI/tractography"
+    for entry in os.listdir(tract_path):
+        trk_path = os.path.join(tract_path, entry)
+        if( os.path.isfile(trk_path) and 
+            trk_path.endswith(".trk") and 
+            not "rmvd" in trk_path ):
+
+            trk_name = entry.split(".")[0]
+
+            # DEBUG
+            if "left-fornix" not in entry:
+                continue
+
+            density_out_path = os.path.join(subject_path,"masks","tract",f"{p_code}_{trk_name}_tract.nii.gz")
+
+            trk = load_tractogram(trk_path, "same")
+            trk.to_vox()
+            trk.to_corner()
+
+            print(trk_name)
+
+            # Get the binary density filtered by the higest prob streamlines and with corrected weights
+            idx_ROIpaths.append(density_out_path)
+            density = correctWeightsTract(highestProbTractsDensity(trk, wm))
+            density = np.where(density>0, 1, 0).astype("int32")
+            densities.append(density)
+
+            nib.save(nib.Nifti1Image(density, trk.affine), density_out_path)
+
+    # for _, roi_idxs in masks_freesurfer.items():
+    #     for roi_idx in roi_idxs:
+    #         roi_name = dict_idx_ROI[roi_idx]
+# 
+    #         # # DEBUG
+    #         # if roi_idx != 18:
+    #         #     continue
+# 
+    #         density_out_path = os.path.join(subject_path,"masks",f"{p_code}_{roi_name}_diff.nii.gz")
+    #         
+    #         idx_ROIpaths.append(density_out_path)
+    #         density = np.where(seg == roi_idx, 1, 0).astype("int32")
+    #         densities.append(density)
+# 
+    #         nib.save(nib.Nifti1Image(density, seg_map.affine), density_out_path)
+    
+    def addMetrics(roi_name, metric, model, metric_path, roi_path):
         attr_name = "%s_%s" % (roi_name, metric)
         if "frac_csf" == metric:
             if "diamond" == model:
@@ -349,38 +393,33 @@ def compute_metricsPerROI(p_code, folder_path):
             elif "mf" == model:
                 attr_name += "_mf"
 
-        assert metric_map.shape == density_map.shape
+        print(attr_name, "Started")
 
-        v = metric_map.ravel()
-        w = density_map.ravel()
+        metric = sitk.ReadImage(metric_path)
+        roi = sitk.ReadImage(roi_path)
 
-        assert v.size == w.size
+        # I didnt get this passage, but it works
+        metric = sitk.GetImageFromArray(sitk.GetArrayFromImage(metric))
+        roi = sitk.GetImageFromArray(sitk.GetArrayFromImage(roi))
 
-        if w.sum() == 0:
-            print(attr_name, "completed")
-            return
+        extractor = featureextractor.RadiomicsFeatureExtractor(params)
+        extractor.enableAllImageTypes()
+        extractor.enableAllFeatures()
+        results = extractor.execute(metric, roi)
 
-        dstat = DescrStatsW(v, w)
+        # Remove the diagnostic data, and leave only the features
+        df_names = pd.DataFrame(columns=results.keys())
+        diagnostics = df_names.filter(regex=r'diagnostics').columns
+        features = df_names.drop(diagnostics, axis=1).columns
 
-        w_discrete = np.round(w).astype(int)
-        repeat = np.repeat(v, w_discrete)
-
-        m[attr_name + "_mean"] = np.average(v, weights=w)
-        m[attr_name + "_std"] = dstat.std
-        #m[attr_name + "_skew"] = w_skew(metric_map, density_map)
-        m[attr_name + "_skew"] = stats.skew(repeat, bias=False)
-        #m[attr_name + "_kurt"] = w_kurt(metric_map, density_map)
-        m[attr_name + "_kurt"] = stats.kurtosis(repeat, fisher=True, bias=False)
-        # m[attr_name + "_max"] = metric_map[density_map>0].max()
-        # m[attr_name + "_min"] = metric_map[density_map>0].min()
-        
-        #assert m[attr_name + "_min"] <= m[attr_name + "_mean"] and m[attr_name + "_mean"] <= m[attr_name + "_max"]
+        for feature, value in results.items():
+            if feature in features:
+                try:
+                    m[attr_name+"_"+feature] = value.item()
+                except:
+                    m[attr_name+"_"+feature] = value
 
         print(attr_name, "completed")
-
-    # Trilinear interpolation of the segments into dMRI space
-    # We consider the interpolated voxels as a weighted mask (density mask)
-    trilInterp_paths = trilinearInterpROI(folder_path, p_code, masks_freesurfer)
 
     for model, m_metrics in metrics.items():
         model_path = "%s/dMRI/microstructure/%s/" % (subject_path, model)
@@ -388,20 +427,11 @@ def compute_metricsPerROI(p_code, folder_path):
             print("Model metrics don't exist")
             continue
 
-        # frac_fasci_path = None
-        # frac_fasci_mask = None
-
         if model == "diamond":
             save_DIAMOND_cMap_wMap_divideFract(model_path, p_code) # Compute wFA, wMD, wAxD, wRD and save it in nifti file
-            # frac_fasci_path = "%s/%s_%s_frac_ctot.nii.gz" % (model_path, p_code, model)
 
         if model == "mf":
             save_mf_wfvf(model_path, p_code) # compute mf_wfvf
-            # frac_fasci_path = "%s/%s_%s_frac_ftot.nii.gz" % (model_path, p_code, model)
-
-        # if model in ["diamond", "mf"]:
-        #     frac_fasci_mask = nib.load(frac_fasci_path).get_fdata()
-        #     frac_fasci_mask[frac_fasci_mask > 0] = 1
 
         for metric in m_metrics:
             metric_path = None
@@ -409,99 +439,11 @@ def compute_metricsPerROI(p_code, folder_path):
                 metric_path = "%s/%s_%s.nii.gz" % (model_path, p_code, metric)
             elif model in ["noddi", "diamond", "mf"]:
                 metric_path = "%s/%s_%s_%s.nii.gz" % (model_path, p_code, model, metric)
-            
-            metric_map : Nifti1Image = nib.load(metric_path)
-            affine_info = metric_map.affine
-            metric_map = metric_map.get_fdata()
 
-            for tract_filename in os.listdir(tracts_path):
-                tract_name_ext = tract_filename.split(".")
-                if len(tract_name_ext) != 2:
-                    continue
-                tract_name, ext = tract_name_ext
-            
-                if "rmvd" in tract_name:
-                    continue
-            
-                if ext == "trk":
-                    tract_path = os.path.join(tracts_path, tract_filename)
-            
-                    # save in memory the density_map of the tract, in order to not open them every time, and speedup
-                    density_map = None
-                    if tract_path not in density_maps:
-                        trk = load_tractogram(tract_path, "same")
-                        trk.to_vox()  
-                        trk.to_corner()
-            
-                        if not os.path.isfile("%s/masks/%s_%s_tractNoCorr.nii.gz" % (subject_path, p_code, tract_name)):
-                            # get the density
-                            #density_map = highestProbTracts(trk)
-                            density_map = get_streamline_density(trk)
-                            # save the density
-                            bin_density_map = density_map.copy()
-                            bin_density_map[bin_density_map > 0] = 1 # for visualization reasons
-                            nib.save(nib.Nifti1Image(density_map, affine_info), "%s/masks/%s_%s_tractNoCorr.nii.gz" % (subject_path, p_code, tract_name))
-                            nib.save(nib.Nifti1Image(bin_density_map, affine_info), "%s/masks/%s_%s_tractNoCorrBin.nii.gz" % (subject_path, p_code, tract_name))
-                        else :
-                            # load the density
-                            density_map = nib.load("%s/masks/%s_%s_tractNoCorr.nii.gz" % (subject_path, p_code, tract_name)).get_fdata()
-                        # add as feaure the number of tracts of the tract
-                        m[tract_name + "_nTracts"] =  get_streamline_count(trk)
-            
-                        density_map = correctWeightsTract(density_map)
-                        
-                        # save in memory to be faster
-                        density_maps[tract_path] = density_map
-                        # save the corrected density
-                        bin_density_map = density_map.copy()
-                        bin_density_map[bin_density_map > 0] = 1 # for visualization reasons
-                        nib.save(nib.Nifti1Image(density_map, affine_info), "%s/masks/%s_%s_tract.nii.gz" % (subject_path, p_code, tract_name))
-                        nib.save(nib.Nifti1Image(bin_density_map, affine_info), "%s/masks/%s_%s_tractBin.nii.gz" % (subject_path, p_code, tract_name))
-                    else:
-                        # Use the density map saved in memory
-                        density_map = density_maps[tract_path]
-            
-                    addMetrics(tract_name, metric, model, metric_map, density_map)
-                        
+            for i in range(len(densities)):
+                roi_name = idx_ROIpaths[i].split("/")[-1].split("_")[2]
+                addMetrics(roi_name, metric, model, metric_path, idx_ROIpaths[i])
 
-            for mask_name, mask_path, volume in trilInterp_paths:
-                # save in memory the density_map of the mask, in order to not open them every time, and speedup
-                density_map = None
-                if mask_path not in density_maps:
-                    density_map = nib.load(mask_path).get_fdata()
-                    density_maps[mask_path] = density_map
-                else:
-                    density_map = density_maps[mask_path]
-            
-                m[mask_name.lower() + "_voxVol"] = volume
-            
-                addMetrics(mask_name.lower(), metric, model, metric_map, density_map)
-
-            for (dir_path, _, file_names) in os.walk(f"{freesurfer_path}/dpath"):
-                for file_name in file_names:
-                    if file_name.endswith("path.pd.nii.gz"):
-                        mask_path = os.path.join(dir_path,file_name)
-                        mask_name = dir_path.split("/")[-1].split("_")[0]
-
-                        density_map = None
-                        if mask_path not in density_maps:
-                            density_map = nib.load(mask_path).get_fdata()
-                            density_map = correctWeightsTract(density_map)
-
-                            # save in memory to be faster
-                            density_maps[tract_path] = density_map
-
-                            # save the corrected density
-                            bin_density_map = density_map.copy()
-                            bin_density_map[bin_density_map > 0] = 1 # for visualization reasons
-                            nib.save(nib.Nifti1Image(density_map, affine_info), "%s/masks/%s_%s_tract.nii.gz" % (subject_path, p_code, mask_name.lower()))
-                            nib.save(nib.Nifti1Image(bin_density_map, affine_info), "%s/masks/%s_%s_tractBin.nii.gz" % (subject_path, p_code, mask_name.lower()))
-                        else:
-                            density_map = density_maps[mask_path]
-                        
-                        addMetrics(mask_name.lower(), metric, model, metric_map, density_map)
-
-    ## print(json.dumps(m,indent=2, sort_keys=True))
     with open("%s/dMRI/microstructure/%s_metrics.json" % (subject_path, p_code), "w") as outfile:
         json.dump(m, outfile, indent=2, sort_keys=True)
                 
