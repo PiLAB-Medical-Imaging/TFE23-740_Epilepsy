@@ -541,6 +541,44 @@ def convertTrk2Tck(trk_path):
     print("Converting %s" % trk_path)
     tract = load_tractogram(trk_path, "same")
     save_tck(tract, trk_path[:-3]+'tck')
+
+def removeOutliers(tck_path):
+    """
+    Remotion of outliers streamlines with the IQR rule
+    """
+    if not os.path.isfile(tck_path): # only if there was an error during the tractography, to not block everything
+        return
+    
+    trk_path_noExt = tck_path[:-4]
+    removed_path = trk_path_noExt+"_rmvd.tck"
+
+
+    bundle  = nib.streamlines.load(tck_path).streamlines
+    lengths = list(length(bundle))
+    if len(lengths) > 0:
+        q1 = np.percentile(lengths, 25)
+        q3 = np.percentile(lengths, 75)
+    else:
+        q1 = 0
+        q3 = 0
+    iqr = q3 - q1
+    upper = q3 + 1.5*iqr
+    lower = q1 - 1.5*iqr
+
+    if upper < 0: upper = 0
+    if lower < 0: lower = 0
+    print(lower, upper)
+
+    # Save the difference tracts (The ones that have been removed)
+    cmd = "tckedit -maxlength %f -force %s %s_lower.tck && tckedit -minlength %f -force %s %s_upper.tck && tckedit -force %s_lower.tck %s_upper.tck %s" % (lower, tck_path, trk_path_noExt, upper, tck_path, trk_path_noExt, trk_path_noExt, trk_path_noExt, removed_path)
+    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+    process.wait()
+    os.remove(trk_path_noExt+"_lower.tck"); os.remove(trk_path_noExt+"_upper.tck")
+
+    # Remove the outliers
+    cmd = "tckedit -minlength %f -maxlength %f -force %s %s" % (lower, upper, tck_path, tck_path)
+    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+    process.wait()
     
 def compute_tracts(tract_json, p_code, folder_path, compute_5tt, extract_roi, tract, force, onlySide:str):
     print("Working on %s" % p_code)
@@ -712,42 +750,45 @@ def compute_tracts(tract_json, p_code, folder_path, compute_5tt, extract_roi, tr
                     # The reverse of one seed region
                     output_path_backward = find_tract(subj_folder_path, p_code, "10M", optsReverse["seed_images"], opts["select"], optsReverse["include"], optsReverse["include_ordered"], opts["exclude"], opts["masks"], opts["angle"], opts["cutoff"], opts["stop"], opts["act"], output_name+"_from")
 
-            # Remove streamlines outliers
-            if os.path.isfile(output_path_forward) or os.path.isfile(output_path_backward):
-                outlier_radio = 5
-                cmd = "tckedit -force "
+            # select both tracks 
+            if os.path.isfile(output_path_forward) and os.path.isfile(output_path_backward):
+                removeOutliers(output_path_forward)
+                removeOutliers(output_path_backward)
 
-                # Remotion sigularly
-                if os.path.isfile(output_path_forward):
-                    convertTck2Trk(subj_folder_path, p_code, output_path_forward)
-                    output_path_forward = output_path_forward[:-3] + 'trk' # rename to the trk
-                    forward_point_array = extract_nodes(output_path_forward)
-                    remove_outlier_streamlines(output_path_forward, forward_point_array, output_path_forward, outlier_radio)
-                    convertTrk2Tck(output_path_forward)
-                    output_path_forward = output_path_forward[:-3] + 'tck' # rename to the tck
-                    cmd = cmd + output_path_forward + " "
+                # Union of the removed tracts in forward and backward
+                cmd = "tckedit -force %s %s %s" % (output_path_forward[:-4] + "_rmvd.tck", output_path_backward[:-4] + "_rmvd.tck", output_path[:-4] + "_rmvd.tck")
+                process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+                process.wait()
 
-                if os.path.isfile(output_path_backward):
-                    convertTck2Trk(subj_folder_path, p_code, output_path_backward)
-                    output_path_backward = output_path_backward[:-3] + 'trk' # rename to the trk
-                    backward_point_array = extract_nodes(output_path_backward)
-                    remove_outlier_streamlines(output_path_backward, backward_point_array, output_path_backward, outlier_radio)
-                    convertTrk2Tck(output_path_backward)
-                    output_path_backward = output_path_backward[:-3] + 'tck' # rename to the tck
-                    cmd = cmd + output_path_backward + " "
+                os.remove(output_path_forward[:-4] + "_rmvd.tck")
+                os.remove(output_path_backward[:-4] + "_rmvd.tck")
+
+                convertTck2Trk(subj_folder_path, p_code, output_path[:-4] + "_rmvd.tck")
 
                 # Union of the track in forward and backward
-                cmd = cmd + output_path
+                cmd = "tckedit -force %s %s %s" % (output_path_forward, output_path_backward, output_path)
                 process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
                 process.wait()
                 os.remove(output_path_forward); os.remove(output_path_backward)
-                os.remove(output_path_forward[:-3] + 'trk'); os.remove(output_path_backward[:-3] + 'trk')
 
-                # Remotion outlier in both forward and backward
                 convertTck2Trk(subj_folder_path, p_code, output_path)
-                output_path = output_path[:-3] + "trk"
-                point_array = extract_nodes(output_path)
-                remove_outlier_streamlines(output_path, point_array, output_path, outlier_radio)
+            elif os.path.isfile(output_path_forward):
+                removeOutliers(output_path_forward)
+
+                cmd = "tckedit -force %s %s" % (output_path_forward[:-4] + "_rmvd.tck", output_path[:-4] + "_rmvd.tck")
+                process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+                process.wait()
+
+                os.remove(output_path_forward[:-4] + "_rmvd.tck")
+
+                convertTck2Trk(subj_folder_path, p_code, output_path[:-4] + "_rmvd.tck")
+
+                cmd = "tckedit -force %s %s" % (output_path_forward, output_path)
+                process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+                process.wait()
+                os.remove(output_path_forward)
+
+                convertTck2Trk(subj_folder_path, p_code, output_path)
 
 def main():
 
