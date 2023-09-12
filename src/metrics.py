@@ -271,12 +271,14 @@ metrics = {
 
 # Freesurfer LUT: https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/AnatomicalROI/FreeSurferColorLUT
 masks_freesurfer = {
-    # "thalamus" : [10, 49], # non funziona perche bisogna fare l'unione di più regions
+    "Thalamus_union" : [(8103, 8134), (8203, 8234)],
     "hippocampus" : [17, 53],
     "amygdala" : [18, 54],
     "accumbens" : [26, 58],
     "putamen" : [12, 51],
     "pallidum" : [13, 52],
+    "caudate" : [11, 50],
+    "vessel" : [30, 62]
 }
 
 def compute_metricsPerROI(p_code, folder_path):
@@ -312,78 +314,92 @@ def compute_metricsPerROI(p_code, folder_path):
     dict_idx_ROI = getDictionaryFromLUT(colorLUT)
 
     dpath = f"{freesurfer_path}/dpath"
-    # for entry in tqdm(os.listdir(dpath)):
-    #     entry_path = os.path.join(dpath, entry)
-    #     if os.path.isdir(entry_path):
-    #         trk_name = entry.split("_")[0]
-    #         trk_path = os.path.join(entry_path, "path.pd.trk")
-# 
-    #         # # DEBUG
-    #         # if "acomm" not in trk_name:
-    #         #     continue
-    #         
-    #         density_out_path = os.path.join(subject_path,"masks","tract",f"{p_code}_{trk_name}_tract.nii.gz")
-# 
-    #         trk = load_tractogram(trk_path, "same")
-    #         trk.to_vox()
-    #         trk.to_corner()
-# 
-    #         # TODO
-    #         # for _ in range(2):
-    #         #     smooth_streamlines(out_path, out_path)
-# 
-    #         # Get the density filtered by the higest prob streamlines
-    #         idx_ROIpaths.append(density_out_path)
-    #         density = correctWeightsTract(highestProbTractsDensity(trk, wm))
-    #         density = np.where(density>0, 1, 0).astype("int32")
-    #         densities.append(density)
-# 
-    #         nib.save(nib.Nifti1Image(density, trk.affine), density_out_path)
-
-    tract_path = f"{subject_path}/dMRI/tractography"
-    for entry in os.listdir(tract_path):
-        trk_path = os.path.join(tract_path, entry)
-        if( os.path.isfile(trk_path) and 
-            trk_path.endswith(".trk") and 
-            not "rmvd" in trk_path ):
-
-            trk_name = entry.split(".")[0]
-
-            # DEBUG
-            if "left-fornix" not in entry:
-                continue
-
+    for entry in tqdm(os.listdir(dpath)):
+        entry_path = os.path.join(dpath, entry)
+        if os.path.isdir(entry_path):
+            trk_name = entry.split("_")[0]
+            trk_path = os.path.join(entry_path, "path.pd.trk")
+    
+            # # DEBUG
+            # if "acomm" not in trk_name:
+            #     continue
+            
             density_out_path = os.path.join(subject_path,"masks","tract",f"{p_code}_{trk_name}_tract.nii.gz")
-
-            trk = load_tractogram(trk_path, "same")
+            temp_trk_path = os.path.join(subject_path,"dMRI","tractography", f"{trk_name}_temp.trk")
+    
+            # Smoothing is needed since the freesurfer tracts aren't 
+            smooth_streamlines(trk_path, temp_trk_path)
+            smooth_streamlines(temp_trk_path, temp_trk_path)
+    
+            trk = load_tractogram(temp_trk_path, "same")
             trk.to_vox()
             trk.to_corner()
-
-            print(trk_name)
-
-            # Get the binary density filtered by the higest prob streamlines and with corrected weights
+    
+            # Get the density filtered by the higest prob streamlines
             idx_ROIpaths.append(density_out_path)
             density = correctWeightsTract(highestProbTractsDensity(trk, wm))
             density = np.where(density>0, 1, 0).astype("int32")
             densities.append(density)
-
+    
             nib.save(nib.Nifti1Image(density, trk.affine), density_out_path)
+            os.remove(temp_trk_path)
 
-    # for _, roi_idxs in masks_freesurfer.items():
-    #     for roi_idx in roi_idxs:
-    #         roi_name = dict_idx_ROI[roi_idx]
-# 
-    #         # # DEBUG
-    #         # if roi_idx != 18:
-    #         #     continue
-# 
-    #         density_out_path = os.path.join(subject_path,"masks",f"{p_code}_{roi_name}_diff.nii.gz")
-    #         
+    # ------- TO COMPUTE THE METRICS ON THE COMPUTED TRACTS BY MRTRIX3, UNCOMMENT --------
+    # tract_path = f"{subject_path}/dMRI/tractography"
+    # for entry in os.listdir(tract_path):
+    #     trk_path = os.path.join(tract_path, entry)
+    #     if( os.path.isfile(trk_path) and 
+    #         trk_path.endswith(".trk") and 
+    #         not "rmvd" in trk_path ):
+    # 
+    #         trk_name = entry.split(".")[0]
+    # 
+    #         # DEBUG
+    #         if "left-fornix" not in entry:
+    #             continue
+    # 
+    #         density_out_path = os.path.join(subject_path,"masks","tract",f"{p_code}_{trk_name}_tract.nii.gz")
+    # 
+    #         trk = load_tractogram(trk_path, "same")
+    #         trk.to_vox()
+    #         trk.to_corner()
+    # 
+    #         print(trk_name)
+    # 
+    #         # Get the binary density filtered by the higest prob streamlines and with corrected weights
     #         idx_ROIpaths.append(density_out_path)
-    #         density = np.where(seg == roi_idx, 1, 0).astype("int32")
+    #         density = correctWeightsTract(highestProbTractsDensity(trk, wm))
+    #         density = np.where(density>0, 1, 0).astype("int32")
     #         densities.append(density)
-# 
-    #         nib.save(nib.Nifti1Image(density, seg_map.affine), density_out_path)
+    # 
+    #         nib.save(nib.Nifti1Image(density, trk.affine), density_out_path)
+
+    for name, roi_idxs in masks_freesurfer.items():
+
+        for i, roi_idx in enumerate(roi_idxs):
+            start, end = -1, -1
+            if "union" in name:
+                start, end = roi_idx
+
+                roi_name = name.split("_")[0]
+                roi_name = f"Left-{roi_name}" if i == 0 else f"Right-{roi_name}"
+            else:
+                roi_name = dict_idx_ROI[roi_idx]
+
+            # # DEBUG
+            # if roi_idx != 18:
+            #     continue
+
+            density_out_path = os.path.join(subject_path,"masks","tract",f"{p_code}_{roi_name}_diff.nii.gz")
+            
+            idx_ROIpaths.append(density_out_path)
+            if "union" in name:
+                density = np.where(((seg>=start) & (seg<=end)), 1, 0).astype("int32")
+            else:
+                density = np.where(seg == roi_idx, 1, 0).astype("int32")
+            densities.append(density)
+
+            nib.save(nib.Nifti1Image(density, seg_map.affine), density_out_path)
     
     def addMetrics(roi_name, metric, model, metric_path, roi_path):
         attr_name = "%s_%s" % (roi_name, metric)
