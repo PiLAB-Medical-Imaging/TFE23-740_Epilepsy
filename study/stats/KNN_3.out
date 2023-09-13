@@ -1,9 +1,0 @@
-(19, 7528)
-(18, 4838)
-Best accuracy score: 1.76
-Best subset (indices): (710, 860)
-Best subset (corresponding names): ('rh.af_frac_ftot_mean', 'rh.mlf_fextra_mean')
-
-Best accuracy score: 1.76
-Best subset (indices): (710, 860, 1086)
-Best subset (corresponding names): ('rh.af_frac_ftot_mean', 'rh.mlf_fextra_mean', 'right-infThalRadiation-temporal_icvf_mean')

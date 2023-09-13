@@ -1,9 +1,0 @@
-(19, 7528)
-(18, 4838)
-Best accuracy score: 1.86
-Best subset (indices): (721, 2873)
-Best subset (corresponding names): ('left-amygdala_fvf_tot_kurt', 'rh.ar_RD_kurt')
-
-Best accuracy score: 1.86
-Best subset (indices): (207, 721, 2873)
-Best subset (corresponding names): ('cc.bodyp_wfvf_skew', 'left-amygdala_fvf_tot_kurt', 'rh.ar_RD_kurt')

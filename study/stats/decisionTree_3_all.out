@@ -1,9 +1,0 @@
-(19, 7528)
-(18, 4838)
-Best accuracy score: 1.70
-Best subset (indices): (1204, 4298)
-Best subset (corresponding names): ('left-pallidum_icvf_std', 'right-infThalRadiation-temporal_MD_mean')
-
-Best accuracy score: 1.68
-Best subset (indices): (1204, 4298, 4309)
-Best subset (corresponding names): ('left-pallidum_icvf_std', 'right-infThalRadiation-temporal_MD_mean', 'right-infThalRadiation-temporal_fextra_kurt')

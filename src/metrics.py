@@ -17,7 +17,6 @@ from numpy import linalg as LA
 from scipy import stats
 from statsmodels.stats.weightstats import DescrStatsW
 from radiomics import featureextractor
-from tqdm import tqdm
 
 from params import *
 
@@ -278,7 +277,6 @@ masks_freesurfer = {
     "putamen" : [12, 51],
     "pallidum" : [13, 52],
     "caudate" : [11, 50],
-    "vessel" : [30, 62]
 }
 
 def compute_metricsPerROI(p_code, folder_path):
@@ -314,7 +312,7 @@ def compute_metricsPerROI(p_code, folder_path):
     dict_idx_ROI = getDictionaryFromLUT(colorLUT)
 
     dpath = f"{freesurfer_path}/dpath"
-    for entry in tqdm(os.listdir(dpath)):
+    for entry in os.listdir(dpath):
         entry_path = os.path.join(dpath, entry)
         if os.path.isdir(entry_path):
             trk_name = entry.split("_")[0]

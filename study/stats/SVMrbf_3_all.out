@@ -1,9 +1,0 @@
-(19, 7528)
-(18, 4838)
-Best accuracy score: 1.02
-Best subset (indices): (3817, 4729)
-Best subset (corresponding names): ('right-accumbens-area_FA_kurt', 'right-supThalRadiation_frac_ftot_kurt')
-
-Best accuracy score: 1.04
-Best subset (indices): (3031, 3817, 4729)
-Best subset (corresponding names): ('rh.cbd_frac_ftot_skew', 'right-accumbens-area_FA_kurt', 'right-supThalRadiation_frac_ftot_kurt')

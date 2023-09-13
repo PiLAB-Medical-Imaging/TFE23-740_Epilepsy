@@ -1,6 +1,5 @@
 import sys
 import os
-import elikopy
 import json
 
 from params import get_folder
@@ -51,8 +50,6 @@ def main():
         p_job_id["id"] = submit_job(p_job)
         p_job_id["name"] = p_code
         job_list.append(p_job_id)
-    
-    elikopy.utils.getJobsState(folder_path, job_list, "log")
 
 if __name__ == "__main__":
     exit(main())
