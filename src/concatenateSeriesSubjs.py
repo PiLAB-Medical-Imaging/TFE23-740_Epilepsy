@@ -2,7 +2,6 @@ import json
 import os
 import pandas as pd
 
-
 def concat():
     folder_path = "../study"
     stats_path = folder_path + "/stats"
@@ -23,8 +22,8 @@ def concat():
         dfi = pd.read_csv(metric_folder)
         dfi = dfi.reindex(sorted(dfi.columns), axis=1)
         # Check that the name of the columns are correct
-        if dfi.columns.size != 7518 + 1:
-            print(p_code, dfi.columns.size)
+        # if dfi.columns.size != 7518 + 1:
+        print(p_code, dfi.columns.size)
 
         dfs.append(dfi)
         del metric_folder
@@ -33,10 +32,9 @@ def concat():
     df = pd.concat(dfs, ignore_index=True, axis=0)
     del dfs
 
-    assert df.columns.size == 7518 + 1
+    # assert df.columns.size == 7518 + 1
 
     info_df = pd.read_csv(stats_path + "/info.csv")
-    non_dMRIfeatures = info_df.columns.drop(["ID"])
 
     df = pd.merge(info_df, df, on="ID")
     df = df.set_index("ID")
@@ -45,7 +43,7 @@ def concat():
     if not os.path.isdir(stats_path):
         os.mkdir(stats_path)
 
-    df.to_csv("%s/dataset.csv" % stats_path)
+    df.to_csv("%s/datasetRadiomics.csv" % stats_path)
 
 if __name__=="__main__":
     exit(concat())

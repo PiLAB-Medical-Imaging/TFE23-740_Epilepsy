@@ -313,10 +313,10 @@ def compute_metricsPerROI(p_code, folder_path):
 
     dpath = f"{freesurfer_path}/dpath"
     for entry in os.listdir(dpath):
-        entry_path = os.path.join(dpath, entry)
-        if os.path.isdir(entry_path):
+        trk_path = os.path.join(dpath, entry, "path.pd.trk")
+        if os.path.exists(trk_path):
             trk_name = entry.split("_")[0]
-            trk_path = os.path.join(entry_path, "path.pd.trk")
+            
     
             # # DEBUG
             # if "acomm" not in trk_name:
