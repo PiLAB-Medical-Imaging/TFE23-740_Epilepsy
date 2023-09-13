@@ -1,8 +1,10 @@
 import sys
 import os
-import elikopy
 import json
+import datetime
+import subprocess
 
+from future.utils import iteritems
 from params import get_folder
 from elikopy.utils import submit_job
 
@@ -15,7 +17,7 @@ def main():
         parIdx = sys.argv.index("-p") + 1 # the index of the parameter after the option
         pat = sys.argv[parIdx]
 
-    time = [0, 30]
+    time = [1, 0]
 
     time[0] += time[1]//60
     time[1] %= 60
@@ -36,10 +38,10 @@ def main():
 
     for p_code in patient_list:
         p_job = {
-            "wrap" : "export MKL_NUM_THREADS=1 ; export OMP_NUM_THREADS=1 ; python -c 'from metrics import compute_metricsPerROI; compute_metricsPerROI(\"%s\", \"%s\")'" % (p_code, folder_path),
+            "wrap" : "export MKL_NUM_THREADS=2 ; export OMP_NUM_THREADS=2 ; python -c 'from metrics import compute_metricsPerROI; compute_metricsPerROI(\"%s\", \"%s\")'" % (p_code, folder_path),
             "job_name" :  p_code,
             "ntasks" : 1,
-            "cpus_per_task" : 1,
+            "cpus_per_task" : 2,
             "mem_per_cpu" : 2048,
             "time" : "%s:%s:00" % (str(time[0]), str(time[1])),
             "mail_user" : "michele.cerra@student.uclouvain.be",
@@ -52,7 +54,6 @@ def main():
         p_job_id["name"] = p_code
         job_list.append(p_job_id)
     
-    elikopy.utils.getJobsState(folder_path, job_list, "log")
 
 if __name__ == "__main__":
     exit(main())

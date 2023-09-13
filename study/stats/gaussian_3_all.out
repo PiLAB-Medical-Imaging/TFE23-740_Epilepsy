@@ -1,9 +1,0 @@
-(19, 7528)
-(18, 4838)
-Best accuracy score: 1.64
-Best subset (indices): (910, 1913)
-Best subset (corresponding names): ('left-hippocampus_fextra_mean', 'lh.cbv_FA_kurt')
-
-Best accuracy score: 1.68
-Best subset (indices): (910, 1801, 1913)
-Best subset (corresponding names): ('left-hippocampus_fextra_mean', 'lh.atr_frac_ctot_kurt', 'lh.cbv_FA_kurt')

@@ -1,9 +1,0 @@
-(19, 7528)
-(18, 4838)
-Best accuracy score: 1.31
-Best subset (indices): (2145, 4185)
-Best subset (corresponding names): ('lh.fat_frac_ftot_kurt', 'right-inf-longi-fasci_frac_ftot_kurt')
-
-Best accuracy score: 1.34
-Best subset (indices): (2145, 3573, 4185)
-Best subset (corresponding names): ('lh.fat_frac_ftot_kurt', 'rh.slf1_frac_ftot_kurt', 'right-inf-longi-fasci_frac_ftot_kurt')

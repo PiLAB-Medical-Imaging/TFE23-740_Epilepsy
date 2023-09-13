@@ -1,9 +1,0 @@
-(19, 7528)
-(18, 4838)
-Best accuracy score: 1.12
-Best subset (indices): (1815, 3676)
-Best subset (corresponding names): ('lh.atr_icvf_skew', 'rh.slf2_wfvf_std')
-
-Best accuracy score: 1.15
-Best subset (indices): (2643, 3568, 3676)
-Best subset (corresponding names): ('lh.slf3_wFA_skew', 'rh.slf1_fintra_std', 'rh.slf2_wfvf_std')
