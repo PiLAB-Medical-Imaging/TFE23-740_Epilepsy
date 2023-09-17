@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-from sklearn.metrics import precision_recall_curve, f1_score, accuracy_score, roc_auc_score, confusion_matrix, precision_score, recall_score, balanced_accuracy_score
+from sklearn.metrics import precision_recall_curve, f1_score, accuracy_score, roc_auc_score, confusion_matrix, precision_score, recall_score, balanced_accuracy_score, brier_score_loss, log_loss
 import seaborn as sns
 import numpy as np
 sns.set_palette("muted")
@@ -29,7 +29,12 @@ def auc_and_f1(y, y_prob, **kwargs):
     # Calculate metrics
     roc = roc_auc_score(y, y_prob, average=None if isBinary else "weighted", multi_class="raise" if isBinary else "ovo")
     f1 = f1_score(y, y_pred, pos_label=1, average="binary" if isBinary else "weighted")
-    return roc + f1
+    # brier = 0
+    # if isBinary:
+    #     brier = - brier_score_loss(y, y_prob)
+    # logLoss = - log_loss(y, y_prob)
+    
+    return roc + f1 #+ brier + logLoss
 
 
 # Print the F1, Precision, Recall, ROC-AUC, and Accuracy Metrics 
