@@ -43,8 +43,6 @@ df = df.drop(["VNSLC_16"])
 df = df.dropna(axis=1)
 df.shape
 
-X, y = df.iloc[:,2:], df.iloc[:,:1].squeeze()
-
 #%% Remove duplicates
 # Remove duplicates
 
@@ -78,6 +76,19 @@ class MyVarianceThreshold(VarianceThreshold):
     
     def transform(self, X):
         return X.loc[:, self.get_support()]
+
+#%% Save the reduced dataframe
+varThresh = MyVarianceThreshold()
+df = df.T.drop_duplicates().T
+df = varThresh.fit_transform(df)
+
+df.to_csv("../study/stats/datasetRadiomicsReduced.csv")
+#%% Load reduced
+df = pd.read_csv("../study/stats/datasetRadiomicsReduced.csv", index_col="ID")
+df.shape
+
+X, y = df.iloc[:,2:], df.iloc[:,:1].squeeze()
+del df
     
 #%% Standard Scaler
 # Standard Scaler
