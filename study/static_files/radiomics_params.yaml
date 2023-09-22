@@ -6,3 +6,45 @@ setting:
   # Texture matrix weightinh for GLCM and GLRLM
   weightingNorm: 'euclidean'
 
+imageType:
+  Original: {}
+  Exponential: {}
+  Gradient: {}
+  LBP2D: {}
+  LBP3D: {}
+  LoG: 
+    sigma: [2.0, 3.0, 4.0, 5.0]
+  Logarithm: {}
+  Square: {}
+  SquareRoot: {}
+  Wavelet: {}
+
+featureClass:
+  firstorder:
+  shape:
+  glcm:
+    - 'Autocorrelation'
+    - 'ClusterProminence'
+    - 'ClusterShade'
+    - 'ClusterTendency'
+    - 'Contrast'
+    - 'Correlation'
+    - 'DifferenceAverage'
+    - 'DifferenceEntropy'
+    - 'DifferenceVariance'
+    - 'JointEnergy'
+    - 'JointEntropy'
+    - 'Imc1'
+    - 'Imc2'
+    - 'Idm'
+    - 'Mcc'
+    - 'Idmn'
+    - 'Id'
+    - 'Idn'
+    - 'InverseVariance'
+    - 'MaximumProbability'
+    - 'SumEntropy'
+  glszm:
+  glrlm:
+  ngtdm:
+  gldm:

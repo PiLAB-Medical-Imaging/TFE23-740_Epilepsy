@@ -265,7 +265,7 @@ metrics = {
     "dti" : ["FA" , "AD", "RD", "MD"],
     "noddi" : ["icvf", "odi", "fextra", "fiso"],
     "diamond" : ["wFA", "wMD", "wAD", "wRD", "frac_csf"],
-    "mf" : ["wfvf", "fvf_tot", "frac_csf"]
+    "mf" : ["wfvf", "frac_csf"]
 }
 
 # Freesurfer LUT: https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/AnatomicalROI/FreeSurferColorLUT
