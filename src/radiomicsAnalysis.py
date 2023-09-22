@@ -4,8 +4,6 @@
 
 #%% Import
 # Import
-from typing import Any
-from numpy import ndarray
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -15,12 +13,14 @@ import fastcluster
 import json
 import itertools
 
+from feature_engine.selection import DropConstantFeatures, DropDuplicateFeatures, SmartCorrelatedSelection, SelectByInformationValue, SelectByShuffling
 from scipy import stats
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.feature_selection import VarianceThreshold, RFECV
 from sklearn.preprocessing import StandardScaler, FunctionTransformer
 from sklearn.svm import SVC, LinearSVC
 from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.svm import SVC
 from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import make_scorer, roc_auc_score, f1_score, brier_score_loss, log_loss, balanced_accuracy_score, accuracy_score, precision_recall_curve
@@ -43,49 +43,21 @@ df = df.drop(["VNSLC_16"])
 df = df.dropna(axis=1)
 df.shape
 
-#%% Remove duplicates
-# Remove duplicates
-
-class DropDuplicatesColumns(BaseEstimator, TransformerMixin):
-    def __init__(self, keep="fist") -> None:
-        super().__init__()
-        self.keep = keep
-
-    def fit(self, X, y=None):
-        self.duplicates_mask = X.T.duplicated()
-        self.duplicates_mask = (self.duplicates_mask == False)
-        return self
-
-    def transform(self, X, y=None):
-        return X.loc[:, self.duplicates_mask]
-    
-    def get_support(self, indices=False):
-        if indices:
-            return np.argwhere(self.duplicates_mask).ravel()
-        return self.duplicates_mask
-
-#%% Variance threshold
-# Variance threshold
-
-class MyVarianceThreshold(VarianceThreshold):
-    def __init__(self, threshold=0) -> None:
-        super().__init__(threshold)
-
-    def fit(self, X, y=None):
-        return super().fit(X, y)
-    
-    def transform(self, X):
-        return X.loc[:, self.get_support()]
+X, y = df.iloc[:,2:], df.iloc[:,:1].squeeze()
 
 #%% Save the reduced dataframe
-varThresh = MyVarianceThreshold()
-df = df.T.drop_duplicates().T
-df = varThresh.fit_transform(df)
+pipe = Pipeline([
+    ("constantFeatures", DropConstantFeatures(tol=0.65)),
+    ("duplicateFeatures", DropDuplicateFeatures()),
+])
+
+X = pipe.fit_transform(X, y)
+df = pd.concat([y, X], axis=1)
 
 df.to_csv("../study/stats/datasetRadiomicsReduced.csv")
 #%% Load reduced
-df = pd.read_csv("../study/stats/datasetRadiomicsReduced.csv", index_col="ID")
-df.shape
+df = pd.read_csv("../study/stats/datasetRadiomicsReduced.csv", index_col="ID", engine="c")
+print(df.shape)
 
 X, y = df.iloc[:,2:], df.iloc[:,:1].squeeze()
 del df
@@ -128,32 +100,34 @@ class MannwhitenFiltering(BaseEstimator, TransformerMixin):
 #%% Groups outlier remotion
 # Groups outlier remotion
 
-class GroupsOutlierRemotion(BaseEstimator, TransformerMixin):
-    def __init__(self, z_threshold=3) -> None:
-        self.z_threshold = z_threshold
+class MADOutlierRemotion(BaseEstimator, TransformerMixin):
+    def __init__(self, threshold_val=3) -> None:
+        self.threshold_val = threshold_val
         super().__init__()
 
-    def fit(self, X, y):
-        features_to_remove = []
-        for i in y.unique():
-            X_curr = abs(X[y==i])
+    def fit(self, X, y=None):
+        median_values = X.median()
+        median_absolute_deviation = abs(X - median_values).median()
+        left_tail = median_values - self.threshold_val*median_absolute_deviation
+        right_tail = median_values + self.threshold_val*median_absolute_deviation
 
-            features_outliers_mask = (X_curr > self.z_threshold).any(axis=0)
+        self.limits = (left_tail, right_tail)
 
-            features_to_remove.append(features_outliers_mask)
-        
-        features_to_remove = np.array(features_to_remove)
-        features_outliers_mask = features_to_remove.any(axis=0)
-        self.features_outliers_mask = (features_outliers_mask == False)
+        self.features_mask = (X <= left_tail) | (X >= right_tail) 
+        self.features_mask = self.features_mask.any(axis=0)
+        self.features_mask = self.features_mask == False
         return self
 
     def transform(self, X, y=None):
-        return X.loc[:, self.features_outliers_mask]
+        return X.loc[:, self.features_mask]
     
     def get_support(self, indices=False):
         if indices:
-            return np.argwhere(self.features_outliers_mask).ravel()
-        return self.features_outliers_mask
+            return np.argwhere(self.features_mask).ravel()
+        return self.features_mask
+    
+    def get_limits(self):
+        return self.limits
 
 #%% Kurtosis
 # Kurtosis
@@ -255,6 +229,19 @@ class MyRFECV(RFECV):
         self.columns = self.columns[self.get_support()]
         return pd.DataFrame(temp, index=self.indices, columns=self.columns)
 
+#%% Print features
+# Print Features
+class PrintFeatures(BaseEstimator, TransformerMixin):
+    def __init__(self) -> None:
+        super().__init__()
+
+    def fit(self, X, y):
+        return self
+
+    def transform(self, X):
+        print(X.shape)
+        return X
+
 #%% SFS
 # SFS
 
@@ -312,35 +299,55 @@ def printScores(y_true, y_prob):
 # Randomized Search
 
 distrib = dict([
-    ("clf__C", stats.loguniform(1e-6, 1e-0))
+    # ("clf__C", stats.loguniform(1e-6, 1e-0))
 ])
+
+# estimator_feature_selection = GradientBoostingClassifier(
+#     n_estimators=500,
+#     subsample=0.5,
+#     max_depth=None,
+#     max_leaf_nodes=4,
+#     max_features=2,
+#     random_state=7,
+# )
+
+estimator_feature_selection = LogisticRegression()
 
 cv = cross_validate(
     RandomizedSearchCV(
         Pipeline([
-            ("duplicates", DropDuplicatesColumns()),
-            ("variance", MyVarianceThreshold()),
+            ("outliers", MADOutlierRemotion(3)),
             ("scaler", MyStandardScaler()),
-            ("outliers", GroupsOutlierRemotion(2)),
-            ("kurtosis", KurtosisFiltering(-0.5, 1)),
-            ("mannwhiten", MannwhitenFiltering(0.05)),
-            # No Kruskal since we do only the binary case
-            ("redundant", DropRedundantColumns(0.95)),
+            # ("shuffling", SelectByShuffling(
+            #     estimator_feature_selection,
+            #     scoring=make_scorer(auc_and_f1, needs_proba=True),
+            #     cv=StratifiedKFold(
+            #         n_splits=3,
+            #         shuffle=True,
+            #         random_state=7
+            #     ),
+            #     random_state=7,
+            # )),
             ("rfe", MyRFECV(
-                LogisticRegression(),
-                min_features_to_select=1,
-                step=0.01,
+                estimator_feature_selection,
+                min_features_to_select=1000,
+                step=0.05,
                 cv=StratifiedKFold(
-                    n_splits=5,
+                    n_splits=3,
                     shuffle=True,
                     random_state=7
                 ),
-                scoring=make_scorer(auc_and_f1, needs_proba=True),
+                scoring="roc_auc",
             )),
-            ("clf", LogisticRegression(
-                dual=True,
-                solver="liblinear"
-            ))
+            ("print", PrintFeatures()),
+            # ("information", SelectByInformationValue(
+            #     threshold=0.3,
+            # )),
+            # ("redundant", SmartCorrelatedSelection(
+            #     threshold=0.95,
+            #     selection_method="variance"
+            # )),
+            ("clf", GaussianNB())
         ]),
         param_distributions=distrib,
         n_iter=1,
@@ -358,10 +365,12 @@ cv = cross_validate(
     X, y,
     scoring=make_scorer(retProbs, needs_proba=True),
     cv=LeaveOneOut(),
-    n_jobs=6,
+    n_jobs=2,
     verbose=10,
     return_estimator=True,
     error_score="raise"
 )
 
 printScores(y, cv["test_score"])
+
+# %%
