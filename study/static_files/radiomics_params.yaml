@@ -37,7 +37,6 @@ featureClass:
     - 'Imc1'
     - 'Imc2'
     - 'Idm'
-    - 'Mcc'
     - 'Idmn'
     - 'Id'
     - 'Idn'
