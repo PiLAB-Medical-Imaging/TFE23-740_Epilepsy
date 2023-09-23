@@ -905,7 +905,10 @@ inner2_loop = {
             n_components=2,
             whiten=True,
             random_state=7
-        )
+        ),
+        "hyperparams" : {
+            "pca__n_components" : stats.randint(3, 20)
+        }
     }
 }
 
@@ -915,6 +918,7 @@ for classifier_name in outer_loop.keys():
     res[classifier_name] = {}
     for selection_name in inner_loop.keys():
         selct_params = inner_loop[selection_name]
+        res[classifier_name][selection_name] = {}
         for reduction_name in inner2_loop.keys():
             reduction_params = inner2_loop[reduction_name]
 
@@ -961,4 +965,4 @@ for classifier_name in outer_loop.keys():
                 error_score="raise"
             )
 
-            res[classifier_name][selection_name] = (cv, printScores(y, cv["test_score"], "thresh"))
+            res[classifier_name][selection_name][reduction_name] = (cv, printScores(y, cv["test_score"], "thresh"))
