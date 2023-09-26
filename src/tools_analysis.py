@@ -29,12 +29,12 @@ def auc_and_f1(y, y_prob, **kwargs):
     # Calculate metrics
     roc = roc_auc_score(y, y_prob, average=None if isBinary else "weighted", multi_class="raise" if isBinary else "ovo")
     f1 = f1_score(y, y_pred, pos_label=1, average="binary" if isBinary else "weighted")
-    # brier = 0
-    # if isBinary:
-    #     brier = - brier_score_loss(y, y_prob)
+    brier = 0
+    if isBinary:
+        brier = - brier_score_loss(y, y_prob)
     # logLoss = - log_loss(y, y_prob)
     
-    return roc + f1 #+ brier + logLoss
+    return roc + f1 + brier # + logLoss
 
 
 # Print the F1, Precision, Recall, ROC-AUC, and Accuracy Metrics 

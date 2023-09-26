@@ -1,0 +1,7886 @@
+{
+  "_exponential_.*10Percentile$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.41666666666666663,
+    "brier": 0.5001855627279144,
+    "f1": 0.7499999999999999,
+    "log": 17.70543912911981,
+    "threshold": 0.0
+  },
+  "_exponential_.*90Percentile$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_exponential_.*DependenceEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.22916666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 5.812580583630761e-260
+  },
+  "_exponential_.*DependenceNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.6999989609722287,
+    "f1": 0.7499999999999999,
+    "log": 20.716182799186694,
+    "threshold": 6.019651975288373e-17
+  },
+  "_exponential_.*DependenceNonUniformityNormalized$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.29166666666666663,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_exponential_.*DependenceVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.6958700135538558,
+    "f1": 0.7499999999999999,
+    "log": 17.657492458695003,
+    "threshold": 2.3629078191368898e-24
+  },
+  "_exponential_.*Energy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_exponential_.*Entropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_exponential_.*GrayLevelNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.7999999999999934,
+    "f1": 0.7499999999999999,
+    "log": 28.333708694245626,
+    "threshold": 0.0
+  },
+  "_exponential_.*InterquartileRange$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_exponential_.*Kurtosis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5416666666666667,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 0.0
+  },
+  "_exponential_.*LargeAreaEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.7761326817203014,
+    "f1": 0.7499999999999999,
+    "log": 21.17271137295376,
+    "threshold": 7.334196427032407e-32
+  },
+  "_exponential_.*LargeDependenceEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.0,
+    "brier": 0.9000000003124591,
+    "f1": 0.7499999999999999,
+    "log": 31.332603125060807,
+    "threshold": 0.0
+  },
+  "_exponential_.*LongRunEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.0,
+    "brier": 0.9000000000923294,
+    "f1": 0.7499999999999999,
+    "log": 30.605932760523945,
+    "threshold": 1.240186093690876e-243
+  },
+  "_exponential_.*Maximum$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_exponential_.*Mean$": {
+    "acc": 0.625,
+    "accAdj": 0.25,
+    "auc": 0.5625,
+    "brier": 0.300000000005504,
+    "f1": 0.8,
+    "log": 10.813096758625345,
+    "threshold": 0.9999925811439502
+  },
+  "_exponential_.*MeanAbsoluteDeviation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 3.3558591271114287e-128
+  },
+  "_exponential_.*Median$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 1.0578465243974406e-31
+  },
+  "_exponential_.*Minimum$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.6458333333333333,
+    "brier": 0.29999999970250996,
+    "f1": 0.7499999999999999,
+    "log": 9.24135071350048,
+    "threshold": 0.0
+  },
+  "_exponential_.*Range$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5416666666666666,
+    "brier": 0.4972464137154259,
+    "f1": 0.7499999999999999,
+    "log": 7.432467518004238,
+    "threshold": 4.828504378311325e-06
+  },
+  "_exponential_.*RobustMeanAbsoluteDeviation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 5.09386918077547e-32
+  },
+  "_exponential_.*RootMeanSquared$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5208333333333334,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 5.533022537520888e-41
+  },
+  "_exponential_.*RunEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.0,
+    "brier": 1.0,
+    "f1": 0.7499999999999999,
+    "log": 36.04365338911715,
+    "threshold": 0.0
+  },
+  "_exponential_.*RunLengthNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.598333167680906,
+    "f1": 0.7499999999999999,
+    "log": 18.50014659303403,
+    "threshold": 8.795099151607965e-72
+  },
+  "_exponential_.*RunLengthNonUniformityNormalized$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.0,
+    "brier": 1.0,
+    "f1": 0.7499999999999999,
+    "log": 36.04365338911715,
+    "threshold": 0.0
+  },
+  "_exponential_.*RunPercentage$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.0,
+    "brier": 0.9999998162669105,
+    "f1": 0.7499999999999999,
+    "log": 33.82932238628717,
+    "threshold": 0.0
+  },
+  "_exponential_.*RunVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.041666666666666664,
+    "brier": 0.8999999655663716,
+    "f1": 0.7499999999999999,
+    "log": 30.392402129655768,
+    "threshold": 5.699431430002326e-64
+  },
+  "_exponential_.*ShortRunEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.0,
+    "brier": 0.9475213114291219,
+    "f1": 0.7499999999999999,
+    "log": 30.148852016495198,
+    "threshold": 0.0
+  },
+  "_exponential_.*SizeZoneNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.375,
+    "brier": 0.35334888899613953,
+    "f1": 0.7499999999999999,
+    "log": 4.28398909213743,
+    "threshold": 0.38974411231438155
+  },
+  "_exponential_.*SizeZoneNonUniformityNormalized$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.41666666666666663,
+    "brier": 0.4012437082457758,
+    "f1": 0.7499999999999999,
+    "log": 12.289365748687931,
+    "threshold": 0.0
+  },
+  "_exponential_.*Skewness$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_exponential_.*SmallAreaEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4583333333333333,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_exponential_.*SmallDependenceEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.14583333333333331,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_exponential_.*Uniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_exponential_.*Variance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_exponential_.*ZoneEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6639445808122313,
+    "f1": 0.7499999999999999,
+    "log": 13.014214586555,
+    "threshold": 0.0
+  },
+  "_exponential_.*ZonePercentage$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3541666666666667,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_exponential_.*ZoneVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5208333333333334,
+    "brier": 0.4000000005523628,
+    "f1": 0.7499999999999999,
+    "log": 14.417468788034679,
+    "threshold": 0.0
+  },
+  "_gradient_.*10Percentile$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_gradient_.*90Percentile$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_gradient_.*Energy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 2.1604395192601075e-127
+  },
+  "_gradient_.*InterquartileRange$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.417461355657457,
+    "threshold": 0.9999999998940439
+  },
+  "_gradient_.*Kurtosis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_gradient_.*Maximum$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_gradient_.*Mean$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 9.94501629963512e-28
+  },
+  "_gradient_.*MeanAbsoluteDeviation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_gradient_.*Median$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 3.760641542004539e-254
+  },
+  "_gradient_.*Minimum$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_gradient_.*Range$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_gradient_.*RobustMeanAbsoluteDeviation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.62619203347029,
+    "threshold": 0.0
+  },
+  "_gradient_.*RootMeanSquared$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.40000000054933355,
+    "f1": 0.7499999999999999,
+    "log": 14.417468767625593,
+    "threshold": 0.9999258829594896
+  },
+  "_gradient_.*Skewness$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_gradient_.*Variance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-k_.*10Percentile$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-k_.*90Percentile$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_lbp-3D-k_.*Autocorrelation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 9.910739720995217e-42
+  },
+  "_lbp-3D-k_.*Busyness$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4583333333333333,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_lbp-3D-k_.*ClusterProminence$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-k_.*ClusterShade$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 1.915098325387075e-236
+  },
+  "_lbp-3D-k_.*ClusterTendency$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 9.487321682023738e-43
+  },
+  "_lbp-3D-k_.*Coarseness$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.375,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_lbp-3D-k_.*Complexity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-k_.*Contrast$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-k_.*Correlation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.62619203347029,
+    "threshold": 4.899571019320738e-46
+  },
+  "_lbp-3D-k_.*DependenceEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.29166666666666663,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_lbp-3D-k_.*DependenceNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 2.7493469216219795e-89
+  },
+  "_lbp-3D-k_.*DependenceNonUniformityNormalized$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.20833333333333334,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_lbp-3D-k_.*DependenceVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 9.877218506080742e-119
+  },
+  "_lbp-3D-k_.*DifferenceEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-k_.*DifferenceVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-k_.*Energy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 3.535275856890848e-196
+  },
+  "_lbp-3D-k_.*Entropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_lbp-3D-k_.*GrayLevelNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.0,
+    "brier": 0.9077120318546017,
+    "f1": 0.7499999999999999,
+    "log": 32.471820276530366,
+    "threshold": 0.0
+  },
+  "_lbp-3D-k_.*GrayLevelNonUniformityNormalized$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-k_.*GrayLevelVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-k_.*HighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.62619203347029,
+    "threshold": 0.0
+  },
+  "_lbp-3D-k_.*HighGrayLevelRunEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-k_.*HighGrayLevelZoneEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 1.1925205062999442e-138
+  },
+  "_lbp-3D-k_.*Id$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-k_.*Idmn$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-k_.*Idn$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-k_.*Imc1$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.230557372382002,
+    "threshold": 0.0
+  },
+  "_lbp-3D-k_.*Imc2$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 6.1083453726974674e-68
+  },
+  "_lbp-3D-k_.*InterquartileRange$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-k_.*JointEnergy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-k_.*JointEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-k_.*Kurtosis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-k_.*LargeAreaEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 1.0988686482868111e-77
+  },
+  "_lbp-3D-k_.*LargeAreaHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 1.8182342927304654e-49
+  },
+  "_lbp-3D-k_.*LargeAreaLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 3.540285560376138e-227
+  },
+  "_lbp-3D-k_.*LargeDependenceEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.230557372382002,
+    "threshold": 1.6762161961979645e-105
+  },
+  "_lbp-3D-k_.*LargeDependenceHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.4530439574631767,
+    "f1": 0.7499999999999999,
+    "log": 14.547771753195644,
+    "threshold": 0.2716871725475602
+  },
+  "_lbp-3D-k_.*LargeDependenceLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-k_.*LongRunEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.62619203347029,
+    "threshold": 1.9783103345729492e-165
+  },
+  "_lbp-3D-k_.*LongRunHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.62619203347029,
+    "threshold": 4.057182596839126e-124
+  },
+  "_lbp-3D-k_.*LongRunLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 4.8747073548771985e-45
+  },
+  "_lbp-3D-k_.*LowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_lbp-3D-k_.*LowGrayLevelRunEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-k_.*LowGrayLevelZoneEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 1.1993566893566861e-138
+  },
+  "_lbp-3D-k_.*MCC$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 2.530449191184267e-36
+  },
+  "_lbp-3D-k_.*Maximum$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.5000000237844104,
+    "f1": 0.7499999999999999,
+    "log": 18.021875475717927,
+    "threshold": 3.2718056188761575e-27
+  },
+  "_lbp-3D-k_.*MaximumProbability$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-k_.*Mean$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-k_.*MeanAbsoluteDeviation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-k_.*Median$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-k_.*Minimum$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.417461357159851,
+    "threshold": 0.999999984870101
+  },
+  "_lbp-3D-k_.*Range$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-k_.*RobustMeanAbsoluteDeviation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-k_.*RootMeanSquared$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 3.616905529699683e-26
+  },
+  "_lbp-3D-k_.*RunEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_lbp-3D-k_.*RunLengthNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_lbp-3D-k_.*RunLengthNonUniformityNormalized$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.62619203347029,
+    "threshold": 0.0
+  },
+  "_lbp-3D-k_.*RunPercentage$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.230557372382002,
+    "threshold": 0.0
+  },
+  "_lbp-3D-k_.*RunVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.7873157768883644,
+    "f1": 0.7499999999999999,
+    "log": 25.50301972146503,
+    "threshold": 0.0
+  },
+  "_lbp-3D-k_.*ShortRunEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.62619203347029,
+    "threshold": 0.0
+  },
+  "_lbp-3D-k_.*ShortRunHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-k_.*ShortRunLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 4.604670150204645e-169
+  },
+  "_lbp-3D-k_.*SizeZoneNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-k_.*SizeZoneNonUniformityNormalized$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.7933107888228307,
+    "f1": 0.7499999999999999,
+    "log": 24.439312157559634,
+    "threshold": 0.0
+  },
+  "_lbp-3D-k_.*Skewness$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-k_.*SmallAreaEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_lbp-3D-k_.*SmallAreaHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.62619203347029,
+    "threshold": 0.0
+  },
+  "_lbp-3D-k_.*SmallAreaLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.6000000000000028,
+    "f1": 0.7499999999999999,
+    "log": 21.62619204999649,
+    "threshold": 0.0
+  },
+  "_lbp-3D-k_.*SmallDependenceEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_lbp-3D-k_.*SmallDependenceHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_lbp-3D-k_.*SmallDependenceLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_lbp-3D-k_.*Strength$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_lbp-3D-k_.*SumEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 1.8232201291054717e-102
+  },
+  "_lbp-3D-k_.*Uniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-k_.*Variance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-k_.*ZoneEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_lbp-3D-k_.*ZonePercentage$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_lbp-3D-k_.*ZoneVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 1.4251791706409998e-137
+  },
+  "_lbp-3D-m1_.*10Percentile$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4583333333333333,
+    "brier": 0.4000445032278363,
+    "f1": 0.7499999999999999,
+    "log": 9.301636749348113,
+    "threshold": 2.8876004834704945e-05
+  },
+  "_lbp-3D-m1_.*90Percentile$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5833333333333334,
+    "brier": 0.49702710696400676,
+    "f1": 0.7499999999999999,
+    "log": 10.237647140741004,
+    "threshold": 0.0
+  },
+  "_lbp-3D-m1_.*Energy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_lbp-3D-m1_.*InterquartileRange$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.6946369611618681,
+    "f1": 0.7499999999999999,
+    "log": 21.9867023652653,
+    "threshold": 0.0
+  },
+  "_lbp-3D-m1_.*Kurtosis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-m1_.*Maximum$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.230557372382002,
+    "threshold": 0.0
+  },
+  "_lbp-3D-m1_.*Mean$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-m1_.*MeanAbsoluteDeviation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-m1_.*Median$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.4191925537466523,
+    "f1": 0.7499999999999999,
+    "log": 7.76929464334159,
+    "threshold": 0.2909651628955163
+  },
+  "_lbp-3D-m1_.*Minimum$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_lbp-3D-m1_.*Range$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.2305573723831,
+    "threshold": 0.0
+  },
+  "_lbp-3D-m1_.*RobustMeanAbsoluteDeviation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-m1_.*RootMeanSquared$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-m1_.*Skewness$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 1.264491208112801e-42
+  },
+  "_lbp-3D-m1_.*Variance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-m2_.*10Percentile$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-m2_.*90Percentile$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-m2_.*Energy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.834922711293768,
+    "threshold": 0.0
+  },
+  "_lbp-3D-m2_.*InterquartileRange$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-m2_.*Kurtosis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.62619203347029,
+    "threshold": 7.320913772692419e-83
+  },
+  "_lbp-3D-m2_.*Maximum$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.62619203347029,
+    "threshold": 0.0
+  },
+  "_lbp-3D-m2_.*Mean$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-m2_.*MeanAbsoluteDeviation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-m2_.*Median$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-m2_.*Minimum$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_lbp-3D-m2_.*Range$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.5999999999999972,
+    "f1": 0.7499999999999999,
+    "log": 21.208425810194214,
+    "threshold": 0.0
+  },
+  "_lbp-3D-m2_.*RobustMeanAbsoluteDeviation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-m2_.*RootMeanSquared$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_lbp-3D-m2_.*Skewness$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.499983557309647,
+    "f1": 0.7499999999999999,
+    "log": 15.35807640697206,
+    "threshold": 8.221683156885377e-05
+  },
+  "_lbp-3D-m2_.*Variance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_logarithm_.*10Percentile$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_logarithm_.*90Percentile$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_logarithm_.*Energy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 7.628815203801507e-246
+  },
+  "_logarithm_.*InterquartileRange$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_logarithm_.*Kurtosis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_logarithm_.*Maximum$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.6458333333333333,
+    "brier": 0.2999999996721718,
+    "f1": 0.7499999999999999,
+    "log": 9.231639638187087,
+    "threshold": 0.0
+  },
+  "_logarithm_.*Mean$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_logarithm_.*MeanAbsoluteDeviation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 1.4730963190435025e-141
+  },
+  "_logarithm_.*Median$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.62619203347029,
+    "threshold": 0.0
+  },
+  "_logarithm_.*Minimum$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5416666666666667,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 0.0
+  },
+  "_logarithm_.*Range$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5416666666666666,
+    "brier": 0.39994916876189235,
+    "f1": 0.7499999999999999,
+    "log": 4.265986361888807,
+    "threshold": 9.231874422587993e-07
+  },
+  "_logarithm_.*RobustMeanAbsoluteDeviation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 1.536778785961873e-20
+  },
+  "_logarithm_.*RootMeanSquared$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_logarithm_.*Skewness$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_logarithm_.*Variance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 4.131531475288841e-24
+  },
+  "_original_.*10Percentile$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_original_.*90Percentile$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_original_.*Elongation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3125,
+    "brier": 0.5999923282418552,
+    "f1": 0.7499999999999999,
+    "log": 18.43322835260954,
+    "threshold": 1.3750680843347137e-44
+  },
+  "_original_.*Energy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_original_.*Flatness$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.663562242830129,
+    "f1": 0.7499999999999999,
+    "log": 20.826123917796952,
+    "threshold": 1.2171755079398818e-54
+  },
+  "_original_.*InterquartileRange$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_original_.*Kurtosis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_original_.*LeastAxisLength$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.0,
+    "brier": 0.69539036533596,
+    "f1": 0.7499999999999999,
+    "log": 18.914949906020816,
+    "threshold": 9.222598900738107e-27
+  },
+  "_original_.*MajorAxisLength$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.5564156806505687,
+    "f1": 0.7499999999999999,
+    "log": 18.161877749987646,
+    "threshold": 4.074985170062725e-34
+  },
+  "_original_.*Maximum$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.6458333333333333,
+    "brier": 0.29999999967675317,
+    "f1": 0.7499999999999999,
+    "log": 9.233046892838152,
+    "threshold": 0.0
+  },
+  "_original_.*Maximum2DDiameterColumn$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.5913295320397063,
+    "f1": 0.7499999999999999,
+    "log": 15.355279265605907,
+    "threshold": 0.0020013832182956565
+  },
+  "_original_.*Maximum2DDiameterRow$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.0,
+    "brier": 0.6009907847998346,
+    "f1": 0.7499999999999999,
+    "log": 18.957926638408278,
+    "threshold": 2.5714253287726048e-67
+  },
+  "_original_.*Maximum2DDiameterSlice$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.6000000553837308,
+    "f1": 0.7499999999999999,
+    "log": 21.62626971818816,
+    "threshold": 1.38522361955107e-38
+  },
+  "_original_.*Maximum3DDiameter$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.0,
+    "brier": 0.7551787231128848,
+    "f1": 0.7499999999999999,
+    "log": 20.603075629688654,
+    "threshold": 3.910134897004628e-27
+  },
+  "_original_.*Mean$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_original_.*MeanAbsoluteDeviation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 2.082011001799506e-112
+  },
+  "_original_.*Median$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.62619203347029,
+    "threshold": 0.0
+  },
+  "_original_.*MeshVolume$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.6172041253250151,
+    "f1": 0.7499999999999999,
+    "log": 19.30786111264114,
+    "threshold": 2.6058847879948966e-38
+  },
+  "_original_.*Minimum$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5416666666666667,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 0.0
+  },
+  "_original_.*MinorAxisLength$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.5095884261378654,
+    "f1": 0.7499999999999999,
+    "log": 14.845635030322853,
+    "threshold": 0.022243318769507678
+  },
+  "_original_.*Range$": {
+    "acc": 0.6666666666666667,
+    "accAdj": 0.3333333333333335,
+    "auc": 0.5833333333333334,
+    "brier": 0.4104947284325754,
+    "f1": 0.7692307692307692,
+    "log": 4.148277524030315,
+    "threshold": 5.184278968568477e-05
+  },
+  "_original_.*RobustMeanAbsoluteDeviation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_original_.*RootMeanSquared$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_original_.*Skewness$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_original_.*Sphericity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.1875,
+    "brier": 0.6962919105210391,
+    "f1": 0.7499999999999999,
+    "log": 19.59208416525496,
+    "threshold": 5.249171771522167e-81
+  },
+  "_original_.*SurfaceArea$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.14583333333333331,
+    "brier": 0.7480072867132295,
+    "f1": 0.7499999999999999,
+    "log": 22.689046683981207,
+    "threshold": 7.078262888095252e-289
+  },
+  "_original_.*SurfaceVolumeRatio$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3541666666666667,
+    "brier": 0.6999999999365766,
+    "f1": 0.7499999999999999,
+    "log": 23.813367036619816,
+    "threshold": 0.0
+  },
+  "_original_.*Variance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_square_.*10Percentile$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_square_.*90Percentile$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_square_.*Energy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_square_.*InterquartileRange$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 8.07989543503753e-68
+  },
+  "_square_.*Kurtosis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_square_.*Maximum$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.6458333333333333,
+    "brier": 0.29999999958987733,
+    "f1": 0.7499999999999999,
+    "log": 9.20761821307706,
+    "threshold": 0.0
+  },
+  "_square_.*Mean$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 2.8235288532879614e-211
+  },
+  "_square_.*MeanAbsoluteDeviation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_square_.*Median$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_square_.*Minimum$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.2916666666666667,
+    "brier": 0.49997678944436086,
+    "f1": 0.7499999999999999,
+    "log": 10.57423135818534,
+    "threshold": 1.5343354269442694e-20
+  },
+  "_square_.*Range$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.45833333333333337,
+    "brier": 0.4491213066533307,
+    "f1": 0.7499999999999999,
+    "log": 9.031226874990534,
+    "threshold": 1.53788460805744e-05
+  },
+  "_square_.*RobustMeanAbsoluteDeviation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_square_.*RootMeanSquared$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 1.4210258902360907e-282
+  },
+  "_square_.*Skewness$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_square_.*Variance$": {
+    "acc": 0.625,
+    "accAdj": 0.25,
+    "auc": 0.5625,
+    "brier": 0.4,
+    "f1": 0.8,
+    "log": 14.41746135564686,
+    "threshold": 2.202074061916075e-245
+  },
+  "_squareroot_.*10Percentile$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_squareroot_.*90Percentile$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4791666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_squareroot_.*Energy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4791666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_squareroot_.*InterquartileRange$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_squareroot_.*Kurtosis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_squareroot_.*Maximum$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.6458333333333333,
+    "brier": 0.2999999994180414,
+    "f1": 0.7499999999999999,
+    "log": 9.174246504092116,
+    "threshold": 0.0
+  },
+  "_squareroot_.*Mean$": {
+    "acc": 0.625,
+    "accAdj": 0.25,
+    "auc": 0.5625,
+    "brier": 0.4,
+    "f1": 0.8,
+    "log": 14.41746135564686,
+    "threshold": 8.261130258299055e-287
+  },
+  "_squareroot_.*MeanAbsoluteDeviation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 1.5188716854188265e-135
+  },
+  "_squareroot_.*Median$": {
+    "acc": 0.625,
+    "accAdj": 0.25,
+    "auc": 0.5625,
+    "brier": 0.4,
+    "f1": 0.8,
+    "log": 14.41746135564686,
+    "threshold": 1.9937731170860004e-278
+  },
+  "_squareroot_.*Minimum$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_squareroot_.*Range$": {
+    "acc": 0.6666666666666667,
+    "accAdj": 0.3333333333333335,
+    "auc": 0.5833333333333334,
+    "brier": 0.3994577028754548,
+    "f1": 0.7692307692307692,
+    "log": 4.187894190306564,
+    "threshold": 0.0003158545907339873
+  },
+  "_squareroot_.*RobustMeanAbsoluteDeviation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 1.2086808109438036e-39
+  },
+  "_squareroot_.*RootMeanSquared$": {
+    "acc": 0.625,
+    "accAdj": 0.25,
+    "auc": 0.5625,
+    "brier": 0.4,
+    "f1": 0.8,
+    "log": 14.41746135564686,
+    "threshold": 3.979026558863239e-174
+  },
+  "_squareroot_.*Skewness$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_squareroot_.*Variance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.40000000000004576,
+    "f1": 0.7499999999999999,
+    "log": 14.417461423297805,
+    "threshold": 0.9999993234907848
+  },
+  "_wavelet-HHH_.*10Percentile$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HHH_.*90Percentile$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HHH_.*Autocorrelation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.5998365580816098,
+    "f1": 0.7499999999999999,
+    "log": 18.732747304763432,
+    "threshold": 5.919695712756193e-142
+  },
+  "_wavelet-HHH_.*Busyness$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*ClusterProminence$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.7000000110015305,
+    "f1": 0.7499999999999999,
+    "log": 25.230590546439135,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*ClusterShade$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HHH_.*ClusterTendency$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*Coarseness$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.29166666666666663,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*Complexity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*Contrast$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*Correlation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*DependenceEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*DependenceNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*DependenceNonUniformityNormalized$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.29166666666666663,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*DependenceVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 1.0023742287630346e-185
+  },
+  "_wavelet-HHH_.*DifferenceEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*DifferenceVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*Energy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*Entropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*GrayLevelNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*GrayLevelNonUniformityNormalized$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.0,
+    "brier": 1.0,
+    "f1": 0.7499999999999999,
+    "log": 36.04365338911715,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*GrayLevelVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.0,
+    "brier": 1.0,
+    "f1": 0.7499999999999999,
+    "log": 36.04365338911715,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*HighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.7083333333333334,
+    "brier": 0.3,
+    "f1": 0.7499999999999999,
+    "log": 10.813096016735146,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*HighGrayLevelRunEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.4999999999999762,
+    "f1": 0.7499999999999999,
+    "log": 17.393588895625413,
+    "threshold": 1.188070792886777e-13
+  },
+  "_wavelet-HHH_.*HighGrayLevelZoneEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*Id$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.706845721152832,
+    "f1": 0.7499999999999999,
+    "log": 25.260890194893726,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*Idmn$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.7068457211531131,
+    "f1": 0.7499999999999999,
+    "log": 25.260890194894454,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*Idn$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.7068457211529022,
+    "f1": 0.7499999999999999,
+    "log": 25.26089019489391,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*Imc1$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*Imc2$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*InterquartileRange$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.4977677769949663,
+    "f1": 0.7499999999999999,
+    "log": 14.86643051114575,
+    "threshold": 0.011224105295005057
+  },
+  "_wavelet-HHH_.*JointEnergy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*JointEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*Kurtosis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 1.3802013659188866e-187
+  },
+  "_wavelet-HHH_.*LargeAreaEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 9.68531726658271e-180
+  },
+  "_wavelet-HHH_.*LargeAreaHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*LargeAreaLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 1.7946760322255816e-184
+  },
+  "_wavelet-HHH_.*LargeDependenceEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*LargeDependenceHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.7999999999998184,
+    "f1": 0.7499999999999999,
+    "log": 28.003363498627824,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*LargeDependenceLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*LongRunEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.0,
+    "brier": 1.0,
+    "f1": 0.7499999999999999,
+    "log": 36.04365338911715,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*LongRunHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.7999999915931455,
+    "f1": 0.7499999999999999,
+    "log": 26.929035423995128,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*LongRunLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*LowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.33333333333333337,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.230557372382002,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*LowGrayLevelRunEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.4999999999999762,
+    "f1": 0.7499999999999999,
+    "log": 17.393588895623413,
+    "threshold": 1.1880707929105492e-13
+  },
+  "_wavelet-HHH_.*LowGrayLevelZoneEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*MCC$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*Maximum$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HHH_.*MaximumProbability$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*Mean$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*MeanAbsoluteDeviation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HHH_.*Median$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*Minimum$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.7000000075575614,
+    "f1": 0.7499999999999999,
+    "log": 25.230584867180823,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*Range$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HHH_.*RobustMeanAbsoluteDeviation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.40000000000000124,
+    "f1": 0.7499999999999999,
+    "log": 14.417461366707863,
+    "threshold": 0.999999889389989
+  },
+  "_wavelet-HHH_.*RootMeanSquared$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HHH_.*RunEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.0,
+    "brier": 1.0,
+    "f1": 0.7499999999999999,
+    "log": 36.04365338911715,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*RunLengthNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*RunLengthNonUniformityNormalized$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.0,
+    "brier": 0.9999999999999998,
+    "f1": 0.7499999999999999,
+    "log": 35.941083642751686,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*RunPercentage$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.0,
+    "brier": 1.0,
+    "f1": 0.7499999999999999,
+    "log": 36.04365338911715,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*RunVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*ShortRunEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*ShortRunHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*ShortRunLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*SizeZoneNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HHH_.*SizeZoneNonUniformityNormalized$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*Skewness$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*SmallAreaEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.41666666666666663,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.62619203347029,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*SmallAreaHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.7083333333333334,
+    "brier": 0.3,
+    "f1": 0.7499999999999999,
+    "log": 10.813096016735146,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*SmallAreaLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.33333333333333337,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.230557372382002,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*SmallDependenceEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.29166666666666663,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*SmallDependenceHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*SmallDependenceLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.29166666666666663,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*Strength$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.29166666666666663,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*SumEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.8034665760111238,
+    "f1": 0.7499999999999999,
+    "log": 28.855525231378543,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*Uniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*Variance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*ZoneEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*ZonePercentage$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.29166666666666663,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HHH_.*ZoneVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*10Percentile$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HHL_.*90Percentile$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HHL_.*Autocorrelation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HHL_.*Busyness$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 4.1392205241827077e-286
+  },
+  "_wavelet-HHL_.*ClusterProminence$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*ClusterShade$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HHL_.*ClusterTendency$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 9.700136293108197e-109
+  },
+  "_wavelet-HHL_.*Coarseness$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.29166666666666663,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*Complexity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*Contrast$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*Correlation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HHL_.*DependenceEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*DependenceNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.7999991588807236,
+    "f1": 0.7499999999999999,
+    "log": 26.468466606877154,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*DependenceNonUniformityNormalized$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.20833333333333334,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*DependenceVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HHL_.*DifferenceEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*DifferenceVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.62619203347029,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*Energy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*Entropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*GrayLevelNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*GrayLevelNonUniformityNormalized$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*GrayLevelVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*HighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4583333333333333,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*HighGrayLevelRunEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*HighGrayLevelZoneEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*Id$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*Idmn$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*Idn$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*Imc1$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.375,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.62619203347029,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*Imc2$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*InterquartileRange$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HHL_.*JointEnergy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*JointEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*Kurtosis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*LargeAreaEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 4.1099876711396396e-178
+  },
+  "_wavelet-HHL_.*LargeAreaHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.6999999997183497,
+    "f1": 0.7499999999999999,
+    "log": 23.66428375349886,
+    "threshold": 3.52944628272774e-45
+  },
+  "_wavelet-HHL_.*LargeAreaLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HHL_.*LargeDependenceEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*LargeDependenceHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 4.029586753838682e-303
+  },
+  "_wavelet-HHL_.*LargeDependenceLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.8999532737005307,
+    "f1": 0.7499999999999999,
+    "log": 29.671087575828427,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*LongRunEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.8999999999999758,
+    "f1": 0.7499999999999999,
+    "log": 31.809753801674525,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*LongRunHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.49999999999999983,
+    "f1": 0.7499999999999999,
+    "log": 17.906008771629608,
+    "threshold": 7.070189819101328e-16
+  },
+  "_wavelet-HHL_.*LongRunLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.7999999756628687,
+    "f1": 0.7499999999999999,
+    "log": 26.822738796586417,
+    "threshold": 1.1964731534195907e-288
+  },
+  "_wavelet-HHL_.*LowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5416666666666667,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*LowGrayLevelRunEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*LowGrayLevelZoneEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*MCC$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.5999998668903233,
+    "f1": 0.7499999999999999,
+    "log": 19.444092111118216,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*Maximum$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 1.36442674532956e-129
+  },
+  "_wavelet-HHL_.*MaximumProbability$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*Mean$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*MeanAbsoluteDeviation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HHL_.*Median$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 5.066886415922029e-294
+  },
+  "_wavelet-HHL_.*Minimum$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 5.2571634136464135e-80
+  },
+  "_wavelet-HHL_.*Range$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HHL_.*RobustMeanAbsoluteDeviation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HHL_.*RootMeanSquared$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HHL_.*RunEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*RunLengthNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*RunLengthNonUniformityNormalized$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*RunPercentage$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*RunVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 4.5096559606482955e-293
+  },
+  "_wavelet-HHL_.*ShortRunEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*ShortRunHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*ShortRunLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*SizeZoneNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*SizeZoneNonUniformityNormalized$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.62619203347029,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*Skewness$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 1.292798288981269e-32
+  },
+  "_wavelet-HHL_.*SmallAreaEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5833333333333333,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*SmallAreaHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4583333333333333,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*SmallAreaLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5416666666666667,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*SmallDependenceEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*SmallDependenceHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*SmallDependenceLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*Strength$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.29166666666666663,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*SumEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*Uniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*Variance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.62619203347029,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*ZoneEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*ZonePercentage$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-HHL_.*ZoneVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.230557372382002,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*10Percentile$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HLH_.*90Percentile$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HLH_.*Autocorrelation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HLH_.*Busyness$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*ClusterProminence$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*ClusterShade$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*ClusterTendency$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*Coarseness$": {
+    "acc": 0.7916666666666667,
+    "accAdj": 0.5833333333333335,
+    "auc": 0.7083333333333334,
+    "brier": 0.20694967175395634,
+    "f1": 0.8333333333333334,
+    "log": 4.174661139167491,
+    "threshold": 0.7995539409549014
+  },
+  "_wavelet-HLH_.*Complexity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*Contrast$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*Correlation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*DependenceEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*DependenceNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*DependenceNonUniformityNormalized$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.20833333333333334,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*DependenceVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.7999999998944133,
+    "f1": 0.7499999999999999,
+    "log": 27.366762390239636,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*DifferenceEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.375,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*DifferenceVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3125,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*Energy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*Entropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*GrayLevelNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*GrayLevelNonUniformityNormalized$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HLH_.*GrayLevelVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HLH_.*HighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4583333333333333,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*HighGrayLevelRunEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HLH_.*HighGrayLevelZoneEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HLH_.*Id$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694792907,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*Idmn$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694792907,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*Idn$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694792907,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*Imc1$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*Imc2$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*InterquartileRange$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HLH_.*JointEnergy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*JointEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*Kurtosis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*LargeAreaEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*LargeAreaHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*LargeAreaLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.62619203347029,
+    "threshold": 1.563870325452727e-54
+  },
+  "_wavelet-HLH_.*LargeDependenceEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*LargeDependenceHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*LargeDependenceLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*LongRunEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.0,
+    "brier": 1.0,
+    "f1": 0.7499999999999999,
+    "log": 36.04365338911715,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*LongRunHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 3.05849131229189e-281
+  },
+  "_wavelet-HLH_.*LongRunLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 1.2262254890296472e-21
+  },
+  "_wavelet-HLH_.*LowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5416666666666667,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*LowGrayLevelRunEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HLH_.*LowGrayLevelZoneEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HLH_.*MCC$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*Maximum$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 1.1490784680116212e-52
+  },
+  "_wavelet-HLH_.*MaximumProbability$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HLH_.*Mean$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HLH_.*MeanAbsoluteDeviation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HLH_.*Median$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*Minimum$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 7.740069187573174e-90
+  },
+  "_wavelet-HLH_.*Range$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HLH_.*RobustMeanAbsoluteDeviation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HLH_.*RootMeanSquared$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HLH_.*RunEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.0,
+    "brier": 1.0,
+    "f1": 0.7499999999999999,
+    "log": 36.04365338911715,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*RunLengthNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.699999997976468,
+    "f1": 0.7499999999999999,
+    "log": 23.46709036836572,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*RunLengthNonUniformityNormalized$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.0,
+    "brier": 1.0,
+    "f1": 0.7499999999999999,
+    "log": 36.04365338911715,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*RunPercentage$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.0,
+    "brier": 1.0,
+    "f1": 0.7499999999999999,
+    "log": 36.04365338911715,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*RunVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.125,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*ShortRunEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.0,
+    "brier": 1.0,
+    "f1": 0.7499999999999999,
+    "log": 36.04365338911715,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*ShortRunHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.62619203347029,
+    "threshold": 5.471892478706665e-146
+  },
+  "_wavelet-HLH_.*ShortRunLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HLH_.*SizeZoneNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*SizeZoneNonUniformityNormalized$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HLH_.*Skewness$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694748842,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*SmallAreaEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5416666666666667,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*SmallAreaHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4583333333333333,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*SmallAreaLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5416666666666667,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*SmallDependenceEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*SmallDependenceHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*SmallDependenceLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*Strength$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.29166666666666663,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*SumEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*Uniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*Variance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*ZoneEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*ZonePercentage$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.10416666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-HLH_.*ZoneVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HLL_.*10Percentile$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HLL_.*90Percentile$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 1.1699223663428145e-283
+  },
+  "_wavelet-HLL_.*Autocorrelation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HLL_.*Busyness$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*ClusterProminence$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.6004598779642843,
+    "f1": 0.7499999999999999,
+    "log": 21.633214357275424,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*ClusterShade$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HLL_.*ClusterTendency$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HLL_.*Coarseness$": {
+    "acc": 0.7916666666666667,
+    "accAdj": 0.5833333333333335,
+    "auc": 0.6666666666666666,
+    "brier": 0.5999999890614471,
+    "f1": 0.8333333333333334,
+    "log": 13.048388117004901,
+    "threshold": 1.38448489054463e-09
+  },
+  "_wavelet-HLL_.*Complexity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HLL_.*Contrast$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 6.973300263564407e-61
+  },
+  "_wavelet-HLL_.*Correlation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 3.1015348598631636e-222
+  },
+  "_wavelet-HLL_.*DependenceEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.10416666666666666,
+    "brier": 0.8135650982811832,
+    "f1": 0.7499999999999999,
+    "log": 28.880858088803894,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*DependenceNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 2.894711619512032e-225
+  },
+  "_wavelet-HLL_.*DependenceNonUniformityNormalized$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.29166666666666663,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*DependenceVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 7.661662427001832e-73
+  },
+  "_wavelet-HLL_.*DifferenceEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*DifferenceVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*Energy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HLL_.*Entropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*GrayLevelNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.62619203347029,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*GrayLevelNonUniformityNormalized$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.62619203347029,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*GrayLevelVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.62619203347029,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*HighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.62619203347029,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*HighGrayLevelRunEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*HighGrayLevelZoneEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HLL_.*Id$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 3.426442269313404e-100
+  },
+  "_wavelet-HLL_.*Idmn$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 3.4264422694692203e-100
+  },
+  "_wavelet-HLL_.*Idn$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 3.4264422692152393e-100
+  },
+  "_wavelet-HLL_.*Imc1$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*Imc2$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.62619203347029,
+    "threshold": 2.606318837587043e-114
+  },
+  "_wavelet-HLL_.*InterquartileRange$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.49999999999945743,
+    "f1": 0.7499999999999999,
+    "log": 17.08075891640463,
+    "threshold": 2.712974157913808e-12
+  },
+  "_wavelet-HLL_.*JointEnergy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HLL_.*JointEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*Kurtosis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*LargeAreaEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*LargeAreaHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*LargeAreaLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 3.1547920234066506e-193
+  },
+  "_wavelet-HLL_.*LargeDependenceEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*LargeDependenceHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*LargeDependenceLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 2.9099769287571456e-77
+  },
+  "_wavelet-HLL_.*LongRunEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.8999999996595396,
+    "f1": 0.7499999999999999,
+    "log": 30.85405111035808,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*LongRunHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 1.961676406669076e-171
+  },
+  "_wavelet-HLL_.*LongRunLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HLL_.*LowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*LowGrayLevelRunEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*LowGrayLevelZoneEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HLL_.*MCC$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 2.875087453328067e-152
+  },
+  "_wavelet-HLL_.*Maximum$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HLL_.*MaximumProbability$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HLL_.*Mean$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 4.749666265723877e-62
+  },
+  "_wavelet-HLL_.*MeanAbsoluteDeviation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HLL_.*Median$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HLL_.*Minimum$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 4.010519316949312e-94
+  },
+  "_wavelet-HLL_.*Range$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HLL_.*RobustMeanAbsoluteDeviation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HLL_.*RootMeanSquared$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 1.2961820149408034e-106
+  },
+  "_wavelet-HLL_.*RunEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.0,
+    "brier": 1.0,
+    "f1": 0.7499999999999999,
+    "log": 36.04365338911715,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*RunLengthNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.6999999973688456,
+    "f1": 0.7499999999999999,
+    "log": 23.440832555372012,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*RunLengthNonUniformityNormalized$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.62619203347029,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*RunPercentage$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*RunVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*ShortRunEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*ShortRunHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 8.050502973665383e-35
+  },
+  "_wavelet-HLL_.*ShortRunLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HLL_.*SizeZoneNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*SizeZoneNonUniformityNormalized$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*Skewness$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-HLL_.*SmallAreaEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.6999999640436305,
+    "f1": 0.7499999999999999,
+    "log": 23.179344192537684,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*SmallAreaHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.62619203347029,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*SmallAreaLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*SmallDependenceEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.20833333333333334,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*SmallDependenceHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*SmallDependenceLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*Strength$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.20833333333333334,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*SumEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*Uniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*Variance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.62619203347029,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*ZoneEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*ZonePercentage$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.20833333333333334,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-HLL_.*ZoneVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.5999999999999996,
+    "f1": 0.7499999999999999,
+    "log": 21.423771099002323,
+    "threshold": 3.5192327023617266e-198
+  },
+  "_wavelet-LHH_.*10Percentile$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 2.1429176420207235e-63
+  },
+  "_wavelet-LHH_.*90Percentile$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHH_.*Autocorrelation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHH_.*Busyness$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*ClusterProminence$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*ClusterShade$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.4999999999999999,
+    "f1": 0.7499999999999999,
+    "log": 17.924086127166454,
+    "threshold": 5.900952465475422e-16
+  },
+  "_wavelet-LHH_.*ClusterTendency$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*Coarseness$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.29166666666666663,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*Complexity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*Contrast$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*Correlation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*DependenceEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.20833333333333334,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*DependenceNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*DependenceNonUniformityNormalized$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.20833333333333334,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*DependenceVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*DifferenceEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*DifferenceVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*Energy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*Entropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*GrayLevelNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*GrayLevelNonUniformityNormalized$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.62619203347029,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*GrayLevelVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.62619203347029,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*HighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.375,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*HighGrayLevelRunEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 1.961908019947e-312
+  },
+  "_wavelet-LHH_.*HighGrayLevelZoneEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*Id$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 7.969889059129289e-165
+  },
+  "_wavelet-LHH_.*Idmn$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 7.969889056019651e-165
+  },
+  "_wavelet-LHH_.*Idn$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 7.969889056874983e-165
+  },
+  "_wavelet-LHH_.*Imc1$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*Imc2$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*InterquartileRange$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHH_.*JointEnergy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*JointEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*Kurtosis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*LargeAreaEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 3.1064514644050166e-122
+  },
+  "_wavelet-LHH_.*LargeAreaHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 8.15156743740811e-97
+  },
+  "_wavelet-LHH_.*LargeAreaLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 8.325392498945107e-111
+  },
+  "_wavelet-LHH_.*LargeDependenceEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.62619203347029,
+    "threshold": 7.759801200729189e-243
+  },
+  "_wavelet-LHH_.*LargeDependenceHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.8003644556168237,
+    "f1": 0.7499999999999999,
+    "log": 28.453991888149897,
+    "threshold": 9.188613256277875e-164
+  },
+  "_wavelet-LHH_.*LargeDependenceLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*LongRunEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*LongRunHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 5.033050689242419e-190
+  },
+  "_wavelet-LHH_.*LongRunLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHH_.*LowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*LowGrayLevelRunEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 1.961908019863e-312
+  },
+  "_wavelet-LHH_.*LowGrayLevelZoneEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHH_.*MCC$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*Maximum$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*MaximumProbability$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*Mean$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 1.9835175698839638e-134
+  },
+  "_wavelet-LHH_.*MeanAbsoluteDeviation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHH_.*Median$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 5.02677950450484e-265
+  },
+  "_wavelet-LHH_.*Minimum$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHH_.*Range$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHH_.*RobustMeanAbsoluteDeviation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHH_.*RootMeanSquared$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHH_.*RunEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.10416666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*RunLengthNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3125,
+    "brier": 0.6999999870591646,
+    "f1": 0.7499999999999999,
+    "log": 23.281536037472016,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*RunLengthNonUniformityNormalized$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*RunPercentage$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*RunVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 4.42767e-319
+  },
+  "_wavelet-LHH_.*ShortRunEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*ShortRunHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.6000000060510197,
+    "f1": 0.7499999999999999,
+    "log": 21.62621663531675,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*ShortRunLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 1.9723552684846566e-223
+  },
+  "_wavelet-LHH_.*SizeZoneNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.7083333333333334,
+    "brier": 0.3,
+    "f1": 0.7499999999999999,
+    "log": 10.813096016735146,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*SizeZoneNonUniformityNormalized$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*Skewness$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHH_.*SmallAreaEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*SmallAreaHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.375,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*SmallAreaLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*SmallDependenceEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.20833333333333334,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*SmallDependenceHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.20833333333333334,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*SmallDependenceLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.29166666666666663,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*Strength$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.29166666666666663,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*SumEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*Uniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*Variance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*ZoneEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.29166666666666663,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*ZonePercentage$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.20833333333333334,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-LHH_.*ZoneVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.62619203347029,
+    "threshold": 0.0
+  },
+  "_wavelet-LHL_.*10Percentile$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.4999999999999997,
+    "f1": 0.7499999999999999,
+    "log": 17.833787769500994,
+    "threshold": 1.4557369341699957e-15
+  },
+  "_wavelet-LHL_.*90Percentile$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHL_.*Autocorrelation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHL_.*Busyness$": {
+    "acc": 0.625,
+    "accAdj": 0.25,
+    "auc": 0.5625,
+    "brier": 0.4,
+    "f1": 0.8,
+    "log": 14.41746135564686,
+    "threshold": 2.7532354901412086e-47
+  },
+  "_wavelet-LHL_.*ClusterProminence$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-LHL_.*ClusterShade$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHL_.*ClusterTendency$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-LHL_.*Coarseness$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.29166666666666663,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-LHL_.*Complexity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 5.228754118462032e-40
+  },
+  "_wavelet-LHL_.*Contrast$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHL_.*Correlation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-LHL_.*DependenceEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.0,
+    "brier": 1.0,
+    "f1": 0.7499999999999999,
+    "log": 36.04365338911715,
+    "threshold": 0.0
+  },
+  "_wavelet-LHL_.*DependenceNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-LHL_.*DependenceNonUniformityNormalized$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.0,
+    "brier": 1.0,
+    "f1": 0.7499999999999999,
+    "log": 36.04365338911715,
+    "threshold": 0.0
+  },
+  "_wavelet-LHL_.*DependenceVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHL_.*DifferenceEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHL_.*DifferenceVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHL_.*Energy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-LHL_.*Entropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-LHL_.*GrayLevelNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHL_.*GrayLevelNonUniformityNormalized$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHL_.*GrayLevelVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHL_.*HighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-LHL_.*HighGrayLevelRunEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.40000000000073077,
+    "f1": 0.7499999999999999,
+    "log": 14.417461625973607,
+    "threshold": 0.9999972967361986
+  },
+  "_wavelet-LHL_.*HighGrayLevelZoneEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-LHL_.*Id$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-LHL_.*Idmn$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-LHL_.*Idn$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-LHL_.*Imc1$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHL_.*Imc2$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHL_.*InterquartileRange$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHL_.*JointEnergy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-LHL_.*JointEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHL_.*Kurtosis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHL_.*LargeAreaEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 5.626427374738834e-58
+  },
+  "_wavelet-LHL_.*LargeAreaHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-LHL_.*LargeAreaLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHL_.*LargeDependenceEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-LHL_.*LargeDependenceHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-LHL_.*LargeDependenceLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 3.405579527705132e-275
+  },
+  "_wavelet-LHL_.*LongRunEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.0,
+    "brier": 1.0,
+    "f1": 0.7499999999999999,
+    "log": 36.04365338911715,
+    "threshold": 0.0
+  },
+  "_wavelet-LHL_.*LongRunHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 8.720376480673799e-60
+  },
+  "_wavelet-LHL_.*LongRunLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.6999999992392972,
+    "f1": 0.7499999999999999,
+    "log": 22.155556943589065,
+    "threshold": 7.618525222310132e-26
+  },
+  "_wavelet-LHL_.*LowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-LHL_.*LowGrayLevelRunEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.40000000000073077,
+    "f1": 0.7499999999999999,
+    "log": 14.417461625973607,
+    "threshold": 0.9999972967361986
+  },
+  "_wavelet-LHL_.*LowGrayLevelZoneEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHL_.*MCC$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHL_.*Maximum$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.417461355646907,
+    "threshold": 0.9999999999995453
+  },
+  "_wavelet-LHL_.*MaximumProbability$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHL_.*Mean$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHL_.*MeanAbsoluteDeviation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHL_.*Median$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHL_.*Minimum$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.4999999999999842,
+    "f1": 0.7499999999999999,
+    "log": 17.43408000625905,
+    "threshold": 7.924861123765617e-14
+  },
+  "_wavelet-LHL_.*Range$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHL_.*RobustMeanAbsoluteDeviation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHL_.*RootMeanSquared$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHL_.*RunEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.0,
+    "brier": 1.0,
+    "f1": 0.7499999999999999,
+    "log": 36.04365338911715,
+    "threshold": 0.0
+  },
+  "_wavelet-LHL_.*RunLengthNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.5999999999999999,
+    "f1": 0.7499999999999999,
+    "log": 21.549152152467464,
+    "threshold": 0.0
+  },
+  "_wavelet-LHL_.*RunLengthNonUniformityNormalized$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.0,
+    "brier": 1.0,
+    "f1": 0.7499999999999999,
+    "log": 36.04365338911715,
+    "threshold": 0.0
+  },
+  "_wavelet-LHL_.*RunPercentage$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.0,
+    "brier": 1.0,
+    "f1": 0.7499999999999999,
+    "log": 36.04365338911715,
+    "threshold": 0.0
+  },
+  "_wavelet-LHL_.*RunVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.8058513926321542,
+    "f1": 0.7499999999999999,
+    "log": 28.86261624982627,
+    "threshold": 0.0
+  },
+  "_wavelet-LHL_.*ShortRunEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-LHL_.*ShortRunHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-LHL_.*ShortRunLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 2.7717034539175323e-98
+  },
+  "_wavelet-LHL_.*SizeZoneNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHL_.*SizeZoneNonUniformityNormalized$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-LHL_.*Skewness$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHL_.*SmallAreaEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 1.6835265152178236e-19
+  },
+  "_wavelet-LHL_.*SmallAreaHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-LHL_.*SmallAreaLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHL_.*SmallDependenceEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.20833333333333334,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-LHL_.*SmallDependenceHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.29166666666666663,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-LHL_.*SmallDependenceLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-LHL_.*Strength$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.29166666666666663,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-LHL_.*SumEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-LHL_.*Uniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHL_.*Variance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LHL_.*ZoneEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-LHL_.*ZonePercentage$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.29166666666666663,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-LHL_.*ZoneVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LLH_.*10Percentile$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 3.50961855138223e-122
+  },
+  "_wavelet-LLH_.*90Percentile$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LLH_.*Autocorrelation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 2.174587391497568e-113
+  },
+  "_wavelet-LLH_.*Busyness$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-LLH_.*ClusterProminence$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-LLH_.*ClusterShade$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LLH_.*ClusterTendency$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 3.5841633626781283e-134
+  },
+  "_wavelet-LLH_.*Coarseness$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.29166666666666663,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-LLH_.*Complexity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.49999999252775285,
+    "f1": 0.7499999999999999,
+    "log": 16.127724568703123,
+    "threshold": 3.736123637580331e-08
+  },
+  "_wavelet-LLH_.*Contrast$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LLH_.*Correlation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 2.3864628081664284e-304
+  },
+  "_wavelet-LLH_.*DependenceEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-LLH_.*DependenceNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 3.257954140607723e-229
+  },
+  "_wavelet-LLH_.*DependenceNonUniformityNormalized$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-LLH_.*DependenceVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 1.9745375164796593e-206
+  },
+  "_wavelet-LLH_.*DifferenceEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-LLH_.*DifferenceVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-LLH_.*Energy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-LLH_.*Entropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-LLH_.*GrayLevelNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-LLH_.*GrayLevelNonUniformityNormalized$": {
+    "acc": 0.625,
+    "accAdj": 0.25,
+    "auc": 0.625,
+    "brier": 0.3,
+    "f1": 0.8,
+    "log": 10.813096016735146,
+    "threshold": 1.0
+  },
+  "_wavelet-LLH_.*GrayLevelVariance$": {
+    "acc": 0.625,
+    "accAdj": 0.25,
+    "auc": 0.625,
+    "brier": 0.3,
+    "f1": 0.8,
+    "log": 10.813096016735146,
+    "threshold": 1.0
+  },
+  "_wavelet-LLH_.*HighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-LLH_.*HighGrayLevelRunEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 1.668009785177034e-27
+  },
+  "_wavelet-LLH_.*HighGrayLevelZoneEmphasis$": {
+    "acc": 0.625,
+    "accAdj": 0.25,
+    "auc": 0.625,
+    "brier": 0.3,
+    "f1": 0.8,
+    "log": 10.813096016735146,
+    "threshold": 1.0
+  },
+  "_wavelet-LLH_.*Id$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LLH_.*Idmn$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LLH_.*Idn$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LLH_.*Imc1$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-LLH_.*Imc2$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 1.955756517370862e-89
+  },
+  "_wavelet-LLH_.*InterquartileRange$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LLH_.*JointEnergy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-LLH_.*JointEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-LLH_.*Kurtosis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LLH_.*LargeAreaEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LLH_.*LargeAreaHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-LLH_.*LargeAreaLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-LLH_.*LargeDependenceEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 7.87727328537313e-255
+  },
+  "_wavelet-LLH_.*LargeDependenceHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 2.549940220921912e-41
+  },
+  "_wavelet-LLH_.*LargeDependenceLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.6999999992709571,
+    "f1": 0.7499999999999999,
+    "log": 23.56917709557714,
+    "threshold": 3.7932671522685684e-202
+  },
+  "_wavelet-LLH_.*LongRunEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.8999999999998305,
+    "f1": 0.7499999999999999,
+    "log": 31.614590106310665,
+    "threshold": 7.749433694520988e-297
+  },
+  "_wavelet-LLH_.*LongRunHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 1.246882396824103e-111
+  },
+  "_wavelet-LLH_.*LongRunLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 3.1402497584729145e-286
+  },
+  "_wavelet-LLH_.*LowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-LLH_.*LowGrayLevelRunEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 1.6680097851569333e-27
+  },
+  "_wavelet-LLH_.*LowGrayLevelZoneEmphasis$": {
+    "acc": 0.625,
+    "accAdj": 0.25,
+    "auc": 0.625,
+    "brier": 0.3,
+    "f1": 0.8,
+    "log": 10.813096016735146,
+    "threshold": 1.0
+  },
+  "_wavelet-LLH_.*MCC$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 5.596676494539201e-103
+  },
+  "_wavelet-LLH_.*Maximum$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 1.1112515934954363e-298
+  },
+  "_wavelet-LLH_.*MaximumProbability$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LLH_.*Mean$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 6.782592584498213e-60
+  },
+  "_wavelet-LLH_.*MeanAbsoluteDeviation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 1.9066654552894263e-101
+  },
+  "_wavelet-LLH_.*Median$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 9.967642091044844e-250
+  },
+  "_wavelet-LLH_.*Minimum$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LLH_.*Range$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LLH_.*RobustMeanAbsoluteDeviation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 4.005385634749045e-91
+  },
+  "_wavelet-LLH_.*RootMeanSquared$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LLH_.*RunEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-LLH_.*RunLengthNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-LLH_.*RunLengthNonUniformityNormalized$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-LLH_.*RunPercentage$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.0,
+    "brier": 1.0,
+    "f1": 0.7499999999999999,
+    "log": 36.04365338911715,
+    "threshold": 0.0
+  },
+  "_wavelet-LLH_.*RunVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.6996517176735438,
+    "f1": 0.7499999999999999,
+    "log": 22.26141077012363,
+    "threshold": 0.0
+  },
+  "_wavelet-LLH_.*ShortRunEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-LLH_.*ShortRunHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.62619203347029,
+    "threshold": 2.693781151484783e-210
+  },
+  "_wavelet-LLH_.*ShortRunLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 6.583690982846468e-112
+  },
+  "_wavelet-LLH_.*SizeZoneNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.62619203347029,
+    "threshold": 0.0
+  },
+  "_wavelet-LLH_.*SizeZoneNonUniformityNormalized$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-LLH_.*Skewness$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-LLH_.*SmallAreaEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-LLH_.*SmallAreaHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-LLH_.*SmallAreaLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-LLH_.*SmallDependenceEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.20833333333333334,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-LLH_.*SmallDependenceHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-LLH_.*SmallDependenceLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.20833333333333334,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-LLH_.*Strength$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.29166666666666663,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-LLH_.*SumEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-LLH_.*Uniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-LLH_.*Variance$": {
+    "acc": 0.625,
+    "accAdj": 0.25,
+    "auc": 0.625,
+    "brier": 0.3,
+    "f1": 0.8,
+    "log": 10.813096016735146,
+    "threshold": 1.0
+  },
+  "_wavelet-LLH_.*ZoneEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-LLH_.*ZonePercentage$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.22916666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-LLH_.*ZoneVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.700000000002801,
+    "f1": 0.7499999999999999,
+    "log": 25.230557901633567,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*10Percentile$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LLL_.*90Percentile$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LLL_.*Autocorrelation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5416666666666667,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*Busyness$": {
+    "acc": 0.6666666666666667,
+    "accAdj": 0.3333333333333335,
+    "auc": 0.6666666666666667,
+    "brier": 0.3,
+    "f1": 0.7692307692307692,
+    "log": 10.813096016735146,
+    "threshold": 1.0
+  },
+  "_wavelet-LLL_.*ClusterProminence$": {
+    "acc": 0.625,
+    "accAdj": 0.25,
+    "auc": 0.625,
+    "brier": 0.3,
+    "f1": 0.8,
+    "log": 10.813096016735146,
+    "threshold": 1.0
+  },
+  "_wavelet-LLL_.*ClusterShade$": {
+    "acc": 0.625,
+    "accAdj": 0.25,
+    "auc": 0.625,
+    "brier": 0.3,
+    "f1": 0.8,
+    "log": 10.813096016735146,
+    "threshold": 1.0
+  },
+  "_wavelet-LLL_.*ClusterTendency$": {
+    "acc": 0.625,
+    "accAdj": 0.25,
+    "auc": 0.625,
+    "brier": 0.3,
+    "f1": 0.8,
+    "log": 10.813096016735146,
+    "threshold": 1.0
+  },
+  "_wavelet-LLL_.*Coarseness$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*Complexity$": {
+    "acc": 0.6666666666666667,
+    "accAdj": 0.3333333333333335,
+    "auc": 0.6666666666666667,
+    "brier": 0.3,
+    "f1": 0.7692307692307692,
+    "log": 10.813096016735146,
+    "threshold": 1.0
+  },
+  "_wavelet-LLL_.*Contrast$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5416666666666666,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*Correlation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5416666666666667,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*DependenceEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.0,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*DependenceNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.6000000000000204,
+    "f1": 0.7499999999999999,
+    "log": 21.626192078647197,
+    "threshold": 1.5939378426723148e-130
+  },
+  "_wavelet-LLL_.*DependenceNonUniformityNormalized$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.20833333333333334,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*DependenceVariance$": {
+    "acc": 0.625,
+    "accAdj": 0.25,
+    "auc": 0.625,
+    "brier": 0.32704215670915704,
+    "f1": 0.8,
+    "log": 10.88649725458119,
+    "threshold": 1.0
+  },
+  "_wavelet-LLL_.*DifferenceEntropy$": {
+    "acc": 0.625,
+    "accAdj": 0.25,
+    "auc": 0.625,
+    "brier": 0.3,
+    "f1": 0.8,
+    "log": 10.813096016735146,
+    "threshold": 1.0
+  },
+  "_wavelet-LLL_.*DifferenceVariance$": {
+    "acc": 0.625,
+    "accAdj": 0.25,
+    "auc": 0.625,
+    "brier": 0.3,
+    "f1": 0.8,
+    "log": 10.813096016735146,
+    "threshold": 1.0
+  },
+  "_wavelet-LLL_.*Energy$": {
+    "acc": 0.625,
+    "accAdj": 0.25,
+    "auc": 0.625,
+    "brier": 0.3,
+    "f1": 0.8,
+    "log": 10.813096016735146,
+    "threshold": 1.0
+  },
+  "_wavelet-LLL_.*Entropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LLL_.*GrayLevelNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*GrayLevelNonUniformityNormalized$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5416666666666667,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*GrayLevelVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5416666666666667,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*HighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*HighGrayLevelRunEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5416666666666667,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*HighGrayLevelZoneEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5416666666666667,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*Id$": {
+    "acc": 0.625,
+    "accAdj": 0.25,
+    "auc": 0.625,
+    "brier": 0.3,
+    "f1": 0.8,
+    "log": 10.813096016735146,
+    "threshold": 1.0
+  },
+  "_wavelet-LLL_.*Idmn$": {
+    "acc": 0.625,
+    "accAdj": 0.25,
+    "auc": 0.625,
+    "brier": 0.3,
+    "f1": 0.8,
+    "log": 10.813096016735146,
+    "threshold": 1.0
+  },
+  "_wavelet-LLL_.*Idn$": {
+    "acc": 0.625,
+    "accAdj": 0.25,
+    "auc": 0.625,
+    "brier": 0.3,
+    "f1": 0.8,
+    "log": 10.813096016735146,
+    "threshold": 1.0
+  },
+  "_wavelet-LLL_.*Imc1$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.62619203347029,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*Imc2$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LLL_.*InterquartileRange$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.4999995559818486,
+    "f1": 0.7499999999999999,
+    "log": 15.719257492779963,
+    "threshold": 2.2200932214201495e-06
+  },
+  "_wavelet-LLL_.*JointEnergy$": {
+    "acc": 0.625,
+    "accAdj": 0.25,
+    "auc": 0.625,
+    "brier": 0.3,
+    "f1": 0.8,
+    "log": 10.813096016735146,
+    "threshold": 1.0
+  },
+  "_wavelet-LLL_.*JointEntropy$": {
+    "acc": 0.625,
+    "accAdj": 0.25,
+    "auc": 0.625,
+    "brier": 0.3,
+    "f1": 0.8,
+    "log": 10.813096016735146,
+    "threshold": 1.0
+  },
+  "_wavelet-LLL_.*Kurtosis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*LargeAreaEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.6999999999999085,
+    "f1": 0.7499999999999999,
+    "log": 24.46739058307724,
+    "threshold": 1.4137226411655381e-198
+  },
+  "_wavelet-LLL_.*LargeAreaHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.5000008048207378,
+    "f1": 0.7499999999999999,
+    "log": 18.022110791358244,
+    "threshold": 1.0506965540050623e-58
+  },
+  "_wavelet-LLL_.*LargeAreaLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*LargeDependenceEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*LargeDependenceHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*LargeDependenceLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*LongRunEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.8999999999999989,
+    "f1": 0.7499999999999999,
+    "log": 32.112801988280566,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*LongRunHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*LongRunLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*LowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*LowGrayLevelRunEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5416666666666667,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*LowGrayLevelZoneEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5416666666666667,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*MCC$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5416666666666667,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*Maximum$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.49999999999943157,
+    "f1": 0.7499999999999999,
+    "log": 17.076115424292112,
+    "threshold": 2.8419215613172805e-12
+  },
+  "_wavelet-LLL_.*MaximumProbability$": {
+    "acc": 0.625,
+    "accAdj": 0.25,
+    "auc": 0.625,
+    "brier": 0.3,
+    "f1": 0.8,
+    "log": 10.813096016735146,
+    "threshold": 1.0
+  },
+  "_wavelet-LLL_.*Mean$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LLL_.*MeanAbsoluteDeviation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LLL_.*Median$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LLL_.*Minimum$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LLL_.*Range$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.417461356103928,
+    "threshold": 0.9999999954293344
+  },
+  "_wavelet-LLL_.*RobustMeanAbsoluteDeviation$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.4999999999999929,
+    "f1": 0.7499999999999999,
+    "log": 17.51494528518313,
+    "threshold": 3.530191103871551e-14
+  },
+  "_wavelet-LLL_.*RootMeanSquared$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 1.0
+  },
+  "_wavelet-LLL_.*RunEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.0,
+    "brier": 1.0,
+    "f1": 0.7499999999999999,
+    "log": 36.02650338271853,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*RunLengthNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.25,
+    "brier": 0.7,
+    "f1": 0.7499999999999999,
+    "log": 25.23055737238201,
+    "threshold": 8.589892632538033e-300
+  },
+  "_wavelet-LLL_.*RunLengthNonUniformityNormalized$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.0,
+    "brier": 1.0,
+    "f1": 0.7499999999999999,
+    "log": 36.04365338911715,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*RunPercentage$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*RunVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*ShortRunEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*ShortRunHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*ShortRunLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*SizeZoneNonUniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.5,
+    "brier": 0.4,
+    "f1": 0.7499999999999999,
+    "log": 14.41746135564686,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*SizeZoneNonUniformityNormalized$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.5999999999999972,
+    "f1": 0.7499999999999999,
+    "log": 21.211368559792312,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*Skewness$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 2.0656409920134374e-147
+  },
+  "_wavelet-LLL_.*SmallAreaEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*SmallAreaHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*SmallAreaLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*SmallDependenceEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*SmallDependenceHighGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.16666666666666666,
+    "brier": 0.8,
+    "f1": 0.7499999999999999,
+    "log": 28.83492271129372,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*SmallDependenceLowGrayLevelEmphasis$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*Strength$": {
+    "acc": 0.6666666666666667,
+    "accAdj": 0.3333333333333335,
+    "auc": 0.6666666666666667,
+    "brier": 0.3,
+    "f1": 0.7692307692307692,
+    "log": 10.813096016735146,
+    "threshold": 1.0
+  },
+  "_wavelet-LLL_.*SumEntropy$": {
+    "acc": 0.625,
+    "accAdj": 0.25,
+    "auc": 0.625,
+    "brier": 0.3,
+    "f1": 0.8,
+    "log": 10.813096016735146,
+    "threshold": 1.0
+  },
+  "_wavelet-LLL_.*Uniformity$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.6,
+    "f1": 0.7499999999999999,
+    "log": 21.626192033470293,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*Variance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 9.046674230327421e-153
+  },
+  "_wavelet-LLL_.*ZoneEntropy$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.3333333333333333,
+    "brier": 0.5999981164573587,
+    "f1": 0.7499999999999999,
+    "log": 19.179118049494026,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*ZonePercentage$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.08333333333333333,
+    "brier": 0.9,
+    "f1": 0.7499999999999999,
+    "log": 32.439288050205434,
+    "threshold": 0.0
+  },
+  "_wavelet-LLL_.*ZoneVariance$": {
+    "acc": 0.5,
+    "accAdj": 0.0,
+    "auc": 0.4166666666666667,
+    "brier": 0.5,
+    "f1": 0.7499999999999999,
+    "log": 18.021826694558577,
+    "threshold": 0.0
+  }
+}
