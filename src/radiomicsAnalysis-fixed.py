@@ -68,6 +68,19 @@ for name, algorithm in [
 
 #%% selection
 
+def getNonRandomFeatures(path):
+
+    with open(path) as infile:
+        res = json.load(infile)
+    res_df = pd.DataFrame(res).T
+    res_df = res_df.dropna()
+    res_df = res_df[(res_df["acc"]>0.5) & (res_df["accAdj"]>0.0) & (res_df["auc"]>0.5)].dropna()
+    
+
+    return res_df.sort_values(by="acc", ascending=False).index
+
+#%%
+
 best_selected_features = {}
 
 for name in ["logreg"]:
@@ -75,10 +88,8 @@ for name in ["logreg"]:
     with open(f"../study/stats/results-{name}-fix40.json") as infile:
         res = json.load(infile)
     res_df = pd.DataFrame(res).T
-    best_image_features = res_df[res_df["acc"]>0.8].dropna().sort_values(by="acc", ascending=False).iloc[:10, :].index
-    regex = "|".join(best_image_features)
+    best_image_features = res_df[res_df["acc"]>0.8].dropna().sort_values(by="acc", ascending=False).index
 
-    best_selected_features[name] = regex
 
 
 #%% Combinatorial selection
@@ -210,12 +221,12 @@ for name, algorithm, selected_groups in [
 plot_sfs(sfss["logreg"].get_metric_dict(), kind='std_dev')
 #%% Best Log Reg
 
-fitTrain_scoreTest(
-    SVC(C=1e-6, random_state=7, class_weight="balanced"),
+utils.fitTrain_scoreTest(
+    LogisticRegression(C=1e-6, dual=True, solver="liblinear", random_state=7, max_iter=1000, class_weight="balanced"),
     X_train, X_test, y_train, y_test,
-    "_original_.*Range$",
+    "cc.rostrum_.*_wavelet-LLH_.*_GrayLevelVariance",
     # sfss["logreg"].get_metric_dict()[8]["feature_idx"]
-    sfss["logreg"].k_feature_idx_
+    # sfss["logreg"].k_feature_idx_
 )
 
 #%% notes
