@@ -271,7 +271,7 @@ def calc_f1(p_and_r):
         return 0
     return (2*p*r)/(p+r)
 
-def printScores(y_true, y_prob_decision, decision = False, confusion=False):
+def printScores(y_true, y_prob_decision, decision = False, doPrints=True, confusion=False):
 
     precisions, recalls, thresholds = precision_recall_curve(y_true, y_prob_decision, pos_label=1)
     best_f1_index = np.argmax([ calc_f1(p_r) for p_r in zip(precisions, recalls)])
@@ -298,14 +298,17 @@ def printScores(y_true, y_prob_decision, decision = False, confusion=False):
 
         plt.xlabel('Prediction')
         plt.ylabel('Truth')
+    
+    if doPrints:
+        print("AUC:\t\tTest: %.3f" % (roc))
+        print("f1:\t\tTest: %.3f" % (f1))
+        print("Accuracy:\tTest: %.3f" % (acc))
+        print("Accuracy not adjusted: %.3f %.3f" % (accDef, accDef1) )
+        if decision is False:
+            print("Brier:\t\tTest: %.3f" % (brier))
+            print("LogLoss:\tTest %.3f" % (log))
 
-    print("AUC:\t\tTest: %.3f" % (roc))
-    print("f1:\t\tTest: %.3f" % (f1))
-    print("Accuracy:\tTest: %.3f" % (acc))
-    print("Accuracy not adjusted: %.3f %.3f" % (accDef, accDef1) )
     if decision is False:
-        print("Brier:\t\tTest: %.3f" % (brier))
-        print("LogLoss:\tTest %.3f" % (log))
         return {
             "auc" : roc,
             "f1" : f1,
@@ -324,7 +327,7 @@ def printScores(y_true, y_prob_decision, decision = False, confusion=False):
         "threshold": best_threshold
     }
 
-def scoreLOO(algorithm, X, y, regex=".*", idx=None, decision=False, confusion=False):
+def scoreLOO(algorithm, X, y, regex=".*", idx=None, decision=False, doPrints=True, confusion=False):
 
     X_filtered = X.filter(regex=regex)
     if X_filtered.shape[1] == 0:
@@ -355,7 +358,7 @@ def scoreLOO(algorithm, X, y, regex=".*", idx=None, decision=False, confusion=Fa
         error_score=0.5
     )
 
-    return printScores(y, cv["test_score"], decision=decision, confusion=confusion)
+    return printScores(y, cv["test_score"], decision=decision, doPrints=doPrints, confusion=confusion)
 
 # TOO UPDATE LIKE scoreLOO
 def scoreLOOVoting(algorithms, X, y, regex, decision=False):

@@ -60,7 +60,8 @@ for name, algorithm in [
             algorithm,
             X_train, y_train,
             regex = region+"_.*_"+image_type+"_.*_"+feature_name,
-            decision=True if name == "svm" else False
+            decision=True if name == "svm" else False,
+            doPrints=False
         )
 
     with open(f"../study/stats/results-{name}-fix40.json", "w") as outfile:
