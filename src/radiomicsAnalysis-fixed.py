@@ -50,22 +50,18 @@ for name, algorithm in [
 
     res = {}
 
-    feature_names = utils.getPyRadiomicsFeatureNames()
-    image_types = utils.getPyRadiomicsImageTypes()
-    region_names = utils.getRegionNames()
+    multiIndices = utils.countByFeatureGroups(X_train.iloc[:, 5:]).index
 
-    for region in tqdm(region_names):
-        for image_type in image_types:
-            for feature_name in feature_names:
+    for region, image_type, feature_name in tqdm(multiIndices):
 
-                print(region+"_"+image_type+"_"+feature_name)
+        # print(region+"_"+image_type+"_"+feature_name)
 
-                res[region+"_"+image_type+"_"+feature_name] = utils.scoreLOO(
-                    algorithm,
-                    X_train, y_train,
-                    regex = region+"_.*_"+image_type+"_.*_"+feature_name,
-                    decision=True if name == "svm" else False
-                )
+        res[region+"_"+image_type+"_"+feature_name] = utils.scoreLOO(
+            algorithm,
+            X_train, y_train,
+            regex = region+"_.*_"+image_type+"_.*_"+feature_name,
+            decision=True if name == "svm" else False
+        )
 
     with open(f"../study/stats/results-{name}-fix40.json", "w") as outfile:
         json.dump(res, outfile, indent=2, sort_keys=True)
@@ -74,7 +70,7 @@ for name, algorithm in [
 
 best_selected_features = {}
 
-for name in ["logreg", "svm"]:
+for name in ["logreg"]:
     res = {}
     with open(f"../study/stats/results-{name}-fix40.json") as infile:
         res = json.load(infile)

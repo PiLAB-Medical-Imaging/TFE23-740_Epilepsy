@@ -88,7 +88,10 @@ def getRegionNames():
     return __getACharacteristcByPos(0)
 
 def getPyRadiomicsImageTypes():
-    return __getACharacteristcByPos(2)
+    t = __getACharacteristcByPos(-3)
+    t.remove("csf")
+    t.remove("tot")
+    return t
 
 def splitTrainTestDF(X, y, test_size=0.2):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=7, shuffle=True, stratify=y)
@@ -104,6 +107,20 @@ def getTrainTestSplits():
     X_train, y_train = splitFeatureLabels(df_train)
     X_test, y_test = splitFeatureLabels(df_test)
     return X_train, X_test, y_train, y_test
+
+def countByFeatureGroups(X_only_pyRadiomicsFeatures):
+    X = X_only_pyRadiomicsFeatures
+    features = pd.Series(X.columns)
+
+    regions = features.map(lambda x: x.split("_")[0])
+    pyradiomicImages = features.map(lambda x: x.split("_")[-3])
+    pyradiomicFeatures = features.map(lambda x: x.split("_")[-1])
+
+    multiIndices = pd.MultiIndex.from_arrays((regions, pyradiomicImages, pyradiomicFeatures), names=("Region", "Image", "Feature"))
+
+    base = pd.Series(np.ones(regions.size), index=multiIndices, name="FeatureGroups")
+
+    return base.groupby(level=["Region", "Image", "Feature"]).count()
 
 #%% Transformers Extensions %%#
 
