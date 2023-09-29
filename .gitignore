@@ -5,4 +5,4 @@ study/static_files/mf_dic
 study/stats/*csv
 .vscode/
 *.tar.gz
-env_dMRI/
+env_*/

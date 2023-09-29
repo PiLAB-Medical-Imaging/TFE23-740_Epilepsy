@@ -1,0 +1,12 @@
+[
+  "Left-Thalamus_FA_gradient_firstorder_Median",
+  "Left-Thalamus_MD_gradient_firstorder_Median",
+  "Left-Thalamus_RD_gradient_firstorder_Median",
+  "Left-Thalamus_RD_logarithm_firstorder_Variance",
+  "Left-Thalamus_RD_original_firstorder_Variance",
+  "Left-Thalamus_fvf_tot_gradient_firstorder_Median",
+  "rh.ilf_RD_wavelet-HLH_glszm_ZonePercentage",
+  "rh.ilf_fvf_tot_wavelet-HLH_glszm_ZonePercentage",
+  "rh.or_RD_wavelet-LHL_glcm_ClusterProminence",
+  "rh.or_RD_wavelet-LHL_glcm_Correlation"
+]

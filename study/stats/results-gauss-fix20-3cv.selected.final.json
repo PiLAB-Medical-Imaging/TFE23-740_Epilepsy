@@ -1,0 +1,12 @@
+[
+  "Left-Accumbens-area_fextra_exponential_firstorder_MeanAbsoluteDeviation",
+  "Left-Accumbens-area_odi_exponential_firstorder_MeanAbsoluteDeviation",
+  "Left-Accumbens-area_wFA_exponential_firstorder_MeanAbsoluteDeviation",
+  "Left-Putamen_frac_csf_mf_original_firstorder_MeanAbsoluteDeviation",
+  "Left-Thalamus_RD_logarithm_firstorder_MeanAbsoluteDeviation",
+  "Left-Thalamus_wRD_exponential_firstorder_Kurtosis",
+  "rh.ilf_fextra_wavelet-LLH_glszm_ZonePercentage",
+  "rh.slf2_AD_wavelet-HLH_ngtdm_Complexity",
+  "rh.slf3_odi_wavelet-LHH_glszm_HighGrayLevelZoneEmphasis",
+  "rh.slf3_odi_wavelet-LHH_glszm_LowGrayLevelZoneEmphasis"
+]

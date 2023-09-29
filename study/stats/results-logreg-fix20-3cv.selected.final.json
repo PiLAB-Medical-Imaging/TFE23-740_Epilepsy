@@ -1,0 +1,12 @@
+[
+  "Left-Amygdala_FA_wavelet-HHL_glszm_SmallAreaEmphasis",
+  "Left-Amygdala_icvf_wavelet-HHL_glszm_SmallAreaEmphasis",
+  "Right-Amygdala_fextra_lbp-3D-k_glszm_SmallAreaEmphasis",
+  "Right-Amygdala_frac_csf_mf_lbp-3D-k_glszm_SmallAreaLowGrayLevelEmphasis",
+  "Right-Amygdala_odi_wavelet-HLH_glszm_SmallAreaEmphasis",
+  "Right-Amygdala_wFA_wavelet-HLH_glszm_SmallAreaEmphasis",
+  "Right-Amygdala_wfvf_wavelet-HHL_glszm_SmallAreaLowGrayLevelEmphasis",
+  "Right-Hippocampus_fvf_tot_wavelet-HHL_glszm_SmallAreaEmphasis",
+  "Right-Thalamus_wFA_wavelet-HHL_glszm_SmallAreaEmphasis",
+  "Right-Thalamus_wfvf_wavelet-HHL_glszm_SmallAreaEmphasis"
+]

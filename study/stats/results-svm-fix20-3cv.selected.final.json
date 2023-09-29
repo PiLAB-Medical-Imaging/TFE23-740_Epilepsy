@@ -1,0 +1,12 @@
+[
+  "Left-Caudate_AD_wavelet-HHL_glcm_JointEnergy",
+  "Left-Caudate_FA_wavelet-HHL_glcm_JointEnergy",
+  "Left-Caudate_fextra_wavelet-HHL_glcm_JointEnergy",
+  "Left-Caudate_wfvf_wavelet-HHL_glcm_JointEnergy",
+  "Left-Putamen_fiso_wavelet-LLL_firstorder_MeanAbsoluteDeviation",
+  "Left-Putamen_frac_csf_d_wavelet-LLL_firstorder_MeanAbsoluteDeviation",
+  "Left-Putamen_frac_csf_mf_wavelet-LLL_firstorder_MeanAbsoluteDeviation",
+  "Left-Putamen_icvf_wavelet-LLL_firstorder_MeanAbsoluteDeviation",
+  "Left-Thalamus_MD_gradient_firstorder_Energy",
+  "Left-Thalamus_fiso_gradient_firstorder_Energy"
+]
