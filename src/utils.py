@@ -11,7 +11,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.preprocessing import RobustScaler
 from sklearn.feature_selection import RFECV
-from sklearn.model_selection import cross_validate, LeaveOneOut, train_test_split
+from sklearn.model_selection import cross_validate, LeaveOneOut, train_test_split, StratifiedKFold
 from sklearn.metrics import make_scorer, roc_auc_score, f1_score, brier_score_loss, log_loss, balanced_accuracy_score, accuracy_score, precision_recall_curve, confusion_matrix
 from sklearn.ensemble import VotingClassifier
 
@@ -64,7 +64,7 @@ def getReducedDS():
     return pd.read_csv("../study/stats/datasetRadiomicsReduced.csv", index_col="ID")
 
 def splitFeatureLabels(df: pd.DataFrame):
-    return df.iloc[:,2:], df.iloc[:,:1].squeeze()
+    return df.iloc[:,2:], df.iloc[:,:1].squeeze(), df.iloc[:,1:2].squeeze()
 
 def __getACharacteristcByPos(pos):
     with open("../study/subjects/VNSLC_02/dMRI/microstructure/VNSLC_02_metrics.json") as infile:
@@ -93,17 +93,20 @@ def getPyRadiomicsImageTypes():
     t.remove("tot")
     return t
 
-def splitTrainTestDF(X, y, test_size=0.2):
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=7, shuffle=True, stratify=y)
-    return X_train, X_test, y_train, y_test
+def splitTrainTestDF(X, y, y3, test_size=0.2):
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=7, shuffle=True, stratify=y3)
+    y3_train = y3[y_train.index]
+    y3_test = y3[y_test.index]
+
+    return X_train, X_test, y_train, y_test, y3_train, y3_test
 
 def saveTrainTestSplits(X_train, X_test, y_train, y_test):
-    pd.concat([y_train, X_train], axis=1).to_csv("../study/stats/datasetRadiomicsReducedTrain.csv")
-    pd.concat([y_test, X_test], axis=1).to_csv("../study/stats/datasetRadiomicsReducedTest.csv")
+    pd.concat([y_train, X_train], axis=1).to_csv("../study/stats/datasetRadiomicsReducedTrain20.csv")
+    pd.concat([y_test, X_test], axis=1).to_csv("../study/stats/datasetRadiomicsReducedTest20.csv")
 
 def getTrainTestSplits():
-    df_train = pd.read_csv("../study/stats/datasetRadiomicsReducedTrain.csv", index_col="ID")
-    df_test = pd.read_csv("../study/stats/datasetRadiomicsReducedTest.csv", index_col="ID")
+    df_train = pd.read_csv("../study/stats/datasetRadiomicsReducedTrain20.csv", index_col="ID")
+    df_test = pd.read_csv("../study/stats/datasetRadiomicsReducedTest20.csv", index_col="ID")
     X_train, y_train = splitFeatureLabels(df_train)
     X_test, y_test = splitFeatureLabels(df_test)
     return X_train, X_test, y_train, y_test
@@ -125,6 +128,7 @@ def countByFeatureGroups(X_only_pyRadiomicsFeatures):
 #%% Transformers Extensions %%#
 
 class MADOutlierRemotion(BaseEstimator, TransformerMixin):
+    # Median Absolute Deviation
     # Private
 
     def __doubleMAD(self, X):
@@ -167,14 +171,6 @@ class MADOutlierRemotion(BaseEstimator, TransformerMixin):
     
     def get_limits(self):
         return self.limits
-
-class RobustScalerDF(RobustScaler):
-    def transform(self, X, copy=None):
-        if self.with_centering:
-            X -= self.center_
-        if self.with_scaling:
-            X /= self.scale_
-        return X
 
 class saveCluster(BaseEstimator, TransformerMixin):
 
@@ -271,7 +267,7 @@ def calc_f1(p_and_r):
         return 0
     return (2*p*r)/(p+r)
 
-def printScores(y_true, y_prob_decision, decision = False, confusion=False):
+def printScores(y_true, y_prob_decision, decision = False, doPrints=True, confusion=False):
 
     precisions, recalls, thresholds = precision_recall_curve(y_true, y_prob_decision, pos_label=1)
     best_f1_index = np.argmax([ calc_f1(p_r) for p_r in zip(precisions, recalls)])
@@ -298,14 +294,17 @@ def printScores(y_true, y_prob_decision, decision = False, confusion=False):
 
         plt.xlabel('Prediction')
         plt.ylabel('Truth')
+    
+    if doPrints:
+        print("AUC:\t\tTest: %.3f" % (roc))
+        print("f1:\t\tTest: %.3f" % (f1))
+        print("Accuracy:\tTest: %.3f" % (acc))
+        print("Accuracy not adjusted: %.3f %.3f" % (accDef, accDef1) )
+        if decision is False:
+            print("Brier:\t\tTest: %.3f" % (brier))
+            print("LogLoss:\tTest %.3f" % (log))
 
-    print("AUC:\t\tTest: %.3f" % (roc))
-    print("f1:\t\tTest: %.3f" % (f1))
-    print("Accuracy:\tTest: %.3f" % (acc))
-    print("Accuracy not adjusted: %.3f %.3f" % (accDef, accDef1) )
     if decision is False:
-        print("Brier:\t\tTest: %.3f" % (brier))
-        print("LogLoss:\tTest %.3f" % (log))
         return {
             "auc" : roc,
             "f1" : f1,
@@ -313,7 +312,8 @@ def printScores(y_true, y_prob_decision, decision = False, confusion=False):
             "acc": accDef,
             "brier": brier,
             "log": log,
-            "threshold": best_threshold
+            "threshold": best_threshold,
+            "prob_decision": list(y_prob_decision)
         }
 
     return {
@@ -321,10 +321,11 @@ def printScores(y_true, y_prob_decision, decision = False, confusion=False):
         "f1" : f1,
         "accAdj": acc,
         "acc": accDef,
-        "threshold": best_threshold
+        "threshold": best_threshold,
+        "prob_decision": list(y_prob_decision)
     }
 
-def scoreLOO(algorithm, X, y, regex=".*", idx=None, decision=False, confusion=False):
+def scoreLOO(algorithm, X, y, regex=".*", idx=None, decision=False, doPrints=True, confusion=False):
 
     X_filtered = X.filter(regex=regex)
     if X_filtered.shape[1] == 0:
@@ -334,8 +335,8 @@ def scoreLOO(algorithm, X, y, regex=".*", idx=None, decision=False, confusion=Fa
         X_filtered = X_filtered.iloc[:, list(idx)]
 
     pipe = Pipeline([
-        #("outliers", MADOutlierRemotion(3)),
-        ("scaler", RobustScalerDF()),
+        # ("outliers", MADOutlierRemotion(3)),
+        ("scaler", RobustScaler()),
         #("print", PrintShape()),
         ("clf", algorithm)
     ])
@@ -355,7 +356,81 @@ def scoreLOO(algorithm, X, y, regex=".*", idx=None, decision=False, confusion=Fa
         error_score=0.5
     )
 
-    return printScores(y, cv["test_score"], decision=decision, confusion=confusion)
+    return printScores(y, cv["test_score"], decision=decision, doPrints=doPrints, confusion=confusion)
+
+def scoreCV(algorithm, X, y, regex=".*", idx=None, decision=False, doPrints=True):
+
+    X_filtered = X.filter(regex=regex)
+    if X_filtered.shape[1] == 0:
+        return None
+    
+    if idx is not None:
+        X_filtered = X_filtered.iloc[:, list(idx)]
+
+    pipe = Pipeline([
+        # ("outliers", MADOutlierRemotion(3)),
+        ("scaler", RobustScaler()),
+        #("print", PrintShape()),
+        ("clf", algorithm)
+    ])
+
+    cv = cross_validate(
+        pipe,
+        X_filtered, y,
+        scoring=(
+            "roc_auc",
+            "f1",
+            "balanced_accuracy",
+            "accuracy",
+            "neg_brier_score",
+            "neg_log_loss",
+        ) if decision is False else (
+            "roc_auc",
+            "f1",
+            "balanced_accuracy",
+            "accuracy",
+        ),
+        cv=StratifiedKFold(
+            n_splits=3,
+            shuffle=True,
+            random_state=7,
+        ),
+        n_jobs=8,
+        #verbose=10,
+        return_estimator=True,
+        error_score=0.5
+    )
+
+    roc = np.mean(cv["test_roc_auc"])
+    f1 = np.mean(cv["test_f1"])
+    acc = np.mean(cv["test_balanced_accuracy"])
+    accNotB = np.mean(cv["test_accuracy"])
+    if not decision:
+        brier = np.mean(cv["test_neg_brier_score"])
+        log = np.mean(cv["test_neg_log_loss"])
+
+    if doPrints:
+        print("AUC:\t\tTest: %.3f" % (roc))
+        print("f1:\t\tTest: %.3f" % (f1))
+        print("Accuracy not adjusted: %.3f %.3f" % (acc, accNotB) )
+        if decision is False:
+            print("Brier:\t\tTest: %.3f" % (brier))
+            print("LogLoss:\tTest %.3f" % (log))
+
+    if decision is False:
+        return {
+            "auc" : roc,
+            "f1" : f1,
+            "acc": acc,
+            "brier": brier,
+            "log": log,
+        }
+
+    return {
+        "auc" : roc,
+        "f1" : f1,
+        "acc": acc,
+    }   
 
 # TOO UPDATE LIKE scoreLOO
 def scoreLOOVoting(algorithms, X, y, regex, decision=False):
@@ -366,7 +441,7 @@ def scoreLOOVoting(algorithms, X, y, regex, decision=False):
 
     pipe = Pipeline([
         # ("outliers", MADOutlierRemotion(3)),
-        ("scaler", RobustScalerDF()),
+        ("scaler", RobustScaler()),
         # ("print", PrintShape()),
         ("clf", VotingClassifier(
             algorithms,
@@ -404,7 +479,7 @@ def fitTrain_scoreTest(algorithm, DTR, DTE, LTR, LTE, regex=".*", idx=None):
         DTE_filtered = DTE_filtered.iloc[:, list(idx)]
     
     pipe = Pipeline([
-        ("scaler", RobustScalerDF()),
+        ("scaler", RobustScaler()),
         ("clf", algorithm)
     ])
 

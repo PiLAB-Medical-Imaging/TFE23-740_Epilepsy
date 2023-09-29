@@ -14,7 +14,7 @@ import utils
 
 from scipy import stats
 
-from sklearn.linear_model import LogisticRegression
+from sklearn.linear_model import LogisticRegression, LogisticRegressionCV
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.calibration import CalibratedClassifierCV
@@ -25,11 +25,42 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import cross_validate, LeaveOneOut, train_test_split, RandomizedSearchCV, GridSearchCV
 
 from mlxtend.plotting import plot_sequential_feature_selection as plot_sfs
-
+from mlxtend.feature_selection import SequentialFeatureSelector as SFS
 #%% Init
 
 df = utils.getReducedDS()
-X, y = utils.splitFeatureLabels(df)
+X, y, _ = utils.splitFeatureLabels(df)
+
+#%%
+
+def getFeatureGroups(X_only_pyRadiomicsFeatures):
+    X = X_only_pyRadiomicsFeatures
+    features = pd.Series(X.columns)
+
+    regions = features.map(lambda x: x.split("_")[0])
+    pyradiomicImages = features.map(lambda x: x.split("_")[-3])
+    pyradiomicFeatures = features.map(lambda x: x.split("_")[-1])
+    
+    multiIndices = pd.MultiIndex.from_arrays((regions, pyradiomicImages, pyradiomicFeatures), names=("Region", "Image", "Feature"))
+    
+    base = pd.Series(np.arange(regions.size), index=multiIndices, name="FeatureGroups")
+    
+    return base.groupby(level=["Region", "Image", "Feature"]).aggregate(lambda x: [*x]).to_list()
+
+#%% 
+
+sfs = SFS(
+    LogisticRegression(C=1e-6, random_state=7, max_iter=10000, class_weight="balanced"),
+    k_features=(1, 15),
+    floating=True,
+    verbose=2,
+    scoring="roc_auc",
+    cv=3,
+    n_jobs=8,
+    feature_groups=getFeatureGroups(X.iloc[:, 6:])
+)
+
+sfs.fit(X.iloc[:, 6:], y)
 
 #%% Combinatorial selection
 # Combinatorial selection
