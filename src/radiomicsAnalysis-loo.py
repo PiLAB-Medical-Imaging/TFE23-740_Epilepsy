@@ -26,10 +26,18 @@ from sklearn.model_selection import cross_validate, LeaveOneOut, train_test_spli
 
 from mlxtend.plotting import plot_sequential_feature_selection as plot_sfs
 from mlxtend.feature_selection import SequentialFeatureSelector as SFS
+
+from scipy import stast
 #%% Init
 
 df = utils.getReducedDS()
 X, y, _ = utils.splitFeatureLabels(df)
+
+#%%
+
+X_resp = X[y==1]
+X_not = X[y==0]
+p_values = stats.mannwhitneyu(X_resp, X_not, nan_policy="omit").pvalue
 
 #%%
 

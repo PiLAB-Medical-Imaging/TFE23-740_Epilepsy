@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import json
 
-from feature_engine.selection import DropConstantFeatures, DropDuplicateFeatures
+from feature_engine.selection import DropConstantFeatures, DropDuplicateFeatures, SmartCorrelatedSelection
 
 from sklearn.pipeline import Pipeline
 from sklearn.base import BaseEstimator, TransformerMixin
@@ -16,6 +16,8 @@ from sklearn.metrics import make_scorer, roc_auc_score, f1_score, brier_score_lo
 from sklearn.ensemble import VotingClassifier
 
 from mlxtend.feature_selection import SequentialFeatureSelector as SFS
+
+from scipy import stats
 
 #%% DATASET %%#
 
@@ -28,7 +30,7 @@ def getFullDS():
     df = df.dropna(axis=1)
     return
 
-def reduceSaveAndGetDS():
+def reduceSaveAndGetDS(df):
     feature_to_remove = {
         'JointAverage',
         'SumAverage',
@@ -171,6 +173,48 @@ class MADOutlierRemotion(BaseEstimator, TransformerMixin):
     
     def get_limits(self):
         return self.limits
+
+class MannwhitenFilter(BaseEstimator, TransformerMixin):
+    def __init__(self, pval_thresh=0.05) -> None:
+        super().__init__()
+        self.pval_thresh = pval_thresh
+    
+    def fit(self, X, y):
+        X_resp = X[y==1]
+        X_not = X[y==0]
+        self.p_values = stats.mannwhitneyu(X_resp, X_not, nan_policy="omit").pvalue
+        self.mask = self.p_values<self.pval_thresh
+        return self
+
+    def transform(self, X, y=None):
+        if type(X) is pd.core.frame.DataFrame:
+            return X.iloc[:, self.mask]
+        else:
+            return X[:, self.mask]
+
+class KruskalFilter(BaseEstimator, TransformerMixin):
+    def __init__(self, y3, pval_thresh=0.05) -> None:
+        super().__init__()
+        self.pval_thresh = pval_thresh
+        self.y3 = y3
+    
+    def fit(self, X, y):
+        y3 = self.y3[y.index]
+        assert y3.shape == y.shape
+        assert ((y3>0) == (y>0)).all()
+
+        X_resp = X[y3==2]
+        X_part = X[y3==1]
+        X_not = X[y3==0]
+        self.p_values = stats.kruskal(X_not, X_part, X_resp, nan_policy="omit").pvalue
+        self.mask = self.p_values<self.pval_thresh
+        return self
+
+    def transform(self, X, y=None):
+        if type(X) is pd.core.frame.DataFrame:
+            return X.iloc[:, self.mask]
+        else:
+            return X[:, self.mask]
 
 class saveCluster(BaseEstimator, TransformerMixin):
 

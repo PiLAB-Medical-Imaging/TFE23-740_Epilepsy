@@ -4,6 +4,7 @@ channels:
   - nvidia
   - conda-forge
 dependencies:
+  - python
   - pytorch
   - torchvision
   - torchaudio
