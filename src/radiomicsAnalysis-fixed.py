@@ -34,7 +34,15 @@ from mlxtend.feature_selection import SequentialFeatureSelector as SFS
 from mlxtend.plotting import plot_sequential_feature_selection as plot_sfs
 from tqdm import tqdm
 
+#%%
+
+import pandas as pd
+
+df = pd.read_csv("../study/stats/datasetRadiomicsReduced.csv", index_col="ID")
+#%%
+df.filter(regex="")
 #%% Init
+
 df = utils.getReducedDS()
 X, y, y3 = utils.splitFeatureLabels(df)
 #%% Split and remove outliers
