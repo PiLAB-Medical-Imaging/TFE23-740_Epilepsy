@@ -61,21 +61,21 @@ def runMod2(X, y):
     return cvs
 
 listOfAlgorithms = [
-    ("logreg", LogisticRegressionCV(random_state=7, class_weight="balanced", scoring="neg_log_loss", cv=3, n_jobs=1)),
-    ("svm", RandomizedSearchCV(
-        SVC(C=1e-6, random_state=7, class_weight="balanced"),
-        param_distributions={
-            "C": stats.loguniform(1e-6, 1)
-        },
-        scoring="roc_auc", cv=3, n_jobs=1, random_state=7
-    )),
-    ("knn", GridSearchCV(
-        CalibratedClassifierCV(KNeighborsClassifier(), cv=3),
-        param_grid={
-            "estimator__n_neighbors": [2, 3, 4, 5, 6]
-        },
-        scoring="neg_log_loss", cv=3, n_jobs=1
-    )),
+    # ("logreg", LogisticRegressionCV(random_state=7, class_weight="balanced", scoring="neg_log_loss", cv=3, n_jobs=1)),
+    # ("svm", RandomizedSearchCV(
+    #     SVC(C=1e-6, random_state=7, class_weight="balanced"),
+    #     param_distributions={
+    #         "C": stats.loguniform(1e-6, 1)
+    #     },
+    #     scoring="roc_auc", cv=3, n_jobs=1, random_state=7
+    # )),
+    # ("knn", GridSearchCV(
+    #     CalibratedClassifierCV(KNeighborsClassifier(), cv=3),
+    #     param_grid={
+    #         "estimator__n_neighbors": [2, 3, 4, 5, 6]
+    #     },
+    #     scoring="neg_log_loss", cv=3, n_jobs=1
+    # )),
     ("mlp", RandomizedSearchCV(
         MLPClassifier(random_state=7, learning_rate="adaptive", max_iter=1000),
         param_distributions={
@@ -225,7 +225,7 @@ def main():
     df = utils.getReducedDS()
     X, y, y3 = utils.splitFeatureLabels(df)
 
-    runMod6(X, y)
+    runMod5(X, y, y3)
 
 if __name__ == "__main__":
     exit(main())
