@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import json
+import nilearn as nl
 
 from feature_engine.selection import DropConstantFeatures, DropDuplicateFeatures, SmartCorrelatedSelection
 
@@ -126,6 +127,34 @@ def countByFeatureGroups(X_only_pyRadiomicsFeatures):
     base = pd.Series(np.ones(regions.size), index=multiIndices, name="FeatureGroups")
 
     return base.groupby(level=["Region", "Image", "Feature"]).count()
+
+def getVolumeDS(study_fold):
+    dataset_dMRI = []
+    not_patients = [5, 8, 20, 21]
+
+    affine = []
+
+    for i in range(1, 24): # For each subject
+        if i in not_patients:
+            continue
+
+        subj = "VNSLC_%02d" % i
+
+        subj_channels = []
+
+        for image_model in ["_FA", "_AD", "_RD", "_MD", "icvf", "odi", "fextra", "fiso", "wFA", "wMD", "wAD", "wRD", "diamond_frac_csf", "wfvf", "mf_frac_csf"]:
+            niimg = nl.image.load_img(f"{study_fold}/subjects/{subj}/dMRI/microstructure/*/*{image_model}*nii.gz")
+            subj_channels.append(niimg.get_fdata())
+        affine.append(niimg.affine)
+
+        subj_channels = np.array(subj_channels)
+
+        dataset_dMRI.append(subj_channels)
+
+    dataset_dMRI = np.array(dataset_dMRI).squeeze()
+    affine = np.array(affine)
+
+    return dataset_dMRI, affine
 
 #%% Transformers Extensions %%#
 
