@@ -295,7 +295,7 @@ def runMod7(X, y):
                         X, y,
                         scoring=make_scorer(utils.retScores, needs_proba=not decision, needs_threshold=decision),
                         cv=LeaveOneOut(),
-                        n_jobs=-1,
+                        n_jobs=3,
                         verbose=2,
                         error_score="raise",
                     )
@@ -338,7 +338,7 @@ def runMod7_1(X, y):
                     X, y,
                     scoring=make_scorer(utils.retScores, needs_proba=not decision, needs_threshold=decision),
                     cv=LeaveOneOut(),
-                    n_jobs=-1,
+                    n_jobs=4,
                     verbose=2,
                     error_score="raise",
                 )
@@ -366,7 +366,7 @@ def runMod7_2(X, y, y3):
                             ("outlier", utils.MADOutlierRemotion(3)),
                             ("scaler", RobustScaler()),
                             ("t-test", utils.MannwhitenFilter(0.05)),
-                            ("ANOVA", utils.KruskalFilter(y3, 0.05))
+                            ("ANOVA", utils.KruskalFilter(y3, 0.05)),
                             ("correlated", SmartCorrelatedSelection(threshold=0.95,missing_values="raise", selection_method="variance")),
                             ("multivariate", multivariate.MultivariateFilter(filter_name, 20)),
                             ("sfs", SFS(
@@ -382,7 +382,7 @@ def runMod7_2(X, y, y3):
                     X, y,
                     scoring=make_scorer(utils.retScores, needs_proba=not decision, needs_threshold=decision),
                     cv=LeaveOneOut(),
-                    n_jobs=-1,
+                    n_jobs=4,
                     verbose=2,
                     error_score="raise",
                 )
@@ -391,7 +391,7 @@ def runMod7_2(X, y, y3):
                 print("Error: ", filter_name)
                 cvs[filter_name] = "Error"
 
-        with open(f"../study/stats/results-{name}-loo-filter-Man-Multi-sfs.json", "w") as outfile:
+        with open(f"../study/stats/results-{name}-loo-filter-ManKru-Multi-sfs.json", "w") as outfile:
                 json.dump(cvs, outfile, indent=2, sort_keys=True)
             
 def main():
@@ -399,7 +399,7 @@ def main():
     df = utils.getReducedDS()
     X, y, y3 = utils.splitFeatureLabels(df)
 
-    runMod7(X, y)
+    runMod7_2(X, y, y3)
 
 if __name__ == "__main__":
     exit(main())
