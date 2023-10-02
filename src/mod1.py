@@ -61,30 +61,30 @@ def runMod2(X, y):
     return cvs
 
 listOfAlgorithms = [
-    # ("logreg", LogisticRegressionCV(random_state=7, class_weight="balanced", scoring="neg_log_loss", cv=3, n_jobs=1)),
-    # ("svm", RandomizedSearchCV(
-    #     SVC(C=1e-6, random_state=7, class_weight="balanced"),
-    #     param_distributions={
-    #         "C": stats.loguniform(1e-6, 1)
-    #     },
-    #     scoring="roc_auc", cv=3, n_jobs=1, random_state=7
-    # )),
-    # ("knn", GridSearchCV(
-    #     CalibratedClassifierCV(KNeighborsClassifier(), cv=3),
-    #     param_grid={
-    #         "estimator__n_neighbors": [2, 3, 4, 5, 6]
-    #     },
-    #     scoring="neg_log_loss", cv=3, n_jobs=1
-    # )),
-    ("mlp", RandomizedSearchCV(
-        MLPClassifier(random_state=7, learning_rate="adaptive", max_iter=1000),
+    ("logreg", LogisticRegressionCV(random_state=7, class_weight="balanced", scoring="neg_log_loss", cv=3, n_jobs=1)),
+    ("svm", RandomizedSearchCV(
+        SVC(C=1e-6, random_state=7, class_weight="balanced"),
         param_distributions={
-            "alpha": stats.loguniform(1e-3, 1e1),
-            "hidden_layer_sizes": [(100,), (50,), (20,)]
+            "C": stats.loguniform(1e-6, 1)
         },
-        scoring="neg_log_loss", cv=3, n_jobs=1, random_state=7
+        scoring="roc_auc", cv=3, n_jobs=1, random_state=7
     )),
-    ("gauss", GaussianNB())
+    ("knn", GridSearchCV(
+        CalibratedClassifierCV(KNeighborsClassifier(), cv=3),
+        param_grid={
+            "estimator__n_neighbors": [2, 3, 4, 5, 6]
+        },
+        scoring="neg_log_loss", cv=3, n_jobs=1
+    )),
+    # ("mlp", RandomizedSearchCV(
+    #     MLPClassifier(random_state=7, learning_rate="adaptive", max_iter=1000),
+    #     param_distributions={
+    #         "alpha": stats.loguniform(1e-3, 1e1),
+    #         "hidden_layer_sizes": [(100,), (50,), (20,)]
+    #     },
+    #     scoring="neg_log_loss", cv=3, n_jobs=1, random_state=7
+    # )),
+    # ("gauss", GaussianNB())
 ]
 
 def runMod3(X, y):
@@ -171,6 +171,42 @@ def runMod5(X, y ,y3):
         with open(f"../study/stats/results-{name}-loo-filter-ManKru-Multi.json", "w") as outfile:
                 json.dump(cvs, outfile, indent=2, sort_keys=True)
 
+def runMod5_1(X, y):
+    print("Mod5.1")
+
+    for name, algorithm in listOfAlgorithms:
+        print(name)
+        decision = name == "svm"
+        cvs = {}
+        for filter_name in ["MIM","MRMR","JMI","CIFE","MIFS","CMIM","ICAP","DCSF","CFR","MRI","IWFS"]:
+            try:
+                print(filter_name)
+                cv = cross_validate(
+                    Pipeline([
+                        ("selection", Pipeline([
+                            ("outlier", utils.MADOutlierRemotion(3)),
+                            ("scaler", RobustScaler()),
+                            ("t-test", utils.MannwhitenFilter(0.05)),
+                            ("correlated", SmartCorrelatedSelection(threshold=0.95,missing_values="raise", selection_method="variance")),
+                            ("multivariate", multivariate.MultivariateFilter(filter_name, 15)),
+                        ])),
+                        ("clf", algorithm)
+                    ]),
+                    X, y,
+                    scoring=make_scorer(utils.retScores, needs_proba=not decision, needs_threshold=decision),
+                    cv=LeaveOneOut(),
+                    n_jobs=4,
+                    verbose=2,
+                    error_score="raise",
+                )
+                cvs[filter_name] = utils.printScores(y, cv["test_score"], decision=decision)
+            except:
+                print("Error: ", filter_name)
+                cvs[filter_name] = "Error"
+
+        with open(f"../study/stats/results-{name}-loo-filter-Man-Multi.json", "w") as outfile:
+                json.dump(cvs, outfile, indent=2, sort_keys=True)
+
 def runMod6(X, y):
     print("Mod6")
 
@@ -225,7 +261,7 @@ def main():
     df = utils.getReducedDS()
     X, y, y3 = utils.splitFeatureLabels(df)
 
-    runMod5(X, y, y3)
+    runMod5_1(X, y)
 
 if __name__ == "__main__":
     exit(main())
