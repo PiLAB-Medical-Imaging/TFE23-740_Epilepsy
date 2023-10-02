@@ -12,7 +12,7 @@ from sklearn.svm import SVC
 from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import RandomizedSearchCV, GridSearchCV
 from ITMO_FS.filters import multivariate, univariate
-from sklearn.linear_model import LogisticRegressionCV
+from sklearn.linear_model import LogisticRegressionCV, LogisticRegression
 from scipy import stats
 from feature_engine.selection import SmartCorrelatedSelection
 from mlxtend.feature_selection import SequentialFeatureSelector as SFS
@@ -71,9 +71,9 @@ listOfAlgorithms = [
         scoring="roc_auc", cv=3, n_jobs=1, random_state=7
     )),
     ("knn", GridSearchCV(
-        CalibratedClassifierCV(KNeighborsClassifier(), cv=3),
+        KNeighborsClassifier(),
         param_grid={
-            "estimator__n_neighbors": [2, 3, 4, 5, 6]
+            "n_neighbors": [2, 3, 4]
         },
         scoring="neg_log_loss", cv=3, n_jobs=1
     )),
@@ -87,6 +87,14 @@ listOfAlgorithms = [
     )),
     ("gauss", GaussianNB())
 ]
+
+listOfAlgorithmsNoCV = {
+    "logreg": LogisticRegression(random_state=7, class_weight="balanced", n_jobs=1),
+    "svm": SVC(C=1e-6, random_state=7, class_weight="balanced"),
+    "knn": KNeighborsClassifier(),
+    "mlp": MLPClassifier(random_state=7, learning_rate="adaptive", max_iter=1000),
+    "gauss": GaussianNB()
+}
 
 def runMod3(X, y):
     for name, algorithm in listOfAlgorithms:
@@ -283,7 +291,7 @@ def runMod7(X, y):
                                 ("univariate", univariate.UnivariateFilter(filter_uni, univariate.select_k_best(1000))),
                                 ("multivariate", multivariate.MultivariateFilter(filter_multi_name, 20)),
                                 ("sfs", SFS(
-                                    algorithm,
+                                    listOfAlgorithmsNoCV[name],
                                     k_features=(1,15),
                                     floating=True,
                                     scoring="roc_auc",
@@ -326,7 +334,7 @@ def runMod7_1(X, y):
                             ("correlated", SmartCorrelatedSelection(threshold=0.95,missing_values="raise", selection_method="variance")),
                             ("multivariate", multivariate.MultivariateFilter(filter_name, 20)),
                             ("sfs", SFS(
-                                algorithm,
+                                listOfAlgorithmsNoCV[name],
                                 k_features=(1,15),
                                 floating=True,
                                 scoring="roc_auc",
@@ -370,7 +378,7 @@ def runMod7_2(X, y, y3):
                             ("correlated", SmartCorrelatedSelection(threshold=0.95,missing_values="raise", selection_method="variance")),
                             ("multivariate", multivariate.MultivariateFilter(filter_name, 20)),
                             ("sfs", SFS(
-                                algorithm,
+                                listOfAlgorithmsNoCV[name],
                                 k_features=(1,15),
                                 floating=True,
                                 scoring="roc_auc",

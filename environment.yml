@@ -31,6 +31,8 @@ dependencies:
   - nibabel
   - nilearn
   - pip
+  - monai
+  - lightning
   - pip:
     - torchio
     - ITMO-FS
