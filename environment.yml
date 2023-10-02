@@ -1,4 +1,4 @@
-name: dMRIpyTorch
+name: dMRI
 channels:
   - pytorch
   - nvidia
@@ -16,6 +16,8 @@ dependencies:
   - numpy
   - scipy
   - ipykernel
+  - ipython
+  - ipywidgets
   - ignite
   - scikit-learn
   - feature_engine
@@ -28,3 +30,7 @@ dependencies:
   - voila
   - nibabel
   - nilearn
+  - pip
+  - pip:
+    - torchio
+    - ITMO-FS

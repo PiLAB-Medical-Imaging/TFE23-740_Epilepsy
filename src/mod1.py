@@ -245,7 +245,7 @@ def runMod6(X, y):
                         X, y,
                         scoring=make_scorer(utils.retScores, needs_proba=not decision, needs_threshold=decision),
                         cv=LeaveOneOut(),
-                        n_jobs=4,
+                        n_jobs=-1,
                         verbose=2,
                         error_score="raise",
                     )
