@@ -563,3 +563,62 @@ def fitTrain_scoreTest(algorithm, DTR, DTE, LTR, LTE, regex=".*", idx=None):
     except:
         y_decision = pipe.decision_function(DTE_filtered)
         return printScores(LTE, y_decision, decision=True, confusion=True)
+    
+#%% RESULTS %%#
+
+def printTableUniMulti(file_path, score="auc", skip_uni=None, skip_multi=None, add_uni=None):
+    df = {}
+
+    res = {}
+    with open(file_path , "r") as inFile:
+        res = json.load(inFile)
+
+    prec_uni = None
+    print("%20s\t" % "", end="")
+    for combi in res.keys():
+        if res[combi] == "Error":
+            continue
+        uni, multi = combi.split()
+        if prec_uni != None and prec_uni != uni:
+            break
+        if skip_multi != None and multi in skip_multi:
+            continue
+        print(multi, "\t", end="")
+        prec_uni = uni
+
+    prec_uni = None
+    for combi in res.keys():
+        if res[combi] == "Error":
+            continue
+        uni, multi = combi.split()
+        if skip_uni != None and uni in skip_uni:
+            continue
+        if prec_uni != uni:
+            print()
+            print("%20s\t" % uni,end="")
+            df[uni] = {}
+        if skip_multi != None and multi in skip_multi:
+            continue
+        df[uni][multi] = res[combi][score]
+        print("%.4f\t" % res[combi][score], end="")
+        prec_uni = uni
+
+    if add_uni == None:
+        return pd.DataFrame(df).T
+
+    for new_uni_name, new_uni_path in add_uni.items():
+        with open(new_uni_path , "r") as inFile:
+            res = json.load(inFile)
+
+        print()
+        print("%20s\t" % new_uni_name,end="")
+        df[new_uni_name] = {}
+        for multi in res.keys():
+            if res[multi] == "Error":
+                continue
+            if skip_multi != None and multi in skip_multi:
+                continue
+            print("%.4f\t" % res[multi][score], end="")
+            df[new_uni_name][multi] = res[multi][score]
+
+    return pd.DataFrame(df).T
