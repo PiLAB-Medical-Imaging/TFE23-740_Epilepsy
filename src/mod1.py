@@ -303,7 +303,7 @@ def runMod7(X, y):
                         X, y,
                         scoring=make_scorer(utils.retScores, needs_proba=not decision, needs_threshold=decision),
                         cv=LeaveOneOut(),
-                        n_jobs=3,
+                        n_jobs=9,
                         verbose=2,
                         error_score="raise",
                     )
@@ -407,7 +407,7 @@ def main():
     df = utils.getReducedDS()
     X, y, y3 = utils.splitFeatureLabels(df)
 
-    runMod7_2(X, y, y3)
+    runMod7(X, y)
 
 if __name__ == "__main__":
     exit(main())
