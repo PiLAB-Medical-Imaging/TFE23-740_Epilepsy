@@ -33,6 +33,8 @@ dependencies:
   - pip
   - monai
   - lightning
+  - ants
   - pip:
     - torchio
     - ITMO-FS
+    - antspyx
