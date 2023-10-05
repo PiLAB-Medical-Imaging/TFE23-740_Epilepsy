@@ -228,7 +228,7 @@ class KruskalFilter(BaseEstimator, TransformerMixin):
         self.y3 = y3
     
     def fit(self, X, y):
-        y3 = self.y3[y.index]
+        y3 = self.y3[X.index]
         assert y3.shape == y.shape
         assert ((y3>0) == (y>0)).all()
 
