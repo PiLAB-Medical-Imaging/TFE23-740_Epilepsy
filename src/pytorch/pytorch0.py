@@ -1,28 +1,45 @@
+N_CPUS = 8
+
+import os
+
+os.environ["OMP_NUM_THREADS"] = f"{N_CPUS}"
+os.environ["OPENBLAS_NUM_THREADS"] = f"{N_CPUS}"
+os.environ["MKL_NUM_THREADS"] = f"{N_CPUS}"
+os.environ["VECLIB_MAXIMUM_THREADS"] = f"{N_CPUS}"
+os.environ["NUMEXPR_NUM_THREADS"] = f"{N_CPUS}"
+# os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "max_split_size_mb:100"
+
+import torch
+
+torch.set_num_threads(N_CPUS)  # For intra-op parallelism
+torch.set_num_interop_threads(N_CPUS)  # For inter-op parallelism
+
 import torchio as tio
 import pandas as pd
 import lightning.pytorch as L
 import torch
 import numpy as np
 import monai
-import torch.nn.functional as F
-import os
 
 from torch.utils.data import DataLoader
 from torchmetrics.classification import BinaryAccuracy, BinaryAUROC
 from lightning.pytorch.callbacks import ModelCheckpoint
 from lightning.pytorch.tuner import Tuner
 
-os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "max_split_size_mb:100"
 
 class LitBasicModel(L.LightningModule):
-    def __init__(self, model, learning_rate, batch_size):
+    def __init__(self, model, learning_rate, scheduler_step_size, scheduler_gamma):
         super().__init__()
         self.example_input_array = torch.Tensor(8, 1, 110, 110, 68)
 
         self.learning_rate = learning_rate
         self.model = model
+        self.scheduler_step_size = scheduler_step_size
+        self.scheduler_gamma = scheduler_gamma
+        self.batch_size = None
 
-        self.batch_size = batch_size
+        self.loss_fn = torch.nn.BCEWithLogitsLoss(reduction="none")
+        self.sigmoid = torch.nn.Sigmoid()
 
         # TODO rimuovi validate_args per speeduppare
         self.acc = torch.nn.ModuleList([BinaryAccuracy(threshold=0.5, validate_args=True) for _ in range(3)])
@@ -43,7 +60,7 @@ class LitBasicModel(L.LightningModule):
     
     def configure_optimizers(self):
         optimizer = torch.optim.AdamW(self.parameters(), lr=self.learning_rate)
-        scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=30, gamma=0.1)
+        scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=self.scheduler_step_size, gamma=self.scheduler_gamma)
         return {
             "optimizer": optimizer,
             "lr_scheduler": scheduler
@@ -52,12 +69,12 @@ class LitBasicModel(L.LightningModule):
     # def __predict(self, probabilities):
     #     return torch.where(probabilities >= 0.5, 1, 0)
     
-    def __step(self, batch, batch_idx, batch_size, name):
-        inputs = batch["wfvf"][tio.DATA]
-        targets = batch["resp"][np.newaxis].T.to(torch.float)
+    def __step(self, batch, batch_idx, name):
+        inputs = batch[0]
+        targets = batch[1]
         outputs = self.model(inputs)
-        probabilities = F.sigmoid(outputs)
-        losses = F.binary_cross_entropy(probabilities, targets, reduction="none")
+        probabilities = self.sigmoid(outputs)
+        losses = self.loss_fn(probabilities, targets)
         avg_loss = losses.mean()
         self.acc[self.association[name]](probabilities, targets)
         self.auc_roc[self.association[name]](probabilities, targets)
@@ -65,23 +82,24 @@ class LitBasicModel(L.LightningModule):
             f"{name}_loss": avg_loss,
             f"{name}_acc" : self.acc[self.association[name]],
             f"{name}_auc-roc": self.auc_roc[self.association[name]],
-            }, on_step=False, on_epoch=True, prog_bar=False, logger=True, batch_size=batch_size
+            }, on_step=False, on_epoch=True, prog_bar=False, logger=True, batch_size=self.batch_size,
+            # sync_dist=True # Remove if are not using ddp
         )
         return avg_loss
     
     def training_step(self, train_batch, batch_idx):
-        return self.__step(train_batch, batch_idx, self.batch_size, "train")
+        return self.__step(train_batch, batch_idx, "train")
     
     def validation_step(self, val_batch, batch_idx):
-        return self.__step(val_batch, batch_idx, self.batch_size, "val")
+        return self.__step(val_batch, batch_idx, "val")
     
     def test_step(self, test_batch, batch_idx):
-        return self.__step(test_batch, batch_idx, self.batch_size, "test")
+        return self.__step(test_batch, batch_idx, "test")
     
     def predict_step(self, batch):
-        inputs = batch["wfvf"][tio.DATA]
-        outputs = self.model(inputs)
-        probabilities = F.sigmoid(outputs)
+        inputs = batch[0]
+        outputs = batch[1]
+        probabilities = self.sigmoid(outputs)
         return probabilities
     
 class DiffusionMRIDataModule(L.LightningDataModule):
@@ -98,6 +116,7 @@ class DiffusionMRIDataModule(L.LightningDataModule):
 
         self.save_hyperparameters()
 
+    @staticmethod
     def __findSizeCrop(subjects_list, image_to_use):
         transformation = tio.Compose([
             tio.transforms.ToCanonical(),
@@ -114,7 +133,8 @@ class DiffusionMRIDataModule(L.LightningDataModule):
 
         return max
 
-    def __load_subjects(self, study_path):
+    @staticmethod
+    def __load_subjects(study_path):
         info_df = pd.read_csv(f"{study_path}/stats/info.csv").dropna()
 
         subjects_list = []
@@ -158,6 +178,7 @@ class DiffusionMRIDataModule(L.LightningDataModule):
 
         return subjects_list
 
+    @staticmethod
     def getPreprocessingTransform(reference_image, maxSize):
         return tio.Compose([
             ## Preprocessing ##
@@ -173,6 +194,7 @@ class DiffusionMRIDataModule(L.LightningDataModule):
             tio.ZNormalization(masking_method="aparc_aseg"),
         ]) 
     
+    @staticmethod
     def getTrainingTransform():
         return tio.Compose([
             tio.OneOf({
@@ -192,6 +214,7 @@ class DiffusionMRIDataModule(L.LightningDataModule):
             tio.RandomSwap(patch_size=5, p=0.1),
         ])
     
+    @staticmethod
     def getValidationTransform():
         return tio.Compose([
             tio.OneOf({
@@ -210,6 +233,7 @@ class DiffusionMRIDataModule(L.LightningDataModule):
             ), p=0.1),
         ])
     
+    @staticmethod
     def getTestingTransform():
         return tio.Compose([
             tio.RandomAffine(scales=0.05, degrees=5, check_shape=True),
@@ -278,13 +302,22 @@ class DiffusionMRIDataModule(L.LightningDataModule):
         )
 
     def transfer_batch_to_device(self, batch, device, dataloader_idx):
-        print(batch) # Capire che si fa qua
-        return super().transfer_batch_to_device(batch, device, dataloader_idx)
+        if isinstance(batch, dict):
+            inputs = batch["wfvf"][tio.DATA].to(device)
+            targets = batch["resp"][np.newaxis].T.to(torch.float).to(device)
+            return (inputs, targets)
+        else:
+            batch = super().transfer_batch_to_device(batch, device, dataloader_idx)
+            return batch
     
 def basicModel():
-    batch_size = 16
-    num_workers = 4
+    num_epochs = 100
+    batch_size = 4
+    num_workers = N_CPUS
     multiplier = 100
+    learning_rate= 1e-3
+    scheduler_gamma = 0.1
+    scheduler_step_size = 30
 
     test_subjs_idx = [2, 16, 13, 12]
     val_subjs_idx = [0, 7, 10, 14]
@@ -299,24 +332,32 @@ def basicModel():
         num_classes=1,
     )
     checkpoint_callback = ModelCheckpoint(
-        save_top_k=0,
+        save_top_k=10,
         monitor="val_loss",
         save_weights_only=False,
     )
 
-    basicModel = LitBasicModel(model, 1e-3)
+    basicModel = LitBasicModel(model, learning_rate, scheduler_step_size, scheduler_gamma)
     trainer = L.Trainer(
         accelerator="gpu",
         devices=[0],
-        max_epochs=50,
+        max_epochs=num_epochs,
         default_root_dir="./",
-        num_sanity_val_steps=-1,
-        profiler="simple",
+        # num_sanity_val_steps=-1,
+        # profiler="simple",
         callbacks=[checkpoint_callback],
-        log_every_n_steps=batch_size
     )
     tuner = Tuner(trainer)
-    tuner.scale_batch_size(basicModel)
+    tuner.lr_find(
+        model=basicModel,
+        datamodule=dMRI,
+    )
+    tuner.scale_batch_size(
+        model=basicModel,
+        datamodule=dMRI,
+        steps_per_trial=10,
+        max_trials=40
+    )
 
     trainer.fit(
         model=basicModel,

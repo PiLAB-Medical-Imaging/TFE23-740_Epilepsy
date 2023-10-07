@@ -5,6 +5,5 @@ study/models/*pth
 src/pytorch/lightning_logs/
 !study/stats/
 study/stats/*csv
-.vscode/
 *.tar.gz
 env_*/
