@@ -1,6 +1,8 @@
 study/*
 !study/static_files/
 study/static_files/mf_dic
+study/models/*pth
+src/pytorch/lightning_logs/
 !study/stats/
 study/stats/*csv
 .vscode/

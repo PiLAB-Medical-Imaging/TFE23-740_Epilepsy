@@ -33,6 +33,7 @@ dependencies:
   - pip
   - monai
   - lightning
+  - torchmetrics
   - ants
   - pip:
     - torchio
