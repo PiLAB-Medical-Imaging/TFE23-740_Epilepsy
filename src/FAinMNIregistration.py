@@ -21,21 +21,21 @@ for i in range(23+1):
     
     image_paths[subj_id] = {
         "FA": f"{subj_dir}/dMRI/microstructure/dti/{subj_id}_FA.nii.gz",
-        # "MD": f"{subj_dir}/dMRI/microstructure/dti/{subj_id}_MD.nii.gz",
-        # "AD": f"{subj_dir}/dMRI/microstructure/dti/{subj_id}_AD.nii.gz",
-        # "RD": f"{subj_dir}/dMRI/microstructure/dti/{subj_id}_RD.nii.gz",
-        # "wFA": f"{subj_dir}/dMRI/microstructure/diamond/{subj_id}_diamond_wFA.nii.gz",
-        # "wMD": f"{subj_dir}/dMRI/microstructure/diamond/{subj_id}_diamond_wMD.nii.gz",
-        # "wAD": f"{subj_dir}/dMRI/microstructure/diamond/{subj_id}_diamond_wAD.nii.gz",
-        # "wRD": f"{subj_dir}/dMRI/microstructure/diamond/{subj_id}_diamond_wRD.nii.gz",
-        # # "diamond_frac_csf": f"{subj_dir}/dMRI/microstructure/diamond/{subj_id}_diamond_frac_csf.nii.gz",
-        # "icvf": f"{subj_dir}/dMRI/microstructure/noddi/{subj_id}_noddi_icvf.nii.gz",
-        # "odi": f"{subj_dir}/dMRI/microstructure/noddi/{subj_id}_noddi_odi.nii.gz",
-        # "fextra": f"{subj_dir}/dMRI/microstructure/noddi/{subj_id}_noddi_fextra.nii.gz",
-        # "fiso": f"{subj_dir}/dMRI/microstructure/noddi/{subj_id}_noddi_fiso.nii.gz",
-        # "wfvf": f"{subj_dir}/dMRI/microstructure/mf/{subj_id}_mf_wfvf.nii.gz",
-        # "fvf_tot": f"{subj_dir}/dMRI/microstructure/mf/{subj_id}_mf_fvf_tot.nii.gz", 
-        # "mf_frac_csf": f"{subj_dir}/dMRI/microstructure/mf/{subj_id}_mf_frac_csf.nii.gz",
+        "MD": f"{subj_dir}/dMRI/microstructure/dti/{subj_id}_MD.nii.gz",
+        "AD": f"{subj_dir}/dMRI/microstructure/dti/{subj_id}_AD.nii.gz",
+        "RD": f"{subj_dir}/dMRI/microstructure/dti/{subj_id}_RD.nii.gz",
+        "wFA": f"{subj_dir}/dMRI/microstructure/diamond/{subj_id}_diamond_wFA.nii.gz",
+        "wMD": f"{subj_dir}/dMRI/microstructure/diamond/{subj_id}_diamond_wMD.nii.gz",
+        "wAD": f"{subj_dir}/dMRI/microstructure/diamond/{subj_id}_diamond_wAD.nii.gz",
+        "wRD": f"{subj_dir}/dMRI/microstructure/diamond/{subj_id}_diamond_wRD.nii.gz",
+        # "diamond_frac_csf": f"{subj_dir}/dMRI/microstructure/diamond/{subj_id}_diamond_frac_csf.nii.gz",
+        "icvf": f"{subj_dir}/dMRI/microstructure/noddi/{subj_id}_noddi_icvf.nii.gz",
+        "odi": f"{subj_dir}/dMRI/microstructure/noddi/{subj_id}_noddi_odi.nii.gz",
+        "fextra": f"{subj_dir}/dMRI/microstructure/noddi/{subj_id}_noddi_fextra.nii.gz",
+        "fiso": f"{subj_dir}/dMRI/microstructure/noddi/{subj_id}_noddi_fiso.nii.gz",
+        "wfvf": f"{subj_dir}/dMRI/microstructure/mf/{subj_id}_mf_wfvf.nii.gz",
+        "fvf_tot": f"{subj_dir}/dMRI/microstructure/mf/{subj_id}_mf_fvf_tot.nii.gz", 
+        "mf_frac_csf": f"{subj_dir}/dMRI/microstructure/mf/{subj_id}_mf_frac_csf.nii.gz",
         "aparc_aseg": f"{freesurfer_subj_dir}/dlabel/diff/aparc+aseg+thalnuc.bbr.nii.gz",
         "WM_mask": f"{freesurfer_subj_dir}/dlabel/diff/White-Matter++.bbr.nii.gz",
         "t1": f"{subj_dir}/registration/{subj_id}_T1_brain_reg.nii.gz"
@@ -43,41 +43,6 @@ for i in range(23+1):
 
     for path in image_paths[subj_id].values():
         assert os.path.exists(path)
-            
-
-#%% Test one image %%#
-
-subj_id = "VNSLC_01"
-type_of_transform = 'DenseRigid'
-
-output_dir = os.path.join(subjs_dir, subj_id, "registration", "FAinMNI_rigid")
-if not os.path.isdir(output_dir):
-    os.mkdir(output_dir)
-
-FA_vol = ants.image_read(image_paths[subj_id]["diamond_frac_csf"])
-# FA_fixed = ants.image_read(fixed_dir)
-# FA_fixed.plot(overlay=FA_vol)
-
-# mytx = ants.registration(
-#     fixed=FA_fixed,
-#     moving=FA_vol,
-#     type_of_transform=type_of_transform,
-#     outprefix=output_dir+"/"
-# )
-# print(mytx)
-# warped_moving = mytx['warpedmovout']
-# fwdtransforms = mytx["fwdtransforms"]
-
-# FA_fixed.plot(overlay=warped_moving)
-
-# transformed = ants.apply_transforms(
-#     fixed=FA_fixed,
-#     moving=FA_vol,
-#     transformlist=fwdtransforms,
-#     interpolator="linear",
-# )
-# 
-# ants.image_write(transformed, os.path.join(subjs_dir, subj_id, "registration", "FAinMNI_rigid", image_paths[subj_id]["diamond_frac_csf"].split("/")[-1]))
 
 
 #%% transform images %% 
@@ -85,7 +50,7 @@ FA_vol = ants.image_read(image_paths[subj_id]["diamond_frac_csf"])
 type_of_transform = 'Affine'
 
 for subj_id in tqdm(image_paths.keys()):
-    output_dir = os.path.join(subjs_dir, subj_id, "registration", "FAinMNI_affine")
+    output_dir = os.path.join(subjs_dir, subj_id, "registration", f"FAinMNI_{type_of_transform}")
     if not os.path.isdir(output_dir):
         os.mkdir(output_dir)
 
@@ -96,7 +61,6 @@ for subj_id in tqdm(image_paths.keys()):
         fixed=FA_fixed,
         moving=FA_vol,
         type_of_transform=type_of_transform,
-        outprefix=output_dir+"/"
     )
 
     fwdtransforms = mytx["fwdtransforms"]
@@ -112,5 +76,5 @@ for subj_id in tqdm(image_paths.keys()):
             interpolator="genericLabel" if image_name in ["aparc_aseg", "WM_mask"] else "linear"
         )
 
-        ants.image_write(transformed, os.path.join(subjs_dir, subj_id, "registration", "FAinMNI_affine", image_path.split("/")[-1]))
+        ants.image_write(transformed, os.path.join(subjs_dir, subj_id, "registration", f"FAinMNI_{type_of_transform}", image_path.split("/")[-1]))
 
