@@ -36,7 +36,6 @@ class LitBasicModel(L.LightningModule):
         self.model = model
         self.scheduler_step_size = scheduler_step_size
         self.scheduler_gamma = scheduler_gamma
-        self.batch_size = None
 
         self.loss_fn = torch.nn.BCEWithLogitsLoss(reduction="none")
         self.sigmoid = torch.nn.Sigmoid()
@@ -72,9 +71,9 @@ class LitBasicModel(L.LightningModule):
     def __step(self, batch, batch_idx, name):
         inputs = batch[0]
         targets = batch[1]
-        outputs = self.model(inputs)
-        probabilities = self.sigmoid(outputs)
-        losses = self.loss_fn(probabilities, targets)
+        logits = self.model(inputs)
+        probabilities = self.sigmoid(logits)
+        losses = self.loss_fn(logits, targets)
         avg_loss = losses.mean()
         self.acc[self.association[name]](probabilities, targets)
         self.auc_roc[self.association[name]](probabilities, targets)
@@ -82,23 +81,27 @@ class LitBasicModel(L.LightningModule):
             f"{name}_loss": avg_loss,
             f"{name}_acc" : self.acc[self.association[name]],
             f"{name}_auc-roc": self.auc_roc[self.association[name]],
-            }, on_step=False, on_epoch=True, prog_bar=False, logger=True, batch_size=self.batch_size,
+            },
+            on_step=False, on_epoch=True, logger=True
             # sync_dist=True # Remove if are not using ddp
         )
         return avg_loss
     
     def training_step(self, train_batch, batch_idx):
-        return self.__step(train_batch, batch_idx, "train")
+        avg_loss =  self.__step(train_batch, batch_idx, "train")
+        return avg_loss
     
     def validation_step(self, val_batch, batch_idx):
-        return self.__step(val_batch, batch_idx, "val")
+        avg_loss = self.__step(val_batch, batch_idx, "val")
+        return avg_loss
     
     def test_step(self, test_batch, batch_idx):
-        return self.__step(test_batch, batch_idx, "test")
+        avg_loss = self.__step(test_batch, batch_idx, "test")
+        return avg_loss
     
     def predict_step(self, batch):
         inputs = batch[0]
-        outputs = batch[1]
+        outputs = self.model(inputs)
         probabilities = self.sigmoid(outputs)
         return probabilities
     
@@ -117,7 +120,7 @@ class DiffusionMRIDataModule(L.LightningDataModule):
         self.save_hyperparameters()
 
     @staticmethod
-    def __findSizeCrop(subjects_list, image_to_use):
+    def findSizeCrop(subjects_list, image_to_use):
         transformation = tio.Compose([
             tio.transforms.ToCanonical(),
             tio.transforms.Resample(image_to_use),
@@ -134,7 +137,7 @@ class DiffusionMRIDataModule(L.LightningDataModule):
         return max
 
     @staticmethod
-    def __load_subjects(study_path):
+    def load_subjects(study_path):
         info_df = pd.read_csv(f"{study_path}/stats/info.csv").dropna()
 
         subjects_list = []
@@ -168,7 +171,7 @@ class DiffusionMRIDataModule(L.LightningDataModule):
                 "wfvf": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/dMRI/microstructure/mf/{row.ID}_mf_wfvf.nii.gz"),
                 # "fvf_tot": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/dMRI/microstructure/mf/{row.ID}_mf_fvf_tot.nii.gz"),
                 # "mf_frac_csf": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/dMRI/microstructure/mf/{row.ID}_mf_frac_csf.nii.gz"),
-                # "WM_mask": tio.LabelMap(f"{study_path}/freesurfer/{row.ID}/dlabel/diff/White-Matter++.bbr.nii.gz"),
+                "WM_mask": tio.LabelMap(f"{study_path}/freesurfer/{row.ID}/dlabel/diff/White-Matter++.bbr.nii.gz"),
                 "aparc_aseg": tio.LabelMap(f"{study_path}/freesurfer/{row.ID}/dlabel/diff/aparc+aseg+thalnuc.bbr.nii.gz"),
                 # "tract_prob": tio.ScalarImage(f"{study_path}/freesurfer/{row.ID}/dpath/mergedX2_3D_avg16_syn_bbr.nii.gz"),
                 # "t1": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/{row.ID}_T1_brain_reg.nii.gz"),
@@ -245,7 +248,7 @@ class DiffusionMRIDataModule(L.LightningDataModule):
         ])
 
     def setup(self, stage:str) -> None:
-        subjects_list = self.__load_subjects(self.study_path)
+        subjects_list = self.load_subjects(self.study_path)
 
         test = self.test_subjs_idx
         val = self.val_subjs_idx
@@ -254,7 +257,7 @@ class DiffusionMRIDataModule(L.LightningDataModule):
             train.remove(el_test)
         train = list(train)
 
-        maxSize = self.__findSizeCrop(subjects_list, "wfvf")
+        maxSize = self.findSizeCrop(subjects_list, "wfvf")
         preprocessing_transform = self.getPreprocessingTransform("wfvf", maxSize)
         k = self.k
 
@@ -264,7 +267,7 @@ class DiffusionMRIDataModule(L.LightningDataModule):
                 for idx in train:
                     training_subjects.append(subjects_list[idx])
                 training_transform = self.getTrainingTransform()
-                self.training_set =   tio.SubjectsDataset(training_subjects*k,   transform=tio.Compose([preprocessing_transform, training_transform]))
+                self.training_set = tio.SubjectsDataset(training_subjects*k,   transform=tio.Compose([preprocessing_transform, training_transform]))
 
             validation_subjects = []
             for idx in val:
@@ -277,7 +280,7 @@ class DiffusionMRIDataModule(L.LightningDataModule):
             for idx in test:
                 testing_subjects.append(subjects_list[idx])
             testing_transform = self.getTestingTransform()
-            self.testing_set =    tio.SubjectsDataset(testing_subjects*k,    transform=tio.Compose([preprocessing_transform, testing_transform]))
+            self.testing_set = tio.SubjectsDataset(testing_subjects*k,    transform=tio.Compose([preprocessing_transform, testing_transform]))
 
     def train_dataloader(self):
         return DataLoader(
@@ -310,11 +313,130 @@ class DiffusionMRIDataModule(L.LightningDataModule):
             batch = super().transfer_batch_to_device(batch, device, dataloader_idx)
             return batch
     
-def basicModel():
+class PatchDiffusionDataModule(DiffusionMRIDataModule):
+    def __init__(self, val_subjs_idx, test_subjs_idx, study_path, batch_size, patch_size, num_workers, multiplier, samples_per_volume, max_queue_lenght):
+        super().__init__(val_subjs_idx, test_subjs_idx, study_path, batch_size, num_workers, multiplier)
+        
+        self.patch_size = patch_size
+        self.samples_per_volume = samples_per_volume
+        self.max_queue_lenght = max_queue_lenght
+
+    @staticmethod
+    def getPreprocessingTransform(reference_image):
+        return tio.Compose([
+            ## Preprocessing ##
+            # Spatial
+            tio.transforms.ToCanonical(),
+            tio.transforms.Resample(reference_image),
+            tio.transforms.CropOrPad(mask_name="aparc_aseg"),
+            tio.transforms.CopyAffine(reference_image),
+            tio.transforms.EnsureShapeMultiple(8, method="crop"),
+            # Voxel Intensity
+            tio.transforms.Mask(masking_method="aparc_aseg"),
+            # tio.transforms.RescaleIntensity(percentiles=(0.5, 99.5), masking_method="aparc_aseg"),
+            tio.ZNormalization(masking_method="aparc_aseg"),
+        ])
+    
+    def setup(self, stage:str) -> None:
+        subjects_list = self.load_subjects(self.study_path)
+
+        test = self.test_subjs_idx
+        val = self.val_subjs_idx
+        train = set(range(19))
+        for el_test in test+val:
+            train.remove(el_test)
+        train = list(train)
+
+        preprocessing_transform = self.getPreprocessingTransform("wfvf")
+        k = self.k
+
+        sampler = tio.data.LabelSampler(
+            patch_size=self.patch_size,
+            label_name="WM_mask",
+        )
+
+        if stage == "fit" or stage == "validate":
+            if stage == "fit":
+                training_subjects = []
+                for idx in train:
+                    training_subjects.append(subjects_list[idx])
+                training_transform = self.getTrainingTransform()
+                training_set_noPatch = tio.SubjectsDataset(
+                    training_subjects*k,
+                    transform=tio.Compose([preprocessing_transform, training_transform])
+                )
+                
+                self.training_set = tio.Queue(
+                    subjects_dataset=training_set_noPatch,
+                    max_length=self.max_queue_lenght,
+                    samples_per_volume=self.samples_per_volume,
+                    sampler=sampler,
+                    num_workers=self.num_workers
+                )
+
+            validation_subjects = []
+            for idx in val:
+                validation_subjects.append(subjects_list[idx])
+            validation_transform = self.getValidationTransform()
+            validation_set_noPatch = tio.SubjectsDataset(
+                validation_subjects*k,
+                transform=tio.Compose([preprocessing_transform, validation_transform])
+            )
+            
+            self.validation_set = tio.Queue(
+                subjects_dataset=validation_set_noPatch,
+                max_length=self.max_queue_lenght,
+                samples_per_volume=self.samples_per_volume,
+                sampler=sampler,
+                shuffle_subjects=False,
+                shuffle_patches=False,
+                num_workers=self.num_workers
+            )
+
+        if stage == "test":
+            testing_subjects = []
+            for idx in test:
+                testing_subjects.append(subjects_list[idx])
+            testing_transform = self.getTestingTransform()
+            testing_set_noPatch = tio.SubjectsDataset(
+                testing_subjects*k,
+                transform=tio.Compose([preprocessing_transform, testing_transform])
+            )
+
+            self.testing_set = tio.Queue(
+                subjects_dataset=testing_set_noPatch,
+                max_length=self.max_queue_lenght,
+                samples_per_volume=self.samples_per_volume,
+                sampler=sampler,
+                shuffle_subjects=False,
+                shuffle_patches=False,
+                num_workers=self.num_workers
+            )
+
+    def train_dataloader(self):
+        return DataLoader(
+            self.training_set,
+            batch_size=self.batch_size,
+            shuffle=True,
+        )
+    
+    def val_dataloader(self):
+        return DataLoader(
+            self.validation_set,
+            batch_size=self.batch_size,
+        )
+    
+    def test_dataloader(self):
+        return DataLoader(
+            self.testing_set,
+            batch_size=self.batch_size,
+        )
+
+def basicModel(cuda_num):
     num_epochs = 100
     batch_size = 4
     num_workers = N_CPUS
-    multiplier = 100
+    multiplier = 20
     learning_rate= 1e-3
     scheduler_gamma = 0.1
     scheduler_step_size = 30
@@ -340,7 +462,7 @@ def basicModel():
     basicModel = LitBasicModel(model, learning_rate, scheduler_step_size, scheduler_gamma)
     trainer = L.Trainer(
         accelerator="gpu",
-        devices=[0],
+        devices=[cuda_num],
         max_epochs=num_epochs,
         default_root_dir="./",
         # num_sanity_val_steps=-1,
@@ -361,11 +483,70 @@ def basicModel():
 
     trainer.fit(
         model=basicModel,
+        datamodule=dMRI
+    )
+
+def basicPatchModel(cuda_num):
+    num_epochs = 100
+    batch_size = 64
+    num_workers = N_CPUS
+    multiplier = 20
+    learning_rate= 1e-3
+    scheduler_gamma = 0.1
+    scheduler_step_size = 30
+
+    patch_size = 10 # 3D batches of 2cmx2cmx2cm
+    samples_per_volume = 27 # in an hypotetic grid 3x3x3 a side will be of 6cm, which is inside the brain
+    max_queue_lenght = 2048
+
+    test_subjs_idx = [2, 16, 13, 12]
+    val_subjs_idx = [0, 7, 10, 14]
+
+    dMRI = PatchDiffusionDataModule(val_subjs_idx, test_subjs_idx, "../../study", batch_size, patch_size, num_workers, multiplier, samples_per_volume, max_queue_lenght)
+
+    model = monai.networks.nets.ResNet(
+        block="bottleneck",
+        layers=[3, 8, 36, 3],
+        block_inplanes=[64, 128, 256, 512],
+        n_input_channels=1,
+        num_classes=1,
+    )
+    checkpoint_callback = ModelCheckpoint(
+        save_top_k=10,
+        monitor="val_loss",
+        save_weights_only=False,
+    )
+
+    basicModel = LitBasicModel(model, learning_rate, scheduler_step_size, scheduler_gamma)
+    trainer = L.Trainer(
+        accelerator="gpu",
+        devices=[cuda_num],
+        max_epochs=num_epochs,
+        default_root_dir="./",
+        # num_sanity_val_steps=-1,
+        # profiler="simple",
+        callbacks=[checkpoint_callback],
+    )
+    tuner = Tuner(trainer)
+    tuner.lr_find(
+        model=basicModel,
+        datamodule=dMRI,
+    )
+    # tuner.scale_batch_size(
+    #     model=basicModel,
+    #     datamodule=dMRI,
+    #     steps_per_trial=10,
+    #     max_trials=40
+    # )
+
+    trainer.fit(
+        model=basicModel,
         datamodule=dMRI,
     )
 
 def main():
-    return basicModel()
+    cuda_num = 0
+    return basicPatchModel(cuda_num)
 
 if __name__ == "__main__":
     exit(main())
