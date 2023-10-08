@@ -26,7 +26,7 @@ for i in range(23+1):
         "wMD": f"{subj_dir}/dMRI/microstructure/diamond/{subj_id}_diamond_wMD.nii.gz",
         "wAD": f"{subj_dir}/dMRI/microstructure/diamond/{subj_id}_diamond_wAD.nii.gz",
         "wRD": f"{subj_dir}/dMRI/microstructure/diamond/{subj_id}_diamond_wRD.nii.gz",
-        "diamond_frac_csf": f"{subj_dir}/dMRI/microstructure/diamond/{subj_id}_diamond_frac_csf.nii.gz",
+        # "diamond_frac_csf": f"{subj_dir}/dMRI/microstructure/diamond/{subj_id}_diamond_frac_csf.nii.gz",
         "icvf": f"{subj_dir}/dMRI/microstructure/noddi/{subj_id}_noddi_icvf.nii.gz",
         "odi": f"{subj_dir}/dMRI/microstructure/noddi/{subj_id}_noddi_odi.nii.gz",
         "fextra": f"{subj_dir}/dMRI/microstructure/noddi/{subj_id}_noddi_fextra.nii.gz",
@@ -77,10 +77,10 @@ FA_vol = ants.image_read(image_paths[subj_id]["diamond_frac_csf"])
 
 #%% transform images %% 
 
-type_of_transform = 'DenseRigid'
+type_of_transform = 'Affine'
 
 for subj_id in tqdm(image_paths.keys()):
-    output_dir = os.path.join(subjs_dir, subj_id, "registration", "FAinMNI_rigid")
+    output_dir = os.path.join(subjs_dir, subj_id, "registration", "FAinMNI_affine")
     if not os.path.isdir(output_dir):
         os.mkdir(output_dir)
 
@@ -99,12 +99,12 @@ for subj_id in tqdm(image_paths.keys()):
     for image_path in image_paths[subj_id].values():
         moving_volume = ants.image_read(image_path)
 
+
         transformed = ants.apply_transforms(
             fixed=FA_fixed,
             moving=moving_volume,
             transformlist=fwdtransforms,
-            interpolator="gaussian",
         )
 
-        ants.image_write(transformed, os.path.join(subjs_dir, subj_id, "registration", "FAinMNI_rigid", image_path.split("/")[-1]))
+        ants.image_write(transformed, os.path.join(subjs_dir, subj_id, "registration", "FAinMNI_affine", image_path.split("/")[-1]))
 
