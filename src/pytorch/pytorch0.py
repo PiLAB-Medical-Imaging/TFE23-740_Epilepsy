@@ -25,12 +25,13 @@ from torch.utils.data import DataLoader
 from torchmetrics.classification import BinaryAccuracy, BinaryAUROC
 from lightning.pytorch.callbacks import ModelCheckpoint
 from lightning.pytorch.tuner import Tuner
-
+from scripts.networks.unest_base_patch_4 import UNesT
+from monai.networks.blocks import Convolution as MonaiConv
 
 class LitBasicModel(L.LightningModule):
     def __init__(self, model, learning_rate, scheduler_step_size, scheduler_gamma):
         super().__init__()
-        self.example_input_array = torch.Tensor(8, 1, 110, 110, 68)
+        # self.example_input_array = torch.Tensor(4, 1, 69, 69, 69)
 
         self.learning_rate = learning_rate
         self.model = model
@@ -54,8 +55,8 @@ class LitBasicModel(L.LightningModule):
         self.save_hyperparameters(ignore=['model'])
 
     def forward(self, x):
-        outputs = self.model(x)
-        return outputs
+        logits = self.model(x)
+        return logits
     
     def configure_optimizers(self):
         optimizer = torch.optim.AdamW(self.parameters(), lr=self.learning_rate)
@@ -101,9 +102,52 @@ class LitBasicModel(L.LightningModule):
     
     def predict_step(self, batch):
         inputs = batch[0]
-        outputs = self.model(inputs)
-        probabilities = self.sigmoid(outputs)
+        logits = self.forward(inputs)
+        probabilities = self.sigmoid(logits)
         return probabilities
+
+class UNesTModNet(torch.nn.Module):
+    def __init__(self, num_classes=1):
+        super().__init__()
+
+        self.model_ft = UNesT(
+            in_channels=1,
+            out_channels=133,
+            patch_size=4,
+            depths=[2, 2, 8],
+            embed_dim=[128, 256, 512],
+            num_heads=[4, 8, 16],
+        )
+
+        checkpoint = torch.load("./models/model.pt")
+        self.model_ft.load_state_dict(checkpoint["model"])
+
+        num_target_classes = num_classes
+
+        self.conv3d = MonaiConv(
+            spatial_dims=3,
+            in_channels=self.model_ft.encoder10.out_channels,
+            out_channels=2 * self.model_ft.encoder10.out_channels,
+            kernel_size=3,
+            adn_ordering="DA",
+            dropout=0.1,
+            padding=0,
+            bias=False
+        )
+
+        self.flatter = torch.nn.Flatten()
+
+        self.linear = torch.nn.Linear(
+            in_features=2 * self.model_ft.encoder10.out_channels,
+            out_features=num_target_classes
+        )
+
+    def forward(self, x_in):
+        x0, _ = self.model_ft.nestViT(x_in)
+        x = self.model_ft.encoder10(x0)
+        x1 = self.flatter(self.conv3d(x))
+        logits = self.linear(x1)
+        return logits
     
 class DiffusionMRIDataModule(L.LightningDataModule):
     def __init__(self, val_subjs_idx, test_subjs_idx, study_path, batch_size, num_workers, multiplier):
@@ -155,26 +199,25 @@ class DiffusionMRIDataModule(L.LightningDataModule):
                 # "epilepsy_onset_age": row.epilepsy_onset_age,
                 # "therapy_duration": row.therapy_duration,
                 # "AEDs": row.AEDs,
-                # "FA": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/dMRI/microstructure/dti/{row.ID}_FA.nii.gz"),
-                # "MD": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/dMRI/microstructure/dti/{row.ID}_MD.nii.gz"),
-                # "AD": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/dMRI/microstructure/dti/{row.ID}_AD.nii.gz"),
-                # "RD": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/dMRI/microstructure/dti/{row.ID}_RD.nii.gz"),
-                # "wFA": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/dMRI/microstructure/diamond/{row.ID}_diamond_wFA.nii.gz"),
-                # "wMD": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/dMRI/microstructure/diamond/{row.ID}_diamond_wMD.nii.gz"),
-                # "wAD": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/dMRI/microstructure/diamond/{row.ID}_diamond_wAD.nii.gz"),
-                # "wRD": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/dMRI/microstructure/diamond/{row.ID}_diamond_wRD.nii.gz"),
-                # "diamond_frac_csf": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/dMRI/microstructure/diamond/{row.ID}_diamond_frac_csf.nii.gz"),
-                # "icvf": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/dMRI/microstructure/noddi/{row.ID}_noddi_icvf.nii.gz"),
-                # "odi": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/dMRI/microstructure/noddi/{row.ID}_noddi_odi.nii.gz"),
-                # "fextra": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/dMRI/microstructure/noddi/{row.ID}_noddi_fextra.nii.gz"),
-                # "fiso": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/dMRI/microstructure/noddi/{row.ID}_noddi_fiso.nii.gz"),
-                "wfvf": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/dMRI/microstructure/mf/{row.ID}_mf_wfvf.nii.gz"),
-                # "fvf_tot": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/dMRI/microstructure/mf/{row.ID}_mf_fvf_tot.nii.gz"),
-                # "mf_frac_csf": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/dMRI/microstructure/mf/{row.ID}_mf_frac_csf.nii.gz"),
-                "WM_mask": tio.LabelMap(f"{study_path}/freesurfer/{row.ID}/dlabel/diff/White-Matter++.bbr.nii.gz"),
-                "aparc_aseg": tio.LabelMap(f"{study_path}/freesurfer/{row.ID}/dlabel/diff/aparc+aseg+thalnuc.bbr.nii.gz"),
-                # "tract_prob": tio.ScalarImage(f"{study_path}/freesurfer/{row.ID}/dpath/mergedX2_3D_avg16_syn_bbr.nii.gz"),
-                # "t1": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/{row.ID}_T1_brain_reg.nii.gz"),
+                "FA": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_FA.nii.gz"),
+                "MD": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_MD.nii.gz"),
+                "AD": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_AD.nii.gz"),
+                "RD": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_RD.nii.gz"),
+                "wFA": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_diamond_wFA.nii.gz"),
+                "wMD": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_diamond_wMD.nii.gz"),
+                "wAD": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_diamond_wAD.nii.gz"),
+                "wRD": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_diamond_wRD.nii.gz"),
+                # "diamond_frac_csf": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_affine/{row.ID}_diamond_frac_csf.nii.gz"),
+                "icvf": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_noddi_icvf.nii.gz"),
+                "odi": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_noddi_odi.nii.gz"),
+                "fextra": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_noddi_fextra.nii.gz"),
+                "fiso": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_noddi_fiso.nii.gz"),
+                "wfvf": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_mf_wfvf.nii.gz"),
+                "fvf_tot": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_mf_fvf_tot.nii.gz"),
+                "mf_frac_csf": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_mf_frac_csf.nii.gz"),
+                "WM_mask": tio.LabelMap(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/White-Matter++.bbr.nii.gz"),
+                "aparc_aseg": tio.LabelMap(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/aparc+aseg+thalnuc.bbr.nii.gz"),
+                "t1": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_T1_brain_reg.nii.gz")
             }
 
             subjects_list.append(tio.Subject(subj_dict))
@@ -182,19 +225,14 @@ class DiffusionMRIDataModule(L.LightningDataModule):
         return subjects_list
 
     @staticmethod
-    def getPreprocessingTransform(reference_image, maxSize):
+    def getPreprocessingTransform():
         return tio.Compose([
             ## Preprocessing ##
             # Spatial
             tio.transforms.ToCanonical(),
-            tio.transforms.Resample(reference_image),
-            tio.transforms.CropOrPad((maxSize[0], maxSize[1], maxSize[2])),
-            tio.transforms.CopyAffine(reference_image),
-            tio.transforms.EnsureShapeMultiple(8, method="crop"),
-            # Voxel Intensity
-            tio.transforms.Mask(masking_method="aparc_aseg"),
-            # tio.transforms.RescaleIntensity(percentiles=(0.5, 99.5), masking_method="aparc_aseg"),
-            tio.ZNormalization(masking_method="aparc_aseg"),
+            tio.transforms.Resample(2),
+            tio.transforms.CropOrPad(96, "edge"),
+            tio.ZNormalization(masking_method=tio.ZNormalization.mean),
         ]) 
     
     @staticmethod
@@ -257,8 +295,7 @@ class DiffusionMRIDataModule(L.LightningDataModule):
             train.remove(el_test)
         train = list(train)
 
-        maxSize = self.findSizeCrop(subjects_list, "wfvf")
-        preprocessing_transform = self.getPreprocessingTransform("wfvf", maxSize)
+        preprocessing_transform = self.getPreprocessingTransform()
         k = self.k
 
         if stage == "fit" or stage == "validate":
@@ -327,14 +364,13 @@ class PatchDiffusionDataModule(DiffusionMRIDataModule):
             ## Preprocessing ##
             # Spatial
             tio.transforms.ToCanonical(),
-            tio.transforms.Resample(reference_image),
+            tio.transforms.Resample(2),
             tio.transforms.CropOrPad(mask_name="aparc_aseg"),
             tio.transforms.CopyAffine(reference_image),
             tio.transforms.EnsureShapeMultiple(8, method="crop"),
             # Voxel Intensity
-            tio.transforms.Mask(masking_method="aparc_aseg"),
             # tio.transforms.RescaleIntensity(percentiles=(0.5, 99.5), masking_method="aparc_aseg"),
-            tio.ZNormalization(masking_method="aparc_aseg"),
+            tio.ZNormalization(masking_method=tio.ZNormalization.mean),
         ])
     
     def setup(self, stage:str) -> None:
@@ -464,7 +500,7 @@ def basicModel(cuda_num):
         accelerator="gpu",
         devices=[cuda_num],
         max_epochs=num_epochs,
-        default_root_dir="./",
+        default_root_dir="./batchBasic",
         # num_sanity_val_steps=-1,
         # profiler="simple",
         callbacks=[checkpoint_callback],
@@ -522,7 +558,7 @@ def basicPatchModel(cuda_num):
         accelerator="gpu",
         devices=[cuda_num],
         max_epochs=num_epochs,
-        default_root_dir="./",
+        default_root_dir="./patchBasic",
         # num_sanity_val_steps=-1,
         # profiler="simple",
         callbacks=[checkpoint_callback],
@@ -544,9 +580,46 @@ def basicPatchModel(cuda_num):
         datamodule=dMRI,
     )
 
+def uNesTModel(cuda_num):
+    num_epochs = 100
+    batch_size = 16
+    num_workers = N_CPUS
+    multiplier = 100
+    learning_rate= 1e-3
+    scheduler_gamma = 0.1
+    scheduler_step_size = 30
+
+    test_subjs_idx = [2, 16, 13, 12]
+    val_subjs_idx = [0, 7, 10, 14]
+
+    dMRI = DiffusionMRIDataModule(val_subjs_idx, test_subjs_idx, "../../study", batch_size, num_workers, multiplier)
+
+    model = UNesTModNet()
+    checkpoint_callback = ModelCheckpoint(
+        save_top_k=10,
+        monitor="val_loss",
+        save_weights_only=False,
+    )
+
+    uNesT = LitBasicModel(model, learning_rate, scheduler_step_size, scheduler_gamma)
+    trainer = L.Trainer(
+        accelerator="gpu",
+        devices=[cuda_num],
+        max_epochs=num_epochs,
+        default_root_dir="./uNesTModel/",
+        num_sanity_val_steps=0,
+        # profiler="simple",
+        callbacks=[checkpoint_callback],
+    )
+
+    trainer.fit(
+        model=uNesT,
+        datamodule=dMRI
+    )
+
 def main():
     cuda_num = 0
-    return basicPatchModel(cuda_num)
+    return uNesTModel(cuda_num)
 
 if __name__ == "__main__":
     exit(main())
