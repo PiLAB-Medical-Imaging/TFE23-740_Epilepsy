@@ -2,17 +2,17 @@ N_CPUS = 8
 
 import os
 
-os.environ["OMP_NUM_THREADS"] = f"{N_CPUS}"
-os.environ["OPENBLAS_NUM_THREADS"] = f"{N_CPUS}"
-os.environ["MKL_NUM_THREADS"] = f"{N_CPUS}"
-os.environ["VECLIB_MAXIMUM_THREADS"] = f"{N_CPUS}"
-os.environ["NUMEXPR_NUM_THREADS"] = f"{N_CPUS}"
+# os.environ["OMP_NUM_THREADS"] = f"{N_CPUS}"
+# os.environ["OPENBLAS_NUM_THREADS"] = f"{N_CPUS}"
+# os.environ["MKL_NUM_THREADS"] = f"{N_CPUS}"
+# os.environ["VECLIB_MAXIMUM_THREADS"] = f"{N_CPUS}"
+# os.environ["NUMEXPR_NUM_THREADS"] = f"{N_CPUS}"
 # os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "max_split_size_mb:100"
 
 import torch
 
-torch.set_num_threads(N_CPUS)  # For intra-op parallelism
-torch.set_num_interop_threads(N_CPUS)  # For inter-op parallelism
+# torch.set_num_threads(N_CPUS)  # For intra-op parallelism
+# torch.set_num_interop_threads(N_CPUS)  # For inter-op parallelism
 
 import torchio as tio
 import pandas as pd
@@ -63,7 +63,10 @@ class LitBasicModel(L.LightningModule):
         scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=self.scheduler_step_size, gamma=self.scheduler_gamma)
         return {
             "optimizer": optimizer,
-            "lr_scheduler": scheduler
+            "lr_scheduler": {
+                "scheduler": scheduler,
+                "interval": "epoch"
+            }
         }
     
     # def __predict(self, probabilities):
@@ -199,25 +202,25 @@ class DiffusionMRIDataModule(L.LightningDataModule):
                 # "epilepsy_onset_age": row.epilepsy_onset_age,
                 # "therapy_duration": row.therapy_duration,
                 # "AEDs": row.AEDs,
-                "FA": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_FA.nii.gz"),
-                "MD": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_MD.nii.gz"),
-                "AD": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_AD.nii.gz"),
-                "RD": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_RD.nii.gz"),
-                "wFA": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_diamond_wFA.nii.gz"),
-                "wMD": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_diamond_wMD.nii.gz"),
-                "wAD": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_diamond_wAD.nii.gz"),
-                "wRD": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_diamond_wRD.nii.gz"),
-                # "diamond_frac_csf": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_affine/{row.ID}_diamond_frac_csf.nii.gz"),
-                "icvf": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_noddi_icvf.nii.gz"),
-                "odi": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_noddi_odi.nii.gz"),
-                "fextra": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_noddi_fextra.nii.gz"),
-                "fiso": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_noddi_fiso.nii.gz"),
+                # "FA": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_FA.nii.gz"),
+                # "MD": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_MD.nii.gz"),
+                # "AD": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_AD.nii.gz"),
+                # "RD": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_RD.nii.gz"),
+                # "wFA": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_diamond_wFA.nii.gz"),
+                # "wMD": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_diamond_wMD.nii.gz"),
+                # "wAD": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_diamond_wAD.nii.gz"),
+                # "wRD": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_diamond_wRD.nii.gz"),
+                # # "diamond_frac_csf": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_affine/{row.ID}_diamond_frac_csf.nii.gz"),
+                # "icvf": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_noddi_icvf.nii.gz"),
+                # "odi": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_noddi_odi.nii.gz"),
+                # "fextra": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_noddi_fextra.nii.gz"),
+                # "fiso": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_noddi_fiso.nii.gz"),
                 "wfvf": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_mf_wfvf.nii.gz"),
-                "fvf_tot": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_mf_fvf_tot.nii.gz"),
-                "mf_frac_csf": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_mf_frac_csf.nii.gz"),
-                "WM_mask": tio.LabelMap(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/White-Matter++.bbr.nii.gz"),
-                "aparc_aseg": tio.LabelMap(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/aparc+aseg+thalnuc.bbr.nii.gz"),
-                "t1": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_T1_brain_reg.nii.gz")
+                # "fvf_tot": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_mf_fvf_tot.nii.gz"),
+                # "mf_frac_csf": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_mf_frac_csf.nii.gz"),
+                # "WM_mask": tio.LabelMap(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/White-Matter++.bbr.nii.gz"),
+                # "aparc_aseg": tio.LabelMap(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/aparc+aseg+thalnuc.bbr.nii.gz"),
+                # "t1": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_T1_brain_reg.nii.gz")
             }
 
             subjects_list.append(tio.Subject(subj_dict))
@@ -238,14 +241,11 @@ class DiffusionMRIDataModule(L.LightningDataModule):
     @staticmethod
     def getTrainingTransform():
         return tio.Compose([
-            tio.OneOf({
-                tio.RandomAffine(scales=0.25, degrees=20, translation=5, check_shape=True): 0.8,
-                tio.RandomElasticDeformation(): 0.2,
-            }),
-            tio.RandomAnisotropy(p=0.1),
-            tio.RandomBiasField(p=0.1),
-            tio.RandomBlur(p=0.1),
-            tio.RandomGamma(p=0.1),
+            tio.RandomAffine(scales=0.25, degrees=20, translation=5, check_shape=True, p=0.8),
+            tio.RandomAnisotropy(p=0.2),
+            tio.RandomBiasField(coefficients=(0.0, 0.1), p=0.2),
+            tio.RandomBlur(p=0.2),
+            tio.RandomGamma(p=0.2),
             tio.RandomNoise(p=0.2),
             tio.OneOf((
                 tio.RandomMotion(),
@@ -258,12 +258,9 @@ class DiffusionMRIDataModule(L.LightningDataModule):
     @staticmethod
     def getValidationTransform():
         return tio.Compose([
-            tio.OneOf({
-                tio.RandomAffine(scales=0.25, degrees=20, translation=5, check_shape=True): 0.8,
-                tio.RandomElasticDeformation(): 0.2,
-            }),
+            tio.RandomAffine(scales=0.25, degrees=20, translation=5, check_shape=True, p=0.8),
             tio.RandomAnisotropy(p=0.1),
-            tio.RandomBiasField(p=0.1),
+            tio.RandomBiasField(coefficients=(0.0, 0.1), p=0.1),
             tio.RandomBlur(p=0.1),
             tio.RandomGamma(p=0.1),
             tio.RandomNoise(p=0.2),
@@ -279,7 +276,7 @@ class DiffusionMRIDataModule(L.LightningDataModule):
         return tio.Compose([
             tio.RandomAffine(scales=0.05, degrees=5, check_shape=True),
             tio.RandomAnisotropy(downsampling=(1, 2), p=0.1),
-            tio.RandomBiasField(coefficients=0.25, p=0.1),
+            tio.RandomBiasField(coefficients=(0.0, 0.05), p=0.1),
             tio.RandomBlur(std=(0, 2), p=0.2),
             tio.RandomGamma(log_gamma=(-1.5, 1.5), p=0.2),
             tio.RandomNoise(std=(0, 0.1), p=0.2),
@@ -324,21 +321,24 @@ class DiffusionMRIDataModule(L.LightningDataModule):
             self.training_set,
             batch_size=self.batch_size,
             shuffle=True,
-            num_workers=self.num_workers
+            num_workers=self.num_workers,
+            pin_memory=torch.cuda.is_available()
         )
     
     def val_dataloader(self):
         return DataLoader(
             self.validation_set,
             batch_size=self.batch_size,
-            num_workers=self.num_workers
+            num_workers=self.num_workers,
+            pin_memory=torch.cuda.is_available()
         )
     
     def test_dataloader(self):
         return DataLoader(
             self.testing_set,
             batch_size=self.batch_size,
-            num_workers=self.num_workers
+            num_workers=self.num_workers,
+            pin_memory=torch.cuda.is_available()
         )
 
     def transfer_batch_to_device(self, batch, device, dataloader_idx):
@@ -468,6 +468,133 @@ class PatchDiffusionDataModule(DiffusionMRIDataModule):
             batch_size=self.batch_size,
         )
 
+class MONAIDiffusionMRIDataModule(L.LightningDataModule):
+    def __init__(self, val_subjs_idx, test_subjs_idx, study_path, batch_size, num_workers, multiplier):
+        super().__init__()
+
+        self.val_subjs_idx = val_subjs_idx
+        self.test_subjs_idx = test_subjs_idx
+
+        self.study_path = study_path
+        self.batch_size = batch_size
+        self.num_workers = num_workers
+        self.k = multiplier
+
+        self.save_hyperparameters()
+
+    @staticmethod
+    def load_subjects(study_path):
+        info_df = pd.read_csv(f"{study_path}/stats/info.csv").dropna()
+
+        subjects_list = []
+        label_list = []
+
+        for _, row in info_df.iterrows():
+            if "VNSLC" not in row.ID:
+                continue
+
+            subjects_list.append(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_mf_wfvf.nii.gz")
+            label_list.append(row.resp)
+
+        return subjects_list, label_list
+    
+    @staticmethod
+    def getPreprocessingTransform():
+        return monai.transforms.Compose([
+            ## Preprocessing ##
+            # Spatial
+            # tio.transforms.ToCanonical(),
+            # tio.transforms.Resample(2),
+            # tio.transforms.CropOrPad(96, "edge"),
+            monai.transforms.NormalizeIntensity()
+        ]) 
+
+    def setup(self, stage:str) -> None:
+        subjects_list, label_list = self.load_subjects(self.study_path)
+
+        test = self.test_subjs_idx
+        val = self.val_subjs_idx
+        train = set(range(19))
+        for el_test in test+val:
+            train.remove(el_test)
+        train = list(train)
+
+        preprocessing_transform = self.getPreprocessingTransform()
+        k = self.k
+
+        if stage == "fit" or stage == "validate":
+            if stage == "fit":
+                training_subjects = []
+                training_labels = []
+                for idx in train:
+                    training_subjects.append(subjects_list[idx])
+                    training_labels.append(label_list[idx])
+                # training_transform = self.getTrainingTransform()
+                self.training_set = monai.data.ImageDataset(
+                    image_files=training_subjects*k,
+                    labels=training_labels*k,
+                    transform=preprocessing_transform
+                )
+
+            validation_subjects = []
+            validation_labels = []
+            for idx in val:
+                validation_subjects.append(subjects_list[idx])
+                validation_labels.append(label_list[idx])
+            # validation_transform = self.getValidationTransform()
+            self.validation_set = monai.data.ImageDataset(
+                image_files=validation_subjects*k,
+                labels=validation_labels*k,
+                transform=monai.transforms.Compose([preprocessing_transform])
+            )
+
+        if stage == "test":
+            testing_subjects = []
+            testing_labels = []
+            for idx in test:
+                testing_subjects.append(subjects_list[idx])
+                testing_labels.append(subjects_list[idx])
+            # testing_transform = self.getTestingTransform()
+            self.testing_set = monai.data.ImageDataset(
+                image_files=testing_subjects*k,
+                labels=testing_labels*k,
+                transform=monai.transforms.Compose([preprocessing_transform])
+            )
+
+    def train_dataloader(self):
+        return DataLoader(
+            self.training_set,
+            batch_size=self.batch_size,
+            shuffle=True,
+            num_workers=self.num_workers,
+            pin_memory=torch.cuda.is_available()
+        )
+    
+    def val_dataloader(self):
+        return DataLoader(
+            self.validation_set,
+            batch_size=self.batch_size,
+            num_workers=self.num_workers,
+            pin_memory=torch.cuda.is_available()
+        )
+    
+    def test_dataloader(self):
+        return DataLoader(
+            self.testing_set,
+            batch_size=self.batch_size,
+            num_workers=self.num_workers,
+            pin_memory=torch.cuda.is_available()
+        )
+
+    def transfer_batch_to_device(self, batch, device, dataloader_idx):
+        if isinstance(batch, dict):
+            inputs = batch["wfvf"][tio.DATA].to(device)
+            targets = batch["resp"][np.newaxis].T.to(torch.float).to(device)
+            return (inputs, targets)
+        else:
+            batch = super().transfer_batch_to_device(batch, device, dataloader_idx)
+            return batch
+
 def basicModel(cuda_num):
     num_epochs = 100
     batch_size = 4
@@ -584,10 +711,10 @@ def uNesTModel(cuda_num):
     num_epochs = 100
     batch_size = 16
     num_workers = N_CPUS
-    multiplier = 100
+    multiplier = 30
     learning_rate= 1e-3
     scheduler_gamma = 0.1
-    scheduler_step_size = 30
+    scheduler_step_size = 25
 
     test_subjs_idx = [2, 16, 13, 12]
     val_subjs_idx = [0, 7, 10, 14]
@@ -596,7 +723,7 @@ def uNesTModel(cuda_num):
 
     model = UNesTModNet()
     checkpoint_callback = ModelCheckpoint(
-        save_top_k=10,
+        save_top_k=2,
         monitor="val_loss",
         save_weights_only=False,
     )
@@ -607,9 +734,10 @@ def uNesTModel(cuda_num):
         devices=[cuda_num],
         max_epochs=num_epochs,
         default_root_dir="./uNesTModel/",
-        num_sanity_val_steps=0,
-        # profiler="simple",
+        # fast_dev_run=True,
+        profiler="simple",
         callbacks=[checkpoint_callback],
+        log_every_n_steps=1,
     )
 
     trainer.fit(
