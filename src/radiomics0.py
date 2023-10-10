@@ -64,7 +64,7 @@ def runMod2(X, y):
 listOfAlgorithms = [
     ("logreg", LogisticRegressionCV(random_state=7, class_weight="balanced", scoring="neg_log_loss", cv=3, n_jobs=1)),
     ("svm", RandomizedSearchCV(
-        SVC(C=1e-6, random_state=7, class_weight="balanced"),
+        SVC(random_state=7, class_weight="balanced"),
         param_distributions={
             "C": stats.loguniform(1e-6, 1)
         },
@@ -401,6 +401,11 @@ def runMod7_2(X, y, y3):
 
         with open(f"../study/stats/results-{name}-loo-filter-ManKru-Multi-sfs.json", "w") as outfile:
                 json.dump(cvs, outfile, indent=2, sort_keys=True)
+
+def runMod8(X, y):
+    print("mod8")
+
+    
             
 def main():
     
