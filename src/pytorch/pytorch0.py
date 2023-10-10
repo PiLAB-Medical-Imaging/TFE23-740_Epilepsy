@@ -20,6 +20,7 @@ import lightning.pytorch as L
 import torch
 import numpy as np
 import monai
+import random
 
 from torch.utils.data import DataLoader
 from torchmetrics.classification import BinaryAccuracy, BinaryAUROC
@@ -27,6 +28,10 @@ from lightning.pytorch.callbacks import ModelCheckpoint
 from lightning.pytorch.tuner import Tuner
 from scripts.networks.unest_base_patch_4 import UNesT
 from monai.networks.blocks import Convolution as MonaiConv
+
+torch.manual_seed(7)
+random.seed(7)
+np.random.seed(0)
 
 class LitBasicModel(L.LightningModule):
     def __init__(self, model, learning_rate, scheduler_step_size, scheduler_gamma):
@@ -60,7 +65,7 @@ class LitBasicModel(L.LightningModule):
     
     def configure_optimizers(self):
         optimizer = torch.optim.AdamW(self.parameters(), lr=self.learning_rate)
-        scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=self.scheduler_step_size, gamma=self.scheduler_gamma)
+        scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=self.scheduler_step_size, gamma=self.scheduler_gamma,verbose=True)
         return {
             "optimizer": optimizer,
             "lr_scheduler": {
@@ -86,7 +91,7 @@ class LitBasicModel(L.LightningModule):
             f"{name}_acc" : self.acc[self.association[name]],
             f"{name}_auc-roc": self.auc_roc[self.association[name]],
             },
-            on_step=False, on_epoch=True, logger=True
+            on_step=False, on_epoch=True, logger=True, prog_bar=True
             # sync_dist=True # Remove if are not using ddp
         )
         return avg_loss
@@ -711,10 +716,10 @@ def uNesTModel(cuda_num):
     num_epochs = 100
     batch_size = 16
     num_workers = N_CPUS
-    multiplier = 30
-    learning_rate= 1e-3
+    multiplier = 40
+    learning_rate= 1e-5
     scheduler_gamma = 0.1
-    scheduler_step_size = 25
+    scheduler_step_size = 7
 
     test_subjs_idx = [2, 16, 13, 12]
     val_subjs_idx = [0, 7, 10, 14]
@@ -723,7 +728,7 @@ def uNesTModel(cuda_num):
 
     model = UNesTModNet()
     checkpoint_callback = ModelCheckpoint(
-        save_top_k=2,
+        save_top_k=0,
         monitor="val_loss",
         save_weights_only=False,
     )
@@ -745,9 +750,49 @@ def uNesTModel(cuda_num):
         datamodule=dMRI
     )
 
+def tuningUNesTModel(cuda_num):
+    num_epochs = 50
+    batch_size = 16
+    num_workers = N_CPUS
+    multiplier = 20
+
+    test_subjs_idx = [2, 16, 13, 12]
+    val_subjs_idx = [0, 7, 10, 14]
+
+    dMRI = DiffusionMRIDataModule(val_subjs_idx, test_subjs_idx, "../../study", batch_size, num_workers, multiplier)
+
+    checkpoint_callback = ModelCheckpoint(
+        save_top_k=0,
+        monitor="val_loss",
+        save_weights_only=False,
+    )
+
+    for learning_rate in [5e-3, 1e-3, 5e-4, 1e-4, 5e-5, 1e-5, 5e-6, 1e-6]:
+        for scheduler_gamma in [0.1, 0.3, 0.01]:
+            for scheduler_step_size in [7, 15, 25]:
+
+                model = UNesTModNet()
+
+                uNesT = LitBasicModel(model, learning_rate, scheduler_step_size, scheduler_gamma)
+                trainer = L.Trainer(
+                    accelerator="gpu",
+                    devices=[cuda_num],
+                    max_epochs=num_epochs,
+                    default_root_dir="./uNesTModel/",
+                    # fast_dev_run=True,
+                    profiler="simple",
+                    callbacks=[checkpoint_callback],
+                    log_every_n_steps=1,
+                )
+
+                trainer.fit(
+                    model=uNesT,
+                    datamodule=dMRI
+                )
+
 def main():
     cuda_num = 0
-    return uNesTModel(cuda_num)
+    return tuningUNesTModel(cuda_num)
 
 if __name__ == "__main__":
     exit(main())

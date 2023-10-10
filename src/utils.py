@@ -63,8 +63,8 @@ def reduceSaveAndGetDS(df):
 
     return df
 
-def getReducedDS():
-    return pd.read_csv("../study/stats/datasetRadiomicsReduced.csv", index_col="ID")
+def getReducedDS(path="../study/stats/datasetRadiomicsReduced.csv"):
+    return pd.read_csv(path, index_col="ID")
 
 def splitFeatureLabels(df: pd.DataFrame):
     return df.iloc[:,2:], df.iloc[:,:1].squeeze(), df.iloc[:,1:2].squeeze()
@@ -363,7 +363,7 @@ def printScores(y_true, y_prob_decision, decision = False, doPrints=True, confus
 
         plt.title('Confusion Matrix')
         sns.set(font_scale=1.0) #for label size
-        sns.heatmap(cm, annot = True, fmt = 'd', xticklabels = ['Non responder', 'Responder'], yticklabels = ['Non responder', 'Responder'], annot_kws={"size": 14}, cmap = 'Blues')# font size
+        sns.heatmap(cm, annot = True, fmt = 'd', xticklabels = ['Non responder', 'Responder'], yticklabels = ['Non responder', 'Responder'], annot_kws={"size": 14}, cmap = 'Blues', cbar=False)# font size
 
         plt.xlabel('Prediction')
         plt.ylabel('Truth')
