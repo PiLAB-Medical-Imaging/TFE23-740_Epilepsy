@@ -404,8 +404,6 @@ def runMod7_2(X, y, y3):
 
 def runMod8(X, y):
     print("mod8")
-
-    
             
 def main():
     

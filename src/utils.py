@@ -363,7 +363,7 @@ def printScores(y_true, y_prob_decision, decision = False, doPrints=True, confus
 
         plt.title('Confusion Matrix')
         sns.set(font_scale=1.0) #for label size
-        sns.heatmap(cm, annot = True, fmt = 'd', xticklabels = ['Non responder', 'Responder'], yticklabels = ['Non responder', 'Responder'], annot_kws={"size": 14}, cmap = 'Blues', cbar=False)# font size
+        sns.heatmap(cm, annot = True, fmt = 'd', xticklabels = ['Non responder', 'Responder'], yticklabels = ['Non responder', 'Responder'], annot_kws={"size": 14}, cmap = 'Blues')# font size
 
         plt.xlabel('Prediction')
         plt.ylabel('Truth')
