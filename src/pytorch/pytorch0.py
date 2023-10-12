@@ -1,4 +1,4 @@
-N_CPUS = 8
+N_CPUS = 9
 
 import os
 
@@ -64,8 +64,8 @@ class LitBasicModel(L.LightningModule):
         return logits
     
     def configure_optimizers(self):
-        optimizer = torch.optim.AdamW(self.parameters(), lr=self.learning_rate)
-        scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=self.scheduler_step_size, gamma=self.scheduler_gamma,verbose=True)
+        optimizer = torch.optim.SGD(self.parameters(), lr=self.learning_rate, momentum=0.9)
+        scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=self.scheduler_step_size, gamma=self.scheduler_gamma, verbose=True)
         return {
             "optimizer": optimizer,
             "lr_scheduler": {
@@ -156,6 +156,49 @@ class UNesTModNet(torch.nn.Module):
         x1 = self.flatter(self.conv3d(x))
         logits = self.linear(x1)
         return logits
+
+class UNesTModNet1(torch.nn.Module):
+    def __init__(self, num_classes=1):
+        super().__init__()
+
+        self.model_ft = UNesT(
+            in_channels=1,
+            out_channels=133,
+            patch_size=4,
+            depths=[2, 2, 8],
+            embed_dim=[128, 256, 512],
+            num_heads=[4, 8, 16],
+        )
+
+        checkpoint = torch.load("./models/model.pt")
+        self.model_ft.load_state_dict(checkpoint["model"])
+        for param in self.model_ft.parameters():
+            param.requires_grad = False
+
+        num_target_classes = num_classes
+
+        self.flatter = torch.nn.Flatten()
+
+        self.linear1 = torch.nn.Linear(
+            in_features=self.model_ft.encoder10.out_channels *3*3*3,
+            out_features=1024*4
+        )
+        self.linear2 = torch.nn.Linear(
+            in_features=1024*4,
+            out_features=num_target_classes
+        )
+        self.activation = torch.nn.PReLU()
+        self.drop1 = torch.nn.Dropout()
+
+    def forward(self, x_in):
+        self.model_ft.eval()
+        with torch.no_grad():
+            x0, _ = self.model_ft.nestViT(x_in)
+            x = self.model_ft.encoder10(x0)
+        x1 = self.activation(self.linear1(self.flatter(x)))
+        x2 = self.drop1(x1)
+        logits = self.activation(self.linear2(x2))
+        return logits
     
 class DiffusionMRIDataModule(L.LightningDataModule):
     def __init__(self, val_subjs_idx, test_subjs_idx, study_path, batch_size, num_workers, multiplier):
@@ -227,8 +270,9 @@ class DiffusionMRIDataModule(L.LightningDataModule):
                 # "aparc_aseg": tio.LabelMap(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/aparc+aseg+thalnuc.bbr.nii.gz"),
                 # "t1": tio.ScalarImage(f"{study_path}/subjects/{row.ID}/registration/FAinMNI_Rigid/{row.ID}_T1_brain_reg.nii.gz")
             }
-
-            subjects_list.append(tio.Subject(subj_dict))
+            subj = tio.Subject(subj_dict)
+            subj.load()
+            subjects_list.append(subj)
 
         return subjects_list
 
@@ -713,13 +757,13 @@ def basicPatchModel(cuda_num):
     )
 
 def uNesTModel(cuda_num):
-    num_epochs = 100
+    num_epochs = 200
     batch_size = 16
     num_workers = N_CPUS
-    multiplier = 40
-    learning_rate= 1e-5
-    scheduler_gamma = 0.1
-    scheduler_step_size = 7
+    multiplier = 20
+    learning_rate= 1e-4
+    scheduler_gamma = 0.01
+    scheduler_step_size = int(num_epochs//4)
 
     test_subjs_idx = [2, 16, 13, 12]
     val_subjs_idx = [0, 7, 10, 14]
@@ -770,6 +814,7 @@ def tuningUNesTModel(cuda_num):
     for learning_rate in [5e-3, 1e-3, 5e-4, 1e-4, 5e-5, 1e-5, 5e-6, 1e-6]:
         for scheduler_gamma in [0.1, 0.3, 0.01]:
             for scheduler_step_size in [7, 15, 25]:
+                # 33 15 26 42 44 47
 
                 model = UNesTModNet()
 
@@ -790,9 +835,47 @@ def tuningUNesTModel(cuda_num):
                     datamodule=dMRI
                 )
 
+def uNesTModel1(cuda_num):
+    num_epochs = 200
+    batch_size = 16
+    num_workers = N_CPUS
+    multiplier = 5
+    learning_rate= 1e-4
+    scheduler_gamma = 0.01
+    scheduler_step_size = 200
+
+    test_subjs_idx = [2, 16, 13, 12]
+    val_subjs_idx = [0, 7, 10, 14]
+
+    dMRI = DiffusionMRIDataModule(val_subjs_idx, test_subjs_idx, "../../study", batch_size, num_workers, multiplier)
+
+    model = UNesTModNet1()
+    checkpoint_callback = ModelCheckpoint(
+        save_top_k=0,
+        monitor="val_loss",
+        save_weights_only=False,
+    )
+
+    uNesT = LitBasicModel(model, learning_rate, scheduler_step_size, scheduler_gamma)
+    trainer = L.Trainer(
+        accelerator="gpu",
+        devices=[cuda_num],
+        max_epochs=num_epochs,
+        default_root_dir="./uNesTModel1/",
+        # fast_dev_run=True,
+        profiler="simple",
+        callbacks=[checkpoint_callback],
+        log_every_n_steps=1,
+    )
+
+    trainer.fit(
+        model=uNesT,
+        datamodule=dMRI
+    )
+
 def main():
     cuda_num = 0
-    return tuningUNesTModel(cuda_num)
+    return uNesTModel1(cuda_num)
 
 if __name__ == "__main__":
     exit(main())
