@@ -1,5 +1,8 @@
 import utils
 import json
+import pandas as pd
+
+from feature_engine.selection import DropConstantFeatures, DropDuplicateFeatures
 
 from sklearn.model_selection import cross_validate, LeaveOneOut
 from sklearn.pipeline import Pipeline
@@ -404,13 +407,61 @@ def runMod7_2(X, y, y3):
 
 def runMod8(X, y):
     print("mod8")
-            
+
+    for name, algorithm in listOfAlgorithms:
+        print(name)
+        decision = name == "svm"
+        cvs = {}
+        try:
+            cv = cross_validate(
+                Pipeline([
+                    ("selection", Pipeline([
+                        ("outlier", utils.MADOutlierRemotion(3)),
+                        ("scaler", RobustScaler()),
+                        ("correlated", SmartCorrelatedSelection(threshold=0.95,missing_values="raise", selection_method="variance")),
+                        ("sfs", SFS(
+                            listOfAlgorithmsNoCV[name],
+                            k_features=(1,3),
+                            floating=True,
+                            scoring="roc_auc",
+                            cv=3,
+                        ))
+                    ])),
+                    ("clf", algorithm)
+                ]),
+                X, y,
+                scoring=make_scorer(utils.retScores, needs_proba=not decision, needs_threshold=decision),
+                cv=LeaveOneOut(),
+                n_jobs=-1,
+                verbose=2,
+                error_score="raise",
+            )
+            cvs[name] = utils.printScores(y, cv["test_score"], decision=decision)
+        except:
+            print("Error: ", name)
+            cvs[name] = "Error"
+
+        with open(f"../study/stats/results-{name}-loo-first-sfs.json", "w") as outfile:
+                json.dump(cvs, outfile, indent=2, sort_keys=True)
+
+
 def main():
     
-    df = utils.getReducedDS()
+    # df = utils.getReducedDS()
+
+    df = pd.read_csv("../study/stats/dataset_thres1_1corr.csv", index_col="ID")
+    df = df.drop(["VNSLC_16"])
+    df = df.dropna(axis=1)
+
+    pipe = Pipeline([
+        ("constantFeatures", DropConstantFeatures(tol=0.62)),
+        ("duplicateFeatures", DropDuplicateFeatures()),
+    ])
+    df = pipe.fit_transform(df)
+
     X, y, y3 = utils.splitFeatureLabels(df)
 
-    runMod7(X, y)
+    runMod8(X, y)
 
 if __name__ == "__main__":
     exit(main())
