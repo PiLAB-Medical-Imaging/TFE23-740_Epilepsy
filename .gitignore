@@ -3,7 +3,6 @@ study/*
 study/static_files/mf_dic
 study/models/*pth
 src/pytorch/lightning_logs/
-src/pytorch/uNesTModel/
 src/pytorch/models/
 src/pytorch/*ckpt
 !study/stats/

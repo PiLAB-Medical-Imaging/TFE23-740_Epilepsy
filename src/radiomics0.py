@@ -500,7 +500,7 @@ def main():
     X, y, y3 = utils.splitFeatureLabels(df)
     # X = X.filter(regex=r'mean')
 
-    runMod7(X, y)
+    runMod7_1(X, y)
 
 if __name__ == "__main__":
     exit(main())
