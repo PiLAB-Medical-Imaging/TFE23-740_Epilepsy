@@ -6,12 +6,12 @@ from feature_engine.selection import DropConstantFeatures, DropDuplicateFeatures
 
 from sklearn.model_selection import cross_validate, LeaveOneOut
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import RobustScaler
+from sklearn.preprocessing import RobustScaler, StandardScaler
 from sklearn.metrics import make_scorer
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.calibration import CalibratedClassifierCV
-from sklearn.svm import SVC
+from sklearn.svm import SVC, LinearSVC
 from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import RandomizedSearchCV, GridSearchCV
 from ITMO_FS.filters import multivariate, univariate
@@ -65,30 +65,30 @@ def runMod2(X, y):
     return cvs
 
 listOfAlgorithms = [
-    ("logreg", LogisticRegressionCV(random_state=7, class_weight="balanced", scoring="neg_log_loss", cv=3, n_jobs=1)),
+    #("logreg", LogisticRegressionCV(random_state=7, class_weight="balanced", scoring="neg_log_loss", cv=3, n_jobs=1)),
     ("svm", RandomizedSearchCV(
         SVC(random_state=7, class_weight="balanced"),
         param_distributions={
-            "C": stats.loguniform(1e-6, 1)
+            "C": stats.loguniform(1e-6, 1e-2)
         },
         scoring="roc_auc", cv=3, n_jobs=1, random_state=7
     )),
-    ("knn", GridSearchCV(
-        KNeighborsClassifier(),
-        param_grid={
-            "n_neighbors": [2, 3, 4]
-        },
-        scoring="neg_log_loss", cv=3, n_jobs=1
-    )),
-    ("mlp", RandomizedSearchCV(
-        MLPClassifier(random_state=7, learning_rate="adaptive", max_iter=1000),
-        param_distributions={
-            "alpha": stats.loguniform(1e-3, 1e1),
-            "hidden_layer_sizes": [(100,), (50,), (20,)]
-        },
-        scoring="neg_log_loss", cv=3, n_jobs=1, random_state=7
-    )),
-    ("gauss", GaussianNB())
+    # ("knn", GridSearchCV(
+    #     KNeighborsClassifier(),
+    #     param_grid={
+    #         "n_neighbors": [2, 3, 4]
+    #     },
+    #     scoring="neg_log_loss", cv=3, n_jobs=1
+    # )),
+    # ("mlp", RandomizedSearchCV(
+    #     MLPClassifier(random_state=7, learning_rate="adaptive", max_iter=1000),
+    #     param_distributions={
+    #         "alpha": stats.loguniform(1e-3, 1e1),
+    #         "hidden_layer_sizes": [(100,), (50,), (20,)]
+    #     },
+    #     scoring="neg_log_loss", cv=3, n_jobs=1, random_state=7
+    # )),
+    # ("gauss", GaussianNB())
 ]
 
 listOfAlgorithmsNoCV = {
@@ -405,63 +405,102 @@ def runMod7_2(X, y, y3):
         with open(f"../study/stats/results-{name}-loo-filter-ManKru-Multi-sfs.json", "w") as outfile:
                 json.dump(cvs, outfile, indent=2, sort_keys=True)
 
+listOfAlgorithmsOld = [
+    ("logreg", LogisticRegressionCV(random_state=7, class_weight="balanced", scoring="neg_log_loss", cv=3, n_jobs=1)),
+    ("linear-svm", RandomizedSearchCV(
+        LinearSVC(dual=True, random_state=7, class_weight="balanced"),
+        param_distributions={
+            "C": stats.loguniform(1e-6, 1)
+        },
+        scoring="roc_auc", cv=3, n_jobs=1, random_state=7
+    )),
+    ("rbf-svm", RandomizedSearchCV(
+        SVC(random_state=7, class_weight="balanced"),
+        param_distributions={
+            "C": stats.loguniform(1e-6, 1),
+            "gamma" : stats.loguniform(1e-6, 1)
+        },
+        scoring="roc_auc", cv=3, n_jobs=1, random_state=7
+    )),
+    ("poly-svm", RandomizedSearchCV(
+        SVC(kernel="poly", random_state=7, class_weight="balanced"),
+        param_distributions={
+            "C": stats.loguniform(1e-6, 1),
+            "degree": [2, 3, 4]
+        },
+        scoring="roc_auc", cv=3, n_jobs=1, random_state=7
+    )),
+]
+
+listOfAlgorithmsNoCVOld = {
+    "logreg": LogisticRegression(random_state=7, class_weight="balanced", n_jobs=1),
+    "linear-svm": LinearSVC(dual=True, C=1e-6, random_state=7, class_weight="balanced"),
+    "rbf-svm": SVC(C=1e-6, random_state=7, class_weight="balanced"),
+    "poly-svm": SVC(C=1e-6, kernel="poly", random_state=7, class_weight="balanced")
+}
+
 def runMod8(X, y):
     print("mod8")
 
-    for name, algorithm in listOfAlgorithms:
+    for name, algorithm in listOfAlgorithmsOld:
         print(name)
-        decision = name == "svm"
+        decision = "svm" in name
         cvs = {}
-        try:
-            cv = cross_validate(
-                Pipeline([
-                    ("selection", Pipeline([
-                        ("outlier", utils.MADOutlierRemotion(3)),
-                        ("scaler", RobustScaler()),
-                        ("correlated", SmartCorrelatedSelection(threshold=0.95,missing_values="raise", selection_method="variance")),
-                        ("sfs", SFS(
-                            listOfAlgorithmsNoCV[name],
-                            k_features=(1,3),
-                            floating=True,
-                            scoring="roc_auc",
-                            cv=3,
-                        ))
-                    ])),
-                    ("clf", algorithm)
-                ]),
-                X, y,
-                scoring=make_scorer(utils.retScores, needs_proba=not decision, needs_threshold=decision),
-                cv=LeaveOneOut(),
-                n_jobs=-1,
-                verbose=2,
-                error_score="raise",
-            )
-            cvs[name] = utils.printScores(y, cv["test_score"], decision=decision)
-        except:
-            print("Error: ", name)
-            cvs[name] = "Error"
+        #try:
+        cv = cross_validate(
+            Pipeline([
+                ("selection", Pipeline([
+                    ("outlier", utils.MADOutlierRemotion(3)),
+                    ("scaler", StandardScaler()),
+                    ("sfs", SFS(
+                        listOfAlgorithmsNoCVOld[name],
+                        k_features=(1,3),
+                        floating=True,
+                        scoring="roc_auc",
+                        cv=3,
+                    ))
+                ])),
+                ("clf", algorithm)
+            ]),
+            X, y,
+            scoring=make_scorer(utils.retScores, needs_proba=not decision, needs_threshold=decision),
+            cv=LeaveOneOut(),
+            n_jobs=8,
+            verbose=2,
+            error_score="raise",
+        )
+        cvs[name] = utils.printScores(y, cv["test_score"], decision=decision)
+        # except:
+        #     print("Error: ", name)
+        #     cvs[name] = "Error"
 
-        with open(f"../study/stats/results-{name}-loo-first-sfs.json", "w") as outfile:
+        with open(f"../study/stats/results-{name}-loo-first-mean-sfs.json", "w") as outfile:
                 json.dump(cvs, outfile, indent=2, sort_keys=True)
 
 
-def main():
-    
-    # df = utils.getReducedDS()
-
+def getFirstDS():
     df = pd.read_csv("../study/stats/dataset_thres1_1corr.csv", index_col="ID")
     df = df.drop(["VNSLC_16"])
     df = df.dropna(axis=1)
+    df = df.drop(df.filter(regex=r'(min|max)'), axis=1) # remove max and min features because are full of imperfections
+    df = df.drop(df.filter(regex=r'(_c0_|_c1_|_f0_|_f1_|_csf_mf_|_csf_d_|_fiso_|nTracts|voxVol)'), axis=1)
 
     pipe = Pipeline([
         ("constantFeatures", DropConstantFeatures(tol=0.62)),
         ("duplicateFeatures", DropDuplicateFeatures()),
     ])
     df = pipe.fit_transform(df)
+    return df
 
+def main():
+    
+    df = utils.getReducedDS()
+    # df = getFirstDS()
+    # 
     X, y, y3 = utils.splitFeatureLabels(df)
+    # X = X.filter(regex=r'mean')
 
-    runMod8(X, y)
+    runMod7(X, y)
 
 if __name__ == "__main__":
     exit(main())

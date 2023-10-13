@@ -1,4 +1,4 @@
-N_CPUS = 9
+N_CPUS = 10
 
 import os
 
@@ -837,12 +837,12 @@ def tuningUNesTModel(cuda_num):
 
 def uNesTModel1(cuda_num):
     num_epochs = 200
-    batch_size = 16
+    batch_size = 32
     num_workers = N_CPUS
-    multiplier = 5
-    learning_rate= 1e-4
-    scheduler_gamma = 0.01
-    scheduler_step_size = 200
+    multiplier = 8
+    learning_rate= 1e-3
+    scheduler_gamma = 0.1
+    scheduler_step_size = int(num_epochs//6)
 
     test_subjs_idx = [2, 16, 13, 12]
     val_subjs_idx = [0, 7, 10, 14]
@@ -866,12 +866,53 @@ def uNesTModel1(cuda_num):
         profiler="simple",
         callbacks=[checkpoint_callback],
         log_every_n_steps=1,
+        deterministic=True
     )
 
     trainer.fit(
         model=uNesT,
         datamodule=dMRI
     )
+
+def tuningUNesTModel1(cuda_num):
+    num_epochs = 20
+    batch_size = 32
+    num_workers = N_CPUS
+    multiplier = 8
+    # learning_rate= 5e-4
+    scheduler_gamma = 0.01
+    scheduler_step_size = 200
+
+    test_subjs_idx = [2, 16, 13, 12]    
+    val_subjs_idx = [0, 7, 10, 14]
+
+    dMRI = DiffusionMRIDataModule(val_subjs_idx, test_subjs_idx, "../../study", batch_size, num_workers, multiplier)
+
+    for lr in [2.5e-3, 1e-3, 5e-4, 2.5e-4, 1e-4, 5e-5, 2.5e-5, 1e-5, 5e-6, 2.5e-6, 1e-6]:
+        model = UNesTModNet1()
+        checkpoint_callback = ModelCheckpoint(
+            save_top_k=0,
+            monitor="val_loss",
+            save_weights_only=False,
+        )
+
+        uNesT = LitBasicModel(model, lr, scheduler_step_size, scheduler_gamma)
+        trainer = L.Trainer(
+            accelerator="gpu",
+            devices=[cuda_num],
+            max_epochs=num_epochs,
+            default_root_dir="./uNesTModelTuning/",
+            # fast_dev_run=True,
+            profiler="simple",
+            callbacks=[checkpoint_callback],
+            log_every_n_steps=1,
+            deterministic=True,
+        )
+
+        trainer.fit(
+            model=uNesT,
+            datamodule=dMRI
+        )
 
 def main():
     cuda_num = 0
