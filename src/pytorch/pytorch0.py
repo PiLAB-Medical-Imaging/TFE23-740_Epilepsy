@@ -840,9 +840,9 @@ def uNesTModel1(cuda_num):
     batch_size = 32
     num_workers = N_CPUS
     multiplier = 8
-    learning_rate= 1e-3
+    learning_rate= 1e-06
     scheduler_gamma = 0.1
-    scheduler_step_size = int(num_epochs//6)
+    scheduler_step_size = 200
 
     test_subjs_idx = [2, 16, 13, 12]
     val_subjs_idx = [0, 7, 10, 14]
