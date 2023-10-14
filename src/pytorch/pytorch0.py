@@ -25,6 +25,7 @@ import random
 from torch.utils.data import DataLoader
 from torchmetrics.classification import BinaryAccuracy, BinaryAUROC
 from lightning.pytorch.callbacks import ModelCheckpoint
+from lightning.pytorch.callbacks.early_stopping import EarlyStopping
 from lightning.pytorch.tuner import Tuner
 from scripts.networks.unest_base_patch_4 import UNesT
 from monai.networks.blocks import Convolution as MonaiConv
@@ -795,15 +796,14 @@ def uNesTModel(cuda_num):
     )
 
 def tuningUNesTModel(cuda_num):
-    num_epochs = 50
-    batch_size = 16
+    num_epochs = 100
     num_workers = N_CPUS
-    multiplier = 20
+    scheduler_step_size = 0.1
+    scheduler_gamma = num_epochs # no cheduler
+    tot_step = 5000
 
     test_subjs_idx = [2, 16, 13, 12]
     val_subjs_idx = [0, 7, 10, 14]
-
-    dMRI = DiffusionMRIDataModule(val_subjs_idx, test_subjs_idx, "../../study", batch_size, num_workers, multiplier)
 
     checkpoint_callback = ModelCheckpoint(
         save_top_k=0,
@@ -811,10 +811,21 @@ def tuningUNesTModel(cuda_num):
         save_weights_only=False,
     )
 
+    early_stop_val_loss = EarlyStopping(
+        monitor="val_loss",
+        check_finite=True,
+        verbose=True,
+        patience=num_epochs
+    )
+
     for learning_rate in [5e-3, 1e-3, 5e-4, 1e-4, 5e-5, 1e-5, 5e-6, 1e-6]:
-        for scheduler_gamma in [0.1, 0.3, 0.01]:
-            for scheduler_step_size in [7, 15, 25]:
+        for batch_size in [2, 4, 8, 16]:
+            for multiplier in [4, 10, 20, 30]:
                 # 33 15 26 42 44 47
+                steps_per_batch = int((11*multiplier) // batch_size)
+                num_epochs = int(tot_step // steps_per_batch)
+
+                dMRI = DiffusionMRIDataModule(val_subjs_idx, test_subjs_idx, "../../study", batch_size, num_workers, multiplier)
 
                 model = UNesTModNet()
 
@@ -823,11 +834,12 @@ def tuningUNesTModel(cuda_num):
                     accelerator="gpu",
                     devices=[cuda_num],
                     max_epochs=num_epochs,
-                    default_root_dir="./uNesTModel/",
+                    default_root_dir=f"./uNesTModelTuning/{learning_rate}/{batch_size}/{multiplier}/",
                     # fast_dev_run=True,
                     profiler="simple",
-                    callbacks=[checkpoint_callback],
+                    callbacks=[checkpoint_callback, early_stop_val_loss],
                     log_every_n_steps=1,
+                    # deterministic=True  non funziona, alcune operazioni non sono di natura deterministcia
                 )
 
                 trainer.fit(
@@ -916,7 +928,7 @@ def tuningUNesTModel1(cuda_num):
 
 def main():
     cuda_num = 0
-    return uNesTModel1(cuda_num)
+    return tuningUNesTModel(cuda_num)
 
 if __name__ == "__main__":
     exit(main())
