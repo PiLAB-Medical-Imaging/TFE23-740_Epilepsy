@@ -27,3 +27,4 @@ ants
 torchio
 ITMO-FS
 antspyx
+ipympl

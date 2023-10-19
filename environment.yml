@@ -35,6 +35,7 @@ dependencies:
   - lightning
   - torchmetrics
   - ants
+  - ipympl
   - pip:
     - torchio
     - ITMO-FS

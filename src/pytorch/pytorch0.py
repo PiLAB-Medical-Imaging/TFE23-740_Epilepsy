@@ -811,19 +811,27 @@ def tuningUNesTModel(cuda_num):
         save_weights_only=False,
     )
 
-    early_stop_val_loss = EarlyStopping(
-        monitor="val_loss",
-        check_finite=True,
-        verbose=True,
-        patience=num_epochs
-    )
-
-    for learning_rate in [5e-3, 1e-3, 5e-4, 1e-4, 5e-5, 1e-5, 5e-6, 1e-6]:
+    for learning_rate in [1e-3, 5e-4, 1e-4, 5e-5, 1e-5, 5e-6, 1e-6]:
         for batch_size in [2, 4, 8, 16]:
             for multiplier in [4, 10, 20, 30]:
                 # 33 15 26 42 44 47
                 steps_per_batch = int((11*multiplier) // batch_size)
                 num_epochs = int(tot_step // steps_per_batch)
+
+                early_stop_val_loss = EarlyStopping(
+                    monitor="val_loss",
+                    check_finite=True,
+                    verbose=True,
+                    patience=num_epochs,
+                )
+
+                early_stop_val_acc = EarlyStopping(
+                    monitor="val_acc",
+                    mode="max",
+                    min_delta=1e-3,
+                    verbose=True,
+                    patience=10,
+                )
 
                 dMRI = DiffusionMRIDataModule(val_subjs_idx, test_subjs_idx, "../../study", batch_size, num_workers, multiplier)
 
@@ -837,7 +845,7 @@ def tuningUNesTModel(cuda_num):
                     default_root_dir=f"./uNesTModelTuning/{learning_rate}/{batch_size}/{multiplier}/",
                     # fast_dev_run=True,
                     profiler="simple",
-                    callbacks=[checkpoint_callback, early_stop_val_loss],
+                    callbacks=[checkpoint_callback, early_stop_val_loss, early_stop_val_acc],
                     log_every_n_steps=1,
                     # deterministic=True  non funziona, alcune operazioni non sono di natura deterministcia
                 )
