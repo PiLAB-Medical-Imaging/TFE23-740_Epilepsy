@@ -19,17 +19,24 @@ def main():
 
     for p_name in patient_list:
         p_job = {
-            #"wrap" : "recon-all -all -sd %s/freesurfer/ -s %s -i %s/T1/%s_T1.nii.gz -T2 %s/T1/%s_T2.nii.gz -T2pial -qcache && segmentThalamicNuclei.sh  %s  %s/freesurfer/ " % (study_fold, p_name, study_fold, p_name, study_fold, p_name, p_name, study_fold),
+            # Run the segmenation of the brain with free surfer. See documentation for further options or upgrades ...
+            #"wrap" : "recon-all -all -sd %s/freesurfer/ -s %s -i %s/T1/%s_T1.nii.gz -T2 %s/T1/%s_T2.nii.gz -T2pial -qcache" % (study_fold, p_name, study_fold, p_name, study_fold, p_name),
+
+            # You can run the optimization of the segmenation with T2 volumes separately. See documentation for further options or upgrades ...
             #"wrap" : "recon-all -all -sd %s/freesurfer/ -s %s -T2 %s/T1/%s_T2.nii.gz -T2pial -qcache" % (study_fold, p_name, study_fold, p_name),
+
+            # Run the segmentation of the thalamus. In the last version this bash is integrated as a cmd in FreeSurfer. See the documentation for further options or upgrades ...
             "wrap" : "segmentThalamicNuclei.sh  %s  %s/freesurfer/ " % (p_name, study_fold),
 
             "job_name" : "Seg_" + p_name,
             "ntasks" : 1,
-            "cpus_per_task" : 1,
-            "mem_per_cpu" : 4096,
-            "time" : "5:00:00",
-            "mail_user" : "michele.cerra@student.uclouvain.be",
-            "mail_type" : "FAIL",
+            "cpus_per_task" : 1, # The computation isn't parallel
+            "mem_per_cpu" : 4096, #  4 GB each patient is enough
+            "time" : "8:00:00", # From 8 to 10 hours for subject for the brain segmentation. Less time for the thalamus segmentation.
+
+            # You can receive an email if the job fails.
+            #"mail_user" : "michele.cerra@student.uclouvain.be", # Use your email here !
+            #"mail_type" : "FAIL",
             "output" : study_fold + "/freesurfer/slurm-%j.out",
             "error" : study_fold + "/freesurfer/slurm-%j.err",
         }

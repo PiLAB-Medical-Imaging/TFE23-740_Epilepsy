@@ -34,3 +34,10 @@ ipympl
 dipy
 pypdf
 fpdf
+cvxpy
+numba
+pathos
+boto3
+scikit-image
+lxml
+unravel-python

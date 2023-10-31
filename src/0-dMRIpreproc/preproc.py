@@ -53,7 +53,9 @@ def preprocess(folder_path, slurm=False):
 
     # Microstructure Fingerprinting can be computed only if you have a precomputed dictionary.
     # If you are in CECI cluster in the following path is present a dictionary.
-    #dictionary_path = "/home/users/n/d/ndelinte/fixed_rad_dist_wide.mat"
+    # If you are not in CECI cluster some already computed dictionary are present in rensonnetg/microstructure_fingerprinting github repository in microstructure_fingerprinting/MCF_data.
+
+    #dictionary_path = ".../ndelinte/fixed_rad_dist_wide.mat"
     #study.fingerprinting(dictionary_path=dictionary_path)
 
     return 0
@@ -61,9 +63,11 @@ def preprocess(folder_path, slurm=False):
 def main():
 
     ## Getting Folder
-    folder_path = get_folder(sys.argv)
+    folder_path = get_fold(sys.argv, "f")
+
+    onCECI = get_onCECI(sys.argv)
     
-    preprocess(folder_path, slurm=False) # Set True if you are working on CECI cluster
+    preprocess(folder_path, slurm=onCECI)
 
 
 if __name__ == "__main__":

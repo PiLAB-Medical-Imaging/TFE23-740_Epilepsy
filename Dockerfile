@@ -42,15 +42,19 @@ RUN ~/miniconda3/bin/conda env create -f Epilepsy-dMRI-VNS/.config_envs/environm
 RUN source ~/miniconda3/bin/activate dMRI
 
 # install fsl
-# RUN python Epilepsy-dMRI-VNS/.config_envs/fslinstaller.py
-# 
-# # install microstructure_fingerprinting
-# RUN git clone https://github.com/rensonnetg/microstructure_fingerprinting.git
-# WORKDIR /root/microstructure_fingerprinting
-# RUN python setup.py install -U
-# WORKDIR /root
-# 
-# # install elikopy
-# RUN git clone https://github.com/Hyedryn/elikopy.git
-# RUN python elikopy/setup.py install -U
-# 
+RUN ~/miniconda3/envs/dMRI/bin/python Epilepsy-dMRI-VNS/.config_envs/fslinstaller.py -d ~/fsl/ -n
+RUN echo 'FSLDIR=~/fsl/' >> ~/.bashrc
+RUN echo 'PATH=${FSLDIR}/share/fsl/bin:${PATH}' >> ~/.bashrc
+RUN echo 'export FSLDIR PATH' >> ~/.bashrc
+RUN echo '. ${FSLDIR}/etc/fslconf/fsl.sh' >> ~/.bashrc
+
+# install microstructure_fingerprinting
+RUN git clone https://github.com/rensonnetg/microstructure_fingerprinting.git
+WORKDIR /root/microstructure_fingerprinting
+RUN ~/miniconda3/envs/dMRI/bin/python setup.py install
+WORKDIR /root
+
+# install elikopy
+RUN git clone https://github.com/Hyedryn/elikopy.git
+RUN ~/miniconda3/envs/dMRI/bin/python elikopy/setup.py install
+RUN ~/miniconda3/envs/dMRI/bin/python -m pip install ~/elikopy/

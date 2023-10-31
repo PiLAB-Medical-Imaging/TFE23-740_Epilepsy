@@ -39,7 +39,14 @@ dependencies:
   - dipy
   - pypdf
   - fpdf
+  - cvxpy
+  - numba
+  - pathos
+  - boto3
+  - scikit-image
+  - lxml
   - pip:
     - torchio
     - ITMO-FS
     - antspyx
+    - unravel-python
