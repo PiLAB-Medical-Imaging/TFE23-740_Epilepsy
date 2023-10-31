@@ -37,6 +37,8 @@ dependencies:
   - ants
   - ipympl
   - dipy
+  - pypdf
+  - fpdf
   - pip:
     - torchio
     - ITMO-FS
