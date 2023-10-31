@@ -1,3 +1,6 @@
+torch
+torchvision
+torchaudio
 tensorboard
 pandas
 matplotlib
@@ -28,3 +31,6 @@ torchio
 ITMO-FS
 antspyx
 ipympl
+dipy
+pypdf
+fpdf
