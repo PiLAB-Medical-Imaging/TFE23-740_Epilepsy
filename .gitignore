@@ -1,12 +1,11 @@
 study/*
 !study/static_files/
 study/static_files/mf_dic
-study/models/*pth
-src/pytorch/lightning_logs/
-src/pytorch/models/
-src/pytorch/*ckpt
+src/5-3D_deepLearningModel/lightning_logs/
+src/5-3D_deepLearningModel/models/
+src/5-3D_deepLearningModel/*ckpt
 !study/stats/
 study/stats/*csv
 *.tar.gz
 env_*/
-license_freesurfer.txt
+.config_envs/license_freesurfer.txt

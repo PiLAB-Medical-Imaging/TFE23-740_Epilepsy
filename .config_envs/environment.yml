@@ -45,8 +45,10 @@ dependencies:
   - boto3
   - scikit-image
   - lxml
+  - fury
   - pip:
     - torchio
     - ITMO-FS
     - antspyx
     - unravel-python
+    - pygltflib

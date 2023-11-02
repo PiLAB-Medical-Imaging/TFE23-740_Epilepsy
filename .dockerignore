@@ -1,0 +1,8 @@
+docs/
+imgs/
+study/*
+!study/static_files/
+study/static_files/mf_dic
+tracts/
+.vscode/
+*.md
