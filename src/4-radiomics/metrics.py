@@ -18,7 +18,7 @@ from scipy import stats
 from statsmodels.stats.weightstats import DescrStatsW
 from radiomics import featureextractor
 
-from params import *
+from utils.params import *
 
 def vcol(v):
     return v.reshape(v.size, 1)

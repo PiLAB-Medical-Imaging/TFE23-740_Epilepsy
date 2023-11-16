@@ -1,7 +1,7 @@
 import sys
 import json 
 
-from params import get_fold
+from utils.params import get_fold
 from elikopy.utils import submit_job
 
 def main():

@@ -1,12 +1,24 @@
 import sys
+import os
 import json
 import elikopy
 
-from params import get_fold
 from elikopy.utils import submit_job
 
 def main():
-    study_fold = get_fold(sys.argv, "f")
+    if "-f" in sys.argv[1:]:
+        parIdx = sys.argv.index("-f") + 1 # the index of the parameter after the option
+        par = sys.argv[parIdx]
+        if os.path.isdir(par) and os.access(par,os.W_OK|os.R_OK):
+            if par[-1] == "/":
+                par = par[:-1]
+            study_fold = par
+        else:
+            print("The inserted path doesn't exist or you don't have the access")
+            exit(1)
+    else:
+        print("The folder path for segmentation isn't defined")
+        exit(1)
 
     ## Read the list of subjects and for each subject do the tractography
     dest_success = study_fold + "/freesurfer/subj_list.json"

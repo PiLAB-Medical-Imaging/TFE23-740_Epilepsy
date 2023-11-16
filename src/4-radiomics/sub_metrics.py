@@ -5,7 +5,7 @@ import datetime
 import subprocess
 
 from future.utils import iteritems
-from params import get_folder
+from utils.params import get_folder
 from elikopy.utils import submit_job
 
 def main():

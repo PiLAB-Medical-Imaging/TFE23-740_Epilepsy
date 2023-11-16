@@ -15,8 +15,6 @@ scikit-learn
 feature_engine
 statsmodels
 mlxtend
-tqdm
-opencv-python
 jupyterlab
 notebook
 voila
@@ -30,16 +28,8 @@ ants
 torchio
 ITMO-FS
 antspyx
-ipympl
 dipy
-pypdf
-fpdf
-cvxpy
-numba
-pathos
-boto3
 scikit-image
-lxml
 unravel-python
+bruker2nifti
 fury
-pygltflib

@@ -12,7 +12,7 @@ from unravel.stream import extract_nodes, remove_outlier_streamlines
 from dipy.tracking.utils import length
 from unravel.utils import *
 from nibabel import Nifti1Image
-from params import *
+from utils.params import *
 from skimage.morphology import convex_hull_image
 
 # absolute_path = os.path.dirname(__file__) # return the abs path of the folder of this file, wherever it is
