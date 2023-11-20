@@ -10,8 +10,8 @@ A non esaustive list is reported here:
 - FreeSurfer
   - TRACULA
 - Elikopy
-  - FSL
-  - Microstructure Fingerprinting
+- FSL
+- Microstructure Fingerprinting
 - ANTs
 - MRtrix3
 - Radiomics
@@ -21,13 +21,13 @@ To set up all the environments without going mad a Docker image was created with
 
 You can download the image from Docker Hub through:
 ```
-docker pull micerr/Epilepsy-DMRI-VNS:1.0.0
+docker pull micerr/epilepsy-dmri-vns:1.0.0
 ```
 
-The same image can be built using the ``Dockerfile`` it takes ~1 hour. 
+The same image can be built using the ``Dockerfile``, and it takes ~1 hour. 
 
 ```
-docker build -t micerr/Epilepsy-DMRI-VNS /path/to/folder/of/dockerfile
+docker build -t micerr/epilepsy-dmri-vns /path/to/project/folder/
 ```
 
 Inside the ``Dockerfile`` is possible to change the version of FreeSurfer or update the version of Elikopy.
@@ -35,10 +35,10 @@ Inside the ``Dockerfile`` is possible to change the version of FreeSurfer or upd
 Then create and run a container:
 
 ```
-docker run -i -v /absolute/path/to/Epilepsy-dMRI-VNS/:/root/Epilepsy-dMRI-VNS/ -t micerr/Epilepsy-DMRI-VNS
+docker run -i -v /absolute/path/to/Epilepsy-dMRI-VNS/:/root/Epilepsy-dMRI-VNS/ -t micerr/epilepsy-dmri-vns
 ```
 
-As soon as it ends, you have to activate the environment with:
+As soon as it ends, you have to activate the environment inside the container with:
 ```
 conda activate dMRI
 ```
@@ -93,15 +93,15 @@ python src/0-dMRIpreproc/preproc.py -f ./study/
 
 Brain segmentation is used to extract the Region of Interest (ROI) from **T1 images**.
 
-Two scripts are present ``sub_seg.py`` for CECI users, to segment the brain on the cluster, ``seg.sh`` to run the segmentation on you machine.
+Two scripts are present ``sub_seg.py`` for CECI users, to segment the brain on the cluster, ``seg.sh`` to run the segmentation on your machine.
 
 The two scripts run automatically in parallel with the segmentation to speed up the process. Each brain segmentation can take **from 8 to 10 hours**, therefore parallelizing is necessary.
 
-In ``seg.sh`` can be set the number of jobs in parallel. I always suggest ``njobs=nsubjects`` to reduce the time to a maximum of 10 hours.
+In ``seg.sh`` the number of jobs in parallel can be set. I always suggest ``njobs=nsubjects`` to reduce the time to a maximum of 10 hours.
 
 The T1 volumes should be located in ``study/T1/``. Furthermore, to increase the accuracy of the segmentation you can use the T2 volumes during the computation with ``-T2`` and ``-T2pial`` parameters.
 - Documentation of ``recon-all`` command [here](https://freesurfer.net/fswiki/recon-all)
-- Very good tutorial on FreeSurfer segmenation [here](https://andysbrainbook.readthedocs.io/en/latest/FreeSurfer/FreeSurfer_Introduction.html)
+- A very good tutorial on FreeSurfer segmentation [here](https://andysbrainbook.readthedocs.io/en/latest/FreeSurfer/FreeSurfer_Introduction.html)
 
 A further more precise segmentation of the Thalamus can be done by using ``segmentThalamicNuclei.sh`` explained in the [FreeSurfer docs](https://freesurfer.net/fswiki/ThalamicNuclei). The team of FreeSurfer is working on it and soon this tool will be implemented directly in FreeSurfer.
 
