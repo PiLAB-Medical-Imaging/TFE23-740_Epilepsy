@@ -25,7 +25,7 @@ RUN ~/miniconda3/condabin/conda create -n dMRI pip packaging python=3.10
 RUN source ~/miniconda3/bin/activate dMRI
 
 # install fsl 6.0
-RUN ~/miniconda3/bin/python Epilepsy-dMRI-VNS/.config_envs/fslinstaller.py -d ~/fsl/ -n
+RUN ~/miniconda3/envs/dMRI/bin/python Epilepsy-dMRI-VNS/.config_envs/fslinstaller.py -d ~/fsl/ -n
 RUN echo 'FSLDIR=~/fsl/' >> ~/.bashrc
 RUN echo 'PATH=${FSLDIR}/share/fsl/bin:${PATH}' >> ~/.bashrc
 RUN echo 'export FSLDIR PATH' >> ~/.bashrc
@@ -45,6 +45,6 @@ RUN ~/miniconda3/envs/dMRI/bin/python -m pip install ~/microstructure_fingerprin
 # Update the enviroment and activate it
 # RUN ~/miniconda3/condabin/conda update -f Epilepsy-dMRI-VNS/.config_envs/environment.yml --prune
 RUN ~/miniconda3/envs/dMRI/bin/pip install -r Epilepsy-dMRI-VNS/.config_envs/requirements.txt -U
-RUN ~/miniconda3/condabin/conda install -c mrtrix3 mrtrix3
+RUN ~/miniconda3/condabin/conda install --yes -c mrtrix3 mrtrix3
 
 WORKDIR /root/Epilepsy-dMRI-VNS
