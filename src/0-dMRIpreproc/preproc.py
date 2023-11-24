@@ -31,13 +31,16 @@ def preprocess(folder_path, slurm=False):
     
         ## EDDY and MOTION correction
         eddy=True,
-        cuda_name="eddy_cuda10.2", # if you are using cuda check the eddy_cuda version you have installed. Our case is 10.2
+        cuda_name="eddy_cuda10.2", # if you are using cuda check the eddy_cuda version you have installed. My case is 10.2
     
         ## BIAS FIELD correction
         biasfield=True,
     
         ## Quality check registration
         qc_reg=False,
+
+        ## number of cpus
+        cpus=8,
     )
 
     # Not always this command works

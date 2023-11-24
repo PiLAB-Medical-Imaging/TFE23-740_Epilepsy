@@ -24,13 +24,17 @@ RUN ~/miniconda3/condabin/conda config --set auto_activate_base False
 RUN ~/miniconda3/condabin/conda create -n dMRI pip packaging python=3.10
 RUN source ~/miniconda3/bin/activate dMRI
 
+RUN ~/miniconda3/condabin/conda install --yes -c mrtrix3 mrtrix3 -n dMRI
+
 # set the folder library to run fsl and mrtrix3 commands
 RUN export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/root/miniconda3/envs/dMRI/lib
 # the next line is importat since mrtrix3 and fsl uses libtiff.so.5 but inside the container
 # is present only libtiff.so.6, to solve the problem we create a soft link called 
 # libtiff.so.5 linked to libtiff.so.6 to elude the check.
 RUN ln -s /root/miniconda3/envs/dMRI/lib/libtiff.so.6 /root/miniconda3/envs/dMRI/lib/libtiff.so.5
-
+# same for libarchive.so.19
+# RUN ln -s /root/miniconda3/lib/libarchive.so.13.6.2 /root/miniconda3/lib/libarchive.so.19
+ 
 # install fsl 6.0
 RUN ~/miniconda3/envs/dMRI/bin/python Epilepsy-dMRI-VNS/.config_envs/fslinstaller.py -d ~/fsl/ -n
 RUN echo 'FSLDIR=~/fsl/' >> ~/.bashrc
@@ -52,6 +56,5 @@ RUN ~/miniconda3/envs/dMRI/bin/python -m pip install ~/microstructure_fingerprin
 # Update the enviroment and activate it
 # RUN ~/miniconda3/condabin/conda update -f Epilepsy-dMRI-VNS/.config_envs/environment.yml --prune
 RUN ~/miniconda3/envs/dMRI/bin/pip install -r Epilepsy-dMRI-VNS/.config_envs/requirements.txt -U
-RUN ~/miniconda3/condabin/conda install --yes -c mrtrix3 mrtrix3
 
 WORKDIR /root/Epilepsy-dMRI-VNS
